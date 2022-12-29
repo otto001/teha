@@ -30,10 +30,10 @@ teha allows you to keep track of your projects and todos, while stopping you fro
 - Detailed Information on a single project
 - Shows title, priority, color
 - Shows some basic statisitcs (e.g., number of tasks/completed tasks/progress/hours left to do/hours completed)
-- Includes a list of tasks, possibly multiple categories (todo, completed, etc...)
-- Tapping on a task navigates to task details
 - Edit button (trailing navigation)
   - Presents sheet like project add (reuse code!!)   
+- Navigation link to list of tasks of this project
+  - Re-use list from tasks tab, but with project filter locked
 
 ### Tasks
 - Landing tab
@@ -55,6 +55,8 @@ teha allows you to keep track of your projects and todos, while stopping you fro
 - Add button -> Add Task Sheet (navigation leading)
 - Edit button (navigation trailing)
   - Delete Tasks
+  - Select multiple tasks
+    - Mark as: completed, started, move to project, setting due date, etc...
 - Swipe gestures:
   - Completed
   - Started
@@ -66,10 +68,13 @@ teha allows you to keep track of your projects and todos, while stopping you fro
   - Project
   - Tag
   - Priority 
+  - Repeating
   
 #### Add Task Sheet
 - Form Sheet
 - Fields for: Title, Notes, Dates, Project
+- Add reminder alerts
+- Repeating tasks
   
 #### Task Detail view
 - Show title/notes/dates
@@ -80,12 +85,19 @@ teha allows you to keep track of your projects and todos, while stopping you fro
     - Time optional (?)
   - Completed (with setting date to past option)
     - Time optional (?)
+- Add reminder alerts
     
     
 ### Settings
 - Color schemes
 - Langauge (preferably not in in-app settins but in system settings)
 
+
+## Misc
+### Notifications
+
+- Task reminder alerts
+  - Approaching deadlines (default behaviour adjustable in setting)
 
 ## Work division
 (WIP)
