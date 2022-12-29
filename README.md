@@ -3,7 +3,6 @@
 teha is an app for freelancers, employees, students, and everyone else whose time is precious.
 teha allows you to keep track of your projects and todos, while stopping you from taking up too many tasks at once.
 
-
 ## Views
 There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the app.
 
@@ -100,6 +99,10 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 
 - Task reminder alerts
   - Approaching deadlines (default behaviour adjustable in setting)
+
+## Implementation
+### SwiftUI
+We will attempt to use SwiftUI wherever possible. If SwiftUI starts acting up, we will replace the parts that act up with good ol' UIKit.
 
 ## Work division
 (WIP)
