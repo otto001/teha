@@ -5,6 +5,8 @@ teha allows you to keep track of your projects and todos, while stopping you fro
 
 
 ## Views
+There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the app.
+
 
 ### Projects
 - List/Table like of all projects
