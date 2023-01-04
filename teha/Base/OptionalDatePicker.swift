@@ -29,22 +29,25 @@ struct OptionalDatePicker: View {
     }
     
     var body: some View {
-        if let dateBinding = dateBinding {
-            DatePicker(title, selection: dateBinding)
-                .swipeActions(edge: .trailing) {
-                    Button(role: .destructive) {
-                        selection = nil
-                    } label: {
-                        Label("Remove", systemImage: "minus.circle")
+        ZStack {
+            if let dateBinding = dateBinding {
+                DatePicker(title, selection: dateBinding)
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            selection = nil
+                        } label: {
+                            Label("Remove", systemImage: "minus.circle")
+                        }
                     }
+                
+            } else {
+                Button {
+                    selection = defaultValue
+                } label: {
+                    Label("Add \(title)", systemImage: "plus.circle")
                 }
-        } else {
-            Button {
-                selection = defaultValue
-            } label: {
-                Label("Add \(title)", systemImage: "plus.circle")
+                
             }
-
         }
     }
 }

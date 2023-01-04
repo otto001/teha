@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		029615E6295617920073E378 /* ProjectsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsList.swift */; };
+		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
 		029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DF295617920073E378 /* SimpleColorPicker.swift */; };
-		029615E9295617930073E378 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E0295617920073E378 /* Project+CoreDataClass.swift */; };
+		029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E0295617920073E378 /* THProject+CoreDataClass.swift */; };
 		029615EA295617930073E378 /* SwiftUI+HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E1295617920073E378 /* SwiftUI+HexColor.swift */; };
 		029615EB295617930073E378 /* teha.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 029615E2295617920073E378 /* teha.xcdatamodeld */; };
 		029615ED295617930073E378 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E5295617920073E378 /* ProjectEditView.swift */; };
 		029615F329561A280073E378 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615F229561A280073E378 /* Navigation.swift */; };
 		029E336829564E36004A2E12 /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336729564E36004A2E12 /* TaskEditView.swift */; };
 		029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */; };
-		029E336D295DA8F6004A2E12 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* Todo+CoreDataClass.swift */; };
+		029E336D295DA8F6004A2E12 /* THTodo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */; };
+		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
+		02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE02965C2F90084D579 /* TasksFilterView.swift */; };
+		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
+		02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE42965CAD30084D579 /* TasksListView.swift */; };
 		02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75562955DE5E005F4D35 /* tehaApp.swift */; };
 		02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75582955DE5E005F4D35 /* Persistence.swift */; };
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
@@ -26,17 +30,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		029615DD295617920073E378 /* ProjectsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsList.swift; sourceTree = "<group>"; };
+		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
-		029615E0295617920073E378 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		029615E0295617920073E378 /* THProject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "THProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		029615E1295617920073E378 /* SwiftUI+HexColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftUI+HexColor.swift"; sourceTree = "<group>"; };
 		029615E3295617920073E378 /* teha.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = teha.xcdatamodel; sourceTree = "<group>"; };
 		029615E5295617920073E378 /* ProjectEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		029615F229561A280073E378 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		029E336729564E36004A2E12 /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
 		029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalDatePicker.swift; sourceTree = "<group>"; };
-		029E336B295DA8F6004A2E12 /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTodo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
+		02C0DEE02965C2F90084D579 /* TasksFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterView.swift; sourceTree = "<group>"; };
+		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
+		02C0DEE42965CAD30084D579 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
 		02CB75532955DE5E005F4D35 /* teha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CB75562955DE5E005F4D35 /* tehaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tehaApp.swift; sourceTree = "<group>"; };
 		02CB75582955DE5E005F4D35 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -60,7 +68,7 @@
 		029615EE295617970073E378 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				029615DD295617920073E378 /* ProjectsList.swift */,
+				029615DD295617920073E378 /* ProjectsTab.swift */,
 				029615E5295617920073E378 /* ProjectEditView.swift */,
 			);
 			path = Project;
@@ -89,8 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				029615E2295617920073E378 /* teha.xcdatamodeld */,
-				029615E0295617920073E378 /* Project+CoreDataClass.swift */,
-				029E336B295DA8F6004A2E12 /* Todo+CoreDataClass.swift */,
+				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
+				029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -98,7 +106,11 @@
 		029E336629564E1E004A2E12 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				02C0DEDE2965BE520084D579 /* TasksTab.swift */,
+				02C0DEE42965CAD30084D579 /* TasksListView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
+				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
+				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -217,17 +229,21 @@
 			files = (
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
 				02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */,
-				029E336D295DA8F6004A2E12 /* Todo+CoreDataClass.swift in Sources */,
+				029E336D295DA8F6004A2E12 /* THTodo+CoreDataClass.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
 				029615EA295617930073E378 /* SwiftUI+HexColor.swift in Sources */,
+				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
-				029615E9295617930073E378 /* Project+CoreDataClass.swift in Sources */,
+				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
+				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
+				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
-				029615E6295617920073E378 /* ProjectsList.swift in Sources */,
+				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
+				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

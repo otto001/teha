@@ -14,8 +14,12 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for i in 0..<10 {
-            let newItem = Project(context: viewContext)
+            let newItem = THProject(context: viewContext)
             newItem.name = "Project \(i)"
+        }
+        for i in 0..<10 {
+            let newItem = THTask(context: viewContext)
+            newItem.title = "Task \(i)"
         }
         do {
             try viewContext.save()

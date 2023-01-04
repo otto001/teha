@@ -8,18 +8,27 @@
 import SwiftUI
 
 private struct ProjectRow: View {
-    let project: Project
+    let project: THProject
     
     var body: some View {
-        Text(project.name ?? "")
-            .foregroundColor(project.color.color)
+        HStack {
+            Text(project.name ?? "")
+                .foregroundColor(project.color.color)
+            Spacer()
+            Button {
+                
+            } label: {
+                Image(systemName: "info.circle")
+            }
+
+        }
     }
 }
 
-struct ProjectsList: View {
+struct ProjectsTab: View {
     
-    @SectionedFetchRequest<Int16, Project>(fetchRequest: Project.all, sectionIdentifier: \.priorityNumber)
-    private var sections: SectionedFetchResults<Int16, Project>
+    @SectionedFetchRequest<Int16, THProject>(fetchRequest: THProject.all, sectionIdentifier: \.priorityNumber)
+    private var sections: SectionedFetchResults<Int16, THProject>
     
     @State private var addSheet: Bool = false
     
@@ -53,11 +62,16 @@ struct ProjectsList: View {
                 }
             }
         }
+        .tabItem {
+            Label("Projects", systemImage: "briefcase")
+        }
     }
 }
 
-struct ProjectsList_Previews: PreviewProvider {
+struct ProjectsTab_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsList()
+        TabView {
+            ProjectsTab().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        }
     }
 }

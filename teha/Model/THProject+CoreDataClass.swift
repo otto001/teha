@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(Project)
-public class Project: NSManagedObject {
+@objc(THProject)
+public class THProject: NSManagedObject {
 
 }
 
@@ -33,7 +33,7 @@ enum Priority: Int, CaseIterable, Hashable, Identifiable {
     }
 }
 
-extension Project {
+extension THProject {
     
     var priority: Priority {
         get {
@@ -56,15 +56,15 @@ extension Project {
 }
 
 //MARK: FetchRequests
-extension Project {
+extension THProject {
     
-    static var all: NSFetchRequest<Project> {
-        let request = Project.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.priorityNumber, ascending: false)]
+    static var all: NSFetchRequest<THProject> {
+        let request = THProject.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \THProject.priorityNumber, ascending: false)]
         return request
     }
     
-    static func all(priority: Priority) -> NSFetchRequest<Project> {
+    static func all(priority: Priority) -> NSFetchRequest<THProject> {
         let request = self.all
         request.predicate = NSPredicate(format: "priorityNumber == %@", priority.rawValue)
         return request

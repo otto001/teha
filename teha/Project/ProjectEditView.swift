@@ -23,7 +23,7 @@ struct ProjectEditView: View {
     
     func add() {
         guard valid else { return }
-        let project = Project(context: viewContext)
+        let project = THProject(context: viewContext)
         project.name = name
         project.priority = priority
         project.color = color

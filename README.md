@@ -36,11 +36,12 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 - Navigation link to list of tasks of this project
   - Re-use list from tasks tab, but with project filter locked
 
-### Tasks
+### Tasks (Alternative Title: Overview?)
 - Landing tab
 - List/Table based
 - Shows pendings tasks sorted by priority and approaching deadline & earliest start date
 - Top: Segmented control (?)
+  - EDIT: Segmented Control will overload (clutter) the view, find other solution
   - Choose between: group by Day/Week/Month
 - Trailing navigation menu (show me more/systemImage: ellipsis.circle)
   - Toggable option: Group by projects

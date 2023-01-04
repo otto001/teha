@@ -15,10 +15,8 @@ struct ContentView: View {
     var body: some View {
 
         TabView {
-            ProjectsList()
-            .tabItem {
-                Label("Projects", systemImage: "briefcase")
-            }
+            ProjectsTab()
+            TasksTab()
         }
     }
 }
