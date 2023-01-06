@@ -60,7 +60,8 @@ extension THProject {
     
     static var all: NSFetchRequest<THProject> {
         let request = THProject.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \THProject.priorityNumber, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \THProject.priorityNumber, ascending: false),
+                                   NSSortDescriptor(keyPath: \THProject.creationDate, ascending: true)]
         return request
     }
     

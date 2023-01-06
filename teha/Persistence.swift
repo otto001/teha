@@ -10,28 +10,6 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        for i in 0..<10 {
-            let newItem = THProject(context: viewContext)
-            newItem.name = "Project \(i)"
-        }
-        for i in 0..<10 {
-            let newItem = THTask(context: viewContext)
-            newItem.title = "Task \(i)"
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-    }()
-
     let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
@@ -57,4 +35,37 @@ struct PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+}
+
+extension PersistenceController {
+    static var preview: PersistenceController = {
+        let result = PersistenceController(inMemory: true)
+        let viewContext = result.container.viewContext
+        
+        
+        for priority in Priority.allCases {
+            for i in 0..<3 {
+                let newItem = THProject(context: viewContext)
+                newItem.name = "Project \(i)"
+                newItem.creationDate = Date.now
+                newItem.priority = priority
+            }
+        }
+        
+        
+        for i in 0..<10 {
+            let newItem = THTask(context: viewContext)
+            newItem.title = "Task \(i)"
+        }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
 }
