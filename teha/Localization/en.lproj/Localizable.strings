@@ -1,0 +1,55 @@
+/*
+  Localizable.strings
+  teha
+
+  Created by Matteo Ludwig on 06.01.23.
+  
+*/
+
+"%@" = "%@";
+
+"%@-priority" = "%@ Priority";
+
+"add" = "Add";
+
+"add-%@" = "Add %@";
+
+"done" = "Done";
+
+"cancel" = "Cancel";
+
+"color" = "Color";
+
+"deadline" = "Deadline";
+
+"earliest-startdate" = "Earliest Startdate";
+
+"filter" = "Filter";
+
+"group" = "Group";
+
+"group-tasks-by" = "Group Tasks by:";
+
+"hey" = "Hey";
+
+"name" = "Name";
+
+"new-project" = "New Project";
+
+"none" = "None";
+
+"notes" = "Notes";
+
+"priority" = "Priority";
+
+"project" = "Project";
+
+"projects" = "Projects";
+
+"remove-%@" = "Remove %@";
+
+"task" = "Task";
+
+"tasks" = "Tasks";
+
+"title" = "Title";

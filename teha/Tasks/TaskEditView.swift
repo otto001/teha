@@ -17,17 +17,16 @@ struct TaskEditView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Title", text: $data.title)
+                    TextField(LocalizedStringKey("title"), text: $data.title)
                 }
 
                 Section {
-                    OptionalDatePicker("Earliest Startdate", selection: $data.earliestStartDate)
-                    OptionalDatePicker("Deadline", selection: $data.targetCompletionDate)
+                    OptionalDatePicker(String(localized: "earliest-startdate"), selection: $data.earliestStartDate)
+                    OptionalDatePicker(String(localized: "deadline"), selection: $data.targetCompletionDate)
                 }
-                
-                
+
                 Section {
-                    TextFieldMultiline("Notes", text: $data.notes)
+                    TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
                 }
             }

@@ -53,12 +53,12 @@ struct TasksTab: View {
                         Button {
                             groupSheet = true
                         } label: {
-                            Label("Group", systemImage: "list.bullet.indent")
+                            Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
                         }
                         Button {
                             filterSheet = true
                         } label: {
-                            Label("Filter", systemImage: filterSystemImage)
+                            Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
                         }
 
                         
@@ -77,30 +77,30 @@ struct TasksTab: View {
             .sheet(isPresented: $taskAddSheet) {
                 TaskEditView()
             }
-            .confirmationDialog("Group", isPresented: $groupSheet) {
+            .confirmationDialog("group", isPresented: $groupSheet) {
                 Button {
                     
                 } label: {
-                    Text("None")
+                    Text("none")
                 }
                 Button {
                     
                 } label: {
-                    Text("Project")
+                    Text("project")
                 }
                 Button {
                     
                 } label: {
-                    Text("Priority")
+                    Text("priority")
                 }
 
             } message: {
-                Text("Group Tasks by:")
+                Text("group-tasks-by")
             }
-            .navigationTitle("Tasks")
+            .navigationTitle("tasks")
         }
         .tabItem {
-            Label("Tasks", systemImage: "list.bullet.rectangle.portrait")
+            Label(LocalizedStringKey("tasks"), systemImage: "list.bullet.rectangle.portrait")
         }
     }
 }

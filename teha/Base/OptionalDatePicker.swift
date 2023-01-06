@@ -37,7 +37,7 @@ struct OptionalDatePicker: View {
                     Button(role: .destructive) {
                         selection = nil
                     } label: {
-                        Text("Remove \(title)")
+                        Text("remove-\(title)")
                     }.frame(maxWidth: .infinity, alignment: .trailing)
                     
                 }
@@ -46,7 +46,7 @@ struct OptionalDatePicker: View {
                 Button {
                     selection = defaultValue
                 } label: {
-                    Label("Add \(title)", systemImage: "plus.circle")
+                    Label(LocalizedStringKey("add-\(title)"), systemImage: "plus.circle")
                 }
             }
         }

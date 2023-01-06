@@ -40,7 +40,8 @@ struct ProjectsTab: View {
                 ForEach(sections) { section in
                     let priority = Priority(rawValue: Int(section.id))!
                     
-                    Section("\(priority.name) Priority") {
+                    //TODO: fixe interpolation for de
+                    Section(LocalizedStringKey("\(priority.name)-priority")) {
                         ForEach(section) { project in
                             ProjectRow(project: project) {
                                 editProject = project
@@ -50,7 +51,7 @@ struct ProjectsTab: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Projects")
+            .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -73,7 +74,7 @@ struct ProjectsTab: View {
             }
         }
         .tabItem {
-            Label("Projects", systemImage: "briefcase")
+            Label(LocalizedStringKey("projects"), systemImage: "briefcase")
         }
     }
 }

@@ -20,12 +20,12 @@ struct TasksFilterView: View {
                     Button {
                         close()
                     } label: {
-                        Text("Done").fontWeight(.semibold)
+                        Text("done").fontWeight(.semibold)
                     }
 
                 }
             }
-            .navigationTitle("Filter")
+            .navigationTitle("filter")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

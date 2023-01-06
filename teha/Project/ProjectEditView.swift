@@ -37,7 +37,7 @@ struct ProjectEditView: View {
     }
     
     var navigationTitle: String {
-        return editing ? name : "New Project"
+        return editing ? name : String(localized: "new-project")
     }
     
     func done() {
@@ -62,29 +62,29 @@ struct ProjectEditView: View {
         RoutedNavigation {
             Form {
                 Section {
-                    TextField("Name", text: $name)
+                    TextField(LocalizedStringKey("name"), text: $name)
                 }
                 Section {
-                    Picker("Priority", selection: $priority) {
+                    Picker(LocalizedStringKey("priority"), selection: $priority) {
                         ForEach(Priority.allCases) { priority in
                             Text("\(priority.name)").tag(priority)
                         }
                     }
-                    SimpleColorPicker(title: "Color", color: $color)
+                    SimpleColorPicker(title: String(localized: "color"), color: $color)
                 }
             }
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(editing ? "Done" : "Add") {
+                    Button(LocalizedStringKey(editing ? "done" : "add")) {
                         done()
                     }
                     .disabled(!valid)
                     .fontWeight(.semibold)
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel", role: .cancel) {
+                    Button(LocalizedStringKey("cancel"), role: .cancel) {
                         close()
                     }
                 }
