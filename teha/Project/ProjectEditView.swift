@@ -12,7 +12,7 @@ struct ProjectEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var name: String = ""
-    @State private var priority: Priority = .def
+    @State private var priority: Priority = .normal
     @State private var color: ColorChoice = .pink
     
     let project: THProject?
@@ -66,8 +66,8 @@ struct ProjectEditView: View {
                 }
                 Section {
                     Picker(LocalizedStringKey("priority"), selection: $priority) {
-                        ForEach(Priority.allCases) { priority in
-                            Text("\(priority.name)").tag(priority)
+                        ForEach(Priority.allCases.reversed()) { priority in
+                            Text(priority.name).tag(priority)
                         }
                     }
                     SimpleColorPicker(title: String(localized: "color"), color: $color)

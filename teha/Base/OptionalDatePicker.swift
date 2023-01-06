@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct OptionalDatePicker: View {
-    let title: String
+    let title: LocalizedStringKey
+    let addText: LocalizedStringKey
+    let removeText: LocalizedStringKey
+    
     @Binding var selection: Date?
     @State private var defaultValue: Date = .now
     
-    init(_ title: String, selection: Binding<Date?>) {
+    init(_ title: LocalizedStringKey, addText: LocalizedStringKey, removeText: LocalizedStringKey, selection: Binding<Date?>) {
         self.title = title
+        self.addText = addText
+        self.removeText = removeText
         self._selection = selection
     }
     
@@ -37,7 +42,7 @@ struct OptionalDatePicker: View {
                     Button(role: .destructive) {
                         selection = nil
                     } label: {
-                        Text("remove-\(title)")
+                        Text(removeText)
                     }.frame(maxWidth: .infinity, alignment: .trailing)
                     
                 }
@@ -46,7 +51,7 @@ struct OptionalDatePicker: View {
                 Button {
                     selection = defaultValue
                 } label: {
-                    Label(LocalizedStringKey("add-\(title)"), systemImage: "plus.circle")
+                    Label(addText, systemImage: "plus.circle")
                 }
             }
         }
@@ -57,7 +62,7 @@ struct OptionalDatePicker_Previews: PreviewProvider {
     struct OptionalDatePickerPreview: View {
         @State var date: Date?
         var body: some View {
-            OptionalDatePicker("Deadline", selection: $date)
+            OptionalDatePicker("Deadline", addText: "Add Deadline", removeText: "Remove Deadline", selection: $date)
         }
     }
     static var previews: some View {

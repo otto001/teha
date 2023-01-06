@@ -21,6 +21,7 @@
 		02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */; };
 		02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF0296868A0007AC6BE /* Localizable.strings */; };
 		02A5BAF329686FC9007AC6BE /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAF229686FC9007AC6BE /* String+Localized.swift */; };
+		02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */; };
 		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
 		02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE02965C2F90084D579 /* TasksFilterView.swift */; };
 		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
@@ -48,6 +49,8 @@
 		02A5BAEF296868A0007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02A5BAF1296868A7007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02A5BAF229686FC9007AC6BE /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		02A5BAF7296876A1007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		02A5BAF9296876A5007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
 		02C0DEE02965C2F90084D579 /* TasksFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterView.swift; sourceTree = "<group>"; };
 		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				02A5BAF0296868A0007AC6BE /* Localizable.strings */,
+				02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -235,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */,
+				02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */,
 				02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */,
 				02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */,
 			);
@@ -280,6 +285,15 @@
 				02A5BAF1296868A7007AC6BE /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02A5BAF7296876A1007AC6BE /* en */,
+				02A5BAF9296876A5007AC6BE /* de */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

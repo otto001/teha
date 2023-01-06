@@ -39,9 +39,8 @@ struct ProjectsTab: View {
             List {
                 ForEach(sections) { section in
                     let priority = Priority(rawValue: Int(section.id))!
-                    
-                    //TODO: fixe interpolation for de
-                    Section(LocalizedStringKey("\(priority.name)-priority")) {
+
+                    Section(priority.nameWithPriority) {
                         ForEach(section) { project in
                             ProjectRow(project: project) {
                                 editProject = project

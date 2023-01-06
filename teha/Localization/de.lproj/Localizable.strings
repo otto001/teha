@@ -1,12 +1,3 @@
-/*
-  Localizable.strings
-  teha
-
-  Created by Matteo Ludwig on 06.01.23.
-  
-*/
-
-
 "%@" = "%@";
 
 "%@-priority" = "%@ Priorität";
@@ -15,15 +6,23 @@
 
 "add-%@" = "Füge %@ hinzu";
 
-"done" = "Fertig";
-
 "cancel" = "Abbrechen";
 
 "color" = "Farbe";
 
 "deadline" = "Deadline";
 
+"deadline-add" = "Füge Deadline hinzu";
+
+"deadline-remove" = "Entferne Deadline";
+
+"done" = "Fertig";
+
 "earliest-startdate" = "Frühester Beginn";
+
+"earliest-startdate-add" = "Füge frühesten Beginn hinzu";
+
+"earliest-startdate-remove" = "Entferne frühesten Beginn";
 
 "filter" = "Filter";
 
@@ -33,11 +32,23 @@
 
 "hey" = "Hey";
 
+"high" = "Hoch";
+
+"high-priority" = "Hohe Priorität";
+
+"low" = "Niedrig";
+
+"low-priority" = "Niedrige Priorität";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
 
 "none" = "Nichts";
+
+"normal" = "Normal";
+
+"normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
 
@@ -55,3 +66,6 @@
 
 "title" = "Titel";
 
+"urgent" = "Dringend";
+
+"urgent-priority" = "Dringend";

@@ -21,8 +21,14 @@ struct TaskEditView: View {
                 }
 
                 Section {
-                    OptionalDatePicker(String(localized: "earliest-startdate"), selection: $data.earliestStartDate)
-                    OptionalDatePicker(String(localized: "deadline"), selection: $data.targetCompletionDate)
+                    OptionalDatePicker("earliest-startdate",
+                                       addText: "earliest-startdate-add",
+                                       removeText: "earliest-startdate-remove",
+                                       selection: $data.earliestStartDate)
+                    OptionalDatePicker("deadline",
+                                       addText: "deadline-add",
+                                       removeText: "deadline-remove",
+                                       selection: $data.targetCompletionDate)
                 }
 
                 Section {
