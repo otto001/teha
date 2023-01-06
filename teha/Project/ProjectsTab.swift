@@ -9,6 +9,7 @@ import SwiftUI
 
 private struct ProjectRow: View {
     let project: THProject
+    let edit: () -> Void
     
     var body: some View {
         HStack {
@@ -16,7 +17,7 @@ private struct ProjectRow: View {
                 .foregroundColor(project.color.color)
             Spacer()
             Button {
-                
+                edit()
             } label: {
                 Image(systemName: "info.circle")
             }
@@ -31,15 +32,19 @@ struct ProjectsTab: View {
     private var sections: SectionedFetchResults<Int16, THProject>
     
     @State private var addSheet: Bool = false
+    @State private var editProject: THProject? = nil
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(sections) { section in
                     let priority = Priority(rawValue: Int(section.id))!
+                    
                     Section("\(priority.name) Priority") {
                         ForEach(section) { project in
-                            ProjectRow(project: project)
+                            ProjectRow(project: project) {
+                                editProject = project
+                            }
                         }
                     }
                 }
@@ -57,8 +62,13 @@ struct ProjectsTab: View {
                 }
             }
             .sheet(isPresented: $addSheet) {
-                ProjectEditView {
+                ProjectEditView(.add) {
                     addSheet = false
+                }
+            }
+            .sheet(item: $editProject) { project in
+                ProjectEditView(.edit(project)) {
+                    editProject = nil
                 }
             }
         }

@@ -9,27 +9,52 @@ import SwiftUI
 
 
 struct ProjectEditView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var name: String = ""
     @State private var priority: Priority = .def
     @State private var color: ColorChoice = .pink
     
-    @Environment(\.managedObjectContext) private var viewContext
+    let project: THProject?
+    let close: () -> Void
     
-    var close: () -> Void
+    init(_ mode: Mode, close: @escaping () -> Void) {
+        switch mode {
+        case .add:
+            self.project = nil
+        case .edit(let project):
+            self.project = project
+        }
+        self.close = close
+    }
+    
+    var editing: Bool {
+        project != nil
+    }
     
     var valid: Bool {
         return !name.isEmpty
     }
     
-    func add() {
+    var navigationTitle: String {
+        return editing ? name : "New Project"
+    }
+    
+    func done() {
         guard valid else { return }
-        let project = THProject(context: viewContext)
+        let editing = project != nil
+        let project = project ?? THProject(context: viewContext)
         project.name = name
         project.priority = priority
         project.color = color
         
+        if !editing {
+            project.creationDate = Date.now
+        }
+        
         // TODO: error handling
         try? viewContext.save()
+        
         close()
     }
     
@@ -48,12 +73,12 @@ struct ProjectEditView: View {
                     SimpleColorPicker(title: "Color", color: $color)
                 }
             }
-            .navigationTitle("New Project")
+            .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Add") {
-                        add()
+                    Button(editing ? "Done" : "Add") {
+                        done()
                     }
                     .disabled(!valid)
                     .fontWeight(.semibold)
@@ -65,13 +90,28 @@ struct ProjectEditView: View {
                 }
             }
         }
+        .onAppear {
+            if let project = project {
+                name = project.name ?? ""
+                priority = project.priority
+                color = project.color
+            }
+        }
+        .interactiveDismissDisabled()
+    }
+}
+
+extension ProjectEditView {
+    enum Mode {
+        case add
+        case edit(THProject)
     }
 }
 
 struct ProjectEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ProjectEditView() {
+            ProjectEditView(.add) {
                 
             }
         }

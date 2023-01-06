@@ -26,7 +26,7 @@ enum Priority: Int, CaseIterable, Hashable, Identifiable {
         case .low:
             return "Low"
         case .def:
-            return "Default"
+            return "Normal"
         case .high:
             return "High"
         }
