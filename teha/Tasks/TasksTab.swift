@@ -9,11 +9,18 @@ import SwiftUI
 
 struct TasksTab: View {
     @State var searchText: String = ""
+    
+    @State var taskAddSheet: Bool = false
     @State var filterSheet: Bool = false
     @State var groupSheet: Bool = false
     
     var filtersAreActive: Bool {
         return true
+    }
+    
+    var filterSystemImage: String {
+        filtersAreActive ?
+        "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
     }
     
     var body: some View {
@@ -23,7 +30,7 @@ struct TasksTab: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        
+                        taskAddSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -34,7 +41,7 @@ struct TasksTab: View {
                         Button {
                             filterSheet = true
                         } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                            Image(systemName: filterSystemImage)
                         }
                     }
                 }
@@ -51,7 +58,7 @@ struct TasksTab: View {
                         Button {
                             filterSheet = true
                         } label: {
-                            Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                            Label("Filter", systemImage: filterSystemImage)
                         }
 
                         
@@ -67,7 +74,15 @@ struct TasksTab: View {
                     filterSheet = false
                 }
             }
+            .sheet(isPresented: $taskAddSheet) {
+                TaskEditView()
+            }
             .confirmationDialog("Group", isPresented: $groupSheet) {
+                Button {
+                    
+                } label: {
+                    Text("None")
+                }
                 Button {
                     
                 } label: {
@@ -83,7 +98,6 @@ struct TasksTab: View {
                 Text("Group Tasks by:")
             }
             .navigationTitle("Tasks")
-            .navigationBarTitleDisplayMode(.inline)
         }
         .tabItem {
             Label("Tasks", systemImage: "list.bullet.rectangle.portrait")

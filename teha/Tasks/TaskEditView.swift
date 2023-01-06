@@ -19,15 +19,16 @@ struct TaskEditView: View {
                 Section {
                     TextField("Title", text: $data.title)
                 }
-                
+
                 Section {
                     OptionalDatePicker("Earliest Startdate", selection: $data.earliestStartDate)
                     OptionalDatePicker("Deadline", selection: $data.targetCompletionDate)
-
                 }
                 
+                
                 Section {
-                    TextEditor(text: $data.notes)
+                    TextFieldMultiline("Notes", text: $data.notes)
+                        .frame(minHeight: 72)
                 }
             }
         }
@@ -41,6 +42,8 @@ extension TaskEditView {
         var earliestStartDate: Date? = nil
         var targetCompletionDate: Date? = Date.now
         var timeEstimate: Double? = nil
+        
+        var test: Date = .now
     }
 }
 
