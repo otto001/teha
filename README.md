@@ -26,6 +26,7 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 #### Add Project Sheet
 - Form Sheet
 - Fields like: title, color, priority
+- Add due date for project, use as default for project tasks
 
 #### Project detail
 - Detailed Information on a single project
