@@ -107,8 +107,11 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 We will attempt to use SwiftUI wherever possible. If SwiftUI starts acting up, we will replace the parts that act up with good ol' UIKit.
 
 ## Work division
-(WIP)
-- Everyone has their own views for which they are responsible
+- Matteo, Denis: Tasktabs & -views
+- Andi: Settings
+- Alex: Projects
+- Jette: Notifications
+- Nuri: Geofencing
 
 
 ## Rules
