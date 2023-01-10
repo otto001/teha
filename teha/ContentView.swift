@@ -9,14 +9,15 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
+    @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
+    
     var body: some View {
 
         TabView {
             ProjectsTab()
             TasksTab()
-        }
+            SettingsTab()
+        }.tint(accentColor.color)
     }
 }
 

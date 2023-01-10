@@ -30,6 +30,7 @@
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
 		02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB755F2955DE5F005F4D35 /* Assets.xcassets */; };
 		02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB75632955DE60005F4D35 /* Preview Assets.xcassets */; };
+		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		02CB755F2955DE5F005F4D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02CB75612955DE60005F4D35 /* teha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = teha.entitlements; sourceTree = "<group>"; };
 		02CB75632955DE60005F4D35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +163,7 @@
 				029615EF2956179F0073E378 /* Utils */,
 				029615EE295617970073E378 /* Project */,
 				029E336629564E1E004A2E12 /* Tasks */,
+				A85AAA95296D92050078BA2D /* Settings */,
 				02CB75562955DE5E005F4D35 /* tehaApp.swift */,
 				02CB75582955DE5E005F4D35 /* Persistence.swift */,
 				02CB755D2955DE5E005F4D35 /* ContentView.swift */,
@@ -177,6 +180,14 @@
 				02CB75632955DE60005F4D35 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A85AAA95296D92050078BA2D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A85AAA96296D92480078BA2D /* SettingsTab.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */,
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
 				02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */,
 				A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */,
