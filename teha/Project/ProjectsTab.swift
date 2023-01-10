@@ -57,7 +57,7 @@ struct ProjectsTab: View {
     @State private var addSheet: Bool = false
     @State private var editProject: THProject? = nil
     
-    func projects(_ projects: Array<THProject>) -> some View {
+    func Projects(_ projects: Array<THProject>) -> some View {
         return ForEach(projects) { project in
             ProjectRow(project: project) {
                 editProject = project
@@ -74,13 +74,20 @@ struct ProjectsTab: View {
             List {
                 ForEach(sections) { section in
                     let priority = Priority(rawValue: Int(section.id))!
-
-                    Section(priority.nameWithPriority) {
-                        projects(section.filter {!$0.completed})
+                    let projects = section.filter {!$0.completed}
+                    
+                    if !projects.isEmpty {
+                        Section(priority.nameWithPriority) {
+                            Projects(projects)
+                        }
                     }
                 }
-                Section("completed") {
-                    projects(sections.flatMap {$0}.filter {$0.completed})
+                
+                let completedProjects = sections.flatMap {$0}.filter {$0.completed}
+                if !completedProjects.isEmpty {
+                    Section("completed") {
+                        Projects(completedProjects)
+                    }
                 }
             }
             .listStyle(.insetGrouped)
