@@ -13,8 +13,10 @@ private struct ProjectRow: View {
     
     var body: some View {
         HStack {
-            Text(project.name ?? "")
+            Circle()
                 .foregroundColor(project.color.color)
+                .fixedSize()
+            Text(project.name ?? "")
             Spacer()
             Button {
                 edit()
