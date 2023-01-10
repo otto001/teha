@@ -10,6 +10,9 @@ import SwiftUI
 private struct ProjectRow: View {
     let project: THProject
     let edit: () -> Void
+    let delete: () -> Void
+    
+    @State private var showDeleteDialog = false
     
     var body: some View {
         HStack {
@@ -23,7 +26,19 @@ private struct ProjectRow: View {
             } label: {
                 Image(systemName: "info.circle")
             }
-
+        }
+        .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
+            Button("delete", role: .destructive) {
+                delete()
+            }
+            Button("cancel", role: .cancel) {
+                showDeleteDialog = false
+            }
+        }
+        .swipeActions {
+            Button { showDeleteDialog = true } label: {
+                Label("delete", systemImage: "trash")
+            }.tint(.red)
         }
     }
 }
@@ -32,6 +47,8 @@ struct ProjectsTab: View {
     
     @SectionedFetchRequest<Int16, THProject>(fetchRequest: THProject.all, sectionIdentifier: \.priorityNumber)
     private var sections: SectionedFetchResults<Int16, THProject>
+    
+    @Environment(\.managedObjectContext) private var viewContext
     
     @State private var addSheet: Bool = false
     @State private var editProject: THProject? = nil
@@ -46,6 +63,8 @@ struct ProjectsTab: View {
                         ForEach(section) { project in
                             ProjectRow(project: project) {
                                 editProject = project
+                            } delete: {
+                                viewContext.delete(project)
                             }
                         }
                     }
