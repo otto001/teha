@@ -59,7 +59,7 @@ struct ProjectEditView: View {
     }
     
     var body: some View {
-        RoutedNavigation {
+        RoutedNavigation { router in
             Form {
                 Section {
                     TextField(LocalizedStringKey("name"), text: $name)
@@ -88,6 +88,8 @@ struct ProjectEditView: View {
                         close()
                     }
                 }
+            .registerSimpleColorPicker {
+                router.pop()
             }
         }
         .onAppear {

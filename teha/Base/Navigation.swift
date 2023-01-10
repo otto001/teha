@@ -17,19 +17,19 @@ class Router: ObservableObject {
 
 
 struct RoutedNavigation<Root: View>: View {
-    @ViewBuilder let root: () -> Root
+    @ViewBuilder let root: (_ router: Router) -> Root
     @StateObject var router = Router()
     
     var body: some View {
         NavigationStack(path: $router.path) {
-            root().environmentObject(router)
+            root(router).environmentObject(router)
         }
     }
 }
 
 struct Navigation_Previews: PreviewProvider {
     static var previews: some View {
-        RoutedNavigation {
+        RoutedNavigation { _ in
             Text("Hey")
         }
     }

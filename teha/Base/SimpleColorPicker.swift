@@ -47,11 +47,55 @@ enum ColorChoice: String, CaseIterable, Hashable, Identifiable {
 }
 
 struct SimpleColorPicker: View {
-    struct RoutingId: Hashable {}
+    struct Routing: Hashable {
+        let id: UUID
+        let title: String
+        let color: Binding<ColorChoice>
+        
+        static func == (lhs: SimpleColorPicker.Routing, rhs: SimpleColorPicker.Routing) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
     
     let title: String
     @Binding var color: ColorChoice
-    @EnvironmentObject var router: Router
+    @State private var id: UUID = UUID()
+    
+    init(title: String, color: Binding<ColorChoice>) {
+        self.title = title
+        self._color = color
+    }
+    
+    var routing: Routing {
+        Routing(id: id, title: title, color: $color)
+    }
+    
+    var body: some View {
+        NavigationLink(value: routing) {
+            HStack {
+                Text(title)
+                Spacer()
+                Circle().frame(height: 20).foregroundColor(color.color)
+            }
+            .contentShape(Rectangle())
+        }
+    }
+}
+
+fileprivate struct SimpleColorPickerRoutingDestination: View {
+    let title: String
+    @Binding var color: ColorChoice
+    let back: () -> Void
+    
+    init(routing: SimpleColorPicker.Routing, back: @escaping () -> Void) {
+        self.title = routing.title
+        self._color = routing.color
+        self.back = back
+    }
     
     private func colorRow(_ choice: ColorChoice) -> some View {
         HStack {
@@ -63,45 +107,46 @@ struct SimpleColorPicker: View {
     }
     
     var body: some View {
-        NavigationLink(value: RoutingId()) {
-            HStack {
-                Text(title)
-                Spacer()
-                Circle().frame(height: 20).foregroundColor(color.color)
+        List {
+            ForEach(ColorChoice.allCases) { choice in
+                colorRow(choice)
+                    .onTapGesture {
+                        color = choice
+                        back()
+                    }
             }
-            .contentShape(Rectangle())
         }
-        .navigationDestination(for: RoutingId.self) { _ in
-            List {
-                ForEach(ColorChoice.allCases) { choice in
-                    colorRow(choice)
-                        .onTapGesture {
-                            color = choice
-                            router.pop()
-                        }
-                }
-            }
-            .listStyle(.insetGrouped)
-            .navigationTitle(title)
-            .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.insetGrouped)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+extension Form {
+    func registerSimpleColorPicker(back: @escaping () -> Void) -> some View {
+        return navigationDestination(for: SimpleColorPicker.Routing.self) { routing in
+            SimpleColorPickerRoutingDestination(routing: routing, back: back)
         }
     }
 }
 
+
 struct SimpleColorPicker_Previews: PreviewProvider {
     
     struct SimpleColorPickerPreview: View {
+        @EnvironmentObject var router: Router
         @State var color: ColorChoice = .pink
         var body: some View {
             SimpleColorPicker(title: "Color", color: $color)
         }
-        
     }
     
     static var previews: some View {
-        RoutedNavigation {
+        RoutedNavigation { router in
             Form {
                 SimpleColorPickerPreview()
+            }.registerSimpleColorPicker {
+                router.pop()
             }
         }
     }
