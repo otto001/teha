@@ -14,6 +14,8 @@
 
 "color" = "Color";
 
+"color-accent" = "Accent Color";
+
 "color-blue" = "Blue";
 
 "color-brown" = "Brown";
@@ -29,6 +31,8 @@
 "color-red" = "Red";
 
 "color-yellow" = "Yellow";
+
+"custom" = "Custom";
 
 "deadline" = "Deadline";
 
@@ -81,6 +85,8 @@
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
+
+"settings" = "Settings";
 
 "task" = "Task";
 
