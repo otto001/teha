@@ -70,27 +70,14 @@ struct ProjectEditView: View {
                             Text(priority.name).tag(priority)
                         }
                     }
+                    
                     SimpleColorPicker(title: String(localized: "color"), color: $color)
                 }
             }
-            .navigationTitle(navigationTitle)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(LocalizedStringKey(editing ? "done" : "add")) {
-                        done()
-                    }
-                    .disabled(!valid)
-                    .fontWeight(.semibold)
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(LocalizedStringKey("cancel"), role: .cancel) {
-                        close()
-                    }
-                }
             .registerSimpleColorPicker {
                 router.pop()
             }
+            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done, cancel: close)
         }
         .onAppear {
             if let project = project {
