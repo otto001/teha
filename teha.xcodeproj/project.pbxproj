@@ -17,15 +17,15 @@
 		029615F329561A280073E378 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615F229561A280073E378 /* Navigation.swift */; };
 		029E336829564E36004A2E12 /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336729564E36004A2E12 /* TaskEditView.swift */; };
 		029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */; };
-		029E336D295DA8F6004A2E12 /* THTodo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */; };
+		029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */; };
 		02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */; };
 		02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF0296868A0007AC6BE /* Localizable.strings */; };
-		02A5BAF329686FC9007AC6BE /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAF229686FC9007AC6BE /* String+Localized.swift */; };
 		02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */; };
 		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
 		02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE02965C2F90084D579 /* TasksFilterView.swift */; };
 		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
 		02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE42965CAD30084D579 /* TasksListView.swift */; };
+		02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */; };
 		02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75562955DE5E005F4D35 /* tehaApp.swift */; };
 		02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75582955DE5E005F4D35 /* Persistence.swift */; };
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
@@ -44,17 +44,17 @@
 		029615F229561A280073E378 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		029E336729564E36004A2E12 /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
 		029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalDatePicker.swift; sourceTree = "<group>"; };
-		029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTodo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMultiline.swift; sourceTree = "<group>"; };
 		02A5BAEF296868A0007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02A5BAF1296868A7007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		02A5BAF229686FC9007AC6BE /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		02A5BAF7296876A1007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		02A5BAF9296876A5007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
 		02C0DEE02965C2F90084D579 /* TasksFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterView.swift; sourceTree = "<group>"; };
 		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		02C0DEE42965CAD30084D579 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
+		02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetNavigationBar.swift; sourceTree = "<group>"; };
 		02CB75532955DE5E005F4D35 /* teha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CB75562955DE5E005F4D35 /* tehaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tehaApp.swift; sourceTree = "<group>"; };
 		02CB75582955DE5E005F4D35 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -88,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				029615DE295617920073E378 /* String+Substring.swift */,
-				02A5BAF229686FC9007AC6BE /* String+Localized.swift */,
 				029615E1295617920073E378 /* SwiftUI+HexColor.swift */,
 			);
 			path = Utils;
@@ -101,6 +100,7 @@
 				029615F229561A280073E378 /* Navigation.swift */,
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
+				02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 			children = (
 				029615E2295617920073E378 /* teha.xcdatamodeld */,
 				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
-				029E336B295DA8F6004A2E12 /* THTodo+CoreDataClass.swift */,
+				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 			files = (
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
 				02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */,
-				029E336D295DA8F6004A2E12 /* THTodo+CoreDataClass.swift in Sources */,
+				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
@@ -266,10 +266,10 @@
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
-				02A5BAF329686FC9007AC6BE /* String+Localized.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
+				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
 			);
