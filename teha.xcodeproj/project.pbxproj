@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */; };
 		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
 		029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DF295617920073E378 /* SimpleColorPicker.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIKitColors.swift"; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				029615DE295617920073E378 /* String+Substring.swift */,
 				A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */,
+				026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
 				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
+				026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */,
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
