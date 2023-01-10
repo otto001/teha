@@ -19,7 +19,7 @@ private struct ProjectRow: View {
             Circle()
                 .foregroundColor(project.color.color)
                 .fixedSize()
-            Text(project.name ?? "")
+            Text(project.name ?? "").strikethrough(project.completed)
             Spacer()
             Button {
                 edit()
@@ -53,6 +53,16 @@ struct ProjectsTab: View {
     @State private var addSheet: Bool = false
     @State private var editProject: THProject? = nil
     
+    func projects(_ projects: Array<THProject>) -> some View {
+        return ForEach(projects) { project in
+            ProjectRow(project: project) {
+                editProject = project
+            } delete: {
+                viewContext.delete(project)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -60,14 +70,11 @@ struct ProjectsTab: View {
                     let priority = Priority(rawValue: Int(section.id))!
 
                     Section(priority.nameWithPriority) {
-                        ForEach(section) { project in
-                            ProjectRow(project: project) {
-                                editProject = project
-                            } delete: {
-                                viewContext.delete(project)
-                            }
-                        }
+                        projects(section.filter {!$0.completed})
                     }
+                }
+                Section("completed") {
+                    projects(sections.flatMap {$0}.filter {$0.completed})
                 }
             }
             .listStyle(.insetGrouped)
