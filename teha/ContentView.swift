@@ -11,7 +11,6 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State var color: ColorChoice = .pink
     var body: some View {
 
         TabView {
