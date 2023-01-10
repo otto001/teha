@@ -11,7 +11,6 @@
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
 		029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DF295617920073E378 /* SimpleColorPicker.swift */; };
 		029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E0295617920073E378 /* THProject+CoreDataClass.swift */; };
-		029615EA295617930073E378 /* SwiftUI+HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E1295617920073E378 /* SwiftUI+HexColor.swift */; };
 		029615EB295617930073E378 /* teha.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 029615E2295617920073E378 /* teha.xcdatamodeld */; };
 		029615ED295617930073E378 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E5295617920073E378 /* ProjectEditView.swift */; };
 		029615F329561A280073E378 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615F229561A280073E378 /* Navigation.swift */; };
@@ -31,6 +30,8 @@
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
 		02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB755F2955DE5F005F4D35 /* Assets.xcassets */; };
 		02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB75632955DE60005F4D35 /* Preview Assets.xcassets */; };
+		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
+		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +39,6 @@
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
 		029615E0295617920073E378 /* THProject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "THProject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		029615E1295617920073E378 /* SwiftUI+HexColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftUI+HexColor.swift"; sourceTree = "<group>"; };
 		029615E3295617920073E378 /* teha.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = teha.xcdatamodel; sourceTree = "<group>"; };
 		029615E5295617920073E378 /* ProjectEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
 		029615F229561A280073E378 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
@@ -62,6 +62,8 @@
 		02CB755F2955DE5F005F4D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02CB75612955DE60005F4D35 /* teha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = teha.entitlements; sourceTree = "<group>"; };
 		02CB75632955DE60005F4D35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
+		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				029615DE295617920073E378 /* String+Substring.swift */,
-				029615E1295617920073E378 /* SwiftUI+HexColor.swift */,
+				A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -161,6 +163,7 @@
 				029615EF2956179F0073E378 /* Utils */,
 				029615EE295617970073E378 /* Project */,
 				029E336629564E1E004A2E12 /* Tasks */,
+				A85AAA95296D92050078BA2D /* Settings */,
 				02CB75562955DE5E005F4D35 /* tehaApp.swift */,
 				02CB75582955DE5E005F4D35 /* Persistence.swift */,
 				02CB755D2955DE5E005F4D35 /* ContentView.swift */,
@@ -177,6 +180,14 @@
 				02CB75632955DE60005F4D35 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A85AAA95296D92050078BA2D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A85AAA96296D92480078BA2D /* SettingsTab.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,13 +263,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */,
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
 				02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */,
+				A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */,
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
-				029615EA295617930073E378 /* SwiftUI+HexColor.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
