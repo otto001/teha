@@ -1,3 +1,7 @@
+//
+// Created with StringsFileEditor (https://github.com/otto001/StringsFileEditor)
+//
+
 "%@" = "%@";
 
 "%@-priority" = "%@ Priority";
@@ -9,6 +13,22 @@
 "cancel" = "Cancel";
 
 "color" = "Color";
+
+"color-blue" = "Blue";
+
+"color-brown" = "Brown";
+
+"color-green" = "Green";
+
+"color-orange" = "Orange";
+
+"color-pink" = "Pink";
+
+"color-purple" = "Purple";
+
+"color-red" = "Red";
+
+"color-yellow" = "Yellow";
 
 "deadline" = "Deadline";
 

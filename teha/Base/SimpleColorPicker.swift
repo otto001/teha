@@ -19,8 +19,9 @@ enum ColorChoice: String, CaseIterable, Hashable, Identifiable {
     
     var id: ColorChoice { self }
     
-    var name: String {
-        return self.rawValue.localizedCapitalized
+    var name: LocalizedStringKey {
+        let key = "color-\(rawValue)"
+        return LocalizedStringKey(key)
     }
     
     var color: Color {
