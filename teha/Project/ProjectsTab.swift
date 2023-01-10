@@ -11,6 +11,7 @@ private struct ProjectRow: View {
     let project: THProject
     let edit: () -> Void
     let delete: () -> Void
+    let complete: () -> Void
     
     @State private var showDeleteDialog = false
     
@@ -39,6 +40,9 @@ private struct ProjectRow: View {
             Button { showDeleteDialog = true } label: {
                 Label("delete", systemImage: "trash")
             }.tint(.red)
+            Button { complete() } label: {
+                Label("complete", systemImage: project.completed ? "xmark.rectangle.portrait" : "checkmark.rectangle.portrait")
+            }
         }
     }
 }
@@ -59,6 +63,8 @@ struct ProjectsTab: View {
                 editProject = project
             } delete: {
                 viewContext.delete(project)
+            } complete: {
+                project.completed = !project.completed
             }
         }
     }
