@@ -58,6 +58,8 @@
 
 "projects" = "Projekte";
 
+"remove" = "Entfernen";
+
 "remove-%@" = "Entferne %@";
 
 "task" = "Aufgabe";

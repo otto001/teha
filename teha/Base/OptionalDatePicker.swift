@@ -15,7 +15,7 @@ struct OptionalDatePicker: View {
     @Binding var selection: Date?
     @State private var defaultValue: Date = .now
     
-    init(_ title: LocalizedStringKey, addText: LocalizedStringKey, removeText: LocalizedStringKey, selection: Binding<Date?>) {
+    init(_ title: LocalizedStringKey, addText: LocalizedStringKey, removeText: LocalizedStringKey = "remove", selection: Binding<Date?>) {
         self.title = title
         self.addText = addText
         self.removeText = removeText

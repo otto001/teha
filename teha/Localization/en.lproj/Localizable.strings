@@ -58,6 +58,8 @@
 
 "projects" = "Projects";
 
+"remove" = "Remove";
+
 "remove-%@" = "Remove %@";
 
 "task" = "Task";
