@@ -83,6 +83,12 @@ extension THProject {
         return request
     }
     
+    static func all(completed: Bool) -> NSFetchRequest<THProject> {
+        let request = self.all
+        request.predicate = NSPredicate(format: "completed == %@", NSNumber(value: completed))
+        return request
+    }
+    
     static func all(priority: Priority) -> NSFetchRequest<THProject> {
         let request = self.all
         request.predicate = NSPredicate(format: "priorityNumber == %@", priority.rawValue)
