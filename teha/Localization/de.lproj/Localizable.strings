@@ -14,6 +14,8 @@
 
 "color" = "Farbe";
 
+"color-accent" = "Akzentfarbe";
+
 "color-blue" = "Blau";
 
 "color-brown" = "Braun";
@@ -29,6 +31,8 @@
 "color-red" = "Rot";
 
 "color-yellow" = "Gelb";
+
+"custom" = "Benutzerdefiniert";
 
 "deadline" = "Deadline";
 
@@ -85,6 +89,8 @@
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
+
+"settings" = "Einstellungen";
 
 "task" = "Aufgabe";
 

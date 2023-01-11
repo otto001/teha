@@ -64,11 +64,11 @@ extension THProject {
     
     var color: ColorChoice {
         get {
-            return ColorChoice(rawValue: self.colorName ?? "") ?? .red
+            return ColorChoice(rawValue: self.colorCode ?? "") ?? .red
         }
         
         set {
-            self.colorName = newValue.rawValue
+            self.colorCode = newValue.rawValue
         }
     }
 }

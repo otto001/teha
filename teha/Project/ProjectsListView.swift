@@ -81,9 +81,7 @@ struct ProjectsListView: View {
         }
         .listStyle(.insetGrouped)
         .sheet(item: $editProject) { project in
-            ProjectEditView(.edit(project)) {
-                editProject = nil
-            }
+            ProjectEditView(.edit(project))
         }
     }
 }
