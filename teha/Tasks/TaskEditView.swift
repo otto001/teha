@@ -58,7 +58,7 @@ struct TaskEditView: View {
             Form {
                 Section {
                     TextField(LocalizedStringKey("title"), text: $data.title)
-                    ProjectPicker(selection: $data.project)
+                    ProjectPicker("project",  selection: $data.project)
                 }
 
                 Section {
