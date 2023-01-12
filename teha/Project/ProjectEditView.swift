@@ -64,11 +64,7 @@ struct ProjectEditView: View {
                     TextField(LocalizedStringKey("name"), text: $name)
                 }
                 Section {
-                    Picker(LocalizedStringKey("priority"), selection: $priority) {
-                        ForEach(Priority.allCases.reversed()) { priority in
-                            Text(priority.name).tag(priority)
-                        }
-                    }
+                    PriorityPicker(selection: $priority)
                     
                     SimpleColorPicker(title: String(localized: "color"), color: $color)
                 }
