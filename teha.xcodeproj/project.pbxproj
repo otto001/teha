@@ -32,6 +32,7 @@
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
 		02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB755F2955DE5F005F4D35 /* Assets.xcassets */; };
 		02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB75632955DE60005F4D35 /* Preview Assets.xcassets */; };
+		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		02CB755F2955DE5F005F4D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02CB75612955DE60005F4D35 /* teha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = teha.entitlements; sourceTree = "<group>"; };
 		02CB75632955DE60005F4D35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +133,7 @@
 				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
 				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
+				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
+				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,

@@ -5,6 +5,10 @@
 //  Created by Matteo Ludwig on 04.01.23.
 //
 
+
+//TODO: use project picker
+
+
 import SwiftUI
 
 struct TasksTab: View {
@@ -13,9 +17,10 @@ struct TasksTab: View {
     @State var taskAddSheet: Bool = false
     @State var filterSheet: Bool = false
     @State var groupSheet: Bool = false
-    
+    @State var filterOption: TasksFilterOption?
+    @StateObject var filters = TasksFilterViewModel()
     var filtersAreActive: Bool {
-        return true
+        return filterOption !=  nil
     }
     
     var filterSystemImage: String {
@@ -70,9 +75,9 @@ struct TasksTab: View {
                 
             }
             .sheet(isPresented: $filterSheet) {
-                TasksFilterView()  {
+                TasksFilterView {
                     filterSheet = false
-                }
+                }.environmentObject(filters)
             }
             .sheet(isPresented: $taskAddSheet) {
                 TaskEditView()
