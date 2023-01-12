@@ -87,7 +87,7 @@ struct ProjectsListView: View {
 }
 
 fileprivate extension THProject {
-    static let completedSectionId = Priority.allCases.last!.rawValue + 1
+    static let completedSectionId = Priority.allCases.map {$0.rawValue}.max()! + 1
     
     @objc
     var projectsListSection: Int {
