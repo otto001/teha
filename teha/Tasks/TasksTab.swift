@@ -17,10 +17,11 @@ struct TasksTab: View {
     @State var taskAddSheet: Bool = false
     @State var filterSheet: Bool = false
     @State var groupSheet: Bool = false
-    @State var filterOption: TasksFilterOption?
+
     @StateObject var filters = TasksFilterViewModel()
+    
     var filtersAreActive: Bool {
-        return filterOption !=  nil
+        return filters.filtersAreActive
     }
     
     var filterSystemImage: String {
@@ -31,78 +32,79 @@ struct TasksTab: View {
     var body: some View {
         NavigationStack {
             TasksListView()
-            .searchable(text: $searchText)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        taskAddSheet = true
-                    } label: {
-                        Image(systemName: "plus")
+                .environmentObject(filters)
+                .searchable(text: $searchText)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            taskAddSheet = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        
                     }
-
-                }
-                if filtersAreActive {
+                    if filtersAreActive {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                filterSheet = true
+                            } label: {
+                                Image(systemName: filterSystemImage)
+                            }
+                        }
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            filterSheet = true
-                        } label: {
-                            Image(systemName: filterSystemImage)
-                        }
+                        EditButton()
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button {
-                            groupSheet = true
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button {
+                                groupSheet = true
+                            } label: {
+                                Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
+                            }
+                            Button {
+                                filterSheet = true
+                            } label: {
+                                Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
+                            }
+                            
+                            
                         } label: {
-                            Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
+                            Image(systemName: "ellipsis.circle")
                         }
-                        Button {
-                            filterSheet = true
-                        } label: {
-                            Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
-                        }
-
+                        
+                    }
+                    
+                }
+                .sheet(isPresented: $filterSheet) {
+                    TasksFilterView {
+                        filterSheet = false
+                    }.environmentObject(filters)
+                }
+                .sheet(isPresented: $taskAddSheet) {
+                    TaskEditView(mode: .add)
+                }
+                .confirmationDialog("group", isPresented: $groupSheet) {
+                    Button {
                         
                     } label: {
-                        Image(systemName: "ellipsis.circle")
+                        Text("none")
                     }
-
-                }
-                
-            }
-            .sheet(isPresented: $filterSheet) {
-                TasksFilterView {
-                    filterSheet = false
-                }.environmentObject(filters)
-            }
-            .sheet(isPresented: $taskAddSheet) {
-                TaskEditView(mode: .add)
-            }
-            .confirmationDialog("group", isPresented: $groupSheet) {
-                Button {
+                    Button {
+                        
+                    } label: {
+                        Text("project")
+                    }
+                    Button {
+                        
+                    } label: {
+                        Text("priority")
+                    }
                     
-                } label: {
-                    Text("none")
+                } message: {
+                    Text("group-tasks-by")
                 }
-                Button {
-                    
-                } label: {
-                    Text("project")
-                }
-                Button {
-                    
-                } label: {
-                    Text("priority")
-                }
-
-            } message: {
-                Text("group-tasks-by")
-            }
-            .navigationTitle("tasks")
+                .navigationTitle("tasks")
         }
         .tabItem {
             Label(LocalizedStringKey("tasks"), systemImage: "list.bullet.rectangle.portrait")

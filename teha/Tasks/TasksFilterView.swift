@@ -65,8 +65,9 @@ fileprivate struct OnlyShow: View {
         ){
                             //iterating through array of filteroptions
             ProjectPicker(selection: $filters.project){
-                Label("projects", systemImage: "list.clipboard")
+                Label("project", systemImage: "list.clipboard")
             }
+            PriorityPicker(selection: $filters.priority)
             
             //to create for every item in there a button
             
