@@ -80,7 +80,7 @@ struct TasksTab: View {
                 }.environmentObject(filters)
             }
             .sheet(isPresented: $taskAddSheet) {
-                TaskEditView()
+                TaskEditView(mode: .add)
             }
             .confirmationDialog("group", isPresented: $groupSheet) {
                 Button {

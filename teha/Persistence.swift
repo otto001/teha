@@ -42,13 +42,16 @@ extension PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
-        
+        var projects = [THProject]()
         for priority in Priority.allCases {
-            for i in 0..<3 {
+            for i in 0..<5 {
                 let newItem = THProject(context: viewContext)
                 newItem.name = "Project \(i)"
-                newItem.creationDate = Date.now
+                newItem.completed = i >= 3
+                newItem.creationDate = .now
                 newItem.priority = priority
+                newItem.color = ColorChoice.baseColors[i]
+                projects.append(newItem)
             }
         }
         
@@ -56,6 +59,8 @@ extension PersistenceController {
         for i in 0..<10 {
             let newItem = THTask(context: viewContext)
             newItem.title = "Task \(i)"
+            newItem.project = i <= 8 ? projects[i] : nil
+            newItem.deadline = .now
         }
         
         do {

@@ -40,6 +40,8 @@
 
 "deadline-remove" = "Entferne Deadline";
 
+"delete" = "Löschen";
+
 "done" = "Fertig";
 
 "earliest-startdate" = "Frühester Beginn";
@@ -68,6 +70,8 @@
 
 "new-project" = "Neues Projekt";
 
+"new-task" = "Neue Aufgabe";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -79,6 +83,8 @@
 "priority" = "Priorität";
 
 "project" = "Projekt";
+
+"project-delete-confimation" = "Projekt löschen?";
 
 "projects" = "Projekte";
 

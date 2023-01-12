@@ -7,49 +7,15 @@
 
 import SwiftUI
 
-private struct ProjectRow: View {
-    let project: THProject
-    let edit: () -> Void
-    
-    var body: some View {
-        HStack {
-            Text(project.name ?? "")
-                .foregroundColor(project.color.color)
-            Spacer()
-            Button {
-                edit()
-            } label: {
-                Image(systemName: "info.circle")
-            }
-
-        }
-    }
-}
 
 struct ProjectsTab: View {
-    
-    @SectionedFetchRequest<Int16, THProject>(fetchRequest: THProject.all, sectionIdentifier: \.priorityNumber)
-    private var sections: SectionedFetchResults<Int16, THProject>
+    @Environment(\.managedObjectContext) private var viewContext
     
     @State private var addSheet: Bool = false
-    @State private var editProject: THProject? = nil
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(sections) { section in
-                    let priority = Priority(rawValue: Int(section.id))!
-
-                    Section(priority.nameWithPriority) {
-                        ForEach(section) { project in
-                            ProjectRow(project: project) {
-                                editProject = project
-                            }
-                        }
-                    }
-                }
-            }
-            .listStyle(.insetGrouped)
+            ProjectsListView()
             .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -63,9 +29,6 @@ struct ProjectsTab: View {
             }
             .sheet(isPresented: $addSheet) {
                 ProjectEditView(.add)
-            }
-            .sheet(item: $editProject) { project in
-                ProjectEditView(.edit(project))
             }
         }
         .tabItem {
