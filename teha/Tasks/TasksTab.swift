@@ -75,7 +75,7 @@ struct TasksTab: View {
                 }
             }
             .sheet(isPresented: $taskAddSheet) {
-                TaskEditView()
+                TaskEditView(mode: .add)
             }
             .confirmationDialog("group", isPresented: $groupSheet) {
                 Button {
