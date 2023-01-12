@@ -65,15 +65,15 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
   - Started
   - Delete (?)
 
-#### Filter sheet
+#### Filter sheet (Denis)
 - See Photos app for inspo
 - Options to filter by:
-  - Project
+  - Project 
   - Tag
   - Priority 
   - Repeating
   
-#### Add Task Sheet
+#### Add Task Sheet (Matteo)
 - Form Sheet
 - Fields for: Title, Notes, Dates, Project
 - Add reminder alerts

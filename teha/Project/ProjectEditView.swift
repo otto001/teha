@@ -10,22 +10,21 @@ import SwiftUI
 
 struct ProjectEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) var dismiss: DismissAction
     
     @State private var name: String = ""
     @State private var priority: Priority = .normal
     @State private var color: ColorChoice = .pink
     
     let project: THProject?
-    let close: () -> Void
     
-    init(_ mode: Mode, close: @escaping () -> Void) {
+    init(_ mode: Mode) {
         switch mode {
         case .add:
             self.project = nil
         case .edit(let project):
             self.project = project
         }
-        self.close = close
     }
     
     var editing: Bool {
@@ -55,7 +54,7 @@ struct ProjectEditView: View {
         // TODO: error handling
         try? viewContext.save()
         
-        close()
+        dismiss()
     }
     
     var body: some View {
@@ -77,7 +76,9 @@ struct ProjectEditView: View {
             .registerSimpleColorPicker {
                 router.pop()
             }
-            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done, cancel: close)
+            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
+                dismiss()
+            }
         }
         .onAppear {
             if let project = project {
@@ -100,9 +101,7 @@ extension ProjectEditView {
 struct ProjectEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ProjectEditView(.add) {
-                
-            }
+            ProjectEditView(.add)
         }
     }
 }

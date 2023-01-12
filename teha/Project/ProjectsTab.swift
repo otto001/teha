@@ -103,14 +103,10 @@ struct ProjectsTab: View {
                 }
             }
             .sheet(isPresented: $addSheet) {
-                ProjectEditView(.add) {
-                    addSheet = false
-                }
+                ProjectEditView(.add)
             }
             .sheet(item: $editProject) { project in
-                ProjectEditView(.edit(project)) {
-                    editProject = nil
-                }
+                ProjectEditView(.edit(project))
             }
         }
         .tabItem {

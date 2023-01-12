@@ -8,15 +8,28 @@
 import SwiftUI
 import CoreData
 
+/// An enum of all tabs avaliable in teha.
+enum Tab: String, RawRepresentable {
+    case projects = "projects"
+    case tasks = "tasks"
+    case settings = "settings"
+}
+
+/// The root View of teha.
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
+    @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
+    
+    // ensure that the tasks tab is the default tab (i.e., landing page)
+    @State private var tab: Tab = .tasks
+    
     var body: some View {
-
-        TabView {
-            ProjectsTab()
-            TasksTab()
+        // Create root TabView and add all main views for app
+        TabView(selection: $tab) {
+            ProjectsTab().tag(Tab.projects)
+            TasksTab().tag(Tab.tasks)
+            SettingsTab().tag(Tab.settings)
         }
+        .tint(accentColor.color) // apply accent color setting to app
     }
 }
 
