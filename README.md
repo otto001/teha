@@ -14,7 +14,7 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 - Show project title & color
 - Mark projects as complete (hidden per default)
   - reduces overcrowidng of table/list 
-  - implement as priority? (completed as lowest priority)
+  - implemented as boolean property: otherwise, we'd need special handling for creation/edit UI
 - Tap on project -> project detail view
 - Button to open add project sheet
 - Filter options (?)

@@ -44,9 +44,10 @@ extension PersistenceController {
         
         
         for priority in Priority.allCases {
-            for i in 0..<3 {
+            for i in 0..<5 {
                 let newItem = THProject(context: viewContext)
                 newItem.name = "Project \(i)"
+                newItem.completed = i >= 3
                 newItem.creationDate = Date.now
                 newItem.priority = priority
             }

@@ -10,18 +10,39 @@ import SwiftUI
 private struct ProjectRow: View {
     let project: THProject
     let edit: () -> Void
+    let delete: () -> Void
+    let complete: () -> Void
+    
+    @State private var showDeleteDialog = false
     
     var body: some View {
         HStack {
-            Text(project.name ?? "")
+            Circle()
                 .foregroundColor(project.color.color)
+                .fixedSize()
+            Text(project.name ?? "").strikethrough(project.completed)
             Spacer()
             Button {
                 edit()
             } label: {
                 Image(systemName: "info.circle")
             }
-
+        }
+        .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
+            Button("delete", role: .destructive) {
+                delete()
+            }
+            Button("cancel", role: .cancel) {
+                showDeleteDialog = false
+            }
+        }
+        .swipeActions {
+            Button { showDeleteDialog = true } label: {
+                Label("delete", systemImage: "trash")
+            }.tint(.red)
+            Button { complete() } label: {
+                Label("complete", systemImage: project.completed ? "xmark.rectangle.portrait" : "checkmark.rectangle.portrait")
+            }
         }
     }
 }
@@ -31,21 +52,41 @@ struct ProjectsTab: View {
     @SectionedFetchRequest<Int16, THProject>(fetchRequest: THProject.all, sectionIdentifier: \.priorityNumber)
     private var sections: SectionedFetchResults<Int16, THProject>
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var addSheet: Bool = false
     @State private var editProject: THProject? = nil
+    
+    func Projects(_ projects: Array<THProject>) -> some View {
+        return ForEach(projects) { project in
+            ProjectRow(project: project) {
+                editProject = project
+            } delete: {
+                viewContext.delete(project)
+            } complete: {
+                project.completed = !project.completed
+            }
+        }
+    }
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(sections) { section in
                     let priority = Priority(rawValue: Int(section.id))!
-
-                    Section(priority.nameWithPriority) {
-                        ForEach(section) { project in
-                            ProjectRow(project: project) {
-                                editProject = project
-                            }
+                    let projects = section.filter {!$0.completed}
+                    
+                    if !projects.isEmpty {
+                        Section(priority.nameWithPriority) {
+                            Projects(projects)
                         }
+                    }
+                }
+                
+                let completedProjects = sections.flatMap {$0}.filter {$0.completed}
+                if !completedProjects.isEmpty {
+                    Section("completed") {
+                        Projects(completedProjects)
                     }
                 }
             }
