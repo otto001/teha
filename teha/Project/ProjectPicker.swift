@@ -60,12 +60,8 @@ struct ProjectPicker: View {
             } label: {
                 HStack(spacing: 1) {
                     if let selection = selection {
-                        // Using a Label does not work well here as it creates weird spacing, therfore we use an HStack to have better control over the spacing
-                        HStack {
-                            Image(systemName: "circle.fill")
-                                .foregroundStyle(selection.color.color, .gray)
-                            Text(selection.name ?? "").foregroundColor(.secondaryLabel)
-                        }
+                        ProjectLabel(project: selection).foregroundColor(.secondaryLabel)
+                        
                     } else {
                         Text("None").foregroundColor(.secondaryLabel)
                     }
