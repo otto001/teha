@@ -39,8 +39,11 @@ struct TaskEditView: View {
         let task = task ?? THTask(context: viewContext)
         
         task.title = data.title
+        task.notes = data.notes
+        
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
+        
         task.project = data.project
         
         if !editing {
@@ -78,6 +81,11 @@ struct TaskEditView: View {
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
                 dismiss()
             }
+            .onAppear {
+                if let task = task {
+                    self.data = .init(task: task)
+                }
+            }
         }
     }
 }
@@ -94,6 +102,20 @@ extension TaskEditView {
         
         var valid: Bool {
             return !title.isEmpty
+        }
+        
+        init() {
+            
+        }
+        
+        init(task: THTask) {
+            self.title = task.title ?? ""
+            self.notes = task.notes ?? ""
+            self.earliestStartDate = task.earliestStartDate
+            self.deadline = task.deadline
+            self.timeEstimate = task.timeEstimate
+            self.project = task.project
+
         }
     }
     
