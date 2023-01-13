@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02473758296F5B1800FE2943 /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02473757296F5B1800FE2943 /* ProjectsListView.swift */; };
 		02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02513BB3296DE56C00D28CDD /* ProjectPicker.swift */; };
+		025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF4402970A2A300959F05 /* TaskDetailView.swift */; };
 		025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF44229718CD400959F05 /* ProjectLabel.swift */; };
 		026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */; };
 		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		02473757296F5B1800FE2943 /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		02513BB3296DE56C00D28CDD /* ProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPicker.swift; sourceTree = "<group>"; };
+		025EF4402970A2A300959F05 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		025EF44229718CD400959F05 /* ProjectLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLabel.swift; sourceTree = "<group>"; };
 		026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIKitColors.swift"; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				02C0DEDE2965BE520084D579 /* TasksTab.swift */,
 				02C0DEE42965CAD30084D579 /* TasksListView.swift */,
 				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
+				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
 				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
 			);
@@ -295,6 +298,7 @@
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
+				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,

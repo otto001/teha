@@ -26,7 +26,9 @@ fileprivate extension VerticalAlignment {
 
 
 struct TaskRowView: View {
-    let task: THTask
+    @ObservedObject var task: THTask
+    
+    @EnvironmentObject var router: Router
     
     @ViewBuilder
     var circle: some View {
@@ -38,6 +40,7 @@ struct TaskRowView: View {
     }
     
     var body: some View {
+        
         HStack(alignment: .taskRowAlignment) {
             // Project Color
             circle
@@ -48,18 +51,26 @@ struct TaskRowView: View {
             
             // Task Title & Project Name
             VStack(alignment: .leading) {
-                Text(task.title ?? "")
-                    .alignmentGuide(.taskRowAlignment) { d in
-                        d[VerticalAlignment.center]
-                    }
+                ZStack(alignment: .topLeading) {
+                    // In order to support automatic line breaks in tasks while preserving the layout, we use a Text with a single line that is overlayed with the text but invisible
+                    // Yes its as dumb as it sounds but the only (simple) solution i could come up with
+                    Text("X")
+                        .foregroundColor(.clear)
+                        .alignmentGuide(.taskRowAlignment) { d in
+                            d[VerticalAlignment.center]
+                        }
+                    Text(task.title ?? "")
+                        .lineLimit(2)
+                    
+                }
                 
                 
                 if let project = task.project {
                     
                     Text(project.name ?? "")
+                        .lineLimit(1)
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
-                    
                 }
                 
             }
@@ -71,6 +82,7 @@ struct TaskRowView: View {
                 if let deadline = task.deadline {
                     Text("\(dateFormatter.string(from: deadline))")
                         .font(.caption)
+                        .foregroundColor(deadline < .now ? .red : .label)
                         .alignmentGuide(.taskRowAlignment) { d in
                             d[VerticalAlignment.center]
                         }
@@ -78,6 +90,10 @@ struct TaskRowView: View {
             }
         }
         .padding(.vertical, 1)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            router.push(task)
+        }
     }
 }
 

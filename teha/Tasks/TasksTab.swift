@@ -24,8 +24,11 @@ struct TasksTab: View {
     }
     
     var body: some View {
-        NavigationStack {
+        RoutedNavigation { _ in
             TasksListView()
+            .navigationDestination(for: THTask.self) { task in
+                TaskDetailView(task: task)
+            }
             .searchable(text: $searchText)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
