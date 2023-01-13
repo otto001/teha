@@ -13,6 +13,10 @@ class Router: ObservableObject {
     func pop(_ n: Int = 1) {
         self.path.removeLast(n)
     }
+    
+    func push(_ x: any Hashable) {
+        path.append(x)
+    }
 }
 
 
