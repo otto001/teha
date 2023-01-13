@@ -10,8 +10,37 @@ import SwiftUI
 struct ProjectDetailView: View {
     let project: THProject
     
+    @State private var name: String = ""
+    @State private var priority: Priority = .normal
+    @State private var color: ColorChoice = .pink
+    
+    // Messing around like this prevents the title from showing up only
+    // after the navigation animation, while also reflecting updates
+    // to the form
+    private var navigationTitle: String {
+        if name == "" { return project.name ?? "" }
+        return name
+    }
+    
     var body: some View {
-        Text(project.name ?? "")
+        Form {
+            Section {
+                TextField(LocalizedStringKey("name"), text: $name)
+                
+                Picker(LocalizedStringKey("priority"), selection: $priority) {
+                    ForEach(Priority.allCases.reversed()) { priority in
+                        Text(priority.name).tag(priority)
+                    }
+                }
+                SimpleColorPicker(title: String(localized: "color"), color: $color)
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline).navigationTitle(navigationTitle)
+        .onAppear {
+            name = project.name ?? ""
+            color = project.color
+            priority = project.priority
+        }
     }
 }
 
