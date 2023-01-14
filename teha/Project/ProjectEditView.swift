@@ -64,7 +64,8 @@ struct ProjectEditView: View {
                     TextField(LocalizedStringKey("name"), text: $name)
                 }
                 Section {
-                    PriorityPicker(selection: $priority)
+                    PriorityPicker("priority", selection: $priority)
+
                     
                     SimpleColorPicker(title: String(localized: "color"), color: $color)
                 }

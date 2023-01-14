@@ -7,40 +7,73 @@
 
 import SwiftUI
 
-struct PriorityPicker: View {
-    
+struct PriorityPicker<PickerLabel: View>: View {
     @Binding var selection: PriorityTag
     let hasNoneOption: Bool
+    @ViewBuilder let label: () -> PickerLabel
     
-    init(selection: Binding<Priority?>) {
+    init(selection: Binding<Priority?>, @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = Binding {
             return PriorityTag(selection.wrappedValue)
         } set: { newValue in
             selection.wrappedValue = newValue.priority
-            
         }
         self.hasNoneOption = true
+        self.label = label
     }
     
-    init(selection: Binding<Priority>) {
+    init(selection: Binding<Priority>, @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = Binding {
             return PriorityTag.some(selection.wrappedValue)
         } set: { newValue in
             selection.wrappedValue = newValue.priority ?? .normal
         }
         self.hasNoneOption = false
+        self.label = label
     }
     
     var body: some View {
-        Picker(LocalizedStringKey("priority"), selection: $selection) {
-            if hasNoneOption {
-                Text("none").tag(PriorityTag.none)
-            }
-            Section {
-                ForEach(Priority.allCases.reversed()) { priority in
-                    Text(priority.name).tag(PriorityTag.some(priority))
+        HStack {
+            label()
+            Spacer()
+            Picker(LocalizedStringKey(""), selection: $selection) {
+                if hasNoneOption {
+                    Text("none").tag(PriorityTag.none).foregroundColor(.secondaryLabel)
                 }
-            }
+                Section {
+                    ForEach(Priority.allCases.reversed()) { priority in
+                        Text(priority.name).tag(PriorityTag.some(priority)).foregroundColor(.secondaryLabel)
+
+                    }
+                }
+            }.pickerStyle(MenuPickerStyle())
+
+        }
+    }
+}
+
+extension PriorityPicker where PickerLabel == Text {
+    init(_ titleKey: LocalizedStringKey, selection: Binding<Priority?>) {
+        self._selection = Binding {
+            return PriorityTag(selection.wrappedValue)
+        } set: { newValue in
+            selection.wrappedValue = newValue.priority
+        }
+        self.hasNoneOption = true
+        self.label = {
+            Text(titleKey)
+        }
+    }
+
+    init(_ titleKey: LocalizedStringKey, selection: Binding<Priority>) {
+        self._selection = Binding {
+            return PriorityTag.some(selection.wrappedValue)
+        } set: { newValue in
+            selection.wrappedValue = newValue.priority ?? .normal
+        }
+        self.hasNoneOption = false
+        self.label = {
+            Text(titleKey)
         }
     }
 }
@@ -75,7 +108,9 @@ struct PriorityPicker_Previews: PreviewProvider {
         @State var priority: Priority? = .normal
         
         var body: some View {
-            PriorityPicker(selection: $priority)
+            PriorityPicker(selection: $priority) {
+                Label("priority", systemImage: "tag")
+            }
         }
     }
     
@@ -83,3 +118,4 @@ struct PriorityPicker_Previews: PreviewProvider {
         PriorityPickerPreview()
     }
 }
+

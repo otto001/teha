@@ -67,7 +67,10 @@ fileprivate struct OnlyShow: View {
             ProjectPicker(selection: $filters.project){
                 Label("project", systemImage: "list.clipboard")
             }
-            PriorityPicker(selection: $filters.priority)
+            PriorityPicker( selection: $filters.priority){
+                Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
+            }
+
             
             //to create for every item in there a button
             
