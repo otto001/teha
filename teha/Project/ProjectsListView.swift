@@ -10,7 +10,7 @@ import CoreData
 
 
 private struct ProjectRow: View {
-    let project: THProject
+    @ObservedObject var project: THProject
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var showDeleteDialog = false

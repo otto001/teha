@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProjectDetailView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     let project: THProject
     
     @State private var name: String = ""
@@ -40,6 +42,13 @@ struct ProjectDetailView: View {
             name = project.name ?? ""
             color = project.color
             priority = project.priority
+        }
+        .onDisappear {
+            project.name = name
+            project.color = color
+            project.priority = priority
+            
+            try? viewContext.save()
         }
     }
 }
