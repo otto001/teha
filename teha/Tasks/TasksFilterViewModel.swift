@@ -24,6 +24,8 @@ class TasksFilterViewModel: ObservableObject {
             }
         }
     }
+    
+    @Published var search: String = ""
 
     var filtersAreActive: Bool {
         return project != nil || priority != nil
@@ -36,8 +38,12 @@ class TasksFilterViewModel: ObservableObject {
             fetchRequest.filter(project: project)
         }
         
-        if let priority = priority {
+        if let priority = self.priority {
             fetchRequest.filter(priority: priority)
+        }
+        
+        if !self.search.isEmpty {
+            fetchRequest.filter(search: self.search)
         }
         
         return fetchRequest

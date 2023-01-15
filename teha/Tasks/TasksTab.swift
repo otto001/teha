@@ -12,7 +12,6 @@
 import SwiftUI
 
 struct TasksTab: View {
-    @State var searchText: String = ""
     
     @State var taskAddSheet: Bool = false
     @State var filterSheet: Bool = false
@@ -36,7 +35,7 @@ struct TasksTab: View {
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
                 }
-                .searchable(text: $searchText)
+                .searchable(text: $filters.search)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
