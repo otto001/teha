@@ -9,12 +9,15 @@ import SwiftUI
 
 /// A Picker like View allowing the user to select a THProject. The input is optional, meaning that the user does have a "None" option avaliable.
 /// Since the SwiftUI Picker has some unexpected/buggy behaviour when it comes to Labels with colors, a Menu is used to emulate a Picker.
-struct ProjectPicker: View {
+struct ProjectPicker<PickerLabel: View>: View {
     @Binding var selection: THProject?
+    @ViewBuilder let label: () -> PickerLabel
+    
     @FetchRequest(fetchRequest: THProject.all) private var projects: FetchedResults<THProject>
     
-    init(selection: Binding<THProject?>) {
+    init(selection: Binding<THProject?>, @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = selection
+        self.label = label
     }
     
     /// Returns a Label/Text for a THProject to be used in the Menu content.
@@ -35,7 +38,7 @@ struct ProjectPicker: View {
     var body: some View {
         HStack {
             // Input Label
-            Text(LocalizedStringKey("project"))
+            label()
             Spacer()
             Menu {
                 
@@ -80,13 +83,26 @@ struct ProjectPicker: View {
     }
 }
 
+extension ProjectPicker where PickerLabel == Text{
+    init(_ titleKey: LocalizedStringKey, selection: Binding<THProject?>) {
+        self._selection = selection
+        self.label = {
+            Text(titleKey)
+        }
+    }
+}
+
+
 struct ProjectPicker_Previews: PreviewProvider {
     
     struct ProjectPickerPreview: View {
         @State var project: THProject? = nil
         
         var body: some View {
-            ProjectPicker(selection: $project)
+            ProjectPicker(selection: $project) {
+                Label("projects", systemImage: "circle")
+                
+            }
         }
     }
     

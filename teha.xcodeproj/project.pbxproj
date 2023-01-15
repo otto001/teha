@@ -35,6 +35,8 @@
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
 		02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB755F2955DE5F005F4D35 /* Assets.xcassets */; };
 		02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02CB75632955DE60005F4D35 /* Preview Assets.xcassets */; };
+		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
+		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +74,8 @@
 		02CB755F2955DE5F005F4D35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02CB75612955DE60005F4D35 /* teha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = teha.entitlements; sourceTree = "<group>"; };
 		02CB75632955DE60005F4D35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
+		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +121,7 @@
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
 				02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */,
+				921B56A029708B3600F5518F /* PriorityPicker.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
 				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
+				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -233,7 +239,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					02CB75522955DE5E005F4D35 = {
 						CreatedOnToolsVersion = 14.1;
@@ -289,8 +295,10 @@
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
+				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
+				921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
 				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
 				026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */,
@@ -335,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -364,6 +373,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -394,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -423,6 +434,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -448,8 +460,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = teha/teha.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"teha/Preview Content\"";
 				DEVELOPMENT_TEAM = 489XFYT3X5;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -488,8 +502,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = teha/teha.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"teha/Preview Content\"";
 				DEVELOPMENT_TEAM = 489XFYT3X5;
 				ENABLE_HARDENED_RUNTIME = YES;
