@@ -54,25 +54,13 @@ struct PriorityPicker<PickerLabel: View>: View {
 
 extension PriorityPicker where PickerLabel == Text {
     init(_ titleKey: LocalizedStringKey, selection: Binding<Priority?>) {
-        self._selection = Binding {
-            return PriorityTag(selection.wrappedValue)
-        } set: { newValue in
-            selection.wrappedValue = newValue.priority
-        }
-        self.hasNoneOption = true
-        self.label = {
+        self.init(selection: selection) {
             Text(titleKey)
         }
     }
 
     init(_ titleKey: LocalizedStringKey, selection: Binding<Priority>) {
-        self._selection = Binding {
-            return PriorityTag.some(selection.wrappedValue)
-        } set: { newValue in
-            selection.wrappedValue = newValue.priority ?? .normal
-        }
-        self.hasNoneOption = false
-        self.label = {
+        self.init(selection: selection) {
             Text(titleKey)
         }
     }
