@@ -96,6 +96,8 @@
 
 "tasks" = "Aufgaben";
 
+"tasks-completed" = "Beendete Aufgaben";
+
 "title" = "Titel";
 
 "urgent" = "Dringend";
