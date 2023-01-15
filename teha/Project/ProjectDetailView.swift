@@ -6,50 +6,43 @@
 //
 
 import SwiftUI
+import Charts
+
+struct ProjectStatsView: View {
+    let project: THProject
+    
+    var body: some View {
+        Form {
+            Chart {
+                LineMark(x: .value("asdf", 0), y: .value("hey", 2))
+                LineMark(x: .value("asdf", 1), y: .value("hey", 4))
+            }
+        }
+    }
+}
+
+struct ProjectNoStatsView: View {
+    var body: some View {
+        VStack {
+            Text("No data :(")
+        }
+    }
+}
 
 struct ProjectDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     let project: THProject
     
-    @State private var name: String = ""
-    @State private var priority: Priority = .normal
-    @State private var color: ColorChoice = .pink
-    
-    // Messing around like this prevents the title from showing up only
-    // after the navigation animation, while also reflecting updates
-    // to the form
-    private var navigationTitle: String {
-        if name == "" { return project.name ?? "" }
-        return name
-    }
-    
     var body: some View {
-        Form {
-            Section {
-                TextField(LocalizedStringKey("name"), text: $name)
-                
-                Picker(LocalizedStringKey("priority"), selection: $priority) {
-                    ForEach(Priority.allCases.reversed()) { priority in
-                        Text(priority.name).tag(priority)
-                    }
-                }
-                SimpleColorPicker(title: String(localized: "color"), color: $color)
+        Group {
+            if (project.tasks?.count ?? 0) > 0 {
+                ProjectStatsView(project: project)
+            } else {
+                ProjectNoStatsView()
             }
         }
-        .navigationBarTitleDisplayMode(.inline).navigationTitle(navigationTitle)
-        .onAppear {
-            name = project.name ?? ""
-            color = project.color
-            priority = project.priority
-        }
-        .onDisappear {
-            project.name = name
-            project.color = color
-            project.priority = priority
-            
-            try? viewContext.save()
-        }
+        .navigationTitle(project.name ?? "")
     }
 }
 
@@ -57,7 +50,26 @@ struct ProjectDetailView: View {
 struct ProjectDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let context = PersistenceController.preview.container.viewContext
-        let projects = try! context.fetch(THProject.fetchRequest())
-        ProjectDetailView(project: projects.first!)
+        
+        let project = THProject(context: context)
+        for i in 0..<10 {
+            let task = THTask(context: context)
+            task.title = "Task \(i)"
+            task.completionDate = Calendar.current.date(byAdding: .day, value: Int.random(in: -6...0), to: .now)
+            task.project = project
+        }
+        
+        return ProjectDetailView(project: project)
+    }
+}
+
+struct EmptyProjectDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let context = PersistenceController.preview.container.viewContext
+        
+        let project = THProject(context: context)
+        project.name = "Example"
+        
+        return ProjectDetailView(project: project)
     }
 }
