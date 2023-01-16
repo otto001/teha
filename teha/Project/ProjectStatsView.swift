@@ -6,7 +6,30 @@
 //
 
 import SwiftUI
-import Charts
+
+struct StatView: View {
+    let name: String
+    let value: Float
+    let color: Color
+    let systemName: String
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                ZStack {
+                    Circle().frame(width: 32).foregroundStyle(color)
+                    Image(systemName: systemName).foregroundStyle(.white)
+                }
+                Text(name).bold().font(.callout).lineLimit(1)
+            }
+            Spacer()
+            Text(String(format: "%.0f", value)).bold().font(.title)
+        }
+        .padding(.all)
+        .background(.quaternary)
+        .cornerRadius(8)
+    }
+}
 
 struct ProjectStatsView: View {
     let project: THProject
@@ -15,30 +38,19 @@ struct ProjectStatsView: View {
         guard let tasks = project.tasks else {return []}
         return Array(tasks as! Set<THTask>)
     }
-    var completedTasksByDate: [Date: Int] {
-        tasks.filter { $0.completionDate != nil }.reduce([:]) { (map, task) -> [Date: Int] in
-            var updatedMap = map
-            let completionDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: task.completionDate!)!
-            
-            if let value = map[completionDate] {
-                updatedMap[completionDate] = value + 1
-            } else {
-                updatedMap[completionDate] = 1
-            }
-            return updatedMap
-        }
-    }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("tasks-completed").font(.title2)
-            Chart {
-                ForEach(completedTasksByDate.sorted(by: >), id: \.key) { taskGroup in
-                    BarMark(x: .value("", taskGroup.key), y: .value("", taskGroup.value))
-                }
-            }.frame(height: 256)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 12) {
+                StatView(name: "Test", value: 8, color: .blue, systemName: "function")
+                StatView(name: "Hello", value: 3, color: .orange, systemName: "flag.fill")
+            }
+            HStack(spacing: 12) {
+                StatView(name: "More stats", value: 32, color: .pink, systemName: "paintbrush")
+                StatView(name: "Dataaaa", value: 7, color: .gray, systemName: "skew")
+            }
             Spacer()
-        }.padding(.horizontal, 40)
+        }.padding(.horizontal, 24)
     }
 }
 

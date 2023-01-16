@@ -21,11 +21,13 @@ struct ProjectDetailView: View {
     let project: THProject
     
     var body: some View {
-        VStack {
+        Group {
             if (project.tasks?.count ?? 0) > 0 {
                 ProjectStatsView(project: project)
             } else {
-                ProjectNoStatsView()
+                VStack {
+                    ProjectNoStatsView()
+                }
             }
         }
         .navigationTitle(project.name ?? "")
