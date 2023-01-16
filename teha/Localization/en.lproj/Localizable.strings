@@ -110,6 +110,8 @@
 
 "task" = "Task";
 
+"task-delete-confirmation" = "Delete Task?";
+
 "tasks" = "Tasks";
 
 "title" = "Title";

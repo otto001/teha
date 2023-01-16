@@ -110,6 +110,8 @@
 
 "task" = "Aufgabe";
 
+"task-delete-confirmation" = "Aufgabe löschen?";
+
 "tasks" = "Aufgaben";
 
 "title" = "Titel";
