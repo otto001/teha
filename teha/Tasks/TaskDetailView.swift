@@ -113,15 +113,15 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var projectSection: some View {
-        if let project = task.project {
-            Section {
+        Section {
+            if let project = task.project {
                 LabeledContent("project") {
                     ProjectLabel(project: project)
                 }
-                
-                LabeledContent("priority") {
-                    Text(project.priority.name)
-                }
+            }
+            
+            LabeledContent("priority") {
+                Text(task.priority.name)
             }
         }
     }
