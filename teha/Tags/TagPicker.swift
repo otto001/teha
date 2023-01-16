@@ -73,6 +73,14 @@ fileprivate struct TagPickerSheet: View {
                 }
             }
         }
+        .swipeActions(edge: .trailing) {
+            Button(role: .destructive) {
+                viewContext.delete(tag)
+            } label: {
+                Label("delete", systemImage: "remove.circle.fill")
+            }
+            .tint(Color.red)
+        }
     }
     
     @ViewBuilder
