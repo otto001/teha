@@ -14,12 +14,27 @@ public class THTask: NSManagedObject {
 
 }
 
+extension THTask {
+    var priority: Priority {
+        get {
+            return Priority(rawValue: Int(self.priorityNumber))!
+        }
+        set {
+            self.priorityNumber = Int16(newValue.rawValue)
+        }
+    }
+    
+    var isStarted: Bool { self.startDate != nil }
+    var isCompleted: Bool { self.completionDate != nil }
+}
+
 //MARK: FetchRequests
 extension THTask {
     
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "project.priorityNumber", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "priorityNumber", ascending: false),
+                                   NSSortDescriptor(key: "creationDate", ascending: false)]
         return request
     }
     
