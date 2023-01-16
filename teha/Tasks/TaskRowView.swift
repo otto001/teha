@@ -26,17 +26,15 @@ fileprivate extension VerticalAlignment {
 
 
 struct TaskRowView: View {
-    @ObservedObject var task: THTask
-    
     @EnvironmentObject var router: Router
+
+    @ObservedObject var task: THTask
     
     @ViewBuilder
     var circle: some View {
-        if let project = task.project {
-            Circle().foregroundColor(project.color.color)
-        } else {
-            Circle().stroke()
-        }
+        Circle()
+            .stroke(lineWidth: 2)
+            .foregroundColor(task.project?.color.color ?? .label)
     }
     
     var body: some View {
@@ -94,6 +92,7 @@ struct TaskRowView: View {
         .onTapGesture {
             router.push(task)
         }
+        
     }
 }
 
