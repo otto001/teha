@@ -77,7 +77,7 @@ fileprivate struct TagPickerSheet: View {
             Button(role: .destructive) {
                 viewContext.delete(tag)
             } label: {
-                Label("delete", systemImage: "remove.circle.fill")
+                Label("delete", systemImage: "minus.circle.fill")
             }
             .tint(Color.red)
         }
