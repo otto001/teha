@@ -8,7 +8,15 @@
 import SwiftUI
 
 struct TasksListView: View {
-    @FetchRequest(fetchRequest: THTask.all) var tasks: FetchedResults<THTask>
+    @EnvironmentObject var filter: TasksFilterViewModel
+    
+    var body: some View {
+        FilteredTasksListView(tasks: FetchRequest(fetchRequest: filter.fetchRequest))
+    }
+}
+
+fileprivate struct FilteredTasksListView: View {
+    @FetchRequest var tasks: FetchedResults<THTask>
     
     var body: some View {
         List(tasks) { task in
@@ -19,6 +27,8 @@ struct TasksListView: View {
 
 struct TasksListView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TasksListView()
+            .environmentObject(TasksFilterViewModel())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

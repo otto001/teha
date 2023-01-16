@@ -32,6 +32,8 @@
 
 "color-yellow" = "Gelb";
 
+"completed" = "Erledigt";
+
 "custom" = "Benutzerdefiniert";
 
 "deadline" = "Deadline";
@@ -66,9 +68,19 @@
 
 "low-priority" = "Niedrige Priorität";
 
+"mark-as-not-completed" = "Als nicht erledigt markieren";
+
+"mark-as-not-completed-are-you-sure" = "Soll diese Aufgabe wirklich als nicht erledigt markiert werden?";
+
+"mark-as-not-started" = "Als nicht angefangen markieren";
+
+"mark-as-not-started-are-you-sure" = "Soll diese Aufgabe wirklich als nicht angefangen markiert werden?";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
+
+"new-task" = "Neue Aufgabe";
 
 "none" = "Nichts";
 
@@ -91,6 +103,10 @@
 "remove-%@" = "Entferne %@";
 
 "settings" = "Einstellungen";
+
+"started" = "Angefangen";
+
+"tags" = "Tags";
 
 "task" = "Aufgabe";
 

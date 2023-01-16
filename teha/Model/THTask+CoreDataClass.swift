@@ -23,6 +23,26 @@ extension THTask {
         return request
     }
     
+    static func filter(project: THProject) -> NSFetchRequest<THTask> {
+        let request = THTask.all
+        request.predicate = NSPredicate(format: "project == %@", project)
+        return request
+    }
+    
 }
 
+
+extension NSFetchRequest where ResultType == THTask {
+    func filter(project: THProject) {
+        self.predicateAnd(with: NSPredicate(format: "project == %@", project))
+    }
+    
+    func filter(priority: Priority) {
+        self.predicateAnd(with: NSPredicate(format: "project.priorityNumber == %d", priority.rawValue))
+    }
+    
+    func filter(search: String) {
+        self.predicateAnd(with: NSPredicate(format: "(title CONTAINS[cd] %@) OR (project.name CONTAINS[cd] %@) OR (notes CONTAINS[cd] %@)", search, search, search))
+    }
+}
 

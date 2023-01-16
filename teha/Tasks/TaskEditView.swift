@@ -7,17 +7,63 @@
 
 import SwiftUI
 
- 
+
 
 struct TaskEditView: View {
-    @State var data = Data()
-
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) var dismiss: DismissAction
+    
+   
+    @State var data = FormData()
+    
+    let mode: Mode
+    
+    var task: THTask? {
+        if case let .edit(task) = mode {
+            return task
+        }
+        return nil
+    }
+    
+    var editing: Bool {
+        return task != nil
+    }
+    
+    var navigationTitle: String {
+        return editing ? data.title : String(localized: "new-task")
+    }
+    
+    func done() {
+        guard data.valid else { return }
+        
+        let task = task ?? THTask(context: viewContext)
+        
+        task.title = data.title
+        task.notes = data.notes
+        
+        task.earliestStartDate = data.earliestStartDate
+        task.deadline = data.deadline
+        
+        task.project = data.project
+        
+        task.tags = data.tags as NSSet
+        
+        if !editing {
+            task.creationDate = Date.now
+        }
+        
+        // TODO: error handling
+        try? viewContext.save()
+        
+        dismiss()
+    }
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
                     TextField(LocalizedStringKey("title"), text: $data.title)
+                    ProjectPicker("project",  selection: $data.project)
                 }
 
                 Section {
@@ -26,12 +72,24 @@ struct TaskEditView: View {
                                        selection: $data.earliestStartDate)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $data.targetCompletionDate)
+                                       selection: $data.deadline)
                 }
-
+                
                 Section {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
+                }
+                
+                Section {
+                    TagPicker(selection: $data.tags)
+                }
+            }
+            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
+                dismiss()
+            }
+            .onAppear {
+                if let task = task {
+                    self.data = .init(task: task)
                 }
             }
         }
@@ -39,19 +97,44 @@ struct TaskEditView: View {
 }
 
 extension TaskEditView {
-    struct Data {
+    struct FormData {
         var title: String = ""
         var notes: String = ""
         var earliestStartDate: Date? = nil
-        var targetCompletionDate: Date? = Date.now
+        var deadline: Date? = nil
         var timeEstimate: Double? = nil
         
-        var test: Date = .now
+        var project: THProject?
+        
+        var tags: Set<THTag> = .init()
+        
+        var valid: Bool {
+            return !title.isEmpty
+        }
+        
+        init() {
+            
+        }
+        
+        init(task: THTask) {
+            self.title = task.title ?? ""
+            self.notes = task.notes ?? ""
+            self.earliestStartDate = task.earliestStartDate
+            self.deadline = task.deadline
+            self.timeEstimate = task.timeEstimate
+            self.project = task.project
+            self.tags = task.tags as? Set<THTag> ?? .init()
+        }
+    }
+    
+    enum Mode {
+        case add
+        case edit(THTask)
     }
 }
 
 struct TaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskEditView()
+        TaskEditView(mode: .add)
     }
 }
