@@ -8,9 +8,8 @@
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="project" inverseEntity="THTask"/>
     </entity>
-    <entity name="THTag" representedClassName="THTag" syncable="YES" codeGenerationType="class">
-        <attribute name="color" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+    <entity name="THTag" representedClassName="THTag" syncable="YES" codeGenerationType="category">
+        <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="tags" inverseEntity="THTask"/>
     </entity>
     <entity name="THTask" representedClassName="THTask" syncable="YES" codeGenerationType="category">
