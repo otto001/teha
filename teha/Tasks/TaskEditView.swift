@@ -46,6 +46,8 @@ struct TaskEditView: View {
         
         task.project = data.project
         
+        task.tags = data.tags as NSSet
+        
         if !editing {
             task.creationDate = Date.now
         }
@@ -77,6 +79,10 @@ struct TaskEditView: View {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
                 }
+                
+                Section {
+                    TagPicker(selection: $data.tags)
+                }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
                 dismiss()
@@ -100,6 +106,8 @@ extension TaskEditView {
         
         var project: THProject?
         
+        var tags: Set<THTag> = .init()
+        
         var valid: Bool {
             return !title.isEmpty
         }
@@ -115,7 +123,7 @@ extension TaskEditView {
             self.deadline = task.deadline
             self.timeEstimate = task.timeEstimate
             self.project = task.project
-
+            self.tags = task.tags as? Set<THTag> ?? .init()
         }
     }
     
