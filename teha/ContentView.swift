@@ -19,6 +19,9 @@ enum Tab: String, RawRepresentable {
 struct ContentView: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
     
+    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.scenePhase) var scenePhase
+    
     // ensure that the tasks tab is the default tab (i.e., landing page)
     @State private var tab: Tab = .tasks
     
@@ -30,6 +33,14 @@ struct ContentView: View {
             SettingsTab().tag(Tab.settings)
         }
         .tint(accentColor.color) // apply accent color setting to app
+        .onChange(of: scenePhase) { scenePhase in
+            switch scenePhase {
+            case .inactive, .background:
+                try? viewContext.save()
+            default:
+                break
+            }
+        }
     }
 }
 
