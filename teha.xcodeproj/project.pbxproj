@@ -42,6 +42,7 @@
 		02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E789182974B3C400F521D0 /* CGRect+Utils.swift */; };
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
+		0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDD6B1629759786006F4B95 /* LocalNotification.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
@@ -88,6 +89,7 @@
 		02E789182974B3C400F521D0 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
+		0CDD6B1629759786006F4B95 /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		029615F0295617A50073E378 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				0CDD6B1629759786006F4B95 /* LocalNotification.swift */,
 				029615DF295617920073E378 /* SimpleColorPicker.swift */,
 				029615F229561A280073E378 /* Navigation.swift */,
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
@@ -345,6 +348,7 @@
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
+				0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,

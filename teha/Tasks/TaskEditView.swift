@@ -46,6 +46,8 @@ struct TaskEditView: View {
         
         task.project = data.project
         
+        task.reminder = data.reminder
+        
         task.tags = data.tags as NSSet
         
         if !editing {
@@ -55,6 +57,10 @@ struct TaskEditView: View {
         // TODO: error handling
         try? viewContext.save()
         
+        if task.reminder != nil  {
+            NotificationManager.instance.scheduleNotification()
+        }
+            
         dismiss()
     }
     
@@ -73,6 +79,12 @@ struct TaskEditView: View {
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $data.deadline)
+                }
+
+                Section {
+                    OptionalDatePicker(LocalizedStringKey("reminder"),
+                                       addText: LocalizedStringKey("reminder-add"),
+                                       selection: $data.reminder)
                 }
                 
                 Section {
@@ -103,6 +115,7 @@ extension TaskEditView {
         var earliestStartDate: Date? = nil
         var deadline: Date? = nil
         var timeEstimate: Double? = nil
+        var reminder: Date? = nil // TODO: This shouldn't be of type date
         
         var project: THProject?
         
@@ -124,6 +137,7 @@ extension TaskEditView {
             self.timeEstimate = task.timeEstimate
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
+            self.reminder = task.reminder
         }
     }
     

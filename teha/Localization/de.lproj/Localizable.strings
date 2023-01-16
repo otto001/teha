@@ -98,6 +98,10 @@
 
 "projects" = "Projekte";
 
+"reminder" = "Erinnerung";
+
+"reminder-add" = "Füge Erinnerung hinzu";
+
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
