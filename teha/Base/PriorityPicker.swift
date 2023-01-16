@@ -46,7 +46,7 @@ struct PriorityPicker<PickerLabel: View>: View {
 
                     }
                 }
-            }.pickerStyle(MenuPickerStyle())
+            }.pickerStyle(.automatic)
 
         }
     }
