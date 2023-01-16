@@ -13,6 +13,7 @@
 		025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF44229718CD400959F05 /* ProjectLabel.swift */; };
 		026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */; };
 		0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271BF2329745F27000A601D /* NSFetchRequest+Filter.swift */; };
+		0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271BF282974738C000A601D /* THTag+CoreDataClass.swift */; };
 		0271BF2D29747D4C000A601D /* FlexHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271BF2C29747D4C000A601D /* FlexHStack.swift */; };
 		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
@@ -51,6 +52,7 @@
 		025EF44229718CD400959F05 /* ProjectLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLabel.swift; sourceTree = "<group>"; };
 		026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIKitColors.swift"; sourceTree = "<group>"; };
 		0271BF2329745F27000A601D /* NSFetchRequest+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Filter.swift"; sourceTree = "<group>"; };
+		0271BF282974738C000A601D /* THTag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0271BF2C29747D4C000A601D /* FlexHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexHStack.swift; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				029615E2295617920073E378 /* teha.xcdatamodeld */,
 				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
 				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
+				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
+				0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
