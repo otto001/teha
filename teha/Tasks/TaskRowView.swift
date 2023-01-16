@@ -32,9 +32,17 @@ struct TaskRowView: View {
     
     @ViewBuilder
     var circle: some View {
-        Circle()
-            .stroke(lineWidth: 2)
-            .foregroundColor(task.project?.color.color ?? .label)
+        ZStack {
+            Circle().stroke(lineWidth: 2)
+            if task.isCompleted {
+                Circle().padding(.all, 2)
+            } else if task.isStarted {
+                Circle().padding(.all, 2).mask(alignment: .leading) {
+                    Rectangle().frame(width: 7)
+                }
+            }
+        }
+        .foregroundColor(task.project?.color.color ?? .label)
     }
     
     var body: some View {
