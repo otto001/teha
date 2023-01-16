@@ -74,6 +74,18 @@ fileprivate struct ProgressCapsule: View {
 struct TaskProgressBar: View {
     @ObservedObject var task: THTask
     
+    var completedBinding: Binding<Date?> {
+        Binding {
+            return task.completionDate
+        } set: { newValue, _ in
+            task.completionDate = newValue
+            if task.startDate == nil && newValue != nil {
+                task.startDate = newValue
+            }
+        }
+
+    }
+    
     var body: some View {
         HStack {
             ProgressCapsule(titleKey: "started",
@@ -83,7 +95,7 @@ struct TaskProgressBar: View {
                             skipped: task.completionDate != nil)
             
             ProgressCapsule(titleKey: "completed",
-                            date: $task.completionDate,
+                            date: completedBinding,
                             resetConfirmationTitleKey: "mark-as-not-completed-are-you-sure",
                             resetConfirmationActionKey: "mark-as-not-completed")
         }
