@@ -32,6 +32,8 @@
 
 "color-yellow" = "Yellow";
 
+"completed" = "Completed";
+
 "custom" = "Custom";
 
 "deadline" = "Deadline";
@@ -66,6 +68,14 @@
 
 "low-priority" = "Low Priority";
 
+"mark-as-not-completed" = "Mark as not completed";
+
+"mark-as-not-completed-are-you-sure" = "Are you sure you want to mark this task as not completed?";
+
+"mark-as-not-started" = "Mark as not started";
+
+"mark-as-not-started-are-you-sure" = "Are you sure you want to mark this task as not started?";
+
 "name" = "Name";
 
 "new-project" = "New Project";
@@ -93,6 +103,8 @@
 "remove-%@" = "Remove %@";
 
 "settings" = "Settings";
+
+"started" = "Started";
 
 "tags" = "Tags";
 

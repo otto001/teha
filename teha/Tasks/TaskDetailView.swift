@@ -14,16 +14,25 @@ fileprivate var dateFormatter: DateFormatter = {
     return formatter
 }()
 
+fileprivate var dateFormatterRelative: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    formatter.doesRelativeDateFormatting = true
+    return formatter
+}()
+
 fileprivate struct DateRow: View {
     let title: LocalizedStringKey
     let date: Date?
+    let color: (_ date: Date) -> Color
     
     var body: some View {
         if let date = date {
             LabeledContent(title) {
                 Text(dateFormatter.string(from: date))
                     .fixedSize()
-                    .foregroundColor(.label)
+                    .foregroundColor(color(date))
             }
         }
     }
@@ -36,29 +45,70 @@ struct TaskDetailView: View {
     
     @State private var editSheet: Bool = false
     @State private var showNavigationBarTitle: Bool = false
+    @State private var hasShownNavigationBarTitle: Bool = false
+    
+    var canStart: Bool {
+        task.startDate == nil && task.completionDate == nil
+    }
+    
+    var canComplete: Bool {
+        task.completionDate == nil
+    }
+    
+    var navigationBarTitle: String {
+        task.title ?? ""
+    }
     
     @ViewBuilder func titleSection(geo: GeometryProxy) -> some View {
         Section {
             
         } header: {
-            Text(task.title ?? "")
-                .font(.title2)
-                .fontWeight(.medium)
-                .textCase(.none)
-                .listRowInsets(EdgeInsets())
-                .foregroundColor(.label)
-                .background {
-                    GeometryReader { titleGeometry in
-                        let titleY = titleGeometry.frame(in: .global).maxY
-                        Color.clear
-                            .onChange(of: titleY) { newValue in
-                                self.showNavigationBarTitle = newValue < geo.safeAreaInsets.top
-                            }
+            VStack(alignment: .leading, spacing: 6) {
+                Text(task.title ?? "")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    
+                    .foregroundColor(.label)
+                    .background {
+                        GeometryReader { titleGeometry in
+                            let titleY = titleGeometry.frame(in: .global).maxY
+                            Color.clear
+                                .onChange(of: titleY) { newValue in
+                                    showNavigationBarTitle = newValue < geo.safeAreaInsets.top
+                                    if showNavigationBarTitle {
+                                        hasShownNavigationBarTitle = true
+                                    }
+                                }
+                        }
                     }
+                
+                if let completionDate = task.completionDate {
+                    Text("\(String(localized: "completed")): \(dateFormatterRelative.string(from: completionDate))")
+                } else if let earliestStartDate = task.earliestStartDate,
+                   !(task.deadline != nil && earliestStartDate <= .now),
+                   task.startDate == nil && task.completionDate == nil {
+                    Text("\(String(localized: "earliest-startdate")): \(dateFormatterRelative.string(from: earliestStartDate))")
+                } else if let deadline = task.deadline, task.completionDate == nil {
+                    Text("\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))")
                 }
-            
-                .padding(.horizontal, 6)
+                
+            }
+            .textCase(.none)
+            .listRowInsets(EdgeInsets())
+            .padding(.horizontal, 6)
         }
+        .padding(.bottom, -16)
+    }
+    
+    @ViewBuilder var progressBar: some View {
+        Section {
+        } header: {
+            TaskProgressBar(task: task)
+                .listRowInsets(EdgeInsets())
+                .padding(.horizontal, 6)
+                .textCase(.none)
+        }
+        .padding(.top, 28)
         .padding(.bottom, -16)
     }
     
@@ -79,8 +129,12 @@ struct TaskDetailView: View {
     @ViewBuilder var datesSection: some View {
         if task.earliestStartDate != nil || task.deadline != nil {
             Section {
-                DateRow(title: "earliest-startdate", date: task.earliestStartDate)
-                DateRow(title: "deadline", date: task.deadline)
+                DateRow(title: "earliest-startdate", date: task.earliestStartDate) { date in
+                    return date <= .now ? .green : .label
+                }
+                DateRow(title: "deadline", date: task.deadline) { date in
+                    return date < .now ? .red : .label
+                }
             }
         }
     }
@@ -93,19 +147,35 @@ struct TaskDetailView: View {
         }
     }
     
+    @ViewBuilder var tagsSection: some View {
+        if let tags = task.tags as? Set<THTag>, !tags.isEmpty {
+            Section {
+                TagCollection("tags", tags: tags)
+            }
+        }
+    }
+    
     var body: some View {
         
         GeometryReader { geo in
             List {
                 titleSection(geo: geo)
+                progressBar
                 projectSection
                 datesSection
                 notesSection
+                tagsSection
             }
         }
-        .navigationTitle(self.showNavigationBarTitle ? task.title ?? "" : "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(hasShownNavigationBarTitle ? navigationBarTitle : "")
+                    .lineLimit(1)
+                    .opacity(showNavigationBarTitle ? 1 : 0)
+                    .animation(.linear(duration: 0.2), value: showNavigationBarTitle)
+                    .transition(.opacity)
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     editSheet = true
