@@ -46,8 +46,8 @@ struct ProjectStatsView: View {
     var dueToday: Float {
         let today = Calendar.current.dateComponents([.year, .month, .day], from: Date.now)
         let dueToday = tasks
-            .filter { $0.targetCompletionDate != nil }
-            .filter { isSameDay(a: Calendar.current.dateComponents([.year, .month, .day], from: $0.targetCompletionDate!), b: today) }
+            .filter { $0.deadline != nil }
+            .filter { isSameDay(a: Calendar.current.dateComponents([.year, .month, .day], from: $0.deadline!), b: today) }
             .count
         return Float(dueToday)
     }
@@ -55,8 +55,8 @@ struct ProjectStatsView: View {
     var overdue: Float {
         let today = Date.now
         let dueToday = tasks
-            .filter { $0.targetCompletionDate != nil }
-            .filter { $0.targetCompletionDate! < today }
+            .filter { $0.deadline != nil }
+            .filter { $0.deadline! < today }
             .count
         return Float(dueToday)
     }
