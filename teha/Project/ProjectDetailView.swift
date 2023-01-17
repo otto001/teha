@@ -11,7 +11,7 @@ struct ProjectNoStatsView: View {
     var body: some View {
         VStack(spacing: 12) {
             Image(systemName: "list.bullet").font(.largeTitle)
-            Text("No Tasks yet")
+            Text("tasks-none")
         }
     }
 }

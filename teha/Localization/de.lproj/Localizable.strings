@@ -116,6 +116,16 @@
 
 "tasks-completed" = "Beendete Aufgaben";
 
+"tasks-due-today" = "Bis heute";
+
+"tasks-finished" = "Fertig";
+
+"tasks-none" = "Keine Aufgaben";
+
+"tasks-overdue" = "Überfällig";
+
+"tasks-todo" = "To Do";
+
 "title" = "Titel";
 
 "urgent" = "Dringend";
