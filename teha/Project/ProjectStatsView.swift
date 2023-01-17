@@ -30,7 +30,7 @@ struct StatView: View {
             Text(String(format: "%.0f", value)).bold().font(.title)
         }
         .padding(.all)
-        .background(.quaternary)
+        .background(Color.tertiarySystemFill)
         .cornerRadius(8)
     }
 }
