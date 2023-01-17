@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+func isSameDay(a: DateComponents, b: DateComponents) -> Bool {
+    a.year == b.year && a.month == b.month && a.day == b.day
+}
+
 struct StatView: View {
     let name: String
     let value: Float
@@ -39,15 +43,43 @@ struct ProjectStatsView: View {
         return Array(tasks as! Set<THTask>)
     }
     
+    var dueToday: Float {
+        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date.now)
+        let dueToday = tasks
+            .filter { $0.targetCompletionDate != nil }
+            .filter { isSameDay(a: Calendar.current.dateComponents([.year, .month, .day], from: $0.targetCompletionDate!), b: today) }
+            .count
+        return Float(dueToday)
+    }
+    
+    var overdue: Float {
+        let today = Date.now
+        let dueToday = tasks
+            .filter { $0.targetCompletionDate != nil }
+            .filter { $0.targetCompletionDate! < today }
+            .count
+        return Float(dueToday)
+    }
+    
+    var todo: Float {
+        let todo = tasks.filter { $0.completionDate == nil }.count
+        return Float(todo)
+    }
+    
+    var finished: Float {
+        let finished = tasks.filter { $0.completionDate != nil }.count
+        return Float(finished)
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                StatView(name: "Due today", value: 8, color: .orange, systemName: "calendar")
-                StatView(name: "Overdue", value: 3, color: .red, systemName: "calendar.badge.exclamationmark")
+                StatView(name: "Due today", value: dueToday, color: .orange, systemName: "calendar")
+                StatView(name: "Overdue", value: overdue, color: .red, systemName: "calendar.badge.exclamationmark")
             }
             HStack(spacing: 12) {
-                StatView(name: "To Do", value: 32, color: .blue, systemName: "paintbrush")
-                StatView(name: "Finished", value: 7, color: .gray, systemName: "checkmark.circle")
+                StatView(name: "To Do", value: todo, color: .blue, systemName: "paintbrush")
+                StatView(name: "Finished", value: finished, color: .gray, systemName: "checkmark.circle")
             }
             Spacer()
         }.padding(.horizontal, 24)
