@@ -42,12 +42,12 @@ struct ProjectStatsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                StatView(name: "Test", value: 8, color: .blue, systemName: "function")
-                StatView(name: "Hello", value: 3, color: .orange, systemName: "flag.fill")
+                StatView(name: "Due today", value: 8, color: .orange, systemName: "calendar")
+                StatView(name: "Overdue", value: 3, color: .red, systemName: "calendar.badge.exclamationmark")
             }
             HStack(spacing: 12) {
-                StatView(name: "More stats", value: 32, color: .pink, systemName: "paintbrush")
-                StatView(name: "Dataaaa", value: 7, color: .gray, systemName: "skew")
+                StatView(name: "To Do", value: 32, color: .blue, systemName: "paintbrush")
+                StatView(name: "Finished", value: 7, color: .gray, systemName: "checkmark.circle")
             }
             Spacer()
         }.padding(.horizontal, 24)
