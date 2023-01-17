@@ -9,6 +9,7 @@ import SwiftUI
 
 enum SettingsAppStorageKey: String {
     case accentColor = "settings.accentColor"
+    case onboardingdone = "settings.onboardingdone"
 }
 
 struct SettingsTab: View {

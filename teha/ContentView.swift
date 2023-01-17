@@ -22,14 +22,41 @@ struct ContentView: View {
     // ensure that the tasks tab is the default tab (i.e., landing page)
     @State private var tab: Tab = .tasks
     
+    @AppStorage(SettingsAppStorageKey.onboardingdone.rawValue) private var onboardingdone: Bool = false
+    @State private var currentTab = 0
+    
     var body: some View {
         // Create root TabView and add all main views for app
-        TabView(selection: $tab) {
-            ProjectsTab().tag(Tab.projects)
-            TasksTab().tag(Tab.tasks)
-            SettingsTab().tag(Tab.settings)
+        if(onboardingdone){
+            TabView(selection: $tab) {
+                ProjectsTab().tag(Tab.projects)
+                TasksTab().tag(Tab.tasks)
+                SettingsTab().tag(Tab.settings)
+            }
+            .tint(accentColor.color)
         }
-        .tint(accentColor.color) // apply accent color setting to app
+        else {
+            VStack {
+                TabView(selection: $currentTab, content: {
+                    ForEach(OnboardingData.list) { viewData in
+                        OnboardingView(data: viewData)
+                            .tag(viewData.id)
+                    }
+                })
+                .tabViewStyle(PageTabViewStyle())
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                Button(action:{
+                    onboardingdone = true
+                }, label: {
+                    Text("get-started")
+                        .font(.headline)
+                        .foregroundColor(.label)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 20))
+                })
+                .shadow(radius: 10)
+            }
+        }// apply accent color setting to app
     }
 }
 

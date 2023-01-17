@@ -102,6 +102,10 @@
 
 "remove-%@" = "Entferne %@";
 
+"screenshot-tasks" = "screenshot-tasks-de";
+
+"screenshot-projects" = "screenshot-projects-de";
+
 "settings" = "Einstellungen";
 
 "started" = "Angefangen";
