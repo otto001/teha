@@ -39,6 +39,8 @@ private struct ProjectRow: View {
             Button { showDeleteDialog = true } label: {
                 Label("delete", systemImage: "trash")
             }.tint(.red)
+        }
+        .swipeActions(edge: .leading) {
             Button {
                 project.completed = !project.completed
                 // TODO: error handling
