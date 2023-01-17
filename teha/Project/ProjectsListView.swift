@@ -10,8 +10,7 @@ import CoreData
 
 
 private struct ProjectRow: View {
-    let project: THProject
-    let edit: () -> Void
+    @ObservedObject var project: THProject
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var showDeleteDialog = false
@@ -22,11 +21,8 @@ private struct ProjectRow: View {
                 .foregroundColor(project.color.color)
                 .fixedSize()
             Text(project.name ?? "").strikethrough(project.completed)
-            Spacer()
-            Button {
-                edit()
-            } label: {
-                Image(systemName: "info.circle")
+            NavigationLink("") {
+                ProjectDetailView(project: project)
             }
         }
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
@@ -68,12 +64,12 @@ struct ProjectsListView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(sections) { section in
-                Section(sectionTitle(for: section.id)) {
-                    ForEach(section) { project in
-                        ProjectRow(project: project) {
-                            editProject = project
+        RoutedNavigation { router in
+            List {
+                ForEach(sections) { section in
+                    Section(sectionTitle(for: section.id)) {
+                        ForEach(section) { project in
+                            ProjectRow(project: project)
                         }
                     }
                 }
