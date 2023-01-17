@@ -69,9 +69,12 @@ struct ProjectsListView: View {
         RoutedNavigation { router in
             List {
                 ForEach(sections) { section in
-                    Section(sectionTitle(for: section.id)) {
-                        ForEach(section.search(query: query)) { project in
-                            ProjectRow(project: project)
+                    let projects = section.search(query: query)
+                    if projects.count > 0 {
+                        Section(sectionTitle(for: section.id)) {
+                            ForEach(projects) { project in
+                                ProjectRow(project: project)
+                            }
                         }
                     }
                 }
