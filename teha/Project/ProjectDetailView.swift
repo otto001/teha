@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ProjectNoStatsView: View {
     var body: some View {
-        VStack {
-            Text("No data :(")
+        VStack(spacing: 12) {
+            Image(systemName: "list.bullet").font(.largeTitle)
+            Text("No Tasks yet")
         }
     }
 }
