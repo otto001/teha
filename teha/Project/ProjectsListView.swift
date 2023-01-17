@@ -54,6 +54,8 @@ struct ProjectsListView: View {
     @SectionedFetchRequest<Int, THProject>(fetchRequest: THProject.projectsListFetchRequest, sectionIdentifier: \.projectsListSection, animation: .easeInOut)
     private var sections: SectionedFetchResults<Int, THProject>
     
+    var query: String
+    
     @State private var editProject: THProject? = nil
     
     func sectionTitle(for id: Int) -> LocalizedStringKey {
@@ -68,7 +70,7 @@ struct ProjectsListView: View {
             List {
                 ForEach(sections) { section in
                     Section(sectionTitle(for: section.id)) {
-                        ForEach(section) { project in
+                        ForEach(section.search(query: query)) { project in
                             ProjectRow(project: project)
                         }
                     }
@@ -79,6 +81,14 @@ struct ProjectsListView: View {
         .sheet(item: $editProject) { project in
             ProjectEditView(.edit(project))
         }
+    }
+}
+
+fileprivate extension SectionedFetchResults<Int, THProject>.Element {
+    func search(query: String) -> [THProject] {
+        if query == "" {return Array(self)}
+        
+        return Array(self).filter { $0.name?.contains(query) ?? false }
     }
 }
 
@@ -102,6 +112,6 @@ fileprivate extension THProject {
 
 struct ProjectsListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ProjectsListView(query: "").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
