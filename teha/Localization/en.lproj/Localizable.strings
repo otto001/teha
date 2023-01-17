@@ -40,6 +40,8 @@
 
 "deadline-add" = "Add Deadline";
 
+"deadline-approaching" = "Approaching Deadline:";
+
 "deadline-remove" = "Remove Deadline";
 
 "delete" = "Delete";

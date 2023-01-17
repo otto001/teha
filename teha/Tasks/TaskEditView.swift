@@ -58,7 +58,7 @@ struct TaskEditView: View {
         try? viewContext.save()
         
         if task.reminder != nil  {
-            NotificationManager.instance.scheduleNotification()
+            NotificationManager.instance.scheduleNotification(task: task)
         }
             
         dismiss()

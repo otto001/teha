@@ -38,35 +38,54 @@ class NotificationManager {
         
     }
     
-    func scheduleNotification() {
+    func scheduleNotification(task: THTask) {
+
+        var test: Bool = true // TODO: remove later
         
+        // Returns current notification center
         let center = UNUserNotificationCenter.current()
-        
+
         // Create content of notification
         let content = UNMutableNotificationContent()
-        content.title = "deadline-approaching" // TODO
-        content.subtitle = "name-of-the-task" // TODO
+        content.title = String(localized:"deadline-approaching")
+        content.subtitle = task.title ?? ""
+        
+        if let deadline = task.deadline {
+            content.body = deadline.formatted()
+        }
+        
         content.sound = .default
         content.badge = (self.numOfPendingNotifications + 1) as NSNumber
-        
+
         self.numOfPendingNotifications += 1
 
         // Create trigger for notification
-        //var dateComponents = DateComponents()
-        //dateComponents.hour = 15 // TODO
-        //dateComponents.minute = 10 // TODO
-        let date = Date().addingTimeInterval(10)
-        let dateComponents = Calendar.current.dateComponents(
-            [.year, .month, .day, .hour, .minute, .second],
-            from: date)
+        
+        var dateComponents: DateComponents = DateComponents() // TODO: remove later
+        
+        if test { // TODO: remove later
+            let date = Date().addingTimeInterval(10)
+            dateComponents = Calendar.current.dateComponents(
+                [.year, .month, .day, .hour, .minute, .second],
+                from: date)
+        } else {
+            if let deadline = task.deadline {
+                let deadlineDateComponents = Calendar.current.dateComponents(
+                    [.year, .month, .day, .hour, .minute],
+                    from: deadline)
+            }
+            // TODO: create actual reminder time
+//        guard let reminderDate = dateComponents.minute - dateComponents2.minute else {
+//            return
+        }
+        
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
             repeats: false)
-        
+
         // Create a notification request for notification center
-        let uuidString = UUID().uuidString
         let request = UNNotificationRequest(
-            identifier: uuidString,
+            identifier: task.objectID.uriRepresentation().absoluteString,
             content: content,
             trigger: trigger)
 
@@ -77,62 +96,8 @@ class NotificationManager {
                 print("ERROR: \(error)")
             }
         }
-        
+
     }
-    
-//    func scheduleNotification(task: THTask) {
-//
-//        // Returns current notification center
-//        let center = UNUserNotificationCenter.current()
-//
-//        // Necessary information about the task
-//        let taskname = task.title
-//        let deadline = task.targetCompletionDate
-//        let taskid = task.id // TODO: jedes Objekt hat automatisch eine eigene id
-//        let reminder = task.reminder
-//
-////        var dateComponents = DateComponents()
-////        dateComponents.day = 10
-////        dateComponents.hour = 15
-////        dateComponents.minute = 10
-////
-////        var dateComponents2 = DateComponents()
-////        dateComponents.minute = 5
-////
-////        guard let reminderDate = dateComponents.minute - dateComponents2.minute else {
-////            return
-////        }
-//
-//        // Create content of notification
-//        let content = UNMutableNotificationContent()
-//        content.title = "deadline-approaching" // TODO
-//        content.subtitle = taskname
-//        content.sound = .default
-//        content.badge = (self.numOfPendingNotifications + 1) as NSNumber
-//
-//        self.numOfPendingNotifications += 1
-//
-//        // Create trigger for notification
-//        let dateComponents = deadline // TODO
-//        let trigger = UNCalendarNotificationTrigger(
-//            dateMatching: dateComponents,
-//            repeats: false)
-//
-//        // Create a notification request for notification center
-//        let request = UNNotificationRequest(
-//            identifier: taskid,
-//            content: content,
-//            trigger: trigger)
-//
-//        // Add request to notification center
-//        center.add(request) { (error) in
-//            // Check the error parameter and handle any errors
-//            if let error = error {
-//                print("ERROR: \(error)")
-//            }
-//        }
-//
-//    }
     
     func cancelAllNotifications() {
         

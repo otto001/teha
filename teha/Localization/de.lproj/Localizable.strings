@@ -40,6 +40,8 @@
 
 "deadline-add" = "Füge Deadline hinzu";
 
+"deadline-approaching" = "Näher rückende Deadline:";
+
 "deadline-remove" = "Entferne Deadline";
 
 "delete" = "Löschen";
