@@ -7,100 +7,96 @@
 
 import SwiftUI
 
-fileprivate var dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .short
+// The formatter used in TaskRowView for the remining time until deadline
+fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
+    let formatter = RelativeDateTimeFormatter()
+    formatter.unitsStyle = .full
+    formatter.dateTimeStyle = .named
+    formatter.formattingContext = .listItem
     return formatter
 }()
 
-fileprivate extension VerticalAlignment {
-    struct TaskRowAlignment: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            return context[.top]
-        }
-    }
-    
-    static let taskRowAlignment = VerticalAlignment(TaskRowAlignment.self)
-}
-
 
 struct TaskRowView: View {
-    @EnvironmentObject var router: Router
-
     @ObservedObject var task: THTask
     
-    @ViewBuilder
-    var circle: some View {
-        ZStack {
-            Circle().stroke(lineWidth: 2)
-            if task.isCompleted {
-                Circle().padding(.all, 2)
-            } else if task.isStarted {
-                Circle().padding(.all, 2).mask(alignment: .leading) {
-                    Rectangle().frame(width: 7)
-                }
-            }
+    @EnvironmentObject var router: Router
+    
+    /// The content of the text right above the progress bar.
+    /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
+    var timeRemainingText: String? {
+        guard !task.isCompleted else { return nil }
+        if let deadline = task.deadline {
+            let now: Date = .now
+            return timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
         }
-        .foregroundColor(task.project?.color.color ?? .label)
+        return nil
+    }
+    
+    /// The color of the text right above the progress bar
+    var timeRemainingColor: Color {
+        if let deadline = task.deadline {
+            return deadline < .now - .minute ? .red : .secondaryLabel
+        }
+        return .secondaryLabel
     }
     
     var body: some View {
         
-        HStack(alignment: .taskRowAlignment) {
-            // Project Color
-            circle
-                .frame(width: 14)
-                .alignmentGuide(.taskRowAlignment) { d in
-                    d[VerticalAlignment.center]
-                }
-            
-            // Task Title & Project Name
-            VStack(alignment: .leading) {
-                ZStack(alignment: .topLeading) {
-                    // In order to support automatic line breaks in tasks while preserving the layout, we use a Text with a single line that is overlayed with the text but invisible
-                    // Yes its as dumb as it sounds but the only (simple) solution i could come up with
-                    Text("X")
-                        .foregroundColor(.clear)
-                        .alignmentGuide(.taskRowAlignment) { d in
-                            d[VerticalAlignment.center]
-                        }
-                    Text(task.title ?? "")
-                        .lineLimit(2)
-                    
-                }
+        HStack(alignment: .center, spacing: 8) {
+
+            // Left section: Task Title & Project Name & Color
+            VStack(alignment: .leading, spacing: 2) {
                 
+                Text(task.title ?? "")
+                    .lineLimit(2)
+                    .strikethrough(task.isCompleted)
+                    .fontWeight(.medium)
                 
+                // Show project label if applicable
                 if let project = task.project {
-                    
-                    Text(project.name ?? "")
+                    ProjectLabel(project: project)
                         .lineLimit(1)
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
                 }
-                
             }
             
             Spacer()
             
-            // Dates
-            VStack(alignment: .trailing) {
-                if let deadline = task.deadline {
-                    Text("\(dateFormatter.string(from: deadline))")
-                        .font(.caption)
-                        .foregroundColor(deadline < .now ? .red : .label)
-                        .alignmentGuide(.taskRowAlignment) { d in
-                            d[VerticalAlignment.center]
-                        }
+            // Right section: Deadline (if applicable) & Task progress
+            VStack(alignment: .trailing, spacing: 2) {
+                // Show time remaining before deadline if applicable
+                if let timeRemainingText = timeRemainingText {
+                    Text(timeRemainingText)
+                        .lineLimit(1)
+                        .font(.caption2)
+                        .foregroundColor(timeRemainingColor)
                 }
+                
+                // small, gray TaskProgressBar
+                TaskProgressBar(task: task,
+                                activeColor: .secondaryLabel,
+                                inactiveColor: .systemFill)
+                .frame(width: 80, height: 5)
+                
+                // If we show text above the progress bar, we need to add text of the same size as the deadline text below the progress bar for spacing reasons.
+                // Unfortnately, we were unable to solve this alignment issue with alignment guides only, therefore we use a transparent text as a work-around
+                if timeRemainingText != nil {
+                    Text("1")
+                        .font(.caption2)
+                        .opacity(0)
+                }
+                
             }
+
         }
-        .padding(.vertical, 1)
+        .padding(.vertical, 2)
         .contentShape(Rectangle())
         .onTapGesture {
             router.push(task)
         }
-        
+        .frame(minHeight: 36)
     }
 }
 
