@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		02473758296F5B1800FE2943 /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02473757296F5B1800FE2943 /* ProjectsListView.swift */; };
 		02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02513BB3296DE56C00D28CDD /* ProjectPicker.swift */; };
+		025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */; };
+		025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */; };
 		025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF4402970A2A300959F05 /* TaskDetailView.swift */; };
 		025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF44229718CD400959F05 /* ProjectLabel.swift */; };
 		026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */; };
@@ -45,6 +47,8 @@
 		02E7891F29759CFA00F521D0 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891E29759CFA00F521D0 /* Priority.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
+		6E35D67829749E7300B42115 /* ProjectStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35D67729749E7300B42115 /* ProjectStatsView.swift */; };
+		6E6AB6D52971EBB900211CC0 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +56,8 @@
 /* Begin PBXFileReference section */
 		02473757296F5B1800FE2943 /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		02513BB3296DE56C00D28CDD /* ProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPicker.swift; sourceTree = "<group>"; };
+		025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBarInteractive.swift; sourceTree = "<group>"; };
+		025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Values.swift"; sourceTree = "<group>"; };
 		025EF4402970A2A300959F05 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		025EF44229718CD400959F05 /* ProjectLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLabel.swift; sourceTree = "<group>"; };
 		026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIKitColors.swift"; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		02E7891E29759CFA00F521D0 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
+		6E35D67729749E7300B42115 /* ProjectStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsView.swift; sourceTree = "<group>"; };
+		6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +132,8 @@
 				029615E5295617920073E378 /* ProjectEditView.swift */,
 				02513BB3296DE56C00D28CDD /* ProjectPicker.swift */,
 				025EF44229718CD400959F05 /* ProjectLabel.swift */,
+				6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */,
+				6E35D67729749E7300B42115 /* ProjectStatsView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -136,6 +146,7 @@
 				026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */,
 				0271BF2329745F27000A601D /* NSFetchRequest+Filter.swift */,
 				02E789182974B3C400F521D0 /* CGRect+Utils.swift */,
+				025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -174,6 +185,7 @@
 				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
 				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
 				02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */,
+				025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
 				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
 				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
@@ -319,6 +331,7 @@
 				025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */,
 				A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */,
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
+				6E35D67829749E7300B42115 /* ProjectStatsView.swift in Sources */,
 				02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */,
 				02473758296F5B1800FE2943 /* ProjectsListView.swift in Sources */,
 				A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */,
@@ -343,15 +356,18 @@
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
 				0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */,
+				025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
+				025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
 				02E7891F29759CFA00F521D0 /* Priority.swift in Sources */,
+				6E6AB6D52971EBB900211CC0 /* ProjectDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +526,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = teha;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -525,7 +543,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.mludwig.teha;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwig.teha-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -553,6 +571,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = teha;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -568,7 +588,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.mludwig.teha;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwig.teha-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

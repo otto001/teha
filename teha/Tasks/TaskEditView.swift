@@ -130,7 +130,7 @@ extension TaskEditView {
             self.priority = task.priority
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
-            self.timeEstimate = task.timeEstimate
+            self.timeEstimate = task.timeEstimate as? Double
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
         }
