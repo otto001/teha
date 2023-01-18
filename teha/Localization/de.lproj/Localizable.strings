@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%d-minutes-before" = "%d Minuten vor Deadline";
+
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";

@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priority";
 
+"%d-minutes-before" = "%d minutes before";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";

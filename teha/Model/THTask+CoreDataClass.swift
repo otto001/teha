@@ -14,6 +14,25 @@ public class THTask: NSManagedObject {
 
 }
 
+extension THTask {
+    var reminderOffset: ReminderOffset? {
+        get {
+            if let reminderMin=self.reminderMin {
+                return ReminderOffset(rawValue: Int(truncating: reminderMin))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue=newValue {
+                self.reminderMin = NSNumber(value:newValue.rawValue)
+            } else {
+                self.reminderMin = nil
+            }
+        }
+    }
+}
+
 //MARK: FetchRequests
 extension THTask {
     
