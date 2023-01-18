@@ -45,13 +45,14 @@ struct PriorityPicker<PickerLabel: View>: View {
             Picker(LocalizedStringKey(""), selection: $selection) {
                 if hasNoneOption {
                     Text(noneText).tag(PriorityTag.none).foregroundColor(.secondaryLabel)
+                    Divider()
                 }
-                Section {
-                    ForEach(Priority.allCases.reversed()) { priority in
-                        Text(priority.name).tag(PriorityTag.some(priority)).foregroundColor(.secondaryLabel)
 
-                    }
+                ForEach(Priority.allCases.reversed()) { priority in
+                    Text(priority.name).tag(PriorityTag.some(priority)).foregroundColor(.secondaryLabel)
+
                 }
+                
             }.pickerStyle(.automatic)
 
         }
