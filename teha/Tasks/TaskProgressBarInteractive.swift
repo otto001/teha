@@ -28,34 +28,34 @@ fileprivate struct ProgressCircleInteractive: View {
     
     var body: some View {
         TaskProgressBar.ProgressCircle(active: active,
-                       activeColor: activeColor,
-                       inactiveColor: inactiveColor)
-            .onTapGesture {
-                if !active {
-                    action()
-                } else {
-                    confirmationDialog = true
-                }
+                                       activeColor: activeColor,
+                                       inactiveColor: inactiveColor)
+        .onTapGesture {
+            if !active {
+                action()
+            } else {
+                confirmationDialog = true
             }
-            .confirmationDialog(resetConfirmationTitleKey, isPresented: $confirmationDialog) {
-                Button {
-                    undoAction()
-                } label: {
-                    Text(resetConfirmationActionKey)
-                }
-                
-                Button("cancel", role: .cancel) {
-                    confirmationDialog = false
-                }
-            } message: {
-                Text(resetConfirmationTitleKey)
+        }
+        .confirmationDialog(resetConfirmationTitleKey, isPresented: $confirmationDialog) {
+            Button {
+                undoAction()
+            } label: {
+                Text(resetConfirmationActionKey)
             }
+            
+            Button("cancel", role: .cancel) {
+                confirmationDialog = false
+            }
+        } message: {
+            Text(resetConfirmationTitleKey)
+        }
     }
 }
 
 struct TaskProgressBarInteractive: View {
     @ObservedObject var task: THTask
-
+    
     let activeColor: Color
     let inactiveColor: Color
     
@@ -135,7 +135,7 @@ struct TaskProgressBarInteractive: View {
                 }
             }
             .onEnded { _ in
-
+                
                 task.completionProgress = draggingProgress
                 if draggingProgress >= 1 {
                     completeTask()
@@ -148,51 +148,83 @@ struct TaskProgressBarInteractive: View {
         return gesture
     }
     
-    // TODO: Haptic Feedback
     var body: some View {
         GeometryReader { geo in
-            let spacing = geo.size.height/3
-            let circleDiameter = geo.size.height
-            let barWidth = geo.size.width - (circleDiameter + spacing)*2
             
-            HStack(spacing: spacing) {
-
+            HStack(spacing: 0) {
+                
                 ProgressCircleInteractive(titleKey: "started",
-                               resetConfirmationTitleKey: "mark-as-not-started-are-you-sure",
-                               resetConfirmationActionKey: "mark-as-not-started",
-                               active: startedCircleActive,
-                               activeColor: activeColor,
-                               inactiveColor: inactiveColor) {
+                                          resetConfirmationTitleKey: "mark-as-not-started-are-you-sure",
+                                          resetConfirmationActionKey: "mark-as-not-started",
+                                          active: startedCircleActive,
+                                          activeColor: activeColor,
+                                          inactiveColor: inactiveColor) {
                     startTask()
                 } undoAction: {
                     task.startDate = nil
                     task.completionDate = nil
                     task.completionProgress = 0
                 }
-                //.disabled(isDragging)
+                .zIndex(2)
                 
-                TaskProgressBar.ProgressCapsule(progress: shownProgress,
-                                barWidth: barWidth,
-                                activeColor: activeColor,
-                                inactiveColor: inactiveColor)
-                .gesture(dragGesture(barWidth: barWidth))
-                //.disabled(task.isCompleted)
+                TaskProgressBar.ProgressSlider(progress: shownProgress,
+                                                size: geo.size,
+                                                activeColor: activeColor,
+                                                inactiveColor: inactiveColor)
+                .zIndex(1)
                 
                 ProgressCircleInteractive(titleKey: "completed",
-                               resetConfirmationTitleKey: "mark-as-not-completed-are-you-sure",
-                               resetConfirmationActionKey: "mark-as-not-completed",
-                               active: completedCircleActive,
-                               activeColor: activeColor,
-                               inactiveColor: inactiveColor) {
+                                          resetConfirmationTitleKey: "mark-as-not-completed-are-you-sure",
+                                          resetConfirmationActionKey: "mark-as-not-completed",
+                                          active: completedCircleActive,
+                                          activeColor: activeColor,
+                                          inactiveColor: inactiveColor) {
                     
                     completeTask()
                 } undoAction: {
                     task.completionDate = nil
                 }
-                //.disabled(isDragging)
-
-            }
+                .zIndex(2)
+                
+            }.gesture(dragGesture(barWidth: geo.size.width))
         }
         .frame(maxHeight: 16)
+    }
+}
+
+
+struct TaskProgressBarInteractive_Previews: PreviewProvider {
+    
+    static var tasks: [THTask] {
+        let tasks = Array(try! PersistenceController.preview.container.viewContext.fetch(THTask.all)[..<4])
+        
+        tasks[0].startDate = nil
+        tasks[0].completionProgress = 0
+        tasks[0].completionDate = nil
+        
+        tasks[1].startDate = .now
+        tasks[1].completionProgress = 0
+        tasks[1].completionDate = nil
+        
+        tasks[2].startDate = .now
+        tasks[2].completionProgress = 0.5
+        tasks[2].completionDate = nil
+        
+        tasks[3].startDate = .now
+        tasks[3].completionProgress = 1
+        tasks[3].completionDate = .now
+        return tasks
+    }
+    
+    static var previews: some View {
+        VStack(spacing: 10) {
+            ForEach(tasks) { task in
+                TaskProgressBarInteractive(task: task)
+            }
+        }
+        .overlay {
+            Rectangle().frame(width: 1)
+        }
+        .padding(.horizontal)
     }
 }

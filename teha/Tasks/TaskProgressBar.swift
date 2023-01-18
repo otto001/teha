@@ -30,19 +30,17 @@ struct TaskProgressBar: View {
         return task.completionProgress
     }
     
+    
     var body: some View {
         GeometryReader { geo in
-            let spacing = geo.size.height/3
-            let circleDiameter = geo.size.height
-            let barWidth = geo.size.width - (circleDiameter + spacing)*2
-            
-            HStack(spacing: spacing) {
+
+            HStack(spacing: 0) {
                 ProgressCircle(active: task.isStarted,
                                activeColor: activeColor,
                                inactiveColor: inactiveColor)
                 
-                ProgressCapsule(progress: progress,
-                                barWidth: barWidth,
+                ProgressSlider(progress: progress,
+                                size: geo.size,
                                 activeColor: activeColor,
                                 inactiveColor: inactiveColor)
                 
@@ -68,12 +66,28 @@ extension TaskProgressBar {
         }
     }
 
-    struct ProgressCapsule: View {
+    struct ProgressSlider: View {
         let progress: Double
-        let barWidth: CGFloat
+        let size: CGSize
         
         let activeColor: Color
         let inactiveColor: Color
+        
+        private var barWidth: CGFloat {
+            size.width - size.height
+        }
+        
+        private var height: CGFloat {
+            size.height
+        }
+        
+        private var inset: CGFloat {
+            return height > 10 ? height*0.3 : height*0.5
+        }
+        
+        private var spacingFactor: CGFloat {
+            return height > 10 ? 1.3 : 1.5
+        }
         
         var body: some View {
             ZStack(alignment: .leading) {
@@ -82,9 +96,21 @@ extension TaskProgressBar {
                     .foregroundColor(inactiveColor)
                 Rectangle()
                     .foregroundColor(activeColor)
-                    .frame(width: barWidth * progress)
+                    .frame(width: (barWidth-inset*2) * progress + inset)
+                
+                HStack {
+                    Circle()
+                        .blendMode(.destinationOut)
+                        .scaleEffect(spacingFactor)
+                    Spacer()
+                    Circle()
+                        .blendMode(.destinationOut)
+                        .scaleEffect(spacingFactor)
+                }
+                .padding(.horizontal, -height/2)
             }
-            .clipShape(Capsule())
+            .compositingGroup()
+                .padding(.horizontal, -height/2)
         }
     }
 }
@@ -122,6 +148,9 @@ struct TaskProgressBar_Previews: PreviewProvider {
                 TaskProgressBar(task: task)
                     .frame(width: 80, height: 5)
             }
+        }
+        .overlay {
+            Rectangle().frame(width: 1)
         }
         .padding(.horizontal)
     }
