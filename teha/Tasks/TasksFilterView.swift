@@ -42,6 +42,7 @@ fileprivate struct TagFilter: View{
             VStack{
                 Picker(selection: $filters.tagFilterMode) {
                     Text("disabled").tag(TasksFilterViewModel.TagFilterMode.disabled)
+                    Divider()
                     Text("match-any-tag").tag(TasksFilterViewModel.TagFilterMode.matchAny)
                     Text("match-all-tags").tag(TasksFilterViewModel.TagFilterMode.matchAll)
                 } label: {
@@ -89,20 +90,25 @@ fileprivate struct Filters: View {
     }
     
     var body: some View {
-        Section{ //TODO: Animation hinzufügen
+        if filters.anyFilterActive {
+            Section{ //TODO: Animation hinzufügen
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
-        } header: {
-            sectionTitle("enabled-filters")
+            } header: {
+                sectionTitle("enabled-filters")
+            }
         }
         
-        Section {
-            projectPicker(enabledSection: false)
-            priorityPicker(enabledSection: false)
-            TagFilter(enabledSection: false)
-        } header: {
-            sectionTitle("other-filters")
+        
+        if !filters.allFilterActive {
+            Section {
+                projectPicker(enabledSection: false)
+                priorityPicker(enabledSection: false)
+                TagFilter(enabledSection: false)
+            } header: {
+                sectionTitle("other-filters")
+            }
         }
     }
 }

@@ -71,10 +71,8 @@ struct TasksTab: View {
     @StateObject var filters = TasksFilterViewModel()
     
     var filtersAreActive: Bool {
-        return filters.filtersAreActive
+        return filters.anyFilterActive
     }
-    
-    
     
     var body: some View {
         RoutedNavigation { _ in

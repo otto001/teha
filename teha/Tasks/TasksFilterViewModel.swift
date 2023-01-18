@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 class TasksFilterViewModel: ObservableObject {
+    
     @Published var project: THProject? = nil
     
     @Published var priority: Priority? = nil
@@ -17,10 +18,18 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tags: Set<THTag> = .init()
     
     @Published var search: String = ""
+        
     
+    private var filterActiveArray: [Bool] {
+        return [project != nil, priority != nil, tagFilterMode != .disabled]
+    }
 
-    var filtersAreActive: Bool {
-        return project != nil || priority != nil
+    var anyFilterActive: Bool {
+        return !filterActiveArray.allSatisfy { !$0 }
+    }
+    
+    var allFilterActive: Bool {
+        return filterActiveArray.allSatisfy { $0 }
     }
     
     var fetchRequest: NSFetchRequest<THTask> {
