@@ -14,7 +14,9 @@ public class THTask: NSManagedObject {
 
 }
 
+
 extension THTask {
+    
     var reminderOffset: ReminderOffset? {
         get {
             if let reminderMin=self.reminderMin {
@@ -31,7 +33,15 @@ extension THTask {
             }
         }
     }
+    
+    var taskId: String {
+        get {
+            return self.objectID.uriRepresentation().absoluteString
+        }
+    }
+    
 }
+
 
 //MARK: FetchRequests
 extension THTask {
