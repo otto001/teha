@@ -93,8 +93,10 @@ struct TaskRowView: View {
         }
         .padding(.vertical, 2)
         .contentShape(Rectangle())
-        .onTapGesture {
-            router.push(task)
+        .background {
+            NavigationLink(value: task) {
+                EmptyView()
+            }.opacity(0)
         }
         .frame(minHeight: 36)
     }

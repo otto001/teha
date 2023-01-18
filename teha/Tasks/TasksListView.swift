@@ -49,6 +49,12 @@ fileprivate struct FilteredTasksListView: View {
                 .disabled(editMode?.wrappedValue == .active)
                 .id(task.id)
         }
+        .onAppear {
+            // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
+            // This is due to SwiftUI adding the rows tapped for navigation purposes to the selection, which is an annoying, not yet fixed bug.
+            // This behaviour causes SwiftUI to be rather unpredicable (aka: the row entries start to rave) when navigating or selecting, unless you manually clear the selection like we do here.
+            selectedTasks.removeAll()
+        }
         .toolbar {
             if editMode?.wrappedValue == .active {
                 ToolbarItem(placement: .bottomBar) {
