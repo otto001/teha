@@ -34,7 +34,8 @@ extension THTask {
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "priorityNumber", ascending: false),
-                                   NSSortDescriptor(key: "creationDate", ascending: false)]
+                                   NSSortDescriptor(key: "creationDate", ascending: false),
+                                   NSSortDescriptor(key: "title", ascending: true),]
         return request
     }
     

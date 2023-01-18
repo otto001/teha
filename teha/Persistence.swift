@@ -56,11 +56,17 @@ extension PersistenceController {
         }
         
         
-        for i in 0..<10 {
+        for i in 0...10 {
             let newItem = THTask(context: viewContext)
             newItem.title = "Task \(i)"
             newItem.project = i <= 8 ? projects[i] : nil
-            newItem.deadline = .now
+            newItem.priority = newItem.project?.priority ?? .normal
+            newItem.deadline = .now + 1000000
+            
+            newItem.completionProgress = Double(i)/10
+            newItem.startDate = newItem.completionProgress > 0 ? .now : nil
+            newItem.completionDate = newItem.completionProgress >= 1 ? .now : nil
+            
         }
         
         do {
