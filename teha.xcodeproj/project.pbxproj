@@ -10,6 +10,7 @@
 		02473758296F5B1800FE2943 /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02473757296F5B1800FE2943 /* ProjectsListView.swift */; };
 		02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02513BB3296DE56C00D28CDD /* ProjectPicker.swift */; };
 		025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */; };
+		025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */; };
 		025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF4402970A2A300959F05 /* TaskDetailView.swift */; };
 		025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF44229718CD400959F05 /* ProjectLabel.swift */; };
 		026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */; };
@@ -54,6 +55,7 @@
 		02473757296F5B1800FE2943 /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		02513BB3296DE56C00D28CDD /* ProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPicker.swift; sourceTree = "<group>"; };
 		025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBarInteractive.swift; sourceTree = "<group>"; };
+		025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Values.swift"; sourceTree = "<group>"; };
 		025EF4402970A2A300959F05 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		025EF44229718CD400959F05 /* ProjectLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLabel.swift; sourceTree = "<group>"; };
 		026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIKitColors.swift"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				026ACB3B296DEBBC005C771C /* Color+UIKitColors.swift */,
 				0271BF2329745F27000A601D /* NSFetchRequest+Filter.swift */,
 				02E789182974B3C400F521D0 /* CGRect+Utils.swift */,
+				025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
 				0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */,
+				025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,

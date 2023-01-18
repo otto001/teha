@@ -61,7 +61,8 @@ extension PersistenceController {
             newItem.title = "Task \(i)"
             newItem.project = i <= 8 ? projects[i] : nil
             newItem.priority = newItem.project?.priority ?? .normal
-            newItem.deadline = .now + 1000000
+            
+            newItem.deadline = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
             
             newItem.completionProgress = Double(i)/10
             newItem.startDate = newItem.completionProgress > 0 ? .now : nil
