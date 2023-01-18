@@ -19,6 +19,8 @@ struct ProjectNoStatsView: View {
 struct ProjectDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State var edit = false
+    
     let project: THProject
     
     var body: some View {
@@ -32,6 +34,16 @@ struct ProjectDetailView: View {
             }
         }
         .navigationTitle(project.name ?? "")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("edit") {
+                    edit = true
+                }
+            }
+        }
+        .sheet(isPresented: $edit) {
+            ProjectEditView(.edit(project))
+        }
     }
 }
 

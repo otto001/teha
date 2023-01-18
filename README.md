@@ -32,8 +32,8 @@ There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the 
 - Detailed Information on a single project
 - Shows title, priority, color
 - ~Shows some basic statisitcs (e.g., number of tasks/completed tasks/progress/hours left to do/hours completed)~
-- Edit button (trailing navigation)
-  - Presents sheet like project add (reuse code!!)   
+- ~Edit button (trailing navigation)~
+  - ~Presents sheet like project add (reuse code!!)~
 - Navigation link to list of tasks of this project
   - Re-use list from tasks tab, but with project filter locked
 
