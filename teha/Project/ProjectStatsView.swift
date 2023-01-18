@@ -24,7 +24,7 @@ struct StatView: View {
                     Circle().frame(width: 32).foregroundStyle(color)
                     Image(systemName: systemName).foregroundStyle(.white)
                 }
-                Text(name).bold().font(.callout).lineLimit(1)
+                Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1)
             }
             Spacer()
             Text(String(format: "%.0f", value)).bold().font(.title)
@@ -74,12 +74,12 @@ struct ProjectStatsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                StatView(name: "Due today", value: dueToday, color: .orange, systemName: "calendar")
-                StatView(name: "Overdue", value: overdue, color: .red, systemName: "calendar.badge.exclamationmark")
+                StatView(name: "tasks-due-today", value: dueToday, color: .orange, systemName: "calendar")
+                StatView(name: "tasks-overdue", value: overdue, color: .red, systemName: "calendar.badge.exclamationmark")
             }
             HStack(spacing: 12) {
-                StatView(name: "To Do", value: todo, color: .blue, systemName: "paintbrush")
-                StatView(name: "Finished", value: finished, color: .gray, systemName: "checkmark.circle")
+                StatView(name: "tasks-todo", value: todo, color: .blue, systemName: "paintbrush")
+                StatView(name: "tasks-finished", value: finished, color: .gray, systemName: "checkmark.circle")
             }
             Spacer()
         }.padding(.horizontal, 24)
