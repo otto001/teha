@@ -9,26 +9,32 @@ import SwiftUI
 
 struct PriorityPicker<PickerLabel: View>: View {
     @Binding var selection: PriorityTag
-    let hasNoneOption: Bool
     @ViewBuilder let label: () -> PickerLabel
+    let noneText: LocalizedStringKey
     
-    init(selection: Binding<Priority?>, @ViewBuilder label: @escaping () -> PickerLabel) {
+    
+    let hasNoneOption: Bool
+
+    
+    init(selection: Binding<Priority?>, noneText: LocalizedStringKey = "none", @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = Binding {
             return PriorityTag(selection.wrappedValue)
         } set: { newValue in
             selection.wrappedValue = newValue.priority
         }
         self.hasNoneOption = true
+        self.noneText = noneText
         self.label = label
     }
     
-    init(selection: Binding<Priority>, @ViewBuilder label: @escaping () -> PickerLabel) {
+    init(selection: Binding<Priority>, noneText: LocalizedStringKey = "none", @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = Binding {
             return PriorityTag.some(selection.wrappedValue)
         } set: { newValue in
             selection.wrappedValue = newValue.priority ?? .normal
         }
         self.hasNoneOption = false
+        self.noneText = noneText
         self.label = label
     }
     
@@ -38,7 +44,7 @@ struct PriorityPicker<PickerLabel: View>: View {
             Spacer()
             Picker(LocalizedStringKey(""), selection: $selection) {
                 if hasNoneOption {
-                    Text("none").tag(PriorityTag.none).foregroundColor(.secondaryLabel)
+                    Text(noneText).tag(PriorityTag.none).foregroundColor(.secondaryLabel)
                 }
                 Section {
                     ForEach(Priority.allCases.reversed()) { priority in
@@ -53,14 +59,14 @@ struct PriorityPicker<PickerLabel: View>: View {
 }
 
 extension PriorityPicker where PickerLabel == Text {
-    init(_ titleKey: LocalizedStringKey, selection: Binding<Priority?>) {
-        self.init(selection: selection) {
+    init(_ titleKey: LocalizedStringKey, noneText: LocalizedStringKey = "none", selection: Binding<Priority?>) {
+        self.init(selection: selection, noneText: noneText) {
             Text(titleKey)
         }
     }
 
-    init(_ titleKey: LocalizedStringKey, selection: Binding<Priority>) {
-        self.init(selection: selection) {
+    init(_ titleKey: LocalizedStringKey, noneText: LocalizedStringKey = "none", selection: Binding<Priority>) {
+        self.init(selection: selection, noneText: noneText) {
             Text(titleKey)
         }
     }

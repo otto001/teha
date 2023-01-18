@@ -18,8 +18,6 @@ class TasksFilterViewModel: ObservableObject {
     
     @Published var search: String = ""
     
-    
-   
 
     var filtersAreActive: Bool {
         return project != nil || priority != nil

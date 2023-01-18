@@ -44,6 +44,8 @@
 
 "delete" = "Delete";
 
+"disabled" = "Disabled";
+
 "done" = "Done";
 
 "earliest-startdate" = "Earliest Startdate";
@@ -51,6 +53,8 @@
 "earliest-startdate-add" = "Add Earliest Startdate";
 
 "earliest-startdate-remove" = "Remove Earliest Startdate";
+
+"enabled-filters" = "Enabled Filters";
 
 "filter" = "Filter";
 
@@ -76,6 +80,10 @@
 
 "mark-as-not-started-are-you-sure" = "Are you sure you want to mark this task as not started?";
 
+"match-all-tags" = "All Selected Tags";
+
+"match-any-tag" = "Any Selected Tag";
+
 "name" = "Name";
 
 "new-project" = "New Project";
@@ -89,6 +97,10 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
+
+"now" = "Now";
+
+"other-filters" = "Other Filters";
 
 "priority" = "Priority";
 
@@ -113,8 +125,6 @@
 "task-delete-confirmation" = "Delete Task?";
 
 "tasks" = "Tasks";
-
-"tasks-completed" = "Completed tasks";
 
 "title" = "Title";
 

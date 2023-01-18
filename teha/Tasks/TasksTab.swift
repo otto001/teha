@@ -108,9 +108,7 @@ struct TasksTab: View {
                     }
                 }
                 .sheet(isPresented: $filterSheet) {
-                    TasksFilterView {
-                        filterSheet = false
-                    }.environmentObject(filters)
+                    TasksFilterView().environmentObject(filters)
                 }
                 .sheet(isPresented: $taskAddSheet) {
                     TaskEditView(mode: .add)

@@ -44,6 +44,8 @@
 
 "delete" = "Löschen";
 
+"disabled" = "Aus";
+
 "done" = "Fertig";
 
 "earliest-startdate" = "Frühester Beginn";
@@ -51,6 +53,8 @@
 "earliest-startdate-add" = "Füge frühesten Beginn hinzu";
 
 "earliest-startdate-remove" = "Entferne frühesten Beginn";
+
+"enabled-filters" = "Aktivierte Filter";
 
 "filter" = "Filter";
 
@@ -76,6 +80,10 @@
 
 "mark-as-not-started-are-you-sure" = "Soll diese Aufgabe wirklich als nicht angefangen markiert werden?";
 
+"match-all-tags" = "Alle ausgewählten Tags";
+
+"match-any-tag" = "Jedes der ausgewählten Tags";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
@@ -89,6 +97,10 @@
 "normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
+
+"now" = "Jetzt";
+
+"other-filters" = "Weitere Filter";
 
 "priority" = "Priorität";
 
@@ -113,8 +125,6 @@
 "task-delete-confirmation" = "Aufgabe löschen?";
 
 "tasks" = "Aufgaben";
-
-"tasks-completed" = "Beendete Aufgaben";
 
 "title" = "Titel";
 

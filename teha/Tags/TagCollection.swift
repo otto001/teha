@@ -11,23 +11,31 @@ struct TagCollection<LabelContent: View>: View {
     let tags: Set<THTag>
     let label: () -> LabelContent
     
+    let inlineLabel: Bool
+    
     private var sortedTags: [THTag] {
         Array(tags).sorted { a, b in
             a.name ?? "" < b.name ?? ""
         }
     }
     
-    init(tags: Set<THTag>, @ViewBuilder label: @escaping () -> LabelContent) {
+    init(tags: Set<THTag>, inlineLabel: Bool = false, @ViewBuilder label: @escaping () -> LabelContent) {
         self.tags = tags
         self.label = label
+        self.inlineLabel = inlineLabel
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                label()
+            if !inlineLabel {
+                HStack {
+                    label()
+                }
             }
             FlexHStack {
+                if inlineLabel {
+                    label()
+                }
                 ForEach(sortedTags) { tag in
                     Text(tag.name ?? "")
                         .padding(.vertical, 5)

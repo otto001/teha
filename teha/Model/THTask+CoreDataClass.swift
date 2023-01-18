@@ -62,23 +62,18 @@ extension NSFetchRequest where ResultType == THTask {
     }
     
     func filter(tags: Set<THTag>, mode: TagFilterMode) {
-        switch mode{
+        switch mode {
         case .matchAny:
             self.predicateAnd(with: NSPredicate(format: "(ANY tags IN %@)", Array(tags)))
         case .matchAll:
-            for tag in tags{
+            for tag in tags {
                 self.predicateAnd(with: NSPredicate(format: "(ANY tags == %@)", tag))
             }
-            
-            
         }
-        
     }
-    
     
     func filter(search: String) {
         self.predicateAnd(with: NSPredicate(format: "(title CONTAINS[cd] %@) OR (project.name CONTAINS[cd] %@) OR (notes CONTAINS[cd] %@)", search, search, search))
     }
-   
 }
 
