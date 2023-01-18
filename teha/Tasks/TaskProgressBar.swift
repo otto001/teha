@@ -22,7 +22,7 @@ struct TaskProgressBar: View {
     }
     
     var progress: Double {
-        if task.isStarted {
+        if !task.isStarted {
             return 0
         } else if task.isCompleted {
             return 1
