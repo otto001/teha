@@ -45,6 +45,35 @@ struct TasksFilterView: View {
         
     }
 }
+
+
+fileprivate struct TagFilter: View{
+    @EnvironmentObject var filters: TasksFilterViewModel
+    let enabledSection: Bool
+    var body: some View{
+        if enabledSection && filters.tagFilterMode != .disabled || !enabledSection && filters.tagFilterMode == .disabled{
+            VStack{
+                Picker(selection: $filters.tagFilterMode) {
+                    Text("disabled").tag(TasksFilterViewModel.TagFilterMode.disabled)
+                    Text("match-any").tag(TasksFilterViewModel.TagFilterMode.matchAny)
+                    Text("match-all").tag(TasksFilterViewModel.TagFilterMode.matchAll)
+                } label: {
+                    Label(LocalizedStringKey("tag"), systemImage: "tag")
+                    
+                }
+                
+                if enabledSection{
+                    TagPicker(selection: $filters.tags)
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
 //all items ausgewählt wenn option = nil
 fileprivate struct OnlyShow: View {
     
@@ -58,18 +87,46 @@ fileprivate struct OnlyShow: View {
                                         .init(title: "Priority", symbol: "text.line.first.and.arrowtriangle.forward"),
                                         .init(title: "Repeating", symbol: "repeat")]
     
-    var body: some View {
-        Section(header: Text("Only Show")
-            .font(.headline)
-            .foregroundColor(.black)
-        ){
-                            //iterating through array of filteroptions
+    @ViewBuilder func projectPicker(enabledSection: Bool) -> some View {
+        if enabledSection && filters.project != nil || !enabledSection && filters.project == nil{
             ProjectPicker(selection: $filters.project){
                 Label("project", systemImage: "list.clipboard")
             }
+        }
+        
+    }
+    
+    @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View{
+        if enabledSection && filters.priority != nil || !enabledSection && filters.priority == nil{
             PriorityPicker( selection: $filters.priority){
                 Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
             }
+        }
+        
+    }
+    
+    var body: some View {
+        Section{ //TODO: Animation hinzufügen
+                projectPicker(enabledSection: true)
+                priorityPicker(enabledSection: true)
+                TagFilter(enabledSection: true)
+        } header: {
+            Text("Enabled")
+                .font(.headline)
+                .foregroundColor(.label)
+                .textCase(.none)
+        }
+        Section(header: Text("Only Show")
+            .font(.headline)
+            .foregroundColor(.label)
+            .textCase(.none)
+        ){
+                            //iterating through array of filteroptions
+                projectPicker(enabledSection: false)
+                priorityPicker(enabledSection: false)
+                TagFilter(enabledSection: false)
+                
+            
 
             
             //to create for every item in there a button

@@ -9,23 +9,17 @@ import Foundation
 import CoreData
 
 class TasksFilterViewModel: ObservableObject {
-    @Published var project: THProject? = nil {
-        didSet {
-            if project != nil {
-                priority = nil
-            }
-        }
-    }
+    @Published var project: THProject? = nil
     
-    @Published var priority: Priority? = nil {
-        didSet {
-            if priority != nil {
-                project = nil
-            }
-        }
-    }
+    @Published var priority: Priority? = nil
+    
+    @Published var tagFilterMode: TagFilterMode = .disabled
+    @Published var tags: Set<THTag> = .init()
     
     @Published var search: String = ""
+    
+    
+   
 
     var filtersAreActive: Bool {
         return project != nil || priority != nil
@@ -46,7 +40,23 @@ class TasksFilterViewModel: ObservableObject {
             fetchRequest.filter(search: self.search)
         }
         
+        switch tagFilterMode{
+        case .matchAny:
+            fetchRequest.filter(tags: tags, mode: .matchAny)
+        case .matchAll:
+            fetchRequest.filter(tags: tags, mode: .matchAll)
+        default:
+            break
+        }
+        
+        
         return fetchRequest
     }
     
+}
+
+extension TasksFilterViewModel {
+    enum TagFilterMode {
+        case disabled, matchAny, matchAll
+    }
 }
