@@ -9,14 +9,17 @@ import SwiftUI
 
 struct ProjectNoStatsView: View {
     var body: some View {
-        VStack {
-            Text("No data :(")
+        VStack(spacing: 12) {
+            Image(systemName: "list.bullet").font(.largeTitle)
+            Text("tasks-none")
         }
     }
 }
 
 struct ProjectDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @State var edit = false
     
     let project: THProject
     
@@ -31,6 +34,16 @@ struct ProjectDetailView: View {
             }
         }
         .navigationTitle(project.name ?? "")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("edit") {
+                    edit = true
+                }
+            }
+        }
+        .sheet(isPresented: $edit) {
+            ProjectEditView(.edit(project))
+        }
     }
 }
 

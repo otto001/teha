@@ -52,6 +52,8 @@
 
 "earliest-startdate-remove" = "Remove Earliest Startdate";
 
+"edit" = "Edit";
+
 "filter" = "Filter";
 
 "group" = "Group";
@@ -115,6 +117,16 @@
 "tasks" = "Tasks";
 
 "tasks-completed" = "Completed tasks";
+
+"tasks-due-today" = "Due today";
+
+"tasks-finished" = "Finished";
+
+"tasks-none" = "No tasks";
+
+"tasks-overdue" = "Overdue";
+
+"tasks-todo" = "To Do";
 
 "title" = "Title";
 
