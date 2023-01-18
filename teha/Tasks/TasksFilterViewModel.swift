@@ -28,7 +28,7 @@ class TasksFilterViewModel: ObservableObject {
         return !filterActiveArray.allSatisfy { !$0 }
     }
     
-    var allFilterActive: Bool {
+    var allFiltersActive: Bool {
         return filterActiveArray.allSatisfy { $0 }
     }
     

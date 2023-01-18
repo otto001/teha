@@ -91,7 +91,7 @@ fileprivate struct Filters: View {
     
     var body: some View {
         if filters.anyFilterActive {
-            Section{ //TODO: Animation hinzufügen
+            Section { //TODO: Animation hinzufügen
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
@@ -101,7 +101,7 @@ fileprivate struct Filters: View {
         }
         
         
-        if !filters.allFilterActive {
+        if !filters.allFiltersActive {
             Section {
                 projectPicker(enabledSection: false)
                 priorityPicker(enabledSection: false)
