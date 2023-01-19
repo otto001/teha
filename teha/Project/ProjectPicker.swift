@@ -13,10 +13,13 @@ struct ProjectPicker<PickerLabel: View>: View {
     @Binding var selection: THProject?
     @ViewBuilder let label: () -> PickerLabel
     
+    let noneText: LocalizedStringKey
+    
     @FetchRequest(fetchRequest: THProject.all) private var projects: FetchedResults<THProject>
     
-    init(selection: Binding<THProject?>, @ViewBuilder label: @escaping () -> PickerLabel) {
+    init(selection: Binding<THProject?>, noneText: LocalizedStringKey = "none", @ViewBuilder label: @escaping () -> PickerLabel) {
         self._selection = selection
+        self.noneText = noneText
         self.label = label
     }
     
@@ -31,7 +34,7 @@ struct ProjectPicker<PickerLabel: View>: View {
                     .foregroundStyle(project.color.color, .gray)
             }
         } else {
-            Text("None")
+            Text(noneText)
         }
     }
     
@@ -66,7 +69,7 @@ struct ProjectPicker<PickerLabel: View>: View {
                         ProjectLabel(project: selection).foregroundColor(.secondaryLabel)
                         
                     } else {
-                        Text("None").foregroundColor(.secondaryLabel)
+                        Text(noneText).foregroundColor(.secondaryLabel)
                     }
                     // Add the chevrons to emulate the look of the SwiftUI Picker
                     Image(systemName: "chevron.up.chevron.down")
@@ -84,8 +87,9 @@ struct ProjectPicker<PickerLabel: View>: View {
 }
 
 extension ProjectPicker where PickerLabel == Text{
-    init(_ titleKey: LocalizedStringKey, selection: Binding<THProject?>) {
+    init(_ titleKey: LocalizedStringKey, noneText: LocalizedStringKey = "none", selection: Binding<THProject?>) {
         self._selection = selection
+        self.noneText = noneText
         self.label = {
             Text(titleKey)
         }

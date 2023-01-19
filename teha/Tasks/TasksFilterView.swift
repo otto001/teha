@@ -7,29 +7,19 @@
 
 import SwiftUI
 
-struct TasksFilterOption: Identifiable, Equatable {
-    var title: LocalizedStringKey { LocalizedStringKey(id) }
-    let symbol: String
-    let id: String
-    
-    init(title: String, symbol: String) {
-        self.symbol = symbol
-        self.id = title
-    }
-}
-
 struct TasksFilterView: View {
-    let close: () ->  Void
+    
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationStack {
             Form {
-                OnlyShow()
-                
+                Filters()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        close()
+                        dismiss()
                     } label: {
                         Text("done").fontWeight(.semibold)
                     }
@@ -38,76 +28,94 @@ struct TasksFilterView: View {
             }
             .navigationTitle("filter")
             .navigationBarTitleDisplayMode(.inline)
-            
+        }
+    }
+}
+
+
+fileprivate struct TagFilter: View{
+    @EnvironmentObject var filters: TasksFilterViewModel
+    let enabledSection: Bool
+    
+    var body: some View{
+        if enabledSection && filters.tagFilterMode != .disabled || !enabledSection && filters.tagFilterMode == .disabled{
+            VStack{
+                Picker(selection: $filters.tagFilterMode) {
+                    Text("disabled").tag(TasksFilterViewModel.TagFilterMode.disabled)
+                    Divider()
+                    Text("match-any-tag").tag(TasksFilterViewModel.TagFilterMode.matchAny)
+                    Text("match-all-tags").tag(TasksFilterViewModel.TagFilterMode.matchAll)
+                } label: {
+                    Label(LocalizedStringKey("tags"), systemImage: "tag")
+                }
+                
+                if enabledSection{
+                    TagPicker(selection: $filters.tags, compact: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+    }
+}
+
+//all items ausgewählt wenn option = nil
+fileprivate struct Filters: View {
+
+    @EnvironmentObject var filters: TasksFilterViewModel
+
+    
+    @ViewBuilder func projectPicker(enabledSection: Bool) -> some View {
+        if enabledSection && filters.project != nil || !enabledSection && filters.project == nil{
+            ProjectPicker(selection: $filters.project, noneText: "disabled"){
+                Label("project", systemImage: "list.clipboard")
+            }
+        }
+        
+    }
+    
+    @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View{
+        if enabledSection && filters.priority != nil || !enabledSection && filters.priority == nil{
+            PriorityPicker( selection: $filters.priority, noneText: "disabled"){
+                Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
+            }
+        }
+        
+    }
+    
+    @ViewBuilder func sectionTitle(_ titleKey: LocalizedStringKey) -> some View {
+        Text(titleKey)
+            .font(.headline)
+            .foregroundColor(.label)
+            .textCase(.none)
+    }
+    
+    var body: some View {
+        if filters.anyFilterActive {
+            Section { //TODO: Animation hinzufügen
+                projectPicker(enabledSection: true)
+                priorityPicker(enabledSection: true)
+                TagFilter(enabledSection: true)
+            } header: {
+                sectionTitle("enabled-filters")
+            }
         }
         
         
-        
-    }
-}
-//all items ausgewählt wenn option = nil
-fileprivate struct OnlyShow: View {
-    
-    
-    
-    @EnvironmentObject var filters: TasksFilterViewModel
-    //Array to determin what filter options should be displayed
-    
-    let options: [TasksFilterOption] = [.init(title: "Project", symbol: "list.clipboard"),
-                                        .init(title: "Tag", symbol: "tag"),
-                                        .init(title: "Priority", symbol: "text.line.first.and.arrowtriangle.forward"),
-                                        .init(title: "Repeating", symbol: "repeat")]
-    
-    var body: some View {
-        Section(header: Text("Only Show")
-            .font(.headline)
-            .foregroundColor(.black)
-        ){
-                            //iterating through array of filteroptions
-            ProjectPicker(selection: $filters.project){
-                Label("project", systemImage: "list.clipboard")
+        if !filters.allFiltersActive {
+            Section {
+                projectPicker(enabledSection: false)
+                priorityPicker(enabledSection: false)
+                TagFilter(enabledSection: false)
+            } header: {
+                sectionTitle("other-filters")
             }
-            PriorityPicker( selection: $filters.priority){
-                Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
-            }
-
-            
-            //to create for every item in there a button
-            
-            
-            
-//                ForEach(options) { option in
-//                    Button(action: {
-//                        //make the buttons 'detect' if they were clicked or not
-////                        if self.selected == option {
-////                            self.selected = nil
-////                        } else {
-////                            self.selected = option
-////                        }
-//                    }) {
-//                        HStack {
-//                            //adding the symbol on the left per filterOption
-//                            Image(systemName: option.symbol)
-//                                .foregroundColor(.blue)
-//                            Text(option.title)
-//                                .foregroundColor(.black)
-//                            Spacer()
-//                            //makes sure, only one filteroptions is selected at a time
-////                            if self.selected == option {
-////                                Image(systemName: "checkmark")
-////                            }
-//                        }
-//                    }
-//                }
         }
     }
 }
 
 struct TasksrView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksFilterView() {
-
-        }.environmentObject(TasksFilterViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TasksFilterView().environmentObject(TasksFilterViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 

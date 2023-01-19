@@ -179,14 +179,21 @@ struct TagPicker: View {
     
     @Binding var selection: Set<THTag>
     
-
+    let compact: Bool
+    
+    init(selection: Binding<Set<THTag>>, compact: Bool = false) {
+        self._selection = selection
+        self.compact = compact
+    }
 
     var body: some View {
-        TagCollection(tags: selection) {
+        TagCollection(tags: selection, inlineLabel: compact) {
             HStack {
-                Text("tags")
-                Spacer()
-
+                if !compact {
+                    Text("tags")
+                    Spacer()
+                }
+                
                 Button {
                     sheet = true
                 } label: {
@@ -194,6 +201,9 @@ struct TagPicker: View {
                 }
                 .buttonStyle(.bordered)
             }
+        }
+        .onTapGesture {
+            sheet = true
         }
         .sheet(isPresented: $sheet) {
             TagPickerSheet(selection: $selection)
@@ -205,13 +215,21 @@ struct TagPicker_Previews: PreviewProvider {
     
     struct TagPickerPreview: View {
         @State private var selection = Set<THTag>()
+        
+        let compact: Bool
         var body: some View {
-            TagPicker(selection: $selection)
+            TagPicker(selection: $selection, compact: compact)
         }
     }
     static var previews: some View {
         Form {
-            TagPickerPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-        }
+            Section {
+                TagPickerPreview(compact: false)
+            }
+            
+            Section {
+                TagPickerPreview(compact: true)
+            }
+        }.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

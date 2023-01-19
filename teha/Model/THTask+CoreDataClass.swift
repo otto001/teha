@@ -54,7 +54,22 @@ extension NSFetchRequest where ResultType == THTask {
     }
     
     func filter(priority: Priority) {
-        self.predicateAnd(with: NSPredicate(format: "project.priorityNumber == %d", priority.rawValue))
+        self.predicateAnd(with: NSPredicate(format: "priorityNumber == %d", priority.rawValue))
+    }
+    
+    enum TagFilterMode{
+        case matchAll, matchAny
+    }
+    
+    func filter(tags: Set<THTag>, mode: TagFilterMode) {
+        switch mode {
+        case .matchAny:
+            self.predicateAnd(with: NSPredicate(format: "(ANY tags IN %@)", Array(tags)))
+        case .matchAll:
+            for tag in tags {
+                self.predicateAnd(with: NSPredicate(format: "(ANY tags == %@)", tag))
+            }
+        }
     }
     
     func filter(search: String) {
