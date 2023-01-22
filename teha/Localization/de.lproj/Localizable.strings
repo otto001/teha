@@ -14,6 +14,8 @@
 
 "advanced-settings" = "Erweiterte Einstellungen";
 
+"all" = "Alle";
+
 "back" = "Zurück";
 
 "cancel" = "Abbrechen";
@@ -39,6 +41,8 @@
 "color-yellow" = "Gelb";
 
 "completed" = "Erledigt";
+
+"current" = "Aktuelle";
 
 "custom" = "Benutzerdefiniert";
 

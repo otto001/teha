@@ -14,6 +14,8 @@
 
 "advanced-settings" = "Advanced Settings";
 
+"all" = "All";
+
 "back" = "Back";
 
 "cancel" = "Cancel";
@@ -39,6 +41,8 @@
 "color-yellow" = "Yellow";
 
 "completed" = "Completed";
+
+"current" = "Current";
 
 "custom" = "Custom";
 

@@ -62,6 +62,15 @@ extension THTask {
 
 
 extension NSFetchRequest where ResultType == THTask {
+    
+    func filter(completed: Bool) {
+        if completed {
+            self.predicateAnd(with: NSPredicate(format: "completionDate != nil"))
+        } else {
+            self.predicateAnd(with: NSPredicate(format: "completionDate == nil"))
+        }
+    }
+    
     func filter(project: THProject) {
         self.predicateAnd(with: NSPredicate(format: "project == %@", project))
     }
@@ -86,7 +95,7 @@ extension NSFetchRequest where ResultType == THTask {
     }
     
     func filter(search: String) {
-        self.predicateAnd(with: NSPredicate(format: "(title CONTAINS[cd] %@) OR (project.name CONTAINS[cd] %@) OR (notes CONTAINS[cd] %@)", search, search, search))
+        self.predicateAnd(with: NSPredicate(format: "(title CONTAINS[cd] %@) OR (project.name CONTAINS[cd] %@) OR (notes CONTAINS[cd] %@) OR (ANY tags.name CONTAINS[cd] %@)", search, search, search, search))
     }
 }
 

@@ -14,6 +14,9 @@ struct TasksFilterView: View {
     var body: some View {
         NavigationStack {
             Form {
+                CompletionPicker()
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
                 Filters()
             }
             .toolbar {
@@ -33,13 +36,26 @@ struct TasksFilterView: View {
 }
 
 
+fileprivate struct CompletionPicker: View {
+    @EnvironmentObject var filters: TasksFilterViewModel
+    
+    var body: some View {
+        Picker("", selection: $filters.taskState) {
+            ForEach(TasksFilterViewModel.TaskStateFilter.allCases) { stateFilter in
+                Text(stateFilter.name)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+}
+
 fileprivate struct TagFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
     let enabledSection: Bool
     
     var body: some View{
-        if enabledSection && filters.tagFilterMode != .disabled || !enabledSection && filters.tagFilterMode == .disabled{
-            VStack{
+        if enabledSection && filters.tagFilterMode != .disabled || !enabledSection && filters.tagFilterMode == .disabled {
+            VStack {
                 Picker(selection: $filters.tagFilterMode) {
                     Text("disabled").tag(TasksFilterViewModel.TagFilterMode.disabled)
                     Divider()

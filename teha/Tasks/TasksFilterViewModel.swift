@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreData
+import SwiftUI
+
 
 class TasksFilterViewModel: ObservableObject {
     
@@ -18,7 +20,10 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tags: Set<THTag> = .init()
     
     @Published var search: String = ""
-        
+    
+    @Published var taskState: TaskStateFilter = .current
+    
+    
     
     private var filterActiveArray: [Bool] {
         return [project != nil, priority != nil, tagFilterMode != .disabled]
@@ -34,6 +39,15 @@ class TasksFilterViewModel: ObservableObject {
     
     var fetchRequest: NSFetchRequest<THTask> {
         let fetchRequest = THTask.all
+        
+        switch taskState {
+        case .current:
+            fetchRequest.filter(completed: false)
+        case .completed:
+            fetchRequest.filter(completed: true)
+        case .all:
+            break
+        }
         
         if let project = self.project {
             fetchRequest.filter(project: project)
@@ -66,4 +80,20 @@ extension TasksFilterViewModel {
     enum TagFilterMode {
         case disabled, matchAny, matchAll
     }
+    
+    enum TaskStateFilter: CaseIterable, Identifiable {
+        case all, current, completed
+        var id: Self {
+            return self
+        }
+        
+        var name: LocalizedStringKey {
+            switch self {
+            case .all: return "all"
+            case .current: return "current"
+            case .completed: return "completed"
+            }
+        }
+    }
+    
 }
