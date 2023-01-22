@@ -16,6 +16,8 @@ struct TaskEditView: View {
    
     @State var data = FormData()
     
+    @State var showError: Bool = false
+    
     let mode: Mode
     
     var task: THTask? {
@@ -34,7 +36,10 @@ struct TaskEditView: View {
     }
     
     func done() {
-        guard data.valid else { return }
+        guard data.valid else {
+            showError = true
+            return
+        }
         
         let task = task ?? THTask(context: viewContext)
         
@@ -78,6 +83,11 @@ struct TaskEditView: View {
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $data.deadline)
+                } footer: {
+                    if data.deadlineBeforeEarliestStartDate {
+                        Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
+                            .foregroundColor(.red)
+                    }
                 }
                 
                 Section {
@@ -92,6 +102,15 @@ struct TaskEditView: View {
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
                 dismiss()
             }
+            .alert(isPresented: $showError, error: data.error) { _ in
+                Button {
+                    showError = false
+                } label: {
+                    Text("ok")
+                }
+            } message: { error in
+                Text(error.failureReason ?? "")
+            }
             .onAppear {
                 if let task = task {
                     self.data = .init(task: task)
@@ -102,6 +121,21 @@ struct TaskEditView: View {
 }
 
 extension TaskEditView {
+    enum FormError: LocalizedError {
+        case noTitle, deadlineBeforeEarliestStartDate
+        
+        var errorDescription: String? {
+            String(localized: "cannot-save-task")
+        }
+        
+        var failureReason: String? {
+            switch self {
+            case .noTitle: return String(localized: "task-must-have-title")
+            case .deadlineBeforeEarliestStartDate: return String(localized: "task-deadline-must-be-after-earliest-startdate")
+            }
+        }
+    }
+    
     struct FormData {
         var title: String = ""
         var notes: String = ""
@@ -116,12 +150,30 @@ extension TaskEditView {
         
         var tags: Set<THTag> = .init()
         
+        var deadlineBeforeEarliestStartDate: Bool {
+            if let earliestStartDate = earliestStartDate,
+               let deadline = deadline,
+               earliestStartDate > deadline {
+                return true
+            }
+            return false
+        }
+        
+        var error: FormError? {
+            guard !title.isEmpty else {
+                return .noTitle
+            }
+            if deadlineBeforeEarliestStartDate {
+                return .deadlineBeforeEarliestStartDate
+            }
+            return nil
+        }
+        
         var valid: Bool {
-            return !title.isEmpty
+            error == nil
         }
         
         init() {
-            
         }
         
         init(task: THTask) {

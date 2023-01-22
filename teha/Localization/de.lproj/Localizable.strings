@@ -20,6 +20,8 @@
 
 "cancel" = "Abbrechen";
 
+"cannot-save-task" = "Aufgabe kann nicht gespeichert werden";
+
 "color" = "Farbe";
 
 "color-accent" = "Akzentfarbe";
@@ -126,6 +128,8 @@
 
 "now" = "Jetzt";
 
+"ok" = "Ok";
+
 "onboarding-show" = "Onboarding anzeigen";
 
 "other-filters" = "Weitere Filter";
@@ -166,7 +170,11 @@
 
 "task" = "Aufgabe";
 
+"task-deadline-must-be-after-earliest-startdate" = "Die Deadline der Aufgabe muss nach dem frühesten Beginn liegen.";
+
 "task-delete-confirmation" = "Aufgabe löschen?";
+
+"task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
 "tasks" = "Aufgaben";
 

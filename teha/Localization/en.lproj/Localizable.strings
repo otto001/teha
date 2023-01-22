@@ -20,6 +20,8 @@
 
 "cancel" = "Cancel";
 
+"cannot-save-task" = "Cannot Save Task";
+
 "color" = "Color";
 
 "color-accent" = "Accent Color";
@@ -126,6 +128,8 @@
 
 "now" = "Now";
 
+"ok" = "Ok";
+
 "onboarding-show" = "Show Onboarding";
 
 "other-filters" = "Other Filters";
@@ -166,7 +170,11 @@
 
 "task" = "Task";
 
+"task-deadline-must-be-after-earliest-startdate" = "The deadline of the task must be after its earliest startdate.";
+
 "task-delete-confirmation" = "Delete Task?";
+
+"task-must-have-title" = "The Task must have a title.";
 
 "tasks" = "Tasks";
 
