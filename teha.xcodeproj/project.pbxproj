@@ -37,6 +37,7 @@
 		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
 		02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE42965CAD30084D579 /* TasksListView.swift */; };
 		02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */; };
+		02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9928C297D823E0069E17B /* OnboardingPageView.swift */; };
 		02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75562955DE5E005F4D35 /* tehaApp.swift */; };
 		02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75582955DE5E005F4D35 /* Persistence.swift */; };
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
@@ -52,6 +53,7 @@
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
+		ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEF022B2976D528007B199F /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +89,7 @@
 		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		02C0DEE42965CAD30084D579 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
 		02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetNavigationBar.swift; sourceTree = "<group>"; };
+		02C9928C297D823E0069E17B /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		02CB75532955DE5E005F4D35 /* teha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CB75562955DE5E005F4D35 /* tehaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tehaApp.swift; sourceTree = "<group>"; };
 		02CB75582955DE5E005F4D35 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
+		ACEF022B2976D528007B199F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +228,7 @@
 		02CB75552955DE5E005F4D35 /* teha */ = {
 			isa = PBXGroup;
 			children = (
+				ACEF02282976D368007B199F /* Onboarding */,
 				02A5BAD229686198007AC6BE /* Localization */,
 				029615F1295617B00073E378 /* Model */,
 				029615F0295617A50073E378 /* Base */,
@@ -256,6 +261,15 @@
 				A85AAA96296D92480078BA2D /* SettingsTab.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		ACEF02282976D368007B199F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				ACEF022B2976D528007B199F /* OnboardingView.swift */,
+				02C9928C297D823E0069E17B /* OnboardingPageView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +382,8 @@
 				025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
+				02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */,
+				ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */,
 				0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
 				02E7891F29759CFA00F521D0 /* Priority.swift in Sources */,

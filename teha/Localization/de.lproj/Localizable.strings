@@ -12,6 +12,10 @@
 
 "add-%@-as-new-tag" = "Füge %@ als neuen Tag hinzu";
 
+"advanced-settings" = "Erweiterte Einstellungen";
+
+"back" = "Zurück";
+
 "cancel" = "Abbrechen";
 
 "color" = "Farbe";
@@ -102,6 +106,8 @@
 
 "new-task" = "Neue Aufgabe";
 
+"next" = "Weiter";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -111,6 +117,8 @@
 "notes" = "Notizen";
 
 "now" = "Jetzt";
+
+"onboarding-show" = "Onboarding anzeigen";
 
 "other-filters" = "Weitere Filter";
 
@@ -135,6 +143,8 @@
 "selected" = "Ausgewählt";
 
 "settings" = "Einstellungen";
+
+"skip" = "Überspringen";
 
 "started" = "Angefangen";
 

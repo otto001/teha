@@ -12,6 +12,10 @@
 
 "add-%@-as-new-tag" = "Add %@ as new Tag";
 
+"advanced-settings" = "Advanced Settings";
+
+"back" = "Back";
+
 "cancel" = "Cancel";
 
 "color" = "Color";
@@ -102,6 +106,8 @@
 
 "new-task" = "New Task";
 
+"next" = "Next";
+
 "none" = "None";
 
 "normal" = "Normal";
@@ -111,6 +117,8 @@
 "notes" = "Notes";
 
 "now" = "Now";
+
+"onboarding-show" = "Show Onboarding";
 
 "other-filters" = "Other Filters";
 
@@ -135,6 +143,8 @@
 "selected" = "Selected";
 
 "settings" = "Settings";
+
+"skip" = "Skip";
 
 "started" = "Started";
 
