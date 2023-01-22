@@ -94,6 +94,10 @@
 
 "notes" = "Notes";
 
+"notifications-allow" = "Allow Notifications";
+
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
+
 "priority" = "Priority";
 
 "project" = "Project";
@@ -111,6 +115,8 @@
 "remove-%@" = "Remove %@";
 
 "settings" = "Settings";
+
+"settings-open" = "Open Settings";
 
 "started" = "Started";
 

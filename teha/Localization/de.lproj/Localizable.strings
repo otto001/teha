@@ -94,6 +94,10 @@
 
 "notes" = "Notizen";
 
+"notifications-allow" = "Erlaube Benachrichtigungen";
+
+"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
+
 "priority" = "Priorität";
 
 "project" = "Projekt";
@@ -111,6 +115,8 @@
 "remove-%@" = "Entferne %@";
 
 "settings" = "Einstellungen";
+
+"settings-open" = "Öffne Einstellungen";
 
 "started" = "Angefangen";
 
