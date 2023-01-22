@@ -46,7 +46,8 @@ extension THTask {
     
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "priorityNumber", ascending: false),
+        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true),
+                                   NSSortDescriptor(key: "priorityNumber", ascending: false),
                                    NSSortDescriptor(key: "creationDate", ascending: false),
                                    NSSortDescriptor(key: "title", ascending: true),]
         return request
@@ -99,3 +100,37 @@ extension NSFetchRequest where ResultType == THTask {
     }
 }
 
+//MARK: Sectioning
+extension THTask {
+    
+    /// ISO8601 string of the year, month and day of the deadline
+    /// Format: "[year]-[month]-[day]"
+    @objc var deadlineDayString: String {
+        guard let deadline = self.deadline else { return "none" }
+        return deadline.ISO8601Format(.iso8601Date(timeZone: .current))
+    }
+    
+    /// The year and week of the deadline as a string.
+    /// Format: "[year]-CW[week]"
+    @objc var deadlineWeekString: String {
+        guard let deadline = self.deadline else { return "none" }
+        let year = Calendar.current.component(.year, from: deadline)
+        let week = Calendar.current.component(.weekOfYear, from: deadline)
+        return "\(year)-CW\(week)"
+    }
+    
+    /// Cropped ISO8601 string of the year and month of the deadline
+    /// Format: "[year]-[month]"
+    @objc var deadlineMonthString: String {
+        guard let deadline = self.deadline else { return "none" }
+        return String(deadline.ISO8601Format(.iso8601Date(timeZone: .current)).substring(start: 0, end: 7))
+    }
+    
+    /// The year of the deadline as a string
+    /// Format: "[year]"
+    @objc var deadlineYearString: String {
+        guard let deadline = self.deadline else { return "none" }
+        let year = Calendar.current.component(.year, from: deadline)
+        return "\(year)"
+    }
+}

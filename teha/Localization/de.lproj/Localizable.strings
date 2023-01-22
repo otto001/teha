@@ -46,6 +46,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"day" = "Tag";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
@@ -103,6 +105,8 @@
 "match-all-tags" = "Alle ausgewählten Tags";
 
 "match-any-tag" = "Jedes der ausgewählten Tags";
+
+"month" = "Monat";
 
 "name" = "Name";
 
@@ -185,3 +189,7 @@
 "urgent" = "Dringend";
 
 "urgent-priority" = "Dringend";
+
+"week" = "Woche";
+
+"year" = "Jahr";

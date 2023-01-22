@@ -6,9 +6,6 @@
 //
 
 
-//TODO: use project picker
-
-
 import SwiftUI
 
 fileprivate struct TasksTabFiltersActiveButton: View {
@@ -123,20 +120,12 @@ struct TasksTab: View {
                     TaskEditView(mode: .add)
                 }
                 .confirmationDialog("group", isPresented: $groupSheet) {
-                    Button {
-                        
-                    } label: {
-                        Text("none")
-                    }
-                    Button {
-                        
-                    } label: {
-                        Text("project")
-                    }
-                    Button {
-                        
-                    } label: {
-                        Text("priority")
+                    ForEach(TasksFilterViewModel.TasksGrouping.allCases) { option in
+                        Button {
+                            filters.grouping = option
+                        } label: {
+                            Text(option.name)
+                        }
                     }
                     
                 } message: {
