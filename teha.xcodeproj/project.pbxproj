@@ -34,6 +34,7 @@
 		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
 		02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE42965CAD30084D579 /* TasksListView.swift */; };
 		02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */; };
+		02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9928C297D823E0069E17B /* OnboardingPageView.swift */; };
 		02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75562955DE5E005F4D35 /* tehaApp.swift */; };
 		02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB75582955DE5E005F4D35 /* Persistence.swift */; };
 		02CB755E2955DE5E005F4D35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02CB755D2955DE5E005F4D35 /* ContentView.swift */; };
@@ -46,7 +47,6 @@
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */; };
-		ACEF022A2976D3E5007B199F /* OnboardingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEF02292976D3E5007B199F /* OnboardingData.swift */; };
 		ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEF022B2976D528007B199F /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +80,7 @@
 		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		02C0DEE42965CAD30084D579 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
 		02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetNavigationBar.swift; sourceTree = "<group>"; };
+		02C9928C297D823E0069E17B /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		02CB75532955DE5E005F4D35 /* teha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = teha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02CB75562955DE5E005F4D35 /* tehaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tehaApp.swift; sourceTree = "<group>"; };
 		02CB75582955DE5E005F4D35 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Hex.swift"; sourceTree = "<group>"; };
-		ACEF02292976D3E5007B199F /* OnboardingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingData.swift; sourceTree = "<group>"; };
 		ACEF022B2976D528007B199F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,8 +248,8 @@
 		ACEF02282976D368007B199F /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				ACEF02292976D3E5007B199F /* OnboardingData.swift */,
 				ACEF022B2976D528007B199F /* OnboardingView.swift */,
+				02C9928C297D823E0069E17B /* OnboardingPageView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -339,7 +339,6 @@
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
-				ACEF022A2976D3E5007B199F /* OnboardingData.swift in Sources */,
 				029615F329561A280073E378 /* Navigation.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
@@ -361,6 +360,7 @@
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
+				02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */,
 				ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */,
 				0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
@@ -532,7 +532,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -575,7 +575,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;

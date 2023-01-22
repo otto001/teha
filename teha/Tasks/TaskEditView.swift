@@ -121,7 +121,7 @@ extension TaskEditView {
             self.notes = task.notes ?? ""
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
-            self.timeEstimate = task.timeEstimate
+            //self.timeEstimate = task.timeEstimate
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
         }
