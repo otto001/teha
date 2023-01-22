@@ -26,6 +26,19 @@ extension THTask {
     
     var isStarted: Bool { self.startDate != nil }
     var isCompleted: Bool { self.completionDate != nil }
+    
+    func started() {
+        self.startDate = .now
+    }
+    
+    func completed() {
+        self.completionDate = .now
+        self.completionProgress = 1
+        
+        if self.startDate == nil {
+            self.startDate = self.completionDate
+        }
+    }
 }
 
 //MARK: FetchRequests
