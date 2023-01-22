@@ -75,6 +75,7 @@ fileprivate struct TagPickerSheet: View {
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
+                selection.remove(tag)
                 viewContext.delete(tag)
             } label: {
                 Label("delete", systemImage: "minus.circle.fill")
@@ -89,7 +90,7 @@ fileprivate struct TagPickerSheet: View {
             addNewTag(text)
             text = ""
         } label: {
-            Label("Add \(text) as new Tag",
+            Label("add-\(text)-as-new-tag",
                   systemImage: "plus")
         }
     }
@@ -114,7 +115,7 @@ fileprivate struct TagPickerSheet: View {
                     tagRow(tag)
                 }
             } header: {
-                Text("Selected")
+                Text("selected")
             }
         }
         
@@ -124,7 +125,7 @@ fileprivate struct TagPickerSheet: View {
                     tagRow(tag)
                 }
             } header: {
-                Text("Tags")
+                Text("tags")
             }
         }
     }
@@ -136,7 +137,7 @@ fileprivate struct TagPickerSheet: View {
                     VStack {
                         Image(systemName: "tag.slash")
                             .font(.title)
-                        Text("No Tags exist yet. Use the Searchbar above to add new ones.")
+                        Text("tags-none-yet")
                             .padding()
                             .foregroundColor(.secondaryLabel)
                             .multilineTextAlignment(.center)
@@ -153,9 +154,11 @@ fileprivate struct TagPickerSheet: View {
                     }
                 }
             }
-            .navigationTitle("Tags")
+            
+            
+            .navigationTitle("tags")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $text, prompt: "Search or add tags")
+            .searchable(text: $text, prompt: "tags-search-or-add")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

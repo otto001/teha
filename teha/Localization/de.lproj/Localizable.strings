@@ -10,6 +10,8 @@
 
 "add-%@" = "Füge %@ hinzu";
 
+"add-%@-as-new-tag" = "Füge %@ als neuen Tag hinzu";
+
 "cancel" = "Abbrechen";
 
 "color" = "Farbe";
@@ -130,11 +132,19 @@
 
 "select-tasks" = "Aufgaben auswählen";
 
+"selected" = "Ausgewählt";
+
 "settings" = "Einstellungen";
 
 "started" = "Angefangen";
 
+"tag" = "Tag";
+
 "tags" = "Tags";
+
+"tags-none-yet" = "Es wurden noch keine Tags erstellt. Benutze die Suchleiste um neue Tags hinzuzufügen.";
+
+"tags-search-or-add" = "Suche oder erstelle neue Tags";
 
 "task" = "Aufgabe";
 

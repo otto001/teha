@@ -10,6 +10,8 @@
 
 "add-%@" = "Add %@";
 
+"add-%@-as-new-tag" = "Add %@ as new Tag";
+
 "cancel" = "Cancel";
 
 "color" = "Color";
@@ -130,11 +132,19 @@
 
 "select-tasks" = "Select Tasks";
 
+"selected" = "Selected";
+
 "settings" = "Settings";
 
 "started" = "Started";
 
+"tag" = "Tag";
+
 "tags" = "Tags";
+
+"tags-none-yet" = "No Tags exist yet. Use the Searchbar above to add new ones.";
+
+"tags-search-or-add" = "Search or Add Tags";
 
 "task" = "Task";
 
