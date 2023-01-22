@@ -80,13 +80,24 @@ extension TaskProgressBar {
         private var height: CGFloat {
             size.height
         }
-        
-        private var inset: CGFloat {
-            return height > 10 ? height*0.3 : height*0.5
+
+        private var circleScaleFactor: CGFloat {
+            return 1.5
         }
         
-        private var spacingFactor: CGFloat {
-            return height > 10 ? 1.3 : 1.5
+        /// The inset in pixels where the visible part of the bar starts
+        var inset: CGFloat {
+            // Math (https://mathworld.wolfram.com/Circle-LineIntersection.html)
+            let circleRadius = height/2 * circleScaleFactor
+            let p1 = CGPoint(x: -1, y: height/2)
+            let p2 = CGPoint(x: 1, y: height/2)
+            let dX = (p2.x - p1.x)
+            let dY = (p2.y - p1.y)
+            let dR = sqrt(dX*dX + dY*dY)
+            let D = (p1.x*p2.y - p1.y*p2.x)
+            
+            let x = (D * dY + 1 * dX * sqrt(circleRadius*circleRadius * dR*dR - D*D))/(dR*dR)
+            return x
         }
         
         var body: some View {
@@ -96,21 +107,21 @@ extension TaskProgressBar {
                     .foregroundColor(inactiveColor)
                 Rectangle()
                     .foregroundColor(activeColor)
-                    .frame(width: (barWidth-inset*2) * progress + inset)
+                    .frame(width: inset + progress * (barWidth - inset*2))
                 
                 HStack {
                     Circle()
-                        .blendMode(.destinationOut)
-                        .scaleEffect(spacingFactor)
+                    .blendMode(.destinationOut)
+                    .scaleEffect(circleScaleFactor)
                     Spacer()
                     Circle()
-                        .blendMode(.destinationOut)
-                        .scaleEffect(spacingFactor)
+                    .blendMode(.destinationOut)
+                    .scaleEffect(circleScaleFactor)
                 }
                 .padding(.horizontal, -height/2)
             }
             .compositingGroup()
-                .padding(.horizontal, -height/2)
+            .padding(.horizontal, -height/2)
         }
     }
 }
@@ -153,5 +164,6 @@ struct TaskProgressBar_Previews: PreviewProvider {
             Rectangle().frame(width: 1)
         }
         .padding(.horizontal)
+        .previewLayout(.sizeThatFits)
     }
 }
