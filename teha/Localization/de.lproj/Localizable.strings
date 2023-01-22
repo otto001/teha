@@ -40,6 +40,8 @@
 
 "deadline-add" = "Füge Deadline hinzu";
 
+"deadline-change" = "Deadline ändern";
+
 "deadline-remove" = "Entferne Deadline";
 
 "delete" = "Löschen";
@@ -52,11 +54,13 @@
 
 "earliest-startdate-add" = "Füge frühesten Beginn hinzu";
 
+"earliest-startdate-change" = "Frühesten Beginn ändern";
+
 "earliest-startdate-remove" = "Entferne frühesten Beginn";
 
-"enabled-filters" = "Aktivierte Filter";
-
 "edit" = "Bearbeiten";
+
+"enabled-filters" = "Aktivierte Filter";
 
 "filter" = "Filter";
 
@@ -74,6 +78,8 @@
 
 "low-priority" = "Niedrige Priorität";
 
+"mark-as-completed" = "Als erledigt markieren";
+
 "mark-as-not-completed" = "Als nicht erledigt markieren";
 
 "mark-as-not-completed-are-you-sure" = "Soll diese Aufgabe wirklich als nicht erledigt markiert werden?";
@@ -81,6 +87,8 @@
 "mark-as-not-started" = "Als nicht angefangen markieren";
 
 "mark-as-not-started-are-you-sure" = "Soll diese Aufgabe wirklich als nicht angefangen markiert werden?";
+
+"mark-as-started" = "Als angefangen markieren";
 
 "match-all-tags" = "Alle ausgewählten Tags";
 
@@ -108,6 +116,8 @@
 
 "project" = "Projekt";
 
+"project-change" = "Projekt ändern";
+
 "project-delete-confimation" = "Projekt löschen?";
 
 "projects" = "Projekte";
@@ -115,6 +125,10 @@
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
+
+"select" = "Auswählen";
+
+"select-tasks" = "Aufgaben auswählen";
 
 "settings" = "Einstellungen";
 
@@ -129,6 +143,8 @@
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
+
+"tasks-delete-confirmation" = "Aufgaben löschen?";
 
 "tasks-due-today" = "Bis heute";
 

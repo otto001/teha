@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreData
+
 
 struct TasksListView: View {
     @EnvironmentObject var filter: TasksFilterViewModel
@@ -21,7 +23,7 @@ fileprivate struct FilteredTasksListView: View {
     
     @FetchRequest var tasks: FetchedResults<THTask>
     
-    @State var selectedTasks: Set<THTask.ID> = .init()
+    @State var selectedTasks: Set<NSManagedObjectID> = .init()
     
     @State var taskToDelete: THTask?
     
@@ -36,7 +38,7 @@ fileprivate struct FilteredTasksListView: View {
     }
     
     var body: some View {
-        List(tasks, selection: $selectedTasks) { task in
+        List(tasks, id: \.objectID, selection: $selectedTasks) { task in
             TaskRowView(task: task)
                 .swipeActions(edge: .trailing) {
                     Button() {
@@ -58,56 +60,9 @@ fileprivate struct FilteredTasksListView: View {
         .toolbar {
             if editMode?.wrappedValue == .active {
                 ToolbarItem(placement: .bottomBar) {
-                    HStack {
-                        Menu("Mark") {
-                            Section {
-                                Button {
-                                    
-                                } label: {
-                                    Label("completed", systemImage: "checkmark.circle")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Label("started", systemImage: "play.circle")
-                                }
-                            } header: {
-                                Text("mark-as...")
-                            }
-                            
-                            
-                            
-                            
-                        }
-                        Spacer()
-                        
-                        Text("\(selectedTasks.count) selected")
-                        //                    Spacer()
-                        //
-                        //                    Button(role: .destructive) {
-                        //
-                        //                    } label: {
-                        //                        Text("Move")
-                        //                    }
-                        
-                        Spacer()
-                        
-                        Button() {
-                            
-                        } label: {
-                            //Text("delete")
-                            Image(systemName: "trash")
-                        }
-                        
-                        //Spacer()
-                        
-                        Menu {
-                            
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                        }
-                        
-                    }
+                    TaskListToolbarView(selected: $selectedTasks)
+                        .padding(.horizontal, -10)
+                        .padding(.top, -6)
                 }
             }
             
@@ -130,10 +85,12 @@ fileprivate struct FilteredTasksListView: View {
 
 struct TasksListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            TasksListView()
-                .environmentObject(TasksFilterViewModel())
-                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TabView {
+            NavigationStack {
+                TasksListView()
+                    .environmentObject(TasksFilterViewModel())
+                    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            }
         }
     }
 }

@@ -64,11 +64,14 @@ fileprivate struct TasksTabMoreButton: View {
 }
 
 struct TasksTab: View {
+    @Environment(\.editMode) var editMode
+    
     @State var taskAddSheet: Bool = false
     @State var filterSheet: Bool = false
     @State var groupSheet: Bool = false
     
     @StateObject var filters = TasksFilterViewModel()
+    
     
     var filtersAreActive: Bool {
         return filters.anyFilterActive
@@ -77,6 +80,7 @@ struct TasksTab: View {
     var body: some View {
         RoutedNavigation { _ in
             TasksListView()
+                .environment(\.editMode, editMode)
                 .environmentObject(filters)
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
@@ -96,8 +100,15 @@ struct TasksTab: View {
                         HStack {
                             
                             TasksTabFiltersActiveButton(filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
-                            EditButton()
                             
+                            Button {
+                                withAnimation {
+                                    editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                }
+                            } label: {
+                                Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
+                            }
+
                             TasksTabMoreButton(groupSheet: $groupSheet, filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
                         }
                         .transaction { t in
