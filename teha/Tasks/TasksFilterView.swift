@@ -32,6 +32,8 @@ struct TasksFilterView: View {
             .navigationTitle("filter")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
     }
 }
 
@@ -53,8 +55,12 @@ fileprivate struct TagFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
     let enabledSection: Bool
     
+    var visible: Bool {
+        enabledSection == (filters.tagFilterMode != .disabled)
+    }
+    
     var body: some View{
-        if enabledSection && filters.tagFilterMode != .disabled || !enabledSection && filters.tagFilterMode == .disabled {
+        if visible {
             VStack {
                 Picker(selection: $filters.tagFilterMode) {
                     Text("disabled").tag(TasksFilterViewModel.TagFilterMode.disabled)
@@ -81,16 +87,16 @@ fileprivate struct Filters: View {
 
     
     @ViewBuilder func projectPicker(enabledSection: Bool) -> some View {
-        if enabledSection && filters.project != nil || !enabledSection && filters.project == nil{
+        if enabledSection == (filters.project != nil) {
             ProjectPicker(selection: $filters.project, noneText: "disabled"){
-                Label("project", systemImage: "list.clipboard")
+                Label("project", systemImage: "briefcase")
             }
         }
         
     }
     
     @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View{
-        if enabledSection && filters.priority != nil || !enabledSection && filters.priority == nil{
+        if enabledSection == (filters.priority != nil) {
             PriorityPicker( selection: $filters.priority, noneText: "disabled"){
                 Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
             }
@@ -129,7 +135,13 @@ fileprivate struct Filters: View {
     }
 }
 
-struct TasksrView_Previews: PreviewProvider {
+struct TasksFilterView_Previews: PreviewProvider {
+    static var viewModel: TasksFilterViewModel {
+        let viewModel = TasksFilterViewModel()
+        viewModel.tagFilterMode = .matchAny
+        return viewModel
+    }
+    
     static var previews: some View {
         TasksFilterView().environmentObject(TasksFilterViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
