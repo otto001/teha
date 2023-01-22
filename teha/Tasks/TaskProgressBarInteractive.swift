@@ -93,18 +93,12 @@ struct TaskProgressBarInteractive: View {
     }
     
     private func startTask() {
-        task.startDate = .now
+        task.started()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     private func completeTask() {
-        task.completionDate = .now
-        task.completionProgress = 1
-        
-        if task.startDate == nil {
-            task.startDate = task.completionDate
-        }
-        
+        task.completed()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
@@ -139,7 +133,7 @@ struct TaskProgressBarInteractive: View {
                 task.completionProgress = draggingProgress
                 if draggingProgress >= 1 {
                     completeTask()
-                } else if draggingProgress >= 0 && !task.isStarted {
+                } else if draggingProgress > 0 && !task.isStarted {
                     startTask()
                 }
                 
