@@ -189,7 +189,7 @@ struct TaskDetailView: View {
                 Button {
                     editSheet = true
                 } label: {
-                    Text("Edit")
+                    Text("edit")
                 }
                 
             }
