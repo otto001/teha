@@ -10,6 +10,14 @@
 
 "add-%@" = "Füge %@ hinzu";
 
+"add-%@-as-new-tag" = "Füge %@ als neuen Tag hinzu";
+
+"advanced-settings" = "Erweiterte Einstellungen";
+
+"all" = "Alle";
+
+"back" = "Zurück";
+
 "cancel" = "Abbrechen";
 
 "color" = "Farbe";
@@ -34,15 +42,21 @@
 
 "completed" = "Erledigt";
 
+"current" = "Aktuelle";
+
 "custom" = "Benutzerdefiniert";
 
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
 
+"deadline-change" = "Deadline ändern";
+
 "deadline-remove" = "Entferne Deadline";
 
 "delete" = "Löschen";
+
+"disabled" = "Aus";
 
 "done" = "Fertig";
 
@@ -50,7 +64,13 @@
 
 "earliest-startdate-add" = "Füge frühesten Beginn hinzu";
 
+"earliest-startdate-change" = "Frühesten Beginn ändern";
+
 "earliest-startdate-remove" = "Entferne frühesten Beginn";
+
+"edit" = "Bearbeiten";
+
+"enabled-filters" = "Aktivierte Filter";
 
 "filter" = "Filter";
 
@@ -68,6 +88,8 @@
 
 "low-priority" = "Niedrige Priorität";
 
+"mark-as-completed" = "Als erledigt markieren";
+
 "mark-as-not-completed" = "Als nicht erledigt markieren";
 
 "mark-as-not-completed-are-you-sure" = "Soll diese Aufgabe wirklich als nicht erledigt markiert werden?";
@@ -76,11 +98,19 @@
 
 "mark-as-not-started-are-you-sure" = "Soll diese Aufgabe wirklich als nicht angefangen markiert werden?";
 
+"mark-as-started" = "Als angefangen markieren";
+
+"match-all-tags" = "Alle ausgewählten Tags";
+
+"match-any-tag" = "Jedes der ausgewählten Tags";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
 
 "new-task" = "Neue Aufgabe";
+
+"next" = "Weiter";
 
 "none" = "Nichts";
 
@@ -90,9 +120,17 @@
 
 "notes" = "Notizen";
 
+"now" = "Jetzt";
+
+"onboarding-show" = "Onboarding anzeigen";
+
+"other-filters" = "Weitere Filter";
+
 "priority" = "Priorität";
 
 "project" = "Projekt";
+
+"project-change" = "Projekt ändern";
 
 "project-delete-confimation" = "Projekt löschen?";
 
@@ -102,15 +140,45 @@
 
 "remove-%@" = "Entferne %@";
 
+"select" = "Auswählen";
+
+"select-tasks" = "Aufgaben auswählen";
+
+"selected" = "Ausgewählt";
+
 "settings" = "Einstellungen";
+
+"skip" = "Überspringen";
 
 "started" = "Angefangen";
 
+"tag" = "Tag";
+
 "tags" = "Tags";
+
+"tags-none-yet" = "Es wurden noch keine Tags erstellt. Benutze die Suchleiste um neue Tags hinzuzufügen.";
+
+"tags-search-or-add" = "Suche oder erstelle neue Tags";
 
 "task" = "Aufgabe";
 
+"task-delete-confirmation" = "Aufgabe löschen?";
+
 "tasks" = "Aufgaben";
+
+"tasks-completed" = "Beendete Aufgaben";
+
+"tasks-delete-confirmation" = "Aufgaben löschen?";
+
+"tasks-due-today" = "Bis heute";
+
+"tasks-finished" = "Fertig";
+
+"tasks-none" = "Keine Aufgaben";
+
+"tasks-overdue" = "Überfällig";
+
+"tasks-todo" = "To Do";
 
 "title" = "Titel";
 
