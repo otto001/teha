@@ -58,12 +58,7 @@ struct TaskEditView: View {
         // TODO: error handling
         try? viewContext.save()
         
-        if task.reminderOffset != nil  {
-            NotificationManager.instance.scheduleReminderNotifications(task: task)
-        } else {
-            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId)
-            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId + "2")
-        }
+        NotificationManager.instance.scheduleReminderNotifications(task: task)
             
         dismiss()
     }

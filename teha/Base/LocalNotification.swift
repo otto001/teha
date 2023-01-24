@@ -42,21 +42,53 @@ class NotificationManager {
      */
     func scheduleReminderNotifications(task: THTask) {
         
-        if let reminderOffset = task.reminderOffset {
+        if let reminderOffset = task.reminderOffset, let reminderOffsetSecond = task.reminderOffsetSecond{
+            scheduleReminderNotification(reminderid: task.taskId + "2",
+                                 title: task.title,
+                                 deadline: task.deadline,
+                                 reminderOffset: reminderOffsetSecond)
+            
+            scheduleReminderNotification(reminderid: task.taskId,
+                                 title: task.title,
+                                 deadline: task.deadline,
+                                 reminderOffset: reminderOffset)
+        } else if let reminderOffset = task.reminderOffset {
             scheduleReminderNotification(reminderid: task.taskId,
                                  title: task.title,
                                  deadline: task.deadline,
                                  reminderOffset: reminderOffset)
             
-            if let reminderOffsetSecond = task.reminderOffsetSecond{
-                scheduleReminderNotification(reminderid: task.taskId + "2",
-                                     title: task.title,
-                                     deadline: task.deadline,
-                                     reminderOffset: reminderOffsetSecond)
-            }
+            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId + "2")
+        } else {
+            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId)
+            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId + "2")
         }
         
+        updateBadgesOfPendingRequests()
+        
     }
+
+//    func scheduleReminderNotifications(task: THTask) {
+//
+//        if let reminderOffset = task.reminderOffset {
+//            scheduleReminderNotification(reminderid: task.taskId,
+//                                 title: task.title,
+//                                 deadline: task.deadline,
+//                                 reminderOffset: reminderOffset)
+//
+//            if let reminderOffsetSecond = task.reminderOffsetSecond{
+//                scheduleReminderNotification(reminderid: task.taskId + "2",
+//                                     title: task.title,
+//                                     deadline: task.deadline,
+//                                     reminderOffset: reminderOffsetSecond)
+//            }
+//
+//            updateBadgesOfPendingRequests()
+//        }
+//        NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId)
+//        NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId + "2")
+//
+//    }
     
     /**
         Schedules a reminder notification for a task.
@@ -84,7 +116,7 @@ class NotificationManager {
         content.subtitle = title ?? ""
         content.body = deadline.formatted()
         content.sound = .default
-        content.badge = (getNumberOfDeliveredNotifications() + getNumberOfPendingNotifications() + 1) as NSNumber // TODO: This does not work!
+//        content.badge = 1 as NSNumber
 
         // Create trigger for notification
         guard let dateComponents = reminderDateComponents(deadline: deadline, offset: reminderOffset) else {
@@ -150,6 +182,58 @@ class NotificationManager {
             return calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: currentReminder)
         } else {
             return calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: reminder)
+        }
+    }
+
+    /**
+        This function updates the badge property of all pending notifications.
+        It first retrieves all pending notifications from the notification center and sorts them in ascending order by their trigger date.
+        Then it iterates through the requests and assigns a badge number to each request, starting with the number of delivered notifications +1.
+        Finally, it updates the notification request in the notification center with the new badge value.
+    */
+    func updateBadgesOfPendingRequests() {
+        var badgeCounter = getNumberOfDeliveredNotifications() // TODO: Need to remove this by an intern value if we want the badge to be independent of the NotificationCenter
+        orderPendingRequestsAscending { orderedRequests in
+            for request in orderedRequests {
+                badgeCounter += 1
+                var content = request.content.mutableCopy() as! UNMutableNotificationContent
+                content.badge = badgeCounter as NSNumber
+                // update request by setting its current badge to badgeCounter
+                let newRequest = UNNotificationRequest(identifier: request.identifier, content: content, trigger: request.trigger)
+                UNUserNotificationCenter.current().add(newRequest) { error in
+                    if let error = error {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+        This function sorts all pending notifications in ascending order by their trigger date.
+        It retrieves all pending notifications from the notification center and sorts them using a custom comparator, by comparing the trigger date of each request.
+        The function takes a completion closure as an argument, which is executed once the requests are sorted and passed to it.
+        The closure takes an array of UNNotificationRequest as an argument, which contains the sorted requests.
+    */
+
+    func orderPendingRequestsAscending(completion: @escaping ([UNNotificationRequest]) -> Void) {
+            
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests { requests in
+            
+            let calendar = Calendar.current
+            let sortedRequests = requests.sorted {
+                if let trigger1 = $0.trigger as? UNCalendarNotificationTrigger,
+                   let trigger2 = $1.trigger as? UNCalendarNotificationTrigger {
+                    
+                    let date1 = calendar.date(from: trigger1.dateComponents)
+                    let date2 = calendar.date(from: trigger2.dateComponents)
+                    
+                    return date1! < date2!
+                }
+                return false
+            }
+            completion(sortedRequests)
         }
     }
     
