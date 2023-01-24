@@ -15,9 +15,11 @@ struct ReminderPicker: View {
     @ObservedObject var notificationStatus: NotificationStatus
     @Binding var internalSelection: ReminderOffsetTag
     @State private var showAlert = false
+    let title: LocalizedStringKey
     
-    init(selection: Binding<ReminderOffset?>) {
+    init(title: LocalizedStringKey, selection: Binding<ReminderOffset?>) {
         
+        self.title = title
         self.notificationStatus = NotificationStatus()
         
         self._internalSelection = Binding {
@@ -44,7 +46,7 @@ struct ReminderPicker: View {
             
             if notificationStatus.status == .authorized {
                 
-                Picker("reminder", selection: $internalSelection) {
+                Picker(title, selection: $internalSelection) {
                     Text("none").tag(ReminderOffsetTag(nil))
 
                     ForEach(ReminderOffset.allCases) { reminderOffset in
@@ -92,7 +94,7 @@ struct ReminderPicker_Previews: PreviewProvider {
         @State var selection: ReminderOffset? = nil
 
         var body: some View {
-            ReminderPicker(selection: $selection)
+            ReminderPicker(title:"reminder", selection: $selection)
         }
     }
     

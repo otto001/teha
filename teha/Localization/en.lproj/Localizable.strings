@@ -120,6 +120,8 @@
 
 "reminder-add" = "Add Reminder";
 
+"reminder-second" = "Second Reminder";
+
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";

@@ -120,6 +120,8 @@
 
 "reminder-add" = "Füge Erinnerung hinzu";
 
+"reminder-second" = "Zweite Erinnerung";
+
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";

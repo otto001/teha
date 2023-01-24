@@ -47,6 +47,7 @@ struct TaskEditView: View {
         task.project = data.project
         
         task.reminderOffset = data.reminder
+        task.reminderOffsetSecond = data.reminderSecond
         
         task.tags = data.tags as NSSet
         
@@ -58,9 +59,10 @@ struct TaskEditView: View {
         try? viewContext.save()
         
         if task.reminderOffset != nil  {
-            NotificationManager.instance.scheduleNotification(task: task)
+            NotificationManager.instance.scheduleReminderNotifications(task: task)
         } else {
             NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId)
+            NotificationManager.instance.cancelPendingNotifications(taskid: task.taskId + "2")
         }
             
         dismiss()
@@ -84,7 +86,10 @@ struct TaskEditView: View {
                 }
 
                 Section {
-                    ReminderPicker(selection: $data.reminder)
+                    ReminderPicker(title: "reminder", selection: $data.reminder)
+                    if data.reminder != nil {
+                        ReminderPicker(title: "reminder-second", selection: $data.reminderSecond)
+                    }
                 }
                 
                 Section {
@@ -116,6 +121,7 @@ extension TaskEditView {
         var deadline: Date? = nil
         var timeEstimate: Double? = nil
         var reminder: ReminderOffset? = nil
+        var reminderSecond: ReminderOffset? = nil
         
         var project: THProject?
         
@@ -138,6 +144,7 @@ extension TaskEditView {
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
             self.reminder = task.reminderOffset
+            self.reminderSecond = task.reminderOffsetSecond
         }
     }
     

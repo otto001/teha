@@ -34,6 +34,23 @@ extension THTask {
         }
     }
     
+    var reminderOffsetSecond: ReminderOffset? {
+        get {
+            if let reminderMinSecond=self.reminderMinSecond {
+                return ReminderOffset(rawValue: Int(truncating: reminderMinSecond))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue=newValue {
+                self.reminderMinSecond = NSNumber(value:newValue.rawValue)
+            } else {
+                self.reminderMinSecond = nil
+            }
+        }
+    }
+    
     var taskId: String {
         get {
             return self.objectID.uriRepresentation().absoluteString

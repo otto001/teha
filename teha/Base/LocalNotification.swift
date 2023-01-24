@@ -15,8 +15,9 @@ class NotificationManager {
     static let instance = NotificationManager() // Singleton
     
     /**
-        Requests the user’s authorization to allow local notifications in form from alert, it's corresponding sound and badge count on the app's icon.
-        This will be executed once, afterwards this property needs to be changed by the user in phone settings.
+        Requests the user's authorization to allow local notifications in the form of alerts, sound, and badges on the app's icon.
+        - Note:
+            This request is executed only once. To change the authorization, the user would need to go to their phone settings.
     */
     func requestAuthorization() {
         
@@ -35,11 +36,41 @@ class NotificationManager {
     }
     
     /**
-        Sends a request to the notification center based on the reminders set in task already pending request of the current task will be canceled.
+        Schedules reminder notifications for a given task. `task.reminderOffset` must not be `nil`. If the task contains a second reminder offset, it will schedule another notification for the same task with different offset.
+        - Parameters:
+            - task: The task for which to schedule the notifications. Must contain a reminder offset.
      */
-    func scheduleNotification(task: THTask) {
+    func scheduleReminderNotifications(task: THTask) {
+        
+        if let reminderOffset = task.reminderOffset {
+            scheduleReminderNotification(reminderid: task.taskId,
+                                 title: task.title,
+                                 deadline: task.deadline,
+                                 reminderOffset: reminderOffset)
+            
+            if let reminderOffsetSecond = task.reminderOffsetSecond{
+                scheduleReminderNotification(reminderid: task.taskId + "2",
+                                     title: task.title,
+                                     deadline: task.deadline,
+                                     reminderOffset: reminderOffsetSecond)
+            }
+        }
+        
+    }
+    
+    /**
+        Schedules a reminder notification for a task.
+        - Parameters:
+            - reminderid: A unique identifier for the reminder of a task.
+            - title: The title of the task for which the reminder notification is being scheduled.
+            - deadline: The deadline of the task for which the reminder notification is being scheduled.
+            - reminderOffset: The offset from the deadline at which the reminder notification should be triggered.
+        - Returns:
+            This function returns nothing. If the deadline is not set for the task, an error message is printed. If the reminder date cannot be created, an error message is printed.
+    */
+    func scheduleReminderNotification(reminderid: String, title: String?, deadline: Date?, reminderOffset: ReminderOffset) {
      
-        guard let deadline=task.deadline, let reminderOffset=task.reminderOffset else {
+        guard let deadline = deadline else {
             print("Error: Deadline and/or reminderOffset was not set for the task!")
             return
         }
@@ -47,16 +78,11 @@ class NotificationManager {
         // Returns current notification center
         let center = UNUserNotificationCenter.current()
         
-        // Remove already scheduled reminders, which might not be up to date anymore
-        cancelPendingNotifications(taskid: task.taskId)
-        
         // Create content of notification
         let content = UNMutableNotificationContent()
         content.title = String(localized:"deadline-approaching")
-        content.subtitle = task.title ?? ""
-        if let deadline = task.deadline {
-            content.body = deadline.formatted()
-        }
+        content.subtitle = title ?? ""
+        content.body = deadline.formatted()
         content.sound = .default
         content.badge = (getNumberOfDeliveredNotifications() + getNumberOfPendingNotifications() + 1) as NSNumber // TODO: This does not work!
 
@@ -72,7 +98,7 @@ class NotificationManager {
 
         // Create a notification request for notification center
         let request = UNNotificationRequest(
-            identifier: task.taskId,
+            identifier: reminderid,
             content: content,
             trigger: trigger)
 
