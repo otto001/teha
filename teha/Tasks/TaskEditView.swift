@@ -80,12 +80,12 @@ struct TaskEditView: View {
                                        selection: $data.deadline)
                 }
 
-                Section {
-                    if data.deadline != nil {
-                        ReminderPicker(title: "reminder", selection: $data.reminder)
-                        if data.reminder != nil {
-                            ReminderPicker(title: "reminder-second", selection: $data.reminderSecond)
-                        }
+                if data.deadline != nil {
+                    Section {
+                            ReminderPicker(title: "reminder", selection: $data.reminder)
+                            if data.reminder != nil {
+                                ReminderPicker(title: "reminder-second", selection: $data.reminderSecond)
+                            }
                     }
                 }
                 
