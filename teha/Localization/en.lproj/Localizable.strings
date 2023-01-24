@@ -6,7 +6,17 @@
 
 "%@-priority" = "%@ Priority";
 
+"%d-day-before" = "%d day before";
+
+"%d-days-before" = "%d days before";
+
+"%d-hour-before" = "%d hour before";
+
+"%d-hours-before" = "%d hours before";
+
 "%d-minutes-before" = "%d minutes before";
+
+"%d-week-before" = "%d week before";
 
 "add" = "Add";
 
