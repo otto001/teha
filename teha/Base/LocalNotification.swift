@@ -2,28 +2,22 @@
 //  LocalNotification.swift
 //  teha
 //
-// - unendlich viele Reminder erstellen
-// - Reminder badge count erst löschen wenn task completed oder gelöscht
-// - Nachrichten -> auch in der App wiederspiegeln
-//
-// - Fokus mehr auf Effizienz und Zeitmanagment
-// ------> Projekt Priorität soll nicht ungebdingt von der Aufgabe geerbt werden - eher keine Priorität
-// - Text Mining mit drin? bei Text Suche
-//
 //  Created by Jette on 15.01.23.
 //
 
 import UserNotifications
 
-/// The object for managing notification-related activities such as scheduling reminder.
+/**
+    The object for managing notification-related activities such as scheduling reminder.
+*/
 class NotificationManager {
     
     static let instance = NotificationManager() // Singleton
     
-    /// Requests the user’s authorization to allow local notifications in form from
-    /// alert, it's corresponding sound and badge count on the app's icon.
-    /// This will be executed once, afterwards this property needs to be changed by
-    /// the user in phone settings.
+    /**
+        Requests the user’s authorization to allow local notifications in form from alert, it's corresponding sound and badge count on the app's icon.
+        This will be executed once, afterwards this property needs to be changed by the user in phone settings.
+    */
     func requestAuthorization() {
         
         let center = UNUserNotificationCenter.current()
@@ -40,11 +34,15 @@ class NotificationManager {
         
     }
     
-    /// Sends a request to the notification center based on the reminders set in task
-    /// already pending request of the current task will be canceled
+    /**
+        Sends a request to the notification center based on the reminders set in task already pending request of the current task will be canceled.
+     */
     func scheduleNotification(task: THTask) {
-        
-        var test: Bool = true // TODO: remove later
+     
+        guard let deadline=task.deadline, let reminderOffset=task.reminderOffset else {
+            print("Error: Deadline and/or reminderOffset was not set for the task!")
+            return
+        }
         
         // Returns current notification center
         let center = UNUserNotificationCenter.current()
@@ -63,22 +61,9 @@ class NotificationManager {
         content.badge = (getNumberOfDeliveredNotifications() + getNumberOfPendingNotifications() + 1) as NSNumber // TODO: This does not work!
 
         // Create trigger for notification
-        var dateComponents: DateComponents = DateComponents() // TODO: remove later
-        
-        if test { // TODO: remove later
-            let date = Date().addingTimeInterval(30)
-            dateComponents = Calendar.current.dateComponents(
-                [.year, .month, .day, .hour, .minute, .second],
-                from: date)
-        } else {
-            if let deadline = task.deadline {
-                let deadlineDateComponents = Calendar.current.dateComponents(
-                    [.year, .month, .day, .hour, .minute],
-                    from: deadline)
-            }
-            // TODO: create actual reminder time
-//        guard let reminderDate = dateComponents.minute - dateComponents2.minute else {
-//            return
+        guard let dateComponents = reminderDateComponents(deadline: deadline, offset: reminderOffset) else {
+            print("Error: Couldn't create reminder date!")
+            return
         }
         
         let trigger = UNCalendarNotificationTrigger(
@@ -93,12 +78,53 @@ class NotificationManager {
 
         // Add request to notification center
         center.add(request) { (error) in
-            // TODO: Check the error parameter and handle any errors
             if let error = error {
                 print("ERROR: \(error)")
             }
         }
 
+    }
+    
+    /**
+        Given a deadline of type `Date` and an offset of type `ReminderOffset`, this function calculates the actual reminder date (deadline date minus the offset) and returns it as a value of type `DateComponents`.
+        - Parameters:
+            - deadline: The deadline date as a `Date` object.
+            - offset: The offset from the deadline in minutes as a `ReminderOffset` object.
+        - Returns:
+            - A `DateComponents` object representing the reminder date.
+            - If the reminder date is in the past, it will return current date + an offset of 5 seconds as a `DateComponent`.
+            - If both are in the past, it will return `nil`.
+        - Note:
+            - If the reminder date is in the past, the function will print a warning message
+            - If the deadline date and reminder date are both in the past, it will print an error message
+    */
+    func reminderDateComponents(deadline: Date, offset: ReminderOffset) -> DateComponents? {
+        let timeBuffer = 5
+        let calendar = Calendar.current
+        let reminder = calendar.date(byAdding: .minute, value: -offset.rawValue, to: deadline)
+        
+        guard let reminder = reminder else {
+            print("Error: Couldn't create a reminder date!")
+            return nil
+        }
+        
+        let now = Date()
+        let deadlineCompare = calendar.compare(deadline, to: now, toGranularity: .second)
+        let reminderCompare = calendar.compare(reminder, to: now, toGranularity: .second)
+        
+        if deadlineCompare == .orderedAscending && reminderCompare == .orderedAscending {
+            print("Error: deadline date and reminder date are in the past!")
+            return nil
+        } else if reminderCompare == .orderedAscending {
+            print("Warning: reminder date is in the past!")
+            guard let currentReminder = calendar.date(byAdding: .second, value: timeBuffer, to: now) else {
+                print("Error: Couldn't create current reminder date!")
+                return nil
+            }
+            return calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: currentReminder)
+        } else {
+            return calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: reminder)
+        }
     }
     
     /// Sets the badge count of the app’s icon to the number of delivered notifications
