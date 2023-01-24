@@ -170,6 +170,8 @@
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
 
+"tasks-doing" = "In Arbeit";
+
 "tasks-due-today" = "Bis heute";
 
 "tasks-finished" = "Fertig";

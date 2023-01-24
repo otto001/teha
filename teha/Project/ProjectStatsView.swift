@@ -52,15 +52,6 @@ struct ProjectStatsView: View {
         return Float(dueToday)
     }
     
-    var overdue: Float {
-        let today = Date.now
-        let dueToday = tasks
-            .filter { $0.deadline != nil }
-            .filter { $0.deadline! < today }
-            .count
-        return Float(dueToday)
-    }
-    
     var todo: Float {
         let todo = tasks.filter { $0.completionDate == nil }.count
         return Float(todo)
@@ -71,15 +62,20 @@ struct ProjectStatsView: View {
         return Float(finished)
     }
     
+    var doing: Float {
+        let doing = tasks.filter { $0.isStarted && !$0.isCompleted }.count
+        return Float(doing)
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
                 StatView(name: "tasks-due-today", value: dueToday, color: .orange, systemName: "calendar")
-                StatView(name: "tasks-overdue", value: overdue, color: .red, systemName: "calendar.badge.exclamationmark")
+                StatView(name: "tasks-todo", value: todo, color: .blue, systemName: "circle")
             }
             HStack(spacing: 12) {
-                StatView(name: "tasks-todo", value: todo, color: .blue, systemName: "paintbrush")
-                StatView(name: "tasks-finished", value: finished, color: .gray, systemName: "checkmark.circle")
+                StatView(name: "tasks-doing", value: doing, color: .mint, systemName: "minus")
+                StatView(name: "tasks-finished", value: finished, color: .green, systemName: "circle.fill")
             }
             Spacer()
         }.padding(.horizontal, 24)
