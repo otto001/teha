@@ -44,7 +44,7 @@ struct ReminderPicker: View {
             
             if notificationStatus.status == .authorized {
                 
-                Picker("reminder-add", selection: $internalSelection) {
+                Picker("reminder", selection: $internalSelection) {
                     Text("none").tag(ReminderOffsetTag(nil))
 
                     ForEach(ReminderOffset.allCases) { reminderOffset in
