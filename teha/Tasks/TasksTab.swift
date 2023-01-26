@@ -75,7 +75,7 @@ struct TasksTab: View {
     }
     
     var body: some View {
-        RoutedNavigation { _ in
+        NavigationStack {
             TasksListView()
                 .environment(\.editMode, editMode)
                 .environmentObject(filters)

@@ -26,7 +26,6 @@
 		029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E0295617920073E378 /* THProject+CoreDataClass.swift */; };
 		029615EB295617930073E378 /* teha.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 029615E2295617920073E378 /* teha.xcdatamodeld */; };
 		029615ED295617930073E378 /* ProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615E5295617920073E378 /* ProjectEditView.swift */; };
-		029615F329561A280073E378 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615F229561A280073E378 /* Navigation.swift */; };
 		029E336829564E36004A2E12 /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336729564E36004A2E12 /* TaskEditView.swift */; };
 		029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */; };
 		029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */; };
@@ -77,7 +76,6 @@
 		029615E0295617920073E378 /* THProject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "THProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		029615E3295617920073E378 /* teha.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = teha.xcdatamodel; sourceTree = "<group>"; };
 		029615E5295617920073E378 /* ProjectEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectEditView.swift; sourceTree = "<group>"; };
-		029615F229561A280073E378 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		029E336729564E36004A2E12 /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
 		029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalDatePicker.swift; sourceTree = "<group>"; };
 		029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				029615DF295617920073E378 /* SimpleColorPicker.swift */,
-				029615F229561A280073E378 /* Navigation.swift */,
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
 				02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */,
@@ -362,7 +359,6 @@
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
-				029615F329561A280073E378 /* Navigation.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
