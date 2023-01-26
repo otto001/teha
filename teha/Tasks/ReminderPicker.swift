@@ -7,48 +7,56 @@
 
 import SwiftUI
 
-class NotificationStatus: ObservableObject {
-    @Published var status: UNAuthorizationStatus = .notDetermined
-}
-
+/// A SwiftUI view that allows users to select a reminder offset from a list of options.
+/// The view will show a picker if the user has authorized notifications, otherwise it will show a button that prompts the user to open settings and allow notifications.
 struct ReminderPicker: View {
-    @ObservedObject var notificationStatus: NotificationStatus
+    /// The currently selected reminder offset.
     @Binding var internalSelection: ReminderOffsetTag
+    /// The current status of the user's authorization for notifications.
+    @State var status: UNAuthorizationStatus
+    // A flag to determine whether the alert should be shown to prompt the user to open settings and allow notifications.
     @State private var showAlert = false
+    /// The title of the picker.
     let title: LocalizedStringKey
     
+    /// Initializes the view with a title and a binding to the selected reminder offset. It sets the status of the user's authorization for notifications to not determined.
+    /// - Parameters:
+    ///   - title: The title of the picker.
+    ///   - selection: A binding to the selected reminder offset.
     init(title: LocalizedStringKey, selection: Binding<ReminderOffset?>) {
-        
         self.title = title
-        self.notificationStatus = NotificationStatus()
-        
+        self.status = .notDetermined
         self._internalSelection = Binding {
             return ReminderOffsetTag(selection.wrappedValue)
         } set: { reminderOffsetTag in
             selection.wrappedValue = reminderOffsetTag.value
         }
-        
-        checkAuthorization()
-        
     }
     
+    /// Checks the current status of the user's authorization for notifications and updates the status.
     func checkAuthorization() {
+        let semaphore = DispatchSemaphore(value: 0)
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {
-                self.notificationStatus.status = settings.authorizationStatus
+                self.status = settings.authorizationStatus
             }
+            semaphore.signal()
         }
+        semaphore.wait()
     }
 
-
+    /// `body` view dispalys  either the picker or the button, depending on the authorization status.
+    /// It contains an `onAppear` function which checks for authorization status every time the view appears.
+    /// And also an `onReceive` function which listens to the `UIApplication.willEnterForegroundNotification` and calls
+    /// the `checkAuthorization` function so that in case the user changed the authorization in settings the view will be updated accordingly.
     var body: some View {
         Group {
             
-            if notificationStatus.status == .authorized {
+            if status == .authorized {
                 
+                // Show the picker if the user has authorized notifications
                 Picker(title, selection: $internalSelection) {
                     Text("none").tag(ReminderOffsetTag(nil))
-
                     ForEach(ReminderOffset.allCases) { reminderOffset in
                         Text(reminderOffset.name).tag(ReminderOffsetTag(reminderOffset))
                     }
@@ -56,6 +64,7 @@ struct ReminderPicker: View {
                 
             } else {
                 
+                // Show the button and alert if the user has not authorized notifications
                 Button {
                     self.showAlert.toggle()
                 } label: {
@@ -72,16 +81,24 @@ struct ReminderPicker: View {
                 
             }
             
-        }.environmentObject(notificationStatus)
+        }
+        .onAppear {
+            self.checkAuthorization()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            self.checkAuthorization()
+        }
     }
-
 
 }
 
 extension ReminderPicker {
+    
+    /// This struct is a wrapper for a `ReminderOffset` value, which allows it to be used as the tag in a Picker view.
     struct ReminderOffsetTag: Hashable {
         let value: ReminderOffset?
         
+        /// Takes a `ReminderOffset` value and sets it as the `value` property.
         init(_ value: ReminderOffset?) {
             self.value = value
         }
