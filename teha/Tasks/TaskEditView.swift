@@ -40,6 +40,7 @@ struct TaskEditView: View {
         
         task.title = data.title
         task.notes = data.notes
+        task.priority = data.priority
         
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
@@ -69,6 +70,10 @@ struct TaskEditView: View {
                 Section {
                     TextField(LocalizedStringKey("title"), text: $data.title)
                     ProjectPicker("project",  selection: $data.project)
+                        .onChange(of: data.project) { newValue in
+                            data.priority = newValue?.priority ?? data.priority
+                        }
+                    PriorityPicker("priority", selection: $data.priority)
                 }
 
                 Section {
@@ -114,8 +119,11 @@ extension TaskEditView {
     struct FormData {
         var title: String = ""
         var notes: String = ""
+        var priority: Priority = .normal
+        
         var earliestStartDate: Date? = nil
         var deadline: Date? = nil
+        
         var timeEstimate: Double? = nil
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
@@ -135,9 +143,10 @@ extension TaskEditView {
         init(task: THTask) {
             self.title = task.title ?? ""
             self.notes = task.notes ?? ""
+            self.priority = task.priority
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
-            self.timeEstimate = task.timeEstimate
+            self.timeEstimate = task.timeEstimate as? Double
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
             self.reminder = task.reminderOffset

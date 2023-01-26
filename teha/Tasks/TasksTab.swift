@@ -11,17 +11,32 @@
 
 import SwiftUI
 
-struct TasksTab: View {
+fileprivate struct TasksTabFiltersActiveButton: View {
+    @Environment(\.editMode) var editMode
     
-    @State var taskAddSheet: Bool = false
-    @State var filterSheet: Bool = false
-    @State var groupSheet: Bool = false
-
-    @StateObject var filters = TasksFilterViewModel()
+    @Binding var filterSheet: Bool
     
-    var filtersAreActive: Bool {
-        return filters.filtersAreActive
+    let filtersAreActive: Bool
+    
+    var body: some View {
+        if filtersAreActive {
+            Button {
+                filterSheet = true
+            } label: {
+                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+            }
+            .disabled(editMode?.wrappedValue == .active )
+        }
     }
+}
+
+fileprivate struct TasksTabMoreButton: View {
+    @Environment(\.editMode) var editMode
+    
+    @Binding var groupSheet: Bool
+    @Binding var filterSheet: Bool
+    
+    let filtersAreActive: Bool
     
     var filterSystemImage: String {
         filtersAreActive ?
@@ -29,8 +44,43 @@ struct TasksTab: View {
     }
     
     var body: some View {
+        if editMode?.wrappedValue != .active {
+            Menu {
+                Button {
+                    groupSheet = true
+                } label: {
+                    Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
+                }
+                Button {
+                    filterSheet = true
+                } label: {
+                    Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+        }
+    }
+}
+
+struct TasksTab: View {
+    @Environment(\.editMode) var editMode
+    
+    @State var taskAddSheet: Bool = false
+    @State var filterSheet: Bool = false
+    @State var groupSheet: Bool = false
+    
+    @StateObject var filters = TasksFilterViewModel()
+    
+    
+    var filtersAreActive: Bool {
+        return filters.anyFilterActive
+    }
+    
+    var body: some View {
         RoutedNavigation { _ in
             TasksListView()
+                .environment(\.editMode, editMode)
                 .environmentObject(filters)
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
@@ -46,43 +96,29 @@ struct TasksTab: View {
                         }
                         
                     }
-                    if filtersAreActive {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                filterSheet = true
-                            } label: {
-                                Image(systemName: filterSystemImage)
-                            }
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button {
-                                groupSheet = true
-                            } label: {
-                                Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
-                            }
-                            Button {
-                                filterSheet = true
-                            } label: {
-                                Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
-                            }
-                            
-                            
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                        }
-                        
-                    }
                     
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            
+                            TasksTabFiltersActiveButton(filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
+                            
+                            Button {
+                                withAnimation {
+                                    editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                }
+                            } label: {
+                                Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
+                            }
+
+                            TasksTabMoreButton(groupSheet: $groupSheet, filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
+                        }
+                        .transaction { t in
+                            t.animation = nil
+                        }
+                    }
                 }
                 .sheet(isPresented: $filterSheet) {
-                    TasksFilterView {
-                        filterSheet = false
-                    }.environmentObject(filters)
+                    TasksFilterView().environmentObject(filters)
                 }
                 .sheet(isPresented: $taskAddSheet) {
                     TaskEditView(mode: .add)

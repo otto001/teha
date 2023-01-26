@@ -75,9 +75,10 @@ fileprivate struct TagPickerSheet: View {
         }
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
+                selection.remove(tag)
                 viewContext.delete(tag)
             } label: {
-                Label("delete", systemImage: "remove.circle.fill")
+                Label("delete", systemImage: "minus.circle.fill")
             }
             .tint(Color.red)
         }
@@ -89,7 +90,7 @@ fileprivate struct TagPickerSheet: View {
             addNewTag(text)
             text = ""
         } label: {
-            Label("Add \(text) as new Tag",
+            Label("add-\(text)-as-new-tag",
                   systemImage: "plus")
         }
     }
@@ -114,7 +115,7 @@ fileprivate struct TagPickerSheet: View {
                     tagRow(tag)
                 }
             } header: {
-                Text("Selected")
+                Text("selected")
             }
         }
         
@@ -124,7 +125,7 @@ fileprivate struct TagPickerSheet: View {
                     tagRow(tag)
                 }
             } header: {
-                Text("Tags")
+                Text("tags")
             }
         }
     }
@@ -136,7 +137,7 @@ fileprivate struct TagPickerSheet: View {
                     VStack {
                         Image(systemName: "tag.slash")
                             .font(.title)
-                        Text("No Tags exist yet. Use the Searchbar above to add new ones.")
+                        Text("tags-none-yet")
                             .padding()
                             .foregroundColor(.secondaryLabel)
                             .multilineTextAlignment(.center)
@@ -153,9 +154,11 @@ fileprivate struct TagPickerSheet: View {
                     }
                 }
             }
-            .navigationTitle("Tags")
+            
+            
+            .navigationTitle("tags")
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $text, prompt: "Search or add tags")
+            .searchable(text: $text, prompt: "tags-search-or-add")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -179,14 +182,21 @@ struct TagPicker: View {
     
     @Binding var selection: Set<THTag>
     
-
+    let compact: Bool
+    
+    init(selection: Binding<Set<THTag>>, compact: Bool = false) {
+        self._selection = selection
+        self.compact = compact
+    }
 
     var body: some View {
-        TagCollection(tags: selection) {
+        TagCollection(tags: selection, inlineLabel: compact) {
             HStack {
-                Text("tags")
-                Spacer()
-
+                if !compact {
+                    Text("tags")
+                    Spacer()
+                }
+                
                 Button {
                     sheet = true
                 } label: {
@@ -194,6 +204,9 @@ struct TagPicker: View {
                 }
                 .buttonStyle(.bordered)
             }
+        }
+        .onTapGesture {
+            sheet = true
         }
         .sheet(isPresented: $sheet) {
             TagPickerSheet(selection: $selection)
@@ -205,13 +218,21 @@ struct TagPicker_Previews: PreviewProvider {
     
     struct TagPickerPreview: View {
         @State private var selection = Set<THTag>()
+        
+        let compact: Bool
         var body: some View {
-            TagPicker(selection: $selection)
+            TagPicker(selection: $selection, compact: compact)
         }
     }
     static var previews: some View {
         Form {
-            TagPickerPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-        }
+            Section {
+                TagPickerPreview(compact: false)
+            }
+            
+            Section {
+                TagPickerPreview(compact: true)
+            }
+        }.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

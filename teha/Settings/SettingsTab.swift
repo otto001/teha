@@ -9,6 +9,21 @@ import SwiftUI
 
 enum SettingsAppStorageKey: String {
     case accentColor = "settings.accentColor"
+    case onboardingDone = "settings.onboardingDone"
+}
+
+struct AdvancedSettings: View {
+    @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
+    
+    var body: some View {
+        Form {
+            Button {
+                onboardingDone = false
+            } label: {
+                Text("onboarding-show")
+            }
+        }
+    }
 }
 
 struct SettingsTab: View {
@@ -18,6 +33,12 @@ struct SettingsTab: View {
         RoutedNavigation { router in
             Form {
                 SimpleColorPicker(title: String(localized: "color-accent"), color: $accentColor)
+                
+                Section {
+                    NavigationLink("advanced-settings") {
+                        AdvancedSettings()
+                    }
+                }
             }
             .registerSimpleColorPicker {
                 router.pop()

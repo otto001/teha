@@ -22,6 +22,14 @@
 
 "add-%@" = "Add %@";
 
+"add-%@-as-new-tag" = "Add %@ as new Tag";
+
+"advanced-settings" = "Advanced Settings";
+
+"all" = "All";
+
+"back" = "Back";
+
 "cancel" = "Cancel";
 
 "color" = "Color";
@@ -46,6 +54,8 @@
 
 "completed" = "Completed";
 
+"current" = "Current";
+
 "custom" = "Custom";
 
 "deadline" = "Deadline";
@@ -54,9 +64,13 @@
 
 "deadline-approaching" = "Approaching Deadline:";
 
+"deadline-change" = "Change Deadline";
+
 "deadline-remove" = "Remove Deadline";
 
 "delete" = "Delete";
+
+"disabled" = "Disabled";
 
 "done" = "Done";
 
@@ -64,7 +78,13 @@
 
 "earliest-startdate-add" = "Add Earliest Startdate";
 
+"earliest-startdate-change" = "Change earliest Startdate";
+
 "earliest-startdate-remove" = "Remove Earliest Startdate";
+
+"edit" = "Edit";
+
+"enabled-filters" = "Enabled Filters";
 
 "filter" = "Filter";
 
@@ -82,19 +102,29 @@
 
 "low-priority" = "Low Priority";
 
-"mark-as-not-completed" = "Mark as not completed";
+"mark-as-completed" = "Mark as Completed";
+
+"mark-as-not-completed" = "Mark as not Completed";
 
 "mark-as-not-completed-are-you-sure" = "Are you sure you want to mark this task as not completed?";
 
-"mark-as-not-started" = "Mark as not started";
+"mark-as-not-started" = "Mark as not Started";
 
 "mark-as-not-started-are-you-sure" = "Are you sure you want to mark this task as not started?";
+
+"mark-as-started" = "Mark as Started";
+
+"match-all-tags" = "All Selected Tags";
+
+"match-any-tag" = "Any Selected Tag";
 
 "name" = "Name";
 
 "new-project" = "New Project";
 
 "new-task" = "New Task";
+
+"next" = "Next";
 
 "none" = "None";
 
@@ -103,14 +133,22 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
-
 "notifications-allow" = "Allow Notifications";
 
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
+
+"now" = "Now";
+
+"onboarding-show" = "Show Onboarding";
+
+"other-filters" = "Other Filters";
 "notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "priority" = "Priority";
 
 "project" = "Project";
+
+"project-change" = "Change Project";
 
 "project-delete-confimation" = "Delete Project?";
 
@@ -126,17 +164,47 @@
 
 "remove-%@" = "Remove %@";
 
-"settings" = "Settings";
+"select" = "Select";
+
+"select-tasks" = "Select Tasks";
+
+"selected" = "Selected";
+
+"settings-open" = "Open Settings";
+
+"skip" = "Skip";
 
 "settings-open" = "Open Settings";
 
 "started" = "Started";
 
+"tag" = "Tag";
+
 "tags" = "Tags";
+
+"tags-none-yet" = "No Tags exist yet. Use the Searchbar above to add new ones.";
+
+"tags-search-or-add" = "Search or Add Tags";
 
 "task" = "Task";
 
+"task-delete-confirmation" = "Delete Task?";
+
 "tasks" = "Tasks";
+
+"tasks-completed" = "Completed tasks";
+
+"tasks-delete-confirmation" = "Delete Tasks?";
+
+"tasks-due-today" = "Due today";
+
+"tasks-finished" = "Finished";
+
+"tasks-none" = "No tasks";
+
+"tasks-overdue" = "Overdue";
+
+"tasks-todo" = "To Do";
 
 "title" = "Title";
 

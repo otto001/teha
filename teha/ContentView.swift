@@ -19,17 +19,37 @@ enum Tab: String, RawRepresentable {
 struct ContentView: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
     
+    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.scenePhase) var scenePhase
+    
     // ensure that the tasks tab is the default tab (i.e., landing page)
     @State private var tab: Tab = .tasks
     
+    @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
+    
     var body: some View {
-        // Create root TabView and add all main views for app
-        TabView(selection: $tab) {
-            ProjectsTab().tag(Tab.projects)
-            TasksTab().tag(Tab.tasks)
-            SettingsTab().tag(Tab.settings)
+        Group {
+            // Create root TabView and add all main views for app
+            if (onboardingDone) {
+                TabView(selection: $tab) {
+                    ProjectsTab().tag(Tab.projects)
+                    TasksTab().tag(Tab.tasks)
+                    SettingsTab().tag(Tab.settings)
+                }
+                .tint(accentColor.color) // apply accent color setting to app
+            } else {
+                OnboardingView() // onboarding view for first-timers
+            }
         }
-        .tint(accentColor.color) // apply accent color setting to app
+        .animation(.easeInOut, value: onboardingDone) // animation for hiding onboarding view
+        .onChange(of: scenePhase) { scenePhase in
+            switch scenePhase {
+            case .inactive, .background:
+                try? viewContext.save()
+            default:
+                break
+            }
+        }
     }
 }
 
