@@ -182,9 +182,11 @@
 
 "tasks-delete-confirmation" = "Delete Tasks?";
 
+"tasks-doing" = "Doing";
+
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Finished";
+"tasks-finished" = "Done";
 
 "tasks-none" = "No tasks";
 
