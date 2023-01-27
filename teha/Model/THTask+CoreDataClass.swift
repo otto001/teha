@@ -162,11 +162,3 @@ extension THTask {
         return "\(year)"
     }
 }
-
-
-func all() {
-    let startDate = Date(timeIntervalSinceReferenceDate: Date.now.timeIntervalSinceReferenceDate - TimeInterval.week * 2)
-    let request = THTask.all
-    request.filter(deadlineAfter: .now)
-    request.filter(deadlineBeforeEquals: startDate)
-}
