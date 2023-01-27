@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%@-worktime-remaining" = "%@ Aufwand verbleibend";
+
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -75,6 +77,10 @@
 "edit" = "Bearbeiten";
 
 "enabled-filters" = "Aktivierte Filter";
+
+"estimated-worktime" = "Geschätzter Aufwand";
+
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten. ";
 
 "filter" = "Filter";
 

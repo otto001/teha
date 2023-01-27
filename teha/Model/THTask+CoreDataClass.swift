@@ -24,6 +24,16 @@ extension THTask {
         }
     }
     
+    /// The estimatedWorktime of the Task.
+    var estimatedWorktime: EstimatedWorktime {
+        get {
+            return EstimatedWorktime(totalMinutes: Int(self.estimatedWorktimeMinutes))
+        }
+        set {
+            self.estimatedWorktimeMinutes = Int16(newValue.totalMinutes)
+        }
+    }
+    
     var isStarted: Bool { self.startDate != nil }
     var isCompleted: Bool { self.completionDate != nil }
     
@@ -38,6 +48,16 @@ extension THTask {
         if self.startDate == nil {
             self.startDate = self.completionDate
         }
+    }
+    
+    /// The remaining estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
+    var estimatedWorktimeRemaining: EstimatedWorktime {
+        if self.isCompleted {
+            return .zero
+        } else if !self.isStarted {
+            return self.estimatedWorktime
+        }
+        return self.estimatedWorktime.percentage(1 - self.completionProgress)
     }
 }
 
@@ -78,6 +98,14 @@ extension NSFetchRequest where ResultType == THTask {
     
     func filter(priority: Priority) {
         self.predicateAnd(with: NSPredicate(format: "priorityNumber == %d", priority.rawValue))
+    }
+    
+    func filter(deadlineBeforeEquals date: Date) {
+        self.predicateAnd(with: NSPredicate(format: "deadline <= %@", date as NSDate))
+    }
+    
+    func filter(deadlineAfter date: Date) {
+        self.predicateAnd(with: NSPredicate(format: "deadline > %@", date as NSDate))
     }
     
     enum TagFilterMode{
@@ -133,4 +161,12 @@ extension THTask {
         let year = Calendar.current.component(.year, from: deadline)
         return "\(year)"
     }
+}
+
+
+func all() {
+    let startDate = Date(timeIntervalSinceReferenceDate: Date.now.timeIntervalSinceReferenceDate - TimeInterval.week * 2)
+    let request = THTask.all
+    request.filter(deadlineAfter: .now)
+    request.filter(deadlineBeforeEquals: startDate)
 }

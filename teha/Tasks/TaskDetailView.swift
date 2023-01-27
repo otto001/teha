@@ -101,6 +101,7 @@ struct TaskDetailView: View {
             if let subtitle = subtitle {
                 Text(subtitle)
                     .foregroundColor(.secondaryLabel)
+                    .font(.subheadline)
             }
             
         }
@@ -111,12 +112,26 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var progressBar: some View {
-        TaskProgressBarInteractive(task: task)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            .padding(.horizontal, 8)
-            .padding(.top, 22)
+        VStack {
+            // The teha-style interactive progress bar for reading and setting task progress
+            TaskProgressBarInteractive(task: task)
+                .frame(height: 16)
+            
+            // If there is estimatedWorktime remaining, show that underneath the progressbar
+            if task.estimatedWorktime > .zero, !task.isCompleted,
+               let timeRemaining = task.estimatedWorktimeRemaining.formatted {
+                Text("\(timeRemaining)-worktime-remaining")
+                    .monospacedDigit()
+                    .foregroundColor(.secondaryLabel)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .padding(.horizontal, 8)
+        .padding(.top, 22)
     }
     
     @ViewBuilder var projectSection: some View {
@@ -211,7 +226,10 @@ struct TaskDetailView_Previews: PreviewProvider {
         task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
         
         task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
-        task.completionProgress = 0.4
+        task.completionProgress = 0.5
+        
+        task.estimatedWorktime = .init(hours: 2, minutes: 20)
+        
         return task
     }
     

@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priority";
 
+"%@-worktime-remaining" = "%@ remaining to complete";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";
@@ -64,17 +66,21 @@
 
 "done" = "Done";
 
-"earliest-startdate" = "Earliest Startdate";
+"earliest-startdate" = "Earliest Start Date";
 
-"earliest-startdate-add" = "Add Earliest Startdate";
+"earliest-startdate-add" = "Add Earliest Start Date";
 
-"earliest-startdate-change" = "Change earliest Startdate";
+"earliest-startdate-change" = "Change earliest Start Date";
 
-"earliest-startdate-remove" = "Remove Earliest Startdate";
+"earliest-startdate-remove" = "Remove Earliest Start Date";
 
 "edit" = "Edit";
 
 "enabled-filters" = "Enabled Filters";
+
+"estimated-worktime" = "Estimated Time to Complete";
+
+"estimated-worktime-too-high" = "The estimated time to completion may not exceed 100 hours.";
 
 "filter" = "Filter";
 
@@ -170,7 +176,7 @@
 
 "task" = "Task";
 
-"task-deadline-must-be-after-earliest-startdate" = "The deadline of the task must be after its earliest startdate.";
+"task-deadline-must-be-after-earliest-startdate" = "The deadline of the task must be after its earliest start date.";
 
 "task-delete-confirmation" = "Delete Task?";
 
