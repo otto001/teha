@@ -6,11 +6,23 @@
 
 "%@-priority" = "%@ Priority";
 
+"%@-worktime-remaining" = "%@ remaining to complete";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";
 
+"add-%@-as-new-tag" = "Add %@ as new Tag";
+
+"advanced-settings" = "Advanced Settings";
+
+"all" = "All";
+
+"back" = "Back";
+
 "cancel" = "Cancel";
+
+"cannot-save-task" = "Cannot Save Task";
 
 "color" = "Color";
 
@@ -34,11 +46,17 @@
 
 "completed" = "Completed";
 
+"current" = "Current";
+
 "custom" = "Custom";
+
+"day" = "Day";
 
 "deadline" = "Deadline";
 
 "deadline-add" = "Add Deadline";
+
+"deadline-change" = "Change Deadline";
 
 "deadline-remove" = "Remove Deadline";
 
@@ -48,15 +66,21 @@
 
 "done" = "Done";
 
-"earliest-startdate" = "Earliest Startdate";
+"earliest-startdate" = "Earliest Start Date";
 
-"earliest-startdate-add" = "Add Earliest Startdate";
+"earliest-startdate-add" = "Add Earliest Start Date";
 
-"earliest-startdate-remove" = "Remove Earliest Startdate";
+"earliest-startdate-change" = "Change earliest Start Date";
+
+"earliest-startdate-remove" = "Remove Earliest Start Date";
+
+"edit" = "Edit";
 
 "enabled-filters" = "Enabled Filters";
 
-"edit" = "Edit";
+"estimated-worktime" = "Estimated Time to Complete";
+
+"estimated-worktime-too-high" = "The estimated time to completion may not exceed 100 hours.";
 
 "filter" = "Filter";
 
@@ -74,23 +98,31 @@
 
 "low-priority" = "Low Priority";
 
-"mark-as-not-completed" = "Mark as not completed";
+"mark-as-completed" = "Mark as Completed";
+
+"mark-as-not-completed" = "Mark as not Completed";
 
 "mark-as-not-completed-are-you-sure" = "Are you sure you want to mark this task as not completed?";
 
-"mark-as-not-started" = "Mark as not started";
+"mark-as-not-started" = "Mark as not Started";
 
 "mark-as-not-started-are-you-sure" = "Are you sure you want to mark this task as not started?";
+
+"mark-as-started" = "Mark as Started";
 
 "match-all-tags" = "All Selected Tags";
 
 "match-any-tag" = "Any Selected Tag";
+
+"month" = "Month";
 
 "name" = "Name";
 
 "new-project" = "New Project";
 
 "new-task" = "New Task";
+
+"next" = "Next";
 
 "none" = "None";
 
@@ -102,11 +134,17 @@
 
 "now" = "Now";
 
+"ok" = "Ok";
+
+"onboarding-show" = "Show Onboarding";
+
 "other-filters" = "Other Filters";
 
 "priority" = "Priority";
 
 "project" = "Project";
+
+"project-change" = "Change Project";
 
 "project-delete-confimation" = "Delete Project?";
 
@@ -116,23 +154,45 @@
 
 "remove-%@" = "Remove %@";
 
+"select" = "Select";
+
+"select-tasks" = "Select Tasks";
+
+"selected" = "Selected";
+
 "settings" = "Settings";
+
+"skip" = "Skip";
 
 "started" = "Started";
 
+"tag" = "Tag";
+
 "tags" = "Tags";
+
+"tags-none-yet" = "No Tags exist yet. Use the Searchbar above to add new ones.";
+
+"tags-search-or-add" = "Search or Add Tags";
 
 "task" = "Task";
 
+"task-deadline-must-be-after-earliest-startdate" = "The deadline of the task must be after its earliest start date.";
+
 "task-delete-confirmation" = "Delete Task?";
+
+"task-must-have-title" = "The Task must have a title.";
 
 "tasks" = "Tasks";
 
 "tasks-completed" = "Completed tasks";
 
+"tasks-delete-confirmation" = "Delete Tasks?";
+
+"tasks-doing" = "Doing";
+
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Finished";
+"tasks-finished" = "Done";
 
 "tasks-none" = "No tasks";
 
@@ -145,3 +205,7 @@
 "urgent" = "Urgent";
 
 "urgent-priority" = "Urgent";
+
+"week" = "Week";
+
+"year" = "Year";

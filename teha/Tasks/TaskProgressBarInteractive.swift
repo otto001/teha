@@ -93,22 +93,16 @@ struct TaskProgressBarInteractive: View {
     }
     
     private func startTask() {
-        task.startDate = .now
+        task.started()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     private func completeTask() {
-        task.completionDate = .now
-        task.completionProgress = 1
-        
-        if task.startDate == nil {
-            task.startDate = task.completionDate
-        }
-        
+        task.completed()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
-    private func dragGesture(barWidth: CGFloat) -> some Gesture {
+    private func dragGesture(gestureWidth: CGFloat, barWidth: CGFloat) -> some Gesture {
         let gesture = DragGesture(minimumDistance: 0)
             .onChanged { action in
                 if !isDragging {
@@ -121,8 +115,9 @@ struct TaskProgressBarInteractive: View {
                 if abs(action.translation.width) > 1 {
                     lastDraggingProgress = draggingProgress
                     
-                    draggingProgress = max(0, min(1, action.translation.width / barWidth + dragStartProgress))
-                    
+                    let barPadding = gestureWidth - barWidth
+                    draggingProgress = max(0, min(1, (action.location.x - barPadding/2)  / barWidth))
+                    task.completionProgress = draggingProgress
                     if draggingProgress != lastDraggingProgress {
                         
                         for threshold in thresholds {
@@ -139,7 +134,7 @@ struct TaskProgressBarInteractive: View {
                 task.completionProgress = draggingProgress
                 if draggingProgress >= 1 {
                     completeTask()
-                } else if draggingProgress >= 0 && !task.isStarted {
+                } else if draggingProgress > 0 && !task.isStarted {
                     startTask()
                 }
                 
@@ -186,7 +181,8 @@ struct TaskProgressBarInteractive: View {
                 }
                 .zIndex(2)
                 
-            }.gesture(dragGesture(barWidth: geo.size.width))
+            }
+            .gesture(dragGesture(gestureWidth: geo.size.width, barWidth: geo.size.width - geo.size.height*2))
         }
         .frame(maxHeight: 16)
     }

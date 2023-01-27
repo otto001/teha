@@ -6,67 +6,117 @@
 //
 
 
-//TODO: use project picker
-
-
 import SwiftUI
 
 fileprivate struct TasksTabFiltersActiveButton: View {
     @Environment(\.editMode) var editMode
     
-    @Binding var filterSheet: Bool
+    @EnvironmentObject var filters: TasksFilterViewModel
     
-    let filtersAreActive: Bool
+    @State var filterSheet: Bool  = false
     
     var body: some View {
-        if filtersAreActive {
-            Button {
-                filterSheet = true
-            } label: {
-                Image(systemName: "line.3.horizontal.decrease.circle.fill")
+        ZStack {
+            if filters.anyFilterActive {
+                Button {
+                    filterSheet = true
+                } label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                }
+                .disabled(editMode?.wrappedValue == .active)
+                
             }
-            .disabled(editMode?.wrappedValue == .active )
+        }
+        .sheet(isPresented: $filterSheet) {
+            TasksFilterView()
         }
     }
 }
 
 fileprivate struct TasksTabMoreButton: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.editMode) var editMode
     
-    @Binding var groupSheet: Bool
-    @Binding var filterSheet: Bool
+    @EnvironmentObject var filters: TasksFilterViewModel
     
-    let filtersAreActive: Bool
+    @State var groupSheet: Bool = false
+    @State var filterSheet: Bool = false
+    
     
     var filterSystemImage: String {
-        filtersAreActive ?
+        filters.anyFilterActive ?
         "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
     }
     
-    var body: some View {
-        if editMode?.wrappedValue != .active {
-            Menu {
+    @ViewBuilder private func withGroupingDialog(@ViewBuilder _ view: () -> some View) -> some View {
+        view()
+        .confirmationDialog("group", isPresented: $groupSheet) {
+            ForEach(TasksFilterViewModel.TasksGrouping.allCases) { option in
                 Button {
-                    groupSheet = true
+                    filters.grouping = option
                 } label: {
-                    Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
+                    Text(option.name)
                 }
+            }
+            
+        } message: {
+            Text("group-tasks-by")
+        }
+    }
+    
+    @ViewBuilder private var buttons: some View {
+        if horizontalSizeClass == .compact {
+            withGroupingDialog {
+                Menu {
+                    Button {
+                        filterSheet = true
+                    } label: {
+                        Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
+                    }
+                    Button {
+                        groupSheet = true
+                    } label: {
+                        Label(LocalizedStringKey("group"), systemImage: "list.bullet.indent")
+                    }
+                    
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+            }
+        } else {
+            HStack {
+                withGroupingDialog {
+                    Button {
+                        groupSheet = true
+                    } label: {
+                        Text("group")
+                    }
+                }
+                
                 Button {
                     filterSheet = true
                 } label: {
-                    Label(LocalizedStringKey("filter"), systemImage: filterSystemImage)
+                    Text("filter")
                 }
-            } label: {
-                Image(systemName: "ellipsis.circle")
             }
         }
+    }
+    
+    var body: some View {
+       
+        buttons
+        .sheet(isPresented: $filterSheet) {
+            TasksFilterView()
+        }
+        .disabled(editMode?.wrappedValue == .active)
+        
     }
 }
 
 struct TasksTab: View {
+    @Environment(\.editMode) var editMode
+    
     @State var taskAddSheet: Bool = false
-    @State var filterSheet: Bool = false
-    @State var groupSheet: Bool = false
     
     @StateObject var filters = TasksFilterViewModel()
     
@@ -75,9 +125,10 @@ struct TasksTab: View {
     }
     
     var body: some View {
-        RoutedNavigation { _ in
+        
+        NavigationStack {
             TasksListView()
-                .environmentObject(filters)
+                .environment(\.editMode, editMode)
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
                 }
@@ -95,44 +146,31 @@ struct TasksTab: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
                             
-                            TasksTabFiltersActiveButton(filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
-                            EditButton()
+                            TasksTabFiltersActiveButton().environment(\.editMode, editMode)
                             
-                            TasksTabMoreButton(groupSheet: $groupSheet, filterSheet: $filterSheet, filtersAreActive: filtersAreActive)
+                            Button {
+                                withAnimation {
+                                    editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                }
+                            } label: {
+                                Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
+                            }
+
+                            TasksTabMoreButton().environment(\.editMode, editMode)
+                              
                         }
                         .transaction { t in
                             t.animation = nil
                         }
                     }
                 }
-                .sheet(isPresented: $filterSheet) {
-                    TasksFilterView().environmentObject(filters)
-                }
                 .sheet(isPresented: $taskAddSheet) {
                     TaskEditView(mode: .add)
                 }
-                .confirmationDialog("group", isPresented: $groupSheet) {
-                    Button {
-                        
-                    } label: {
-                        Text("none")
-                    }
-                    Button {
-                        
-                    } label: {
-                        Text("project")
-                    }
-                    Button {
-                        
-                    } label: {
-                        Text("priority")
-                    }
-                    
-                } message: {
-                    Text("group-tasks-by")
-                }
+                
                 .navigationTitle("tasks")
         }
+        .environmentObject(filters)
         .tabItem {
             Label(LocalizedStringKey("tasks"), systemImage: "list.bullet.rectangle.portrait")
         }

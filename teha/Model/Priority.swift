@@ -44,3 +44,9 @@ enum Priority: Int, CaseIterable, Hashable, Identifiable {
     }
 }
 
+extension Priority: Comparable {
+    static func < (lhs: Priority, rhs: Priority) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+}
+

@@ -20,8 +20,7 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 struct TaskRowView: View {
     @ObservedObject var task: THTask
     
-    @EnvironmentObject var router: Router
-    
+
     /// The content of the text right above the progress bar.
     /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
     var timeRemainingText: String? {

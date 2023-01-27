@@ -6,22 +6,41 @@
 //
 
 import SwiftUI
+import CoreData
+
+
 
 struct TasksListView: View {
-    @EnvironmentObject var filter: TasksFilterViewModel
+    @EnvironmentObject var filters: TasksFilterViewModel
+    
+    var fetchRequest: SectionedFetchRequest<String, THTask> {
+        switch filters.grouping {
+        case .year:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineYearString)
+        case .month:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineMonthString)
+        case .week:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineWeekString)
+        case .day:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineDayString)
+        }
+    }
     
     var body: some View {
-        FilteredTasksListView(tasks: FetchRequest(fetchRequest: filter.fetchRequest))
+        FilteredTasksListView(sections: fetchRequest)
     }
 }
 
+
+/// The actual view that shows a list of tasks.
+/// TasksListView is just a proxy needed due to SwiftUI reasons (wrapping the FetchRequest)
 fileprivate struct FilteredTasksListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.editMode) var editMode
     
-    @FetchRequest var tasks: FetchedResults<THTask>
+    @SectionedFetchRequest var sections: SectionedFetchResults<String, THTask>
     
-    @State var selectedTasks: Set<THTask.ID> = .init()
+    @State var selectedTasks: Set<NSManagedObjectID> = .init()
     
     @State var taskToDelete: THTask?
     
@@ -36,18 +55,12 @@ fileprivate struct FilteredTasksListView: View {
     }
     
     var body: some View {
-        List(tasks, selection: $selectedTasks) { task in
-            TaskRowView(task: task)
-                .swipeActions(edge: .trailing) {
-                    Button() {
-                        taskToDelete = task
-                    } label: {
-                        Label("delete", systemImage: "trash")
-                    }
-                    .tint(Color.red)
+        List(selection: $selectedTasks) {
+            ForEach(sections) { section in
+                TaskListSectionView(section) { task in
+                    taskToDelete = task
                 }
-                .disabled(editMode?.wrappedValue == .active)
-                .id(task.id)
+            }
         }
         .onAppear {
             // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
@@ -58,56 +71,9 @@ fileprivate struct FilteredTasksListView: View {
         .toolbar {
             if editMode?.wrappedValue == .active {
                 ToolbarItem(placement: .bottomBar) {
-                    HStack {
-                        Menu("Mark") {
-                            Section {
-                                Button {
-                                    
-                                } label: {
-                                    Label("completed", systemImage: "checkmark.circle")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Label("started", systemImage: "play.circle")
-                                }
-                            } header: {
-                                Text("mark-as...")
-                            }
-                            
-                            
-                            
-                            
-                        }
-                        Spacer()
-                        
-                        Text("\(selectedTasks.count) selected")
-                        //                    Spacer()
-                        //
-                        //                    Button(role: .destructive) {
-                        //
-                        //                    } label: {
-                        //                        Text("Move")
-                        //                    }
-                        
-                        Spacer()
-                        
-                        Button() {
-                            
-                        } label: {
-                            //Text("delete")
-                            Image(systemName: "trash")
-                        }
-                        
-                        //Spacer()
-                        
-                        Menu {
-                            
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                        }
-                        
-                    }
+                    TaskListToolbarView(selected: $selectedTasks)
+                        .padding(.horizontal, -10)
+                        .padding(.top, -6)
                 }
             }
             
@@ -130,10 +96,12 @@ fileprivate struct FilteredTasksListView: View {
 
 struct TasksListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            TasksListView()
-                .environmentObject(TasksFilterViewModel())
-                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TabView {
+            NavigationStack {
+                TasksListView()
+                    .environmentObject(TasksFilterViewModel())
+                    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            }
         }
     }
 }
