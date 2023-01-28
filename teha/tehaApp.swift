@@ -10,7 +10,11 @@ import SwiftUI
 @main
 struct tehaApp: App {
     let persistenceController = PersistenceController.shared
-
+    let geo:GeoMonitor
+    
+    init(){
+        geo = GeoMonitor()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()

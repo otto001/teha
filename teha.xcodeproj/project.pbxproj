@@ -42,6 +42,9 @@
 		02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E789182974B3C400F521D0 /* CGRect+Utils.swift */; };
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
+		5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */; };
+		5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */; };
+		5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB52358297C3C8B00B891E0 /* LocationPicker.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
@@ -88,6 +91,10 @@
 		02E789182974B3C400F521D0 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
+		5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearch.swift; sourceTree = "<group>"; };
+		5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMonitor.swift; sourceTree = "<group>"; };
+		5FB52358297C3C8B00B891E0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
+		5FB5235A297C428300B891E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
@@ -206,6 +213,9 @@
 		02CB75552955DE5E005F4D35 /* teha */ = {
 			isa = PBXGroup;
 			children = (
+				5FB5235A297C428300B891E0 /* Info.plist */,
+				5FB52357297C3C3200B891E0 /* Location */,
+				5F0492082979F2B400F39A71 /* Geofencing */,
 				02A5BAD229686198007AC6BE /* Localization */,
 				029615F1295617B00073E378 /* Model */,
 				029615F0295617A50073E378 /* Base */,
@@ -230,6 +240,23 @@
 				02CB75632955DE60005F4D35 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5F0492082979F2B400F39A71 /* Geofencing */ = {
+			isa = PBXGroup;
+			children = (
+				5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */,
+			);
+			path = Geofencing;
+			sourceTree = "<group>";
+		};
+		5FB52357297C3C3200B891E0 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				5FB52358297C3C8B00B891E0 /* LocationPicker.swift */,
+				5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		A85AAA95296D92050078BA2D /* Settings */ = {
@@ -321,6 +348,7 @@
 				A85AAA99296D9C6B0078BA2D /* CGColor+Hex.swift in Sources */,
 				0271BF2D29747D4C000A601D /* FlexHStack.swift in Sources */,
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
+				5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
@@ -330,6 +358,7 @@
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
+				5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */,
 				0271BF27297466C3000A601D /* TagPicker.swift in Sources */,
 				921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */,
 				02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */,
@@ -339,6 +368,7 @@
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
+				5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */,
 				0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
 				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
@@ -506,6 +536,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = teha/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -549,6 +580,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = teha/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

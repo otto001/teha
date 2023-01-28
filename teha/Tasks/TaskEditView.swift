@@ -12,7 +12,7 @@ import SwiftUI
 struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
-    
+    let geofencing = GeoMonitor()
    
     @State var data = FormData()
     
@@ -44,17 +44,27 @@ struct TaskEditView: View {
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
         
-        task.project = data.project
+        task.address = data.address
+        task.lat = data.lat ?? 0
+        task.long = data.long ?? 0
         
+        task.project = data.project
         task.tags = data.tags as NSSet
         
         if !editing {
             task.creationDate = Date.now
         }
         
+        if task.address == ""{
+            task.lat = 0
+            task.long = 0
+        }
+
         // TODO: error handling
         try? viewContext.save()
-        
+        geofencing.refreshLocationMonitoring(task: task)
+       
+       
         dismiss()
     }
     
@@ -79,7 +89,11 @@ struct TaskEditView: View {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
                 }
-                
+                Section{
+                    LocationPicker("location",
+                                   addText: "location-add", address: $data.address, lat: $data.lat, long: $data.long)
+                }
+            
                 Section {
                     TagPicker(selection: $data.tags)
                 }
@@ -104,6 +118,10 @@ extension TaskEditView {
         var deadline: Date? = nil
         var timeEstimate: Double? = nil
         
+        var address: String?
+        var lat:Double?
+        var long:Double?
+        
         var project: THProject?
         
         var tags: Set<THTag> = .init()
@@ -122,6 +140,9 @@ extension TaskEditView {
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.timeEstimate = task.timeEstimate
+            self.address = task.address ?? ""
+            self.lat = task.lat
+            self.long = task.long
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
         }
