@@ -64,7 +64,11 @@
 
 "high-priority" = "High Priority";
 
+"location" = "Location";
+
 "location-add" = "Add Location";
+
+"location-search" = "Search for a location";
 
 "low" = "Low";
 

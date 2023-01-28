@@ -75,16 +75,16 @@ fileprivate struct LocationPickerSheet: View {
                     }else{
                         Image(systemName: "magnifyingglass")
                             .font(.title)
-                        Text("Search for a location")
+                        Text(LocalizedStringKey("location-search"))
                             .padding()
                             .foregroundColor(.secondaryLabel)
                             .multilineTextAlignment(.center)
                     }
                 }
             }
-            .navigationTitle("Location")
+            .navigationTitle(LocalizedStringKey("location"))
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $locationSearch.input, prompt: "Search for a location")
+            .searchable(text: $locationSearch.input, prompt: LocalizedStringKey("location-search"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

@@ -42,6 +42,7 @@
 		02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E789182974B3C400F521D0 /* CGRect+Utils.swift */; };
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
+		5F921A0A29859D7300251F65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F921A0C29859D7300251F65 /* InfoPlist.strings */; };
 		5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */; };
 		5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */; };
 		5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB52358297C3C8B00B891E0 /* LocationPicker.swift */; };
@@ -91,6 +92,8 @@
 		02E789182974B3C400F521D0 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
+		5F921A0B29859D7300251F65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5F921A0D29859D7F00251F65 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearch.swift; sourceTree = "<group>"; };
 		5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMonitor.swift; sourceTree = "<group>"; };
 		5FB52358297C3C8B00B891E0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 				02CB755F2955DE5F005F4D35 /* Assets.xcassets */,
 				02CB75612955DE60005F4D35 /* teha.entitlements */,
 				02CB75622955DE60005F4D35 /* Preview Content */,
+				5F921A0C29859D7300251F65 /* InfoPlist.strings */,
 			);
 			path = teha;
 			sourceTree = "<group>";
@@ -308,8 +312,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				de,
+				Base,
 			);
 			mainGroup = 02CB754A2955DE5D005F4D35;
 			productRefGroup = 02CB75542955DE5E005F4D35 /* Products */;
@@ -330,6 +334,7 @@
 				02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */,
 				02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */,
 				02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */,
+				5F921A0A29859D7300251F65 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +405,15 @@
 				02A5BAF9296876A5007AC6BE /* de */,
 			);
 			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		5F921A0C29859D7300251F65 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F921A0B29859D7300251F65 /* en */,
+				5F921A0D29859D7F00251F65 /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

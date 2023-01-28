@@ -21,6 +21,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
         locationManager.delegate = self
         
         locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }
@@ -94,9 +95,9 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
         let statusCode = locationManager.authorizationStatus
         switch statusCode {
-        case .notDetermined, .restricted, .denied,.authorizedWhenInUse:
+        case .notDetermined, .restricted, .denied:
             print("No access")
-        case .authorizedAlways:
+        case .authorizedAlways, .authorizedWhenInUse:
             print("Access")
         @unknown default:
             break

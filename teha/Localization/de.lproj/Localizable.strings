@@ -64,6 +64,10 @@
 
 "high-priority" = "Hohe Priorität";
 
+"location" = "Standort";
+
+"location-search" = "Einen Standort suchen";
+
 "location-add" = "Standort hinzufügen";
 
 "low" = "Niedrig";
