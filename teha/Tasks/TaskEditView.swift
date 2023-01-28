@@ -138,6 +138,8 @@ struct TaskEditView: View {
                 if let task = task {
                     self.data = .init(task: task)
                 }
+                
+                NotificationManager.instance.requestAuthorization()
             }
         }
     }
