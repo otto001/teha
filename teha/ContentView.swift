@@ -53,6 +53,8 @@ struct ContentView: View {
             }
         }
         .onAppear {
+            // By calling this as soon as the app appears, we ensure that the UserDefaults have been set up correctly.
+            // The method ensures it only actually does something on first start-up
             SettingsAppStorageKey.setDefaultValuesIfNeeded()
         }
     }
