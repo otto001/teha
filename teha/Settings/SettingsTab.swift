@@ -9,18 +9,36 @@ import SwiftUI
 
 enum SettingsAppStorageKey: String {
     case accentColor = "settings.accentColor"
+    case onboardingDone = "settings.onboardingDone"
+}
+
+struct AdvancedSettings: View {
+    @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
+    
+    var body: some View {
+        Form {
+            Button {
+                onboardingDone = false
+            } label: {
+                Text("onboarding-show")
+            }
+        }
+    }
 }
 
 struct SettingsTab: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
     
     var body: some View {
-        RoutedNavigation { router in
+        NavigationStack {
             Form {
-                SimpleColorPicker(title: String(localized: "color-accent"), color: $accentColor)
-            }
-            .registerSimpleColorPicker {
-                router.pop()
+                SimpleColorPicker(title: "color-accent", selection: $accentColor)
+
+                Section {
+                    NavigationLink("advanced-settings") {
+                        AdvancedSettings()
+                    }
+                }
             }
             .navigationTitle(LocalizedStringKey("settings"))
         }

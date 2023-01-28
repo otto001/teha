@@ -59,69 +59,91 @@ struct TaskDetailView: View {
         task.title ?? ""
     }
     
-    @ViewBuilder func titleSection(geo: GeometryProxy) -> some View {
-        Section {
+    var subtitle: String? {
+        if let completionDate = task.completionDate {
+            return "\(String(localized: "completed")): \(dateFormatterRelative.string(from: completionDate))"
             
-        } header: {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(task.title ?? "")
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    
-                    .foregroundColor(.label)
-                    .background {
-                        GeometryReader { titleGeometry in
-                            let titleY = titleGeometry.frame(in: .global).maxY
-                            Color.clear
-                                .onChange(of: titleY) { newValue in
-                                    showNavigationBarTitle = newValue < geo.safeAreaInsets.top
-                                    if showNavigationBarTitle {
-                                        hasShownNavigationBarTitle = true
-                                    }
-                                }
-                        }
-                    }
-                
-                if let completionDate = task.completionDate {
-                    Text("\(String(localized: "completed")): \(dateFormatterRelative.string(from: completionDate))")
-                } else if let earliestStartDate = task.earliestStartDate,
-                   !(task.deadline != nil && earliestStartDate <= .now),
-                   task.startDate == nil && task.completionDate == nil {
-                    Text("\(String(localized: "earliest-startdate")): \(dateFormatterRelative.string(from: earliestStartDate))")
-                } else if let deadline = task.deadline, task.completionDate == nil {
-                    Text("\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))")
-                }
-                
-            }
-            .textCase(.none)
-            .listRowInsets(EdgeInsets())
-            .padding(.horizontal, 6)
+        } else if let earliestStartDate = task.earliestStartDate,
+           !(task.deadline != nil && earliestStartDate <= .now),
+           task.startDate == nil && task.completionDate == nil {
+            
+            return "\(String(localized: "earliest-startdate")): \(dateFormatterRelative.string(from: earliestStartDate))"
+            
+        } else if let deadline = task.deadline, task.completionDate == nil {
+            
+            return "\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))"
+            
         }
-        .padding(.bottom, -16)
+        return nil
+    }
+    
+    @ViewBuilder func title(geo: GeometryProxy) -> some View {
+
+        VStack(alignment: .leading, spacing: 6) {
+            Text(task.title ?? "")
+                .font(.title2)
+                .fontWeight(.medium)
+                
+                .foregroundColor(.label)
+                .background {
+                    GeometryReader { titleGeometry in
+                        let titleY = titleGeometry.frame(in: .global).maxY
+                        Color.clear
+                            .onChange(of: titleY) { newValue in
+                                showNavigationBarTitle = newValue < geo.safeAreaInsets.top
+                                if showNavigationBarTitle {
+                                    hasShownNavigationBarTitle = true
+                                }
+                            }
+                    }
+                }
+            
+            if let subtitle = subtitle {
+                Text(subtitle)
+                    .foregroundColor(.secondaryLabel)
+                    .font(.subheadline)
+            }
+            
+        }
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .padding(.horizontal, 8)
     }
     
     @ViewBuilder var progressBar: some View {
-        Section {
-        } header: {
-            TaskProgressBar(task: task)
-                .listRowInsets(EdgeInsets())
-                .padding(.horizontal, 6)
-                .textCase(.none)
+        VStack {
+            // The teha-style interactive progress bar for reading and setting task progress
+            TaskProgressBarInteractive(task: task)
+                .frame(height: 16)
+            
+            // If there is estimatedWorktime remaining, show that underneath the progressbar
+            if task.estimatedWorktime > .zero, !task.isCompleted,
+               let timeRemaining = task.estimatedWorktimeRemaining.formatted {
+                Text("\(timeRemaining)-worktime-remaining")
+                    .monospacedDigit()
+                    .foregroundColor(.secondaryLabel)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
         }
-        .padding(.top, 28)
-        .padding(.bottom, -16)
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .padding(.horizontal, 8)
+        .padding(.top, 22)
     }
     
     @ViewBuilder var projectSection: some View {
-        if let project = task.project {
-            Section {
+        Section {
+            if let project = task.project {
                 LabeledContent("project") {
                     ProjectLabel(project: project)
                 }
-                
-                LabeledContent("priority") {
-                    Text(project.priority.name)
-                }
+            }
+            
+            LabeledContent("priority") {
+                Text(task.priority.name)
             }
         }
     }
@@ -137,6 +159,24 @@ struct TaskDetailView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder var reminderSection: some View {
+        if let reminder = task.reminderOffset {
+            Section {
+                LabeledContent("reminder") {
+                    Text(reminder.name)
+                }
+                
+                if let reminderSecond = task.reminderOffsetSecond {
+                    LabeledContent("reminder-second") {
+                        Text(reminderSecond.name)
+                    }
+                }
+                
+            }
+        }
+        
     }
     
     @ViewBuilder var notesSection: some View {
@@ -159,13 +199,16 @@ struct TaskDetailView: View {
         
         GeometryReader { geo in
             List {
-                titleSection(geo: geo)
+                title(geo: geo)
                 progressBar
+                
                 projectSection
                 datesSection
+                reminderSection
                 notesSection
                 tagsSection
             }
+            .padding(.top, -20)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -180,7 +223,7 @@ struct TaskDetailView: View {
                 Button {
                     editSheet = true
                 } label: {
-                    Text("Edit")
+                    Text("edit")
                 }
                 
             }
@@ -199,7 +242,15 @@ struct TaskDetailView_Previews: PreviewProvider {
         
         task.earliestStartDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 28).date!
         task.deadline = DateComponents(calendar: .current, year: 2023, month: 1, day: 24, hour: 23, minute: 59).date!
+        task.reminderOffset = ReminderOffset(rawValue: 10)
+        task.reminderOffsetSecond = ReminderOffset(rawValue: 30)
         task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
+        
+        task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
+        task.completionProgress = 0.5
+        
+        task.estimatedWorktime = .init(hours: 2, minutes: 20)
+        
         return task
     }
     

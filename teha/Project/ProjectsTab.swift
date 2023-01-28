@@ -12,10 +12,11 @@ struct ProjectsTab: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var addSheet: Bool = false
+    @State private var search = ""
     
     var body: some View {
         NavigationStack {
-            ProjectsListView()
+            ProjectsListView(query: search)
             .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -24,13 +25,12 @@ struct ProjectsTab: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    
                 }
             }
             .sheet(isPresented: $addSheet) {
                 ProjectEditView(.add)
             }
-        }
+        }.searchable(text: $search)
         .tabItem {
             Label(LocalizedStringKey("projects"), systemImage: "briefcase")
         }

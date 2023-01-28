@@ -10,11 +10,24 @@ import CoreData
 
 
 private struct ProjectRow: View {
-    let project: THProject
-    let edit: () -> Void
+    @ObservedObject var project: THProject
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var showDeleteDialog = false
+    
+    func delete(deleteTasks: Bool) {
+        if deleteTasks{
+            // Remove all reminders from all tasks of the project
+            NotificationManager.instance.cancelPendingNotifications(for: project.tasks)
+            
+            // Delete all tasks
+            (project.tasks as? Set<THTask>)?.forEach(viewContext.delete(_:))
+        }
+        
+        viewContext.delete(project)
+        // TODO: error handling
+        try? viewContext.save()
+    }
     
     var body: some View {
         HStack {
@@ -22,27 +35,42 @@ private struct ProjectRow: View {
                 .foregroundColor(project.color.color)
                 .fixedSize()
             Text(project.name ?? "").strikethrough(project.completed)
-            Spacer()
-            Button {
-                edit()
-            } label: {
-                Image(systemName: "info.circle")
+            NavigationLink("") {
+                ProjectDetailView(project: project)
             }
         }
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
-            Button("delete", role: .destructive) {
-                viewContext.delete(project)
-                // TODO: error handling
-                try? viewContext.save()
+            
+            if project.tasks?.count ?? 0 > 0 {
+                // Delete Project but keep tasks
+                Button("delete-project-keep-tasks", role: .destructive) {
+                    self.delete(deleteTasks: false)
+                }
+                
+                // Delete Project and all of its tasks
+                Button("delete-project-with-tasks", role: .destructive) {
+                    self.delete(deleteTasks: true)
+                }
+            } else {
+                // Delete Project that has no tasks
+                Button("delete", role: .destructive) {
+                    self.delete(deleteTasks: true)
+                }
             }
             Button("cancel", role: .cancel) {
                 showDeleteDialog = false
+            }
+        } message: {
+            if project.tasks?.count ?? 0 > 0 {
+                Text("delete-project-message")
             }
         }
         .swipeActions {
             Button { showDeleteDialog = true } label: {
                 Label("delete", systemImage: "trash")
             }.tint(.red)
+        }
+        .swipeActions(edge: .leading) {
             Button {
                 project.completed = !project.completed
                 // TODO: error handling
@@ -58,6 +86,8 @@ struct ProjectsListView: View {
     @SectionedFetchRequest<Int, THProject>(fetchRequest: THProject.projectsListFetchRequest, sectionIdentifier: \.projectsListSection, animation: .easeInOut)
     private var sections: SectionedFetchResults<Int, THProject>
     
+    var query: String
+    
     @State private var editProject: THProject? = nil
     
     func sectionTitle(for id: Int) -> LocalizedStringKey {
@@ -68,12 +98,15 @@ struct ProjectsListView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(sections) { section in
-                Section(sectionTitle(for: section.id)) {
-                    ForEach(section) { project in
-                        ProjectRow(project: project) {
-                            editProject = project
+        NavigationStack {
+            List {
+                ForEach(sections) { section in
+                    let projects = section.search(query: query)
+                    if projects.count > 0 {
+                        Section(sectionTitle(for: section.id)) {
+                            ForEach(projects) { project in
+                                ProjectRow(project: project)
+                            }
                         }
                     }
                 }
@@ -83,6 +116,14 @@ struct ProjectsListView: View {
         .sheet(item: $editProject) { project in
             ProjectEditView(.edit(project))
         }
+    }
+}
+
+fileprivate extension SectionedFetchResults<Int, THProject>.Element {
+    func search(query: String) -> [THProject] {
+        if query == "" {return Array(self)}
+        
+        return Array(self).filter { $0.name?.contains(query) ?? false }
     }
 }
 
@@ -106,6 +147,6 @@ fileprivate extension THProject {
 
 struct ProjectsListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ProjectsListView(query: "").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

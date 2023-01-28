@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>%lld-minutes-before-deadline</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>1 Minute vor Deadline</string>
+			<key>other</key>
+			<string>%lld Minuten vor Deadline</string>
+		</dict>
+	</dict>
+	<key>%lld-hours-before-deadline</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@hours@</string>
+		<key>hours</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>1 Stunde vor Deadline</string>
+			<key>other</key>
+			<string>%lld Stunden vor Deadline</string>
+		</dict>
+	</dict>
+	<key>%lld-days-before-deadline</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>1 Tag vor Deadline</string>
+			<key>other</key>
+			<string>%lld Tage vor Deadline</string>
+		</dict>
+	</dict>
+	<key>%lld-weeks-before-deadline</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@weeks@</string>
+		<key>weeks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>1 Woche vor Deadline</string>
+			<key>other</key>
+			<string>%lld Wochen vor Deadline</string>
+		</dict>
+	</dict>
+	<key>%lld-tasks-selected</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@tasks@</string>
+		<key>tasks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>zero</key>
+			<string>Keine Aufgaben ausgewählt</string>
+			<key>one</key>
+			<string>1 Aufgabe ausgewählt</string>
+			<key>other</key>
+			<string>%lld Aufgaben ausgewählt</string>
+		</dict>
+	</dict>
+</dict>
 </plist>
