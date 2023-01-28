@@ -93,7 +93,7 @@ struct TaskEditView: View {
                 }
                 
                 Section {
-                    EstimatedWorktimeField(value: $data.estimatedWorktime)
+                    WorktimeField(value: $data.estimatedWorktime)
                 } footer: {
                     // Show error when estimatedWorktime exceed maximum value.
                     if data.estimatedWorktimeTooHigh {
@@ -157,7 +157,7 @@ extension TaskEditView {
         var earliestStartDate: Date? = nil
         var deadline: Date? = nil
         
-        var estimatedWorktime: EstimatedWorktime = .init(hours: 1, minutes: 0)
+        var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
         var project: THProject?
         
@@ -175,7 +175,7 @@ extension TaskEditView {
         
         /// True when estimatedWorktime is over 100 hours.
         var estimatedWorktimeTooHigh: Bool {
-            return estimatedWorktime > EstimatedWorktime(hours: 100, minutes: 0)
+            return estimatedWorktime > Worktime(hours: 100, minutes: 0)
         }
         
         var error: FormError? {

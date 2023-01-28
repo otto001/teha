@@ -25,9 +25,9 @@ extension THTask {
     }
     
     /// The estimatedWorktime of the Task.
-    var estimatedWorktime: EstimatedWorktime {
+    var estimatedWorktime: Worktime {
         get {
-            return EstimatedWorktime(totalMinutes: Int(self.estimatedWorktimeMinutes))
+            return Worktime(totalMinutes: Int(self.estimatedWorktimeMinutes))
         }
         set {
             self.estimatedWorktimeMinutes = Int16(newValue.totalMinutes)
@@ -51,7 +51,7 @@ extension THTask {
     }
     
     /// The remaining estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
-    var estimatedWorktimeRemaining: EstimatedWorktime {
+    var estimatedWorktimeRemaining: Worktime {
         if self.isCompleted {
             return .zero
         } else if !self.isStarted {

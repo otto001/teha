@@ -23,6 +23,12 @@ struct OptionalDatePicker: View {
          addText: LocalizedStringKey,
          removeText: LocalizedStringKey = "remove",
          selection: Binding<Date?>) {
+        
+        // Setting the minute interval of the time picker to 5 minutes
+        // This is not yet possible in native SwiftUI, so we do some "adjusting" via UIKit
+        // This needs to be done BEFORE the first ever render of the date picker, so we do it in the init of the view
+        UIDatePicker.appearance().minuteInterval = 5
+
         self.title = title
         self.addText = addText
         self.removeText = removeText

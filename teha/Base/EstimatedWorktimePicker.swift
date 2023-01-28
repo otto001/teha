@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// MARK: EstimatedWorktimeFieldComponent
+// MARK: WorktimeFieldComponent
 
-/// A view used by the EstimatedWorktimeField to allow the user to input a value
-fileprivate struct EstimatedWorktimeFieldComponent: View {
+/// A view used by the WorktimeField to allow the user to input a value
+fileprivate struct WorktimeFieldComponent: View {
     @Binding var value: Int
     let label: String
     
@@ -85,12 +85,12 @@ fileprivate struct EstimatedWorktimeFieldComponent: View {
     }
 }
 
-// MARK: EstimatedWorktimeField
+// MARK: WorktimeField
 
 /// An Input field to be used in a Form that allows the user to pick an hours and a minutes value
-struct EstimatedWorktimeField: View {
+struct WorktimeField: View {
     /// The binding value of the field
-    @Binding var value: EstimatedWorktime
+    @Binding var value: Worktime
     
     /// The binding for the minutes field
     private var minuteFieldBinding: Binding<Int> {
@@ -116,25 +116,25 @@ struct EstimatedWorktimeField: View {
             Text("estimated-worktime")
             Spacer()
             // The hour and minute field
-            EstimatedWorktimeFieldComponent(value: hourFieldBinding, label: "h")
-            EstimatedWorktimeFieldComponent(value: minuteFieldBinding, label: "min")
+            WorktimeFieldComponent(value: hourFieldBinding, label: "h")
+            WorktimeFieldComponent(value: minuteFieldBinding, label: "min")
         }
     }
 }
 
 // MARK: Preview
 struct DurationPicker_Previews: PreviewProvider {
-    struct EstimatedWorktimeFieldPreview: View {
+    struct WorktimeFieldPreview: View {
         
-        @State var value: EstimatedWorktime = .init(totalMinutes: 135)
+        @State var value: Worktime = .init(totalMinutes: 135)
         var body: some View {
-            EstimatedWorktimeField(value: $value)
+            WorktimeField(value: $value)
         }
     }
     
     static var previews: some View {
         Form {
-            EstimatedWorktimeFieldPreview()
+            WorktimeFieldPreview()
         }
     }
 }

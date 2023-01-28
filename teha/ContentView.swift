@@ -10,8 +10,9 @@ import CoreData
 
 /// An enum of all tabs avaliable in teha.
 enum Tab: String, RawRepresentable {
-    case projects = "projects"
+    case recommended = "recommended"
     case tasks = "tasks"
+    case projects = "projects"
     case settings = "settings"
 }
 
@@ -23,7 +24,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     // ensure that the tasks tab is the default tab (i.e., landing page)
-    @State private var tab: Tab = .tasks
+    @State private var tab: Tab = .recommended
     
     @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
     
@@ -32,8 +33,9 @@ struct ContentView: View {
             // Create root TabView and add all main views for app
             if (onboardingDone) {
                 TabView(selection: $tab) {
-                    ProjectsTab().tag(Tab.projects)
+                    RecommendedTab().tag(Tab.recommended)
                     TasksTab().tag(Tab.tasks)
+                    ProjectsTab().tag(Tab.projects)
                     SettingsTab().tag(Tab.settings)
                 }
                 .tint(accentColor.color) // apply accent color setting to app
@@ -49,9 +51,6 @@ struct ContentView: View {
             default:
                 break
             }
-        }
-        .onAppear {
-            checkValidity()
         }
     }
 }
