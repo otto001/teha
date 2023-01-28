@@ -56,6 +56,8 @@
 
 "deadline-add" = "Füge Deadline hinzu";
 
+"deadline-approaching" = "Näher rückende Deadline:";
+
 "deadline-change" = "Deadline ändern";
 
 "deadline-remove" = "Entferne Deadline";
@@ -80,7 +82,7 @@
 
 "estimated-worktime" = "Geschätzter Aufwand";
 
-"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten. ";
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten.";
 
 "filter" = "Filter";
 
@@ -124,6 +126,8 @@
 
 "next" = "Weiter";
 
+"no-reminder" = "Keine";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -131,6 +135,10 @@
 "normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
+
+"notifications-allow" = "Erlaube Benachrichtigungen";
+
+"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "now" = "Jetzt";
 
@@ -150,6 +158,12 @@
 
 "projects" = "Projekte";
 
+"reminder" = "Erinnerung";
+
+"reminder-add" = "Füge Erinnerung hinzu";
+
+"reminder-second" = "Zweite Erinnerung";
+
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
@@ -161,6 +175,8 @@
 "selected" = "Ausgewählt";
 
 "settings" = "Einstellungen";
+
+"settings-open" = "Öffne Einstellungen";
 
 "skip" = "Überspringen";
 

@@ -127,6 +127,9 @@ struct TaskListToolbarView: View {
             Button("delete", role: .destructive) {
                 
                 for task in tasks {
+                    // Remove all pending reminders for task
+                    NotificationManager.instance.cancelPendingNotifications(for: task)
+                    
                     viewContext.delete(task)
                 }
                 

@@ -56,6 +56,8 @@
 
 "deadline-add" = "Add Deadline";
 
+"deadline-approaching" = "Approaching Deadline:";
+
 "deadline-change" = "Change Deadline";
 
 "deadline-remove" = "Remove Deadline";
@@ -124,6 +126,8 @@
 
 "next" = "Next";
 
+"no-reminder" = "None";
+
 "none" = "None";
 
 "normal" = "Normal";
@@ -131,6 +135,10 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
+
+"notifications-allow" = "Allow Notifications";
+
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "now" = "Now";
 
@@ -150,6 +158,12 @@
 
 "projects" = "Projects";
 
+"reminder" = "Reminder";
+
+"reminder-add" = "Add Reminder";
+
+"reminder-second" = "Second Reminder";
+
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
@@ -161,6 +175,8 @@
 "selected" = "Selected";
 
 "settings" = "Settings";
+
+"settings-open" = "Open Settings";
 
 "skip" = "Skip";
 
