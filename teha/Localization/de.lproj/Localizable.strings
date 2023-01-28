@@ -64,6 +64,12 @@
 
 "delete" = "Löschen";
 
+"delete-project-keep-tasks" = "Projekt löschen und Aufgaben behalten";
+
+"delete-project-message" = "Auch die Aufgaben des Projekts löschen?";
+
+"delete-project-with-tasks" = "Projekt und Aufgaben löschen";
+
 "disabled" = "Aus";
 
 "done" = "Fertig";

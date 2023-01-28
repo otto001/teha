@@ -64,6 +64,12 @@
 
 "delete" = "Delete";
 
+"delete-project-keep-tasks" = "Delete Project but keep Tasks";
+
+"delete-project-message" = "Also delete the Tasks of the Project?";
+
+"delete-project-with-tasks" = "Delete Project and Tasks";
+
 "disabled" = "Disabled";
 
 "done" = "Done";
