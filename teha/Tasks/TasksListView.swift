@@ -83,7 +83,7 @@ fileprivate struct FilteredTasksListView: View {
                 guard let taskToDelete = taskToDelete else { return }
                 
                 // Remove all pending reminders for task
-                NotificationManager.instance.cancelPendingNotifications(taskid: taskToDelete.taskId)
+                NotificationManager.instance.cancelPendingNotifications(for: taskToDelete)
                 
                 viewContext.delete(taskToDelete)
                 // TODO: error handling

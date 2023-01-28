@@ -42,20 +42,20 @@ class NotificationManager {
      */
     func scheduleReminderNotifications(task: THTask) {
         
-        cancelPendingNotifications(taskid: task.taskId)
+        cancelPendingNotifications(for: task)
         
         if let reminderOffset = task.reminderOffset, let reminderOffsetSecond = task.reminderOffsetSecond{
-            scheduleReminderNotification(reminderid: task.taskId + "2",
+            scheduleReminderNotification(reminderid: task.taskNotificationId + "2",
                                  title: task.title,
                                  deadline: task.deadline,
                                  reminderOffset: reminderOffsetSecond)
             
-            scheduleReminderNotification(reminderid: task.taskId,
+            scheduleReminderNotification(reminderid: task.taskNotificationId,
                                  title: task.title,
                                  deadline: task.deadline,
                                  reminderOffset: reminderOffset)
         } else if let reminderOffset = task.reminderOffset {
-            scheduleReminderNotification(reminderid: task.taskId,
+            scheduleReminderNotification(reminderid: task.taskNotificationId,
                                  title: task.title,
                                  deadline: task.deadline,
                                  reminderOffset: reminderOffset)
@@ -65,27 +65,6 @@ class NotificationManager {
         
     }
 
-//    func scheduleReminderNotifications(task: THTask) {
-//
-//        if let reminderOffset = task.reminderOffset {
-//            scheduleReminderNotification(reminderid: task.taskId,
-//                                 title: task.title,
-//                                 deadline: task.deadline,
-//                                 reminderOffset: reminderOffset)
-//
-//            if let reminderOffsetSecond = task.reminderOffsetSecond{
-//                scheduleReminderNotification(reminderid: task.taskId + "2",
-//                                     title: task.title,
-//                                     deadline: task.deadline,
-//                                     reminderOffset: reminderOffsetSecond)
-//            }
-//
-//            updateBadgesOfPendingRequests()
-//        }
-//        cancelPendingNotifications(taskid: task.taskId)
-//
-//    }
-    
     /**
         Schedules a reminder notification for a task.
         - Parameters:
@@ -244,13 +223,10 @@ class NotificationManager {
     /// Removes all notifications (pending or delivered) in the current notification center
     /// and updates the badge count to 0
     func cancelAllNotifications() {
-        
-        print("Cancel all notifications!")
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         updateBadgesOfPendingRequests()
-
     }
     
     /// Removes all delivered notifications in the current notification center
@@ -264,31 +240,20 @@ class NotificationManager {
     }
     
     /// Removes all pending notifications that are scheduled with taskid in the current notification center
-    func cancelPendingNotifications(taskid: String) {
-        
+    func cancelPendingNotifications(for task: THTask) {
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [taskid, taskid + "2"])
+        center.removePendingNotificationRequests(withIdentifiers: [task.taskNotificationId, task.taskNotificationId + "2"])
         updateBadgesOfPendingRequests()
         
-    }
-    
-    /// Removes pending notifications that belong to the notificationids in the current notification center
-    func cancelPendingNotifications(notificationids: [String]) {
-        
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: notificationids)
-        updateBadgesOfPendingRequests()
-            
     }
     
     /// Cancels any scheduled notifications associated with each task.
-    func cancelPendingNotificationsforTasks(tasks: NSSet?) {
-        if let tasks=tasks {
-            let taskArray = tasks.allObjects as! [THTask]
-            for task in taskArray {
-                cancelPendingNotifications(taskid: task.taskId)
-            }
+    func cancelPendingNotifications(for tasks: NSSet?) {
+        let tasks = tasks as? Set<THTask>
+        tasks?.forEach { task in
+            cancelPendingNotifications(for: task)
         }
+
         updateBadgesOfPendingRequests()
     }
     

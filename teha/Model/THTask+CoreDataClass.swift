@@ -17,41 +17,28 @@ public class THTask: NSManagedObject {
 
 extension THTask {
     
+    /// The ReminderOffset to the tasks deadline of the first reminder of the Task
     var reminderOffset: ReminderOffset? {
         get {
-            if let reminderMin=self.reminderMin {
-                return ReminderOffset(rawValue: Int(truncating: reminderMin))
-            } else {
-                return nil
-            }
+            self.reminderMin.flatMap { ReminderOffset(rawValue: Int(truncating: $0)) }
         }
         set {
-            if let newValue=newValue {
-                self.reminderMin = NSNumber(value:newValue.rawValue)
-            } else {
-                self.reminderMin = nil
-            }
+            self.reminderMin = (newValue?.rawValue).map { NSNumber(value: $0) }
         }
     }
     
+    /// The ReminderOffset to the tasks deadline of the second reminder of the Task 
     var reminderOffsetSecond: ReminderOffset? {
         get {
-            if let reminderMinSecond=self.reminderMinSecond {
-                return ReminderOffset(rawValue: Int(truncating: reminderMinSecond))
-            } else {
-                return nil
-            }
+            self.reminderMinSecond.flatMap { ReminderOffset(rawValue: Int(truncating: $0)) }
         }
         set {
-            if let newValue=newValue {
-                self.reminderMinSecond = NSNumber(value:newValue.rawValue)
-            } else {
-                self.reminderMinSecond = nil
-            }
+            self.reminderMinSecond = (newValue?.rawValue).map { NSNumber(value: $0) }
         }
     }
     
-    var taskId: String {
+    /// The Id of the task used by LocalNotification
+    var taskNotificationId: String {
         get {
             return self.objectID.uriRepresentation().absoluteString
         }
@@ -92,7 +79,7 @@ extension THTask {
         }
         
         // Remove pending notifications for task
-        NotificationManager.instance.cancelPendingNotifications(taskid: self.taskId)
+        NotificationManager.instance.cancelPendingNotifications(for: self)
     }
     
     /// The remaining estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
