@@ -137,6 +137,7 @@ struct TasksTab: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             taskAddSheet = true
+                            NotificationManager.instance.requestAuthorization()
                         } label: {
                             Image(systemName: "plus")
                         }

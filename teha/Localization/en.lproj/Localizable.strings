@@ -8,6 +8,18 @@
 
 "%@-worktime-remaining" = "%@ remaining to complete";
 
+"%d-day-before" = "%d day before deadline";
+
+"%d-days-before" = "%d days before deadline";
+
+"%d-hour-before" = "%d hour before deadline";
+
+"%d-hours-before" = "%d hours before deadline";
+
+"%d-minutes-before" = "%d minutes before deadline";
+
+"%d-week-before" = "%d week before deadline";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";
@@ -55,6 +67,8 @@
 "deadline" = "Deadline";
 
 "deadline-add" = "Add Deadline";
+
+"deadline-approaching" = "Approaching Deadline:";
 
 "deadline-change" = "Change Deadline";
 
@@ -131,6 +145,9 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
+"notifications-allow" = "Allow Notifications";
+
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "now" = "Now";
 
@@ -139,6 +156,7 @@
 "onboarding-show" = "Show Onboarding";
 
 "other-filters" = "Other Filters";
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "priority" = "Priority";
 
@@ -150,6 +168,12 @@
 
 "projects" = "Projects";
 
+"reminder" = "Reminder";
+
+"reminder-add" = "Add Reminder";
+
+"reminder-second" = "Second Reminder";
+
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
@@ -160,9 +184,11 @@
 
 "selected" = "Selected";
 
-"settings" = "Settings";
+"settings-open" = "Open Settings";
 
 "skip" = "Skip";
+
+"settings-open" = "Open Settings";
 
 "started" = "Started";
 
