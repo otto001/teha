@@ -14,7 +14,49 @@ public class THTask: NSManagedObject {
 
 }
 
+
 extension THTask {
+    
+    var reminderOffset: ReminderOffset? {
+        get {
+            if let reminderMin=self.reminderMin {
+                return ReminderOffset(rawValue: Int(truncating: reminderMin))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue=newValue {
+                self.reminderMin = NSNumber(value:newValue.rawValue)
+            } else {
+                self.reminderMin = nil
+            }
+        }
+    }
+    
+    var reminderOffsetSecond: ReminderOffset? {
+        get {
+            if let reminderMinSecond=self.reminderMinSecond {
+                return ReminderOffset(rawValue: Int(truncating: reminderMinSecond))
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue=newValue {
+                self.reminderMinSecond = NSNumber(value:newValue.rawValue)
+            } else {
+                self.reminderMinSecond = nil
+            }
+        }
+    }
+    
+    var taskId: String {
+        get {
+            return self.objectID.uriRepresentation().absoluteString
+        }
+    }
+    
     var priority: Priority {
         get {
             return Priority(rawValue: Int(self.priorityNumber))!
@@ -48,6 +90,9 @@ extension THTask {
         if self.startDate == nil {
             self.startDate = self.completionDate
         }
+        
+        // Remove pending notifications for task
+        NotificationManager.instance.cancelPendingNotifications(taskid: self.taskId)
     }
     
     /// The remaining estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
@@ -60,6 +105,7 @@ extension THTask {
         return self.estimatedWorktime.percentage(1 - self.completionProgress)
     }
 }
+
 
 //MARK: FetchRequests
 extension THTask {

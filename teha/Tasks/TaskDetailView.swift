@@ -161,6 +161,24 @@ struct TaskDetailView: View {
         }
     }
     
+    @ViewBuilder var reminderSection: some View {
+        if let reminder = task.reminderOffset {
+            Section {
+                LabeledContent("reminder") {
+                    Text(reminder.name)
+                }
+                
+                if let reminderSecond = task.reminderOffsetSecond {
+                    LabeledContent("reminder-second") {
+                        Text(reminderSecond.name)
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
     @ViewBuilder var notesSection: some View {
         if let notes = task.notes, !notes.isEmpty {
             Section {
@@ -186,6 +204,7 @@ struct TaskDetailView: View {
                 
                 projectSection
                 datesSection
+                reminderSection
                 notesSection
                 tagsSection
             }
@@ -223,6 +242,8 @@ struct TaskDetailView_Previews: PreviewProvider {
         
         task.earliestStartDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 28).date!
         task.deadline = DateComponents(calendar: .current, year: 2023, month: 1, day: 24, hour: 23, minute: 59).date!
+        task.reminderOffset = ReminderOffset(rawValue: 10)
+        task.reminderOffsetSecond = ReminderOffset(rawValue: 30)
         task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
         
         task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
