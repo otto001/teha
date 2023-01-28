@@ -8,18 +8,6 @@
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
 
-"%d-day-before" = "%d Tag vor Deadline";
-
-"%d-days-before" = "%d Tage vor Deadline";
-
-"%d-hour-before" = "%d Stunde vor Deadline";
-
-"%d-hours-before" = "%d Stunden vor Deadline";
-
-"%d-minutes-before" = "%d Minuten vor Deadline";
-
-"%d-week-before" = "%d Woche vor Deadline";
-
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -137,6 +125,8 @@
 "new-task" = "Neue Aufgabe";
 
 "next" = "Weiter";
+
+"no-reminder" = "Keine";
 
 "none" = "Nichts";
 

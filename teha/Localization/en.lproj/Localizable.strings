@@ -8,18 +8,6 @@
 
 "%@-worktime-remaining" = "%@ remaining to complete";
 
-"%d-day-before" = "%d day before deadline";
-
-"%d-days-before" = "%d days before deadline";
-
-"%d-hour-before" = "%d hour before deadline";
-
-"%d-hours-before" = "%d hours before deadline";
-
-"%d-minutes-before" = "%d minutes before deadline";
-
-"%d-week-before" = "%d week before deadline";
-
 "add" = "Add";
 
 "add-%@" = "Add %@";
@@ -137,6 +125,8 @@
 "new-task" = "New Task";
 
 "next" = "Next";
+
+"no-reminder" = "None";
 
 "none" = "None";
 

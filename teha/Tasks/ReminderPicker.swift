@@ -52,7 +52,7 @@ struct ReminderPicker: View {
                 
                 // Show the picker if the user has authorized notifications
                 Picker(title, selection: $selection) {
-                    Text("none").tag(Optional<ReminderOffset>.none)
+                    Text("no-reminder").tag(Optional<ReminderOffset>.none)
                     Divider()
                     ForEach(ReminderOffset.allCases) { reminderOffset in
                         Text(reminderOffset.name).tag(Optional(reminderOffset))
