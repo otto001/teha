@@ -56,11 +56,19 @@
 
 "deadline-add" = "Add Deadline";
 
+"deadline-approaching" = "Approaching Deadline:";
+
 "deadline-change" = "Change Deadline";
 
 "deadline-remove" = "Remove Deadline";
 
 "delete" = "Delete";
+
+"delete-project-keep-tasks" = "Delete Project but keep Tasks";
+
+"delete-project-message" = "Also delete the Tasks of the Project?";
+
+"delete-project-with-tasks" = "Delete Project and Tasks";
 
 "disabled" = "Disabled";
 
@@ -124,6 +132,8 @@
 
 "next" = "Next";
 
+"no-reminder" = "None";
+
 "none" = "None";
 
 "normal" = "Normal";
@@ -131,6 +141,10 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
+
+"notifications-allow" = "Allow Notifications";
+
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "now" = "Now";
 
@@ -150,6 +164,12 @@
 
 "projects" = "Projects";
 
+"reminder" = "Reminder";
+
+"reminder-add" = "Add Reminder";
+
+"reminder-second" = "Second Reminder";
+
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
@@ -163,6 +183,8 @@
 "settings" = "Settings";
 
 "settings-no-workdays-selected-error" = "Please select at least one day.";
+
+"settings-open" = "Open Settings";
 
 "settings-worktime-error" = "The start of works must be before the end of work.";
 

@@ -64,6 +64,9 @@ struct TaskEditView: View {
         
         task.project = data.project
         
+        task.reminderOffset = data.reminder
+        task.reminderOffsetSecond = data.reminderSecond
+        
         task.tags = data.tags as NSSet
         
         if !editing {
@@ -73,6 +76,8 @@ struct TaskEditView: View {
         // TODO: error handling
         try? viewContext.save()
         
+        NotificationManager.instance.scheduleReminderNotifications(task: task)
+            
         dismiss()
     }
     
@@ -108,6 +113,15 @@ struct TaskEditView: View {
                             .foregroundColor(.red)
                     }
                 }
+
+                if data.deadline != nil {
+                    Section {
+                            ReminderPicker(title: "reminder", selection: $data.reminder)
+                            if data.reminder != nil {
+                                ReminderPicker(title: "reminder-second", selection: $data.reminderSecond)
+                            }
+                    }
+                }
                 
                 Section {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
@@ -131,6 +145,8 @@ struct TaskEditView: View {
                 if let task = task {
                     self.data = .init(task: task)
                 }
+                
+                NotificationManager.instance.requestAuthorization()
             }
         }
     }
@@ -165,6 +181,9 @@ extension TaskEditView {
         var deadline: Date? = nil
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
+        
+        var reminder: ReminderOffset? = nil
+        var reminderSecond: ReminderOffset? = nil
         
         var project: THProject?
         
@@ -212,6 +231,8 @@ extension TaskEditView {
             self.estimatedWorktime = task.estimatedWorktime
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
+            self.reminder = task.reminderOffset
+            self.reminderSecond = task.reminderOffsetSecond
         }
     }
     

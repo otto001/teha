@@ -52,6 +52,9 @@
 		02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E789182974B3C400F521D0 /* CGRect+Utils.swift */; };
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
+		0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D192977143500E6A100 /* ReminderPicker.swift */; };
+		0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D1B2977163500E6A100 /* ReminderOffset.swift */; };
+		0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDD6B1629759786006F4B95 /* LocalNotification.swift */; };
 		02E7891F29759CFA00F521D0 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891E29759CFA00F521D0 /* Priority.swift */; };
 		02FCDC212983EEB00028E229 /* WorktimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCDC202983EEB00028E229 /* WorktimeField.swift */; };
 		6E35D67829749E7300B42115 /* ProjectStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35D67729749E7300B42115 /* ProjectStatsView.swift */; };
@@ -113,6 +116,9 @@
 		02E789182974B3C400F521D0 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
+		0C041D192977143500E6A100 /* ReminderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPicker.swift; sourceTree = "<group>"; };
+		0C041D1B2977163500E6A100 /* ReminderOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderOffset.swift; sourceTree = "<group>"; };
+		0CDD6B1629759786006F4B95 /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		02E7891E29759CFA00F521D0 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		02FCDC202983EEB00028E229 /* WorktimeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorktimeField.swift; sourceTree = "<group>"; };
 		6E35D67729749E7300B42115 /* ProjectStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsView.swift; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 		029615F0295617A50073E378 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				0CDD6B1629759786006F4B95 /* LocalNotification.swift */,
 				029615DF295617920073E378 /* SimpleColorPicker.swift */,
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
@@ -193,6 +200,7 @@
 				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
 				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
 				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
+				0C041D1B2977163500E6A100 /* ReminderOffset.swift */,
 				02E7891E29759CFA00F521D0 /* Priority.swift */,
 				02CC1B0F298420670097490E /* Worktime.swift */,
 				027629A029795CA5009663E8 /* TaskOrderRecommendationGenerator.swift */,
@@ -214,6 +222,7 @@
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
 				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
 				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
+				0C041D192977143500E6A100 /* ReminderPicker.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -387,11 +396,14 @@
 				0271BF2D29747D4C000A601D /* FlexHStack.swift in Sources */,
 				027629A129795CA5009663E8 /* TaskOrderRecommendationGenerator.swift in Sources */,
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
+				0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
+				029615F329561A280073E378 /* Navigation.swift in Sources */,
+				0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
@@ -415,6 +427,7 @@
 				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
 				025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
+				0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */,
 				ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */,
@@ -578,7 +591,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"teha/Preview Content\"";
-				DEVELOPMENT_TEAM = 489XFYT3X5;
+				DEVELOPMENT_TEAM = HH633Q8BHZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -623,7 +636,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"teha/Preview Content\"";
-				DEVELOPMENT_TEAM = 489XFYT3X5;
+				DEVELOPMENT_TEAM = HH633Q8BHZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

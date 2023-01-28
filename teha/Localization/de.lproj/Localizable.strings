@@ -56,11 +56,19 @@
 
 "deadline-add" = "Füge Deadline hinzu";
 
+"deadline-approaching" = "Näher rückende Deadline:";
+
 "deadline-change" = "Deadline ändern";
 
 "deadline-remove" = "Entferne Deadline";
 
 "delete" = "Löschen";
+
+"delete-project-keep-tasks" = "Projekt löschen und Aufgaben behalten";
+
+"delete-project-message" = "Auch die Aufgaben des Projekts löschen?";
+
+"delete-project-with-tasks" = "Projekt und Aufgaben löschen";
 
 "disabled" = "Aus";
 
@@ -80,7 +88,7 @@
 
 "estimated-worktime" = "Geschätzter Aufwand";
 
-"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten. ";
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten.";
 
 "filter" = "Filter";
 
@@ -124,6 +132,8 @@
 
 "next" = "Weiter";
 
+"no-reminder" = "Keine";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -131,6 +141,10 @@
 "normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
+
+"notifications-allow" = "Erlaube Benachrichtigungen";
+
+"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "now" = "Jetzt";
 
@@ -150,6 +164,12 @@
 
 "projects" = "Projekte";
 
+"reminder" = "Erinnerung";
+
+"reminder-add" = "Füge Erinnerung hinzu";
+
+"reminder-second" = "Zweite Erinnerung";
+
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
@@ -163,6 +183,8 @@
 "settings" = "Einstellungen";
 
 "settings-no-workdays-selected-error" = "Bitte wähle mindestens einen Tag aus.";
+
+"settings-open" = "Öffne Einstellungen";
 
 "settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
 
@@ -184,7 +206,7 @@
 
 "suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
 
-"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise einige Überstunden machen. ";
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise einige Überstunden machen.";
 
 "tag" = "Tag";
 
