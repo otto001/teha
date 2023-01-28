@@ -15,6 +15,7 @@ struct tehaApp: App {
     init(){
         geo = GeoMonitor()
     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

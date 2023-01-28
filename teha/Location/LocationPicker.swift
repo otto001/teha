@@ -62,8 +62,8 @@ fileprivate struct LocationPickerSheet: View {
                             }
                             .onTapGesture {
                                 locationSearch.address = res.title+" "+res.subtitle
-                                locationSearch.getCoordinatesFromAddress(from: locationSearch.address) { coord in
-                                    if coord != nil {
+                                locationSearch.getCoordinatesFromAddress(from: locationSearch.address) { coord in //Completion handler
+                                    if coord != nil { //Otherwise it stays zero from initialization
                                         lat = coord?.latitude
                                         long = coord?.longitude
                                     }
