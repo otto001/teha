@@ -145,6 +145,7 @@
 "normal-priority" = "Normal Priority";
 
 "notes" = "Notes";
+
 "notifications-allow" = "Allow Notifications";
 
 "notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
@@ -156,7 +157,6 @@
 "onboarding-show" = "Show Onboarding";
 
 "other-filters" = "Other Filters";
-"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
 
 "priority" = "Priority";
 
@@ -184,11 +184,11 @@
 
 "selected" = "Selected";
 
+"settings" = "Settings";
+
 "settings-open" = "Open Settings";
 
 "skip" = "Skip";
-
-"settings-open" = "Open Settings";
 
 "started" = "Started";
 

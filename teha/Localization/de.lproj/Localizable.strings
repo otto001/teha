@@ -94,7 +94,7 @@
 
 "estimated-worktime" = "Geschätzter Aufwand";
 
-"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten. ";
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten.";
 
 "filter" = "Filter";
 
@@ -145,6 +145,7 @@
 "normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
+
 "notifications-allow" = "Erlaube Benachrichtigungen";
 
 "notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
@@ -156,7 +157,6 @@
 "onboarding-show" = "Onboarding anzeigen";
 
 "other-filters" = "Weitere Filter";
-"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "priority" = "Priorität";
 
@@ -184,11 +184,11 @@
 
 "selected" = "Ausgewählt";
 
+"settings" = "Einstellungen";
+
 "settings-open" = "Öffne Einstellungen";
 
 "skip" = "Überspringen";
-
-"settings-open" = "Öffne Einstellungen";
 
 "started" = "Angefangen";
 
