@@ -1,5 +1,5 @@
 //
-//  DurationPicker.swift
+//  WorktimeField.swift
 //  teha
 //
 //  Created by Matteo Ludwig on 27.01.23.
@@ -123,7 +123,7 @@ struct WorktimeField: View {
 }
 
 // MARK: Preview
-struct DurationPicker_Previews: PreviewProvider {
+struct WorktimeField_Previews: PreviewProvider {
     struct WorktimeFieldPreview: View {
         
         @State var value: Worktime = .init(totalMinutes: 135)
