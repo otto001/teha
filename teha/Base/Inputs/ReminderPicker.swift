@@ -11,7 +11,7 @@ import SwiftUI
 /// The view will show a picker if the user has authorized notifications, otherwise it will show a button that prompts the user to open settings and allow notifications.
 struct ReminderPicker: View {
     /// The currently selected reminder offset.
-    @Binding var internalSelection: ReminderOffsetTag
+    @Binding var selection: ReminderOffset?
     /// The current status of the user's authorization for notifications.
     @State var status: UNAuthorizationStatus
     // A flag to determine whether the alert should be shown to prompt the user to open settings and allow notifications.
@@ -26,11 +26,7 @@ struct ReminderPicker: View {
     init(title: LocalizedStringKey, selection: Binding<ReminderOffset?>) {
         self.title = title
         self.status = .notDetermined
-        self._internalSelection = Binding {
-            return ReminderOffsetTag(selection.wrappedValue)
-        } set: { reminderOffsetTag in
-            selection.wrappedValue = reminderOffsetTag.value
-        }
+        self._selection = selection
     }
     
     /// Checks the current status of the user's authorization for notifications and updates the status.
@@ -44,7 +40,7 @@ struct ReminderPicker: View {
         }
         semaphore.wait()
     }
-
+    
     /// `body` view dispalys  either the picker or the button, depending on the authorization status.
     /// It contains an `onAppear` function which checks for authorization status every time the view appears.
     /// And also an `onReceive` function which listens to the `UIApplication.willEnterForegroundNotification` and calls
@@ -55,10 +51,11 @@ struct ReminderPicker: View {
             if status == .authorized {
                 
                 // Show the picker if the user has authorized notifications
-                Picker(title, selection: $internalSelection) {
-                    Text("none").tag(ReminderOffsetTag(nil))
+                Picker(title, selection: $selection) {
+                    Text("none").tag(Optional<ReminderOffset>.none)
+                    Divider()
                     ForEach(ReminderOffset.allCases) { reminderOffset in
-                        Text(reminderOffset.name).tag(ReminderOffsetTag(reminderOffset))
+                        Text(reminderOffset.name).tag(Optional.some(reminderOffset))
                     }
                 }
                 
@@ -89,27 +86,15 @@ struct ReminderPicker: View {
             self.checkAuthorization()
         }
     }
-
-}
-
-extension ReminderPicker {
     
-    /// This struct is a wrapper for a `ReminderOffset` value, which allows it to be used as the tag in a Picker view.
-    struct ReminderOffsetTag: Hashable {
-        let value: ReminderOffset?
-        
-        /// Takes a `ReminderOffset` value and sets it as the `value` property.
-        init(_ value: ReminderOffset?) {
-            self.value = value
-        }
-    }
 }
+
 
 struct ReminderPicker_Previews: PreviewProvider {
     
     struct ReminderPickerPreview: View {
         @State var selection: ReminderOffset? = nil
-
+        
         var body: some View {
             ReminderPicker(title:"reminder", selection: $selection)
         }
