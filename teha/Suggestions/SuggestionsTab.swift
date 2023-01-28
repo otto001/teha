@@ -1,5 +1,5 @@
 //
-//  RecommendedTab.swift
+//  SuggestionsTab.swift
 //  teha
 //
 //  Created by Matteo Ludwig on 27.01.23.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct RecommendedTab: View {
+struct SuggestionsTab: View {
     var body: some View {
         NavigationStack {
             
-            RecommendedListView()
+            SuggestionsListView()
                 
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
@@ -24,8 +24,8 @@ struct RecommendedTab: View {
     }
 }
 
-struct RecommendedTab_Previews: PreviewProvider {
+struct SuggestionsTab_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendedTab()
+        SuggestionsTab()
     }
 }

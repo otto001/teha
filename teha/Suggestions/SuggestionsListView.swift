@@ -1,5 +1,5 @@
 //
-//  RecommendedListView.swift
+//  SuggestionsListView.swift
 //  teha
 //
 //  Created by Matteo Ludwig on 27.01.23.
@@ -17,7 +17,7 @@ fileprivate var formatter: DateFormatter = {
     return formatter
 }()
 
-fileprivate struct RecommendedListRow: View {
+fileprivate struct SuggestionsListRow: View {
     let taskWithLatestStartDate: TaskOrderRecommendationGenerator.TaskWithLatestStartDate
     
     var hasMissedStart: Bool {
@@ -94,7 +94,7 @@ struct SuggestionsInfoBoxButton: View {
 }
 
 @MainActor
-struct RecommendedListView: View {
+struct SuggestionsListView: View {
     
     @MainActor @State var tasks: [TaskOrderRecommendationGenerator.TaskWithLatestStartDate] = []
     @MainActor @State var showInfeasible: Bool = false
@@ -158,7 +158,7 @@ struct RecommendedListView: View {
                 infeasibleHeader
                 
                 ForEach(tasks) { taskWithLatestStartDate in
-                    RecommendedListRow(taskWithLatestStartDate: taskWithLatestStartDate)
+                    SuggestionsListRow(taskWithLatestStartDate: taskWithLatestStartDate)
                 }
             }
         }
@@ -183,10 +183,10 @@ struct RecommendedListView: View {
     }
 }
 
-struct RecommendedListView_Previews: PreviewProvider {
+struct SuggestionsListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            RecommendedListView()
+            SuggestionsListView()
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
                 .navigationTitle(LocalizedStringKey("suggestions"))
         }

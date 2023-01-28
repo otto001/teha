@@ -33,8 +33,8 @@
 		02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */; };
 		02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF0296868A0007AC6BE /* Localizable.strings */; };
 		02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */; };
-		02A8FCCE29845D0F006AFF9A /* RecommendedTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCD29845D0F006AFF9A /* RecommendedTab.swift */; };
-		02A8FCD029845E30006AFF9A /* RecommendedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCF29845E30006AFF9A /* RecommendedListView.swift */; };
+		02A8FCCE29845D0F006AFF9A /* SuggestionsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCD29845D0F006AFF9A /* SuggestionsTab.swift */; };
+		02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */; };
 		02A8FCD22984826B006AFF9A /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD12984826B006AFF9A /* Date+Utils.swift */; };
 		02A8FCD429848B61006AFF9A /* WorkDaysSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */; };
 		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
@@ -92,8 +92,8 @@
 		02A5BAF1296868A7007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02A5BAF7296876A1007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		02A5BAF9296876A5007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		02A8FCCD29845D0F006AFF9A /* RecommendedTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTab.swift; sourceTree = "<group>"; };
-		02A8FCCF29845E30006AFF9A /* RecommendedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedListView.swift; sourceTree = "<group>"; };
+		02A8FCCD29845D0F006AFF9A /* SuggestionsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTab.swift; sourceTree = "<group>"; };
+		02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsListView.swift; sourceTree = "<group>"; };
 		02A8FCD12984826B006AFF9A /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDaysSettingsView.swift; sourceTree = "<group>"; };
 		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
@@ -227,13 +227,13 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		02A8FCCC29845CDF006AFF9A /* Recommended */ = {
+		02A8FCCC29845CDF006AFF9A /* Suggestions */ = {
 			isa = PBXGroup;
 			children = (
-				02A8FCCD29845D0F006AFF9A /* RecommendedTab.swift */,
-				02A8FCCF29845E30006AFF9A /* RecommendedListView.swift */,
+				02A8FCCD29845D0F006AFF9A /* SuggestionsTab.swift */,
+				02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */,
 			);
-			path = Recommended;
+			path = Suggestions;
 			sourceTree = "<group>";
 		};
 		02CB754A2955DE5D005F4D35 = {
@@ -262,7 +262,7 @@
 				029615EF2956179F0073E378 /* Utils */,
 				029615EE295617970073E378 /* Project */,
 				029E336629564E1E004A2E12 /* Tasks */,
-				02A8FCCC29845CDF006AFF9A /* Recommended */,
+				02A8FCCC29845CDF006AFF9A /* Suggestions */,
 				0271BF2529746424000A601D /* Tags */,
 				A85AAA95296D92050078BA2D /* Settings */,
 				02CB75562955DE5E005F4D35 /* tehaApp.swift */,
@@ -390,7 +390,7 @@
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
-				02A8FCD029845E30006AFF9A /* RecommendedListView.swift in Sources */,
+				02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
@@ -418,7 +418,7 @@
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
 				02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */,
 				ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */,
-				02A8FCCE29845D0F006AFF9A /* RecommendedTab.swift in Sources */,
+				02A8FCCE29845D0F006AFF9A /* SuggestionsTab.swift in Sources */,
 				02CC1B10298420670097490E /* Worktime.swift in Sources */,
 				0271BF2429745F27000A601D /* NSFetchRequest+Filter.swift in Sources */,
 				029615ED295617930073E378 /* ProjectEditView.swift in Sources */,
