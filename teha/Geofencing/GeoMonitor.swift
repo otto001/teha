@@ -8,7 +8,6 @@
 
 import CoreLocation
 import CoreData
-import UserNotifications
 
 class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
@@ -28,7 +27,6 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     
     func startMonitoringTaskLocation(task:THTask){
         let currentlymonitoredRegions = locationManager.monitoredRegions
-        print(currentlymonitoredRegions)
         if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) && currentlymonitoredRegions.count < 20 {
             let coordinates = createCoordinates(lat: task.lat, long: task.long)
             let identifier = task.objectID.uriRepresentation().absoluteString
@@ -44,8 +42,6 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     }
     
     func refreshLocationMonitoring(task:THTask){
-        print("Task ID" + task.objectID.uriRepresentation().absoluteString)
-        
         stopMonitoringTaskLocation(task: task)
         if task.address != "" {
             startMonitoringTaskLocation(task: task)
