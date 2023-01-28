@@ -80,6 +80,9 @@ extension THTask {
         if self.startDate == nil {
             self.startDate = self.completionDate
         }
+        
+        // Remove pending notifications for task
+        NotificationManager.instance.cancelPendingNotifications(taskid: self.taskId)
     }
 }
 
