@@ -30,18 +30,15 @@ struct SettingsTab: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
     
     var body: some View {
-        RoutedNavigation { router in
+        NavigationStack {
             Form {
-                SimpleColorPicker(title: String(localized: "color-accent"), color: $accentColor)
-                
+                SimpleColorPicker(title: "color-accent", selection: $accentColor)
+
                 Section {
                     NavigationLink("advanced-settings") {
                         AdvancedSettings()
                     }
                 }
-            }
-            .registerSimpleColorPicker {
-                router.pop()
             }
             .navigationTitle(LocalizedStringKey("settings"))
         }

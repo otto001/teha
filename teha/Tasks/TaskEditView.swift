@@ -16,6 +16,8 @@ struct TaskEditView: View {
    
     @State var data = FormData()
     
+    @State var showError: Bool = false
+    
     let mode: Mode
     
     var task: THTask? {
@@ -34,7 +36,10 @@ struct TaskEditView: View {
     }
     
     func done() {
-        guard data.valid else { return }
+        guard data.valid else {
+            showError = true
+            return
+        }
         
         let task = task ?? THTask(context: viewContext)
         
@@ -44,6 +49,8 @@ struct TaskEditView: View {
         
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
+        
+        task.estimatedWorktime = data.estimatedWorktime
         
         task.project = data.project
         
@@ -78,19 +85,40 @@ struct TaskEditView: View {
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $data.deadline)
+                } footer: {
+                    if data.deadlineBeforeEarliestStartDate {
+                        Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
+                            .foregroundColor(.red)
+                    }
+                }
+                
+                Section {
+                    EstimatedWorktimeField(value: $data.estimatedWorktime)
+                } footer: {
+                    // Show error when estimatedWorktime exceed maximum value.
+                    if data.estimatedWorktimeTooHigh {
+                        Text(FormError.estimatedWorktimeTooHigh.failureReason!)
+                            .foregroundColor(.red)
+                    }
                 }
                 
                 Section {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
-                }
-                
-                Section {
                     TagPicker(selection: $data.tags)
                 }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
                 dismiss()
+            }
+            .alert(isPresented: $showError, error: data.error) { _ in
+                Button {
+                    showError = false
+                } label: {
+                    Text("ok")
+                }
+            } message: { error in
+                Text(error.failureReason ?? "")
             }
             .onAppear {
                 if let task = task {
@@ -102,6 +130,25 @@ struct TaskEditView: View {
 }
 
 extension TaskEditView {
+    enum FormError: LocalizedError {
+        case noTitle
+        case deadlineBeforeEarliestStartDate
+        case estimatedWorktimeTooHigh
+        
+        var errorDescription: String? {
+            String(localized: "cannot-save-task")
+        }
+        
+        var failureReason: String? {
+            switch self {
+            case .noTitle: return String(localized: "task-must-have-title")
+            case .deadlineBeforeEarliestStartDate: return String(localized: "task-deadline-must-be-after-earliest-startdate")
+            case .estimatedWorktimeTooHigh:
+                return String(localized: "estimated-worktime-too-high") // TODO: LOCALIZE
+            }
+        }
+    }
+    
     struct FormData {
         var title: String = ""
         var notes: String = ""
@@ -110,18 +157,43 @@ extension TaskEditView {
         var earliestStartDate: Date? = nil
         var deadline: Date? = nil
         
-        var timeEstimate: Double? = nil
+        var estimatedWorktime: EstimatedWorktime = .init(hours: 1, minutes: 0)
         
         var project: THProject?
         
         var tags: Set<THTag> = .init()
         
+        /// True when the deadline is before the earliestStartDate.
+        var deadlineBeforeEarliestStartDate: Bool {
+            if let earliestStartDate = earliestStartDate,
+               let deadline = deadline,
+               earliestStartDate > deadline {
+                return true
+            }
+            return false
+        }
+        
+        /// True when estimatedWorktime is over 100 hours.
+        var estimatedWorktimeTooHigh: Bool {
+            return estimatedWorktime > EstimatedWorktime(hours: 100, minutes: 0)
+        }
+        
+        var error: FormError? {
+            if title.isEmpty {
+                return .noTitle
+            } else if deadlineBeforeEarliestStartDate {
+                return .deadlineBeforeEarliestStartDate
+            } else if estimatedWorktimeTooHigh {
+                return .estimatedWorktimeTooHigh
+            }
+            return nil
+        }
+        
         var valid: Bool {
-            return !title.isEmpty
+            error == nil
         }
         
         init() {
-            
         }
         
         init(task: THTask) {
@@ -130,7 +202,7 @@ extension TaskEditView {
             self.priority = task.priority
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
-            self.timeEstimate = task.timeEstimate as? Double
+            self.estimatedWorktime = task.estimatedWorktime
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
         }

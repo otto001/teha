@@ -68,7 +68,7 @@ struct ProjectsListView: View {
     }
     
     var body: some View {
-        RoutedNavigation { router in
+        NavigationStack {
             List {
                 ForEach(sections) { section in
                     let projects = section.search(query: query)

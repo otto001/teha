@@ -117,7 +117,7 @@ struct TaskProgressBarInteractive: View {
                     
                     let barPadding = gestureWidth - barWidth
                     draggingProgress = max(0, min(1, (action.location.x - barPadding/2)  / barWidth))
-                    
+                    task.completionProgress = draggingProgress
                     if draggingProgress != lastDraggingProgress {
                         
                         for threshold in thresholds {

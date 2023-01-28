@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 extension Color {
+    // Some colors missing from SwiftUI that are usefull in iOS app development
+    
     static let systemBlue = Color(UIColor.systemBlue)
     
     static let systemGray = Color(UIColor.systemGray)

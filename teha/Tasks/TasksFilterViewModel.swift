@@ -12,6 +12,10 @@ import SwiftUI
 
 class TasksFilterViewModel: ObservableObject {
     
+    @Published var grouping: TasksGrouping = .week
+    
+    @Published var taskState: TaskStateFilter = .current
+    
     @Published var project: THProject? = nil
     
     @Published var priority: Priority? = nil
@@ -20,9 +24,6 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tags: Set<THTag> = .init()
     
     @Published var search: String = ""
-    
-    @Published var taskState: TaskStateFilter = .current
-    
     
     
     private var filterActiveArray: [Bool] {
@@ -83,6 +84,7 @@ extension TasksFilterViewModel {
     
     enum TaskStateFilter: CaseIterable, Identifiable {
         case all, current, completed
+        
         var id: Self {
             return self
         }
@@ -96,4 +98,20 @@ extension TasksFilterViewModel {
         }
     }
     
+    enum TasksGrouping: CaseIterable, Identifiable {
+        case day, week, month, year
+        
+        var id: Self {
+            return self
+        }
+        
+        var name: LocalizedStringKey {
+            switch self {
+            case .day: return "day"
+            case .week: return "week"
+            case .month: return "month"
+            case .year: return "year"
+            }
+        }
+    }
 }

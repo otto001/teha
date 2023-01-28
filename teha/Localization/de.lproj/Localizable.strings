@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%@-worktime-remaining" = "%@ Aufwand verbleibend";
+
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -19,6 +21,8 @@
 "back" = "Zurück";
 
 "cancel" = "Abbrechen";
+
+"cannot-save-task" = "Aufgabe kann nicht gespeichert werden";
 
 "color" = "Farbe";
 
@@ -46,6 +50,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"day" = "Tag";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
@@ -71,6 +77,10 @@
 "edit" = "Bearbeiten";
 
 "enabled-filters" = "Aktivierte Filter";
+
+"estimated-worktime" = "Geschätzter Aufwand";
+
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten. ";
 
 "filter" = "Filter";
 
@@ -104,6 +114,8 @@
 
 "match-any-tag" = "Jedes der ausgewählten Tags";
 
+"month" = "Monat";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
@@ -121,6 +133,8 @@
 "notes" = "Notizen";
 
 "now" = "Jetzt";
+
+"ok" = "Ok";
 
 "onboarding-show" = "Onboarding anzeigen";
 
@@ -162,13 +176,19 @@
 
 "task" = "Aufgabe";
 
+"task-deadline-must-be-after-earliest-startdate" = "Die Deadline der Aufgabe muss nach dem frühesten Beginn liegen.";
+
 "task-delete-confirmation" = "Aufgabe löschen?";
+
+"task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
+
+"tasks-doing" = "In Arbeit";
 
 "tasks-due-today" = "Bis heute";
 
@@ -185,3 +205,7 @@
 "urgent" = "Dringend";
 
 "urgent-priority" = "Dringend";
+
+"week" = "Woche";
+
+"year" = "Jahr";
