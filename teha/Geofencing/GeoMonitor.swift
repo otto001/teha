@@ -21,7 +21,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
         
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true
+       // locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }
     
