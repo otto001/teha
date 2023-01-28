@@ -159,7 +159,6 @@ struct TaskProgressBarInteractive: View {
                     task.startDate = nil
                     task.completionDate = nil
                     task.completionProgress = 0
-                    NotificationManager.instance.scheduleReminderNotifications(task: task)
                 }
                 .zIndex(2)
                 
@@ -179,7 +178,6 @@ struct TaskProgressBarInteractive: View {
                     completeTask()
                 } undoAction: {
                     task.completionDate = nil
-                    NotificationManager.instance.scheduleReminderNotifications(task: task)
                 }
                 .zIndex(2)
                 

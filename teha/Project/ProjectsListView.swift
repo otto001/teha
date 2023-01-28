@@ -27,9 +27,6 @@ private struct ProjectRow: View {
         }
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
             Button("delete", role: .destructive) {
-                // Remove all reminders from all tasks of the project
-                NotificationManager.instance.cancelPendingNotificationsforTasks(tasks: project.tasks)
-                
                 viewContext.delete(project)
                 // TODO: error handling
                 try? viewContext.save()

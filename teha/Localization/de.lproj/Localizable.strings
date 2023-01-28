@@ -8,18 +8,6 @@
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
 
-"%d-day-before" = "%d Tag vor Deadline";
-
-"%d-days-before" = "%d Tage vor Deadline";
-
-"%d-hour-before" = "%d Stunde vor Deadline";
-
-"%d-hours-before" = "%d Stunden vor Deadline";
-
-"%d-minutes-before" = "%d Minuten vor Deadline";
-
-"%d-week-before" = "%d Woche vor Deadline";
-
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -67,8 +55,6 @@
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
-
-"deadline-approaching" = "Näher rückende Deadline:";
 
 "deadline-change" = "Deadline ändern";
 
@@ -145,9 +131,6 @@
 "normal-priority" = "Normale Priorität";
 
 "notes" = "Notizen";
-"notifications-allow" = "Erlaube Benachrichtigungen";
-
-"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "now" = "Jetzt";
 
@@ -156,7 +139,6 @@
 "onboarding-show" = "Onboarding anzeigen";
 
 "other-filters" = "Weitere Filter";
-"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "priority" = "Priorität";
 
@@ -168,12 +150,6 @@
 
 "projects" = "Projekte";
 
-"reminder" = "Erinnerung";
-
-"reminder-add" = "Füge Erinnerung hinzu";
-
-"reminder-second" = "Zweite Erinnerung";
-
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
@@ -184,11 +160,9 @@
 
 "selected" = "Ausgewählt";
 
-"settings-open" = "Öffne Einstellungen";
+"settings" = "Einstellungen";
 
 "skip" = "Überspringen";
-
-"settings-open" = "Öffne Einstellungen";
 
 "started" = "Angefangen";
 
