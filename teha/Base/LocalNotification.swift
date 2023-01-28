@@ -249,7 +249,7 @@ class NotificationManager {
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
-        updateBadgeCount()
+        updateBadgesOfPendingRequests()
 
     }
     
@@ -259,7 +259,7 @@ class NotificationManager {
         
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
-        updateBadgeCount()
+        updateBadgesOfPendingRequests()
 
     }
     
@@ -268,7 +268,8 @@ class NotificationManager {
         
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [taskid, taskid + "2"])
-            
+        updateBadgesOfPendingRequests()
+        
     }
     
     /// Removes pending notifications that belong to the notificationids in the current notification center
@@ -276,6 +277,7 @@ class NotificationManager {
         
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: notificationids)
+        updateBadgesOfPendingRequests()
             
     }
     
@@ -287,6 +289,7 @@ class NotificationManager {
                 cancelPendingNotifications(taskid: task.taskId)
             }
         }
+        updateBadgesOfPendingRequests()
     }
     
     /// Returns number of pending notifications in the current notification center
