@@ -82,7 +82,7 @@ extension THTask {
         NotificationManager.instance.cancelPendingNotifications(for: self)
     }
     
-    /// The remaining estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
+    /// The remainder of the estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
     var estimatedWorktimeRemaining: Worktime {
         if self.isCompleted {
             return .zero
