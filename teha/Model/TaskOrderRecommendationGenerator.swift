@@ -49,53 +49,91 @@ fileprivate struct WrappedTask: Hashable {
         }
         return deadline >= intervalStart
     }
+    
+    static func == (lhs: WrappedTask, rhs: WrappedTask) -> Bool {
+        return lhs.task.id == rhs.task.id
+    }
+}
+
+fileprivate struct BinKey: Hashable, Comparable, Strideable {
+    let binsSince1970: Int
+    
+    init(binsSince1970: Int) {
+        self.binsSince1970 = binsSince1970
+    }
+    
+    init(timeIntervalSince1970: TimeInterval, minutesPerBin: Int) {
+        self.binsSince1970 = Int(timeIntervalSince1970) / (60*minutesPerBin)
+    }
+    
+    
+    init(date: Date, minutesPerBin: Int) {
+        let startOfDay = Calendar.current.startOfDay(for: date)
+        let hours = Calendar.current.component(.hour, from: date)
+        var minutes = Calendar.current.component(.minute, from: date)
+        
+        minutes = (minutes / minutesPerBin) * minutesPerBin
+        // TODO: Is this needed?
+        let truncatedDate = Calendar.current.date(byAdding: .minute, value: minutes + hours * 60, to: startOfDay)!
+        
+        self.init(timeIntervalSince1970: truncatedDate.timeIntervalSince1970, minutesPerBin: minutesPerBin)
+    }
+    
+    // Comparable Implementation
+    static func < (lhs: BinKey, rhs: BinKey) -> Bool {
+        return lhs.binsSince1970 < rhs.binsSince1970
+    }
+    
+    // Strideable Implementation
+    func advanced(by n: Int) -> BinKey {
+        return BinKey(binsSince1970: self.binsSince1970 + n)
+    }
+
+    func distance(to other: BinKey) -> Int {
+        return other.binsSince1970 - self.binsSince1970
+    }
+    
+    // Convert to date
+    func date(minutesPerBin: Int) -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(binsSince1970 * minutesPerBin * 60))
+    }
+    
+    var prev: BinKey {
+        return advanced(by: -1)
+    }
+    
+    var next: BinKey {
+        return advanced(by: 1)
+    }
 }
 
 
 fileprivate struct Bin {
-    var task: WrappedTask?
+    let task: WrappedTask
+    var positionIsFinal: Bool = false
 }
 
-fileprivate struct Bins: Collection {
-    typealias Key = Date
-    typealias Index = Dictionary<Key, Bin>.Index
-    typealias Element = Bin
+enum TaskOrderRecommendationGeneratorError: LocalizedError {
+    case badWorktimeSettings
+    case noCalculateableTasks
     
-    private var internalDict: [Key: Bin]
-    var binsPerHour: Int
-    
-    init(binsPerHour: Int) {
-        self.internalDict = [:]
-        self.binsPerHour = binsPerHour
-    }
-
-    var startIndex: Dictionary<Key, Bin>.Index { internalDict.startIndex }
-
-    var endIndex: Dictionary<Key, Bin>.Index { internalDict.endIndex }
-
-    func index(after i: Dictionary<Key, Bin>.Index) -> Dictionary<Key, Bin>.Index {
-        internalDict.index(after: i)
+    var errorDescription: String? {
+        switch self {
+        case .badWorktimeSettings:
+            return String(localized: "suggestions-bad-worktime-settings")
+        case .noCalculateableTasks:
+            return String(localized: "suggestions-no-calculateable-tasks")
+        }
     }
     
-    subscript(position: Dictionary<Key, Bin>.Index) -> Bin {
-        internalDict[position].value
+    var recoverySuggestion: String? {
+        switch self {
+        case .badWorktimeSettings:
+            return String(localized: "suggestions-bad-worktime-settings-recovery")
+        case .noCalculateableTasks:
+            return String(localized: "suggestions-no-calculateable-tasks-recovery")
+        }
     }
-    
-//    subscript(date: Key) -> Bin {
-//        var totalMinutesOfDay = 60 * Calendar.current.component(.hour, from: date) + Calendar.current.component(.minute, from: date)
-//        totalMinutesOfDay = max(startOfWorkDay*60, min(endOfWorkDay*60, totalMinutesOfDay))
-//
-//        var binOfDay = totalMinutesOfDay/minutesPerBin
-//
-////        if position == .end {
-////            binOfDay -= 1
-////        }
-//
-//        var binDate = Calendar.current.startOfDay(for: date)
-//        binDate = Calendar.current.date(byAdding: .minute, value: binOfDay * minutesPerBin, to: binDate)!
-//
-//        internalDict[date, default: Bin(date: date)]
-//    }
 }
 
 actor TaskOrderRecommendationGenerator {
@@ -107,14 +145,10 @@ actor TaskOrderRecommendationGenerator {
     let start: Date
     let end: Date
 
-    //TODO: add to settings
-    let hoursPerDay: Worktime = .init(hours: 8, minutes: 0)
-    let workdays = [2, 3, 4, 5, 6]
-    let startOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
-    
-    var endOfWorkDay: Worktime {
-        startOfWorkDay + hoursPerDay
-    }
+
+    let workdays: [Int]
+    let startOfWorkDay: Worktime
+    var endOfWorkDay: Worktime
     
     let binsPerHour: Int = 60/5
     
@@ -123,7 +157,6 @@ actor TaskOrderRecommendationGenerator {
     }
     
     private var bins: [BinKey: Bin] = [:]
-    //private var dateToBinMap: [Bin: Int] = [:]
 
     init(start: Date) {
         // We always calculate 2 weeks ahead, so set the end date to be 2 weeks after the start date
@@ -132,6 +165,11 @@ actor TaskOrderRecommendationGenerator {
         
         self.start = start
         self.end = end
+        
+        self.workdays = Set<Int>(rawValue: UserDefaults.standard.value(forKey: SettingsAppStorageKey.workDays.rawValue) as? String ?? "")?.sorted() ?? []
+        self.startOfWorkDay = Worktime(rawValue: UserDefaults.standard.value(forKey: SettingsAppStorageKey.startOfWorkDay.rawValue) as? Int ?? 0)
+        
+        self.endOfWorkDay = Worktime(rawValue: UserDefaults.standard.value(forKey: SettingsAppStorageKey.endOfWorkDay.rawValue) as? Int ?? 0)
     }
     
     // MARK: Helpers
@@ -158,7 +196,8 @@ actor TaskOrderRecommendationGenerator {
         request.filter(deadlineBeforeEquals: end)
         
         // It is VERY important for our sorting & checking algorithm that the tasks are ordered by deadline in ascending order!
-        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true), NSSortDescriptor(key: "priorityNumber", ascending: false)]
+        
         
         guard let tasks = try? PersistenceController.shared.container.viewContext.fetch(request) else {
             // If we could not fetch the tasks for some reason, return false for failure
@@ -178,6 +217,113 @@ actor TaskOrderRecommendationGenerator {
         return true
     }
     
+    // MARK: Move
+    
+    private func backtrack(path: inout [BinKey]) {
+        guard let lastBinKey = path.last,
+              let task = self.bins[lastBinKey]?.task else {
+            return
+        }
+        
+        while let lastBinKey = path.popLast(),
+              self.bins[lastBinKey]?.task == task {
+            self.bins[lastBinKey]!.positionIsFinal = true
+            print("Backtracking: removing \(lastBinKey.date(minutesPerBin: minutesPerBin))")
+            
+        }
+    }
+    
+    // ERROR: WHAT IF NEXT BIN IS FAR AWAY??
+//    private func isMovable(binKey: BinKey) -> Bool {
+//        guard let bin = self.bins[binKey] else { return true }
+//        guard !bin.positionIsFinal else { return false }
+//
+//        if let earliestStartDate = bin.task.earliestStartDate {
+//            let earliestStartBinKey = self.binKey(afterOrAt: earliestStartDate)
+//            return binKey > earliestStartBinKey
+//        }
+//
+//        return true
+//    }
+//
+    //TODO: rename
+    private func closestBinWithoutFinalPosition(before binKey: BinKey) -> BinKey {
+        var iterBinKey = binKey.prev
+        
+        while self.bins[iterBinKey]?.positionIsFinal == true {
+            iterBinKey = self.binKey(before: iterBinKey)
+        }
+        
+        return iterBinKey
+    }
+    
+    private func doesMoveViolateEarliestStartDate(from fromBinKey: BinKey, to toBinKey: BinKey) -> Bool {
+        let fromBin = self.bins[fromBinKey]!
+        
+        if let earliestStartDate = fromBin.task.earliestStartDate {
+            let earliestStartBinKey = self.binKey(afterOrAt: earliestStartDate)
+            return toBinKey < earliestStartBinKey
+        }
+        
+        return false
+    }
+    
+    private func move(from fromBinKey: BinKey, to toBinKey: BinKey) {
+        //assert(self.canBeMoved(from: fromBinKey, to: toBinKey))
+        
+        self.bins[toBinKey] = self.bins[fromBinKey]
+        self.bins[fromBinKey] = nil
+    }
+    
+    private func moveToLeft(binKey: BinKey) -> Bool {
+        guard self.bins[binKey]?.positionIsFinal != true else { return false }
+        
+        var selectedToMove: [BinKey] = [binKey]
+        
+        while let iterBinKey = selectedToMove.last, self.bins[iterBinKey] != nil {
+            
+            let destination = self.closestBinWithoutFinalPosition(before: iterBinKey)
+
+            guard !self.doesMoveViolateEarliestStartDate(from: iterBinKey, to: destination) else {
+                self.backtrack(path: &selectedToMove)
+                continue
+            }
+
+            selectedToMove.append(destination)
+        }
+        
+        
+        guard selectedToMove.count > 1 else {
+            return false
+        }
+        assert(selectedToMove.first == binKey)
+        
+        let reversedSelectedToMove = Array(selectedToMove.reversed())
+        
+
+        for (i, fromBinKey) in reversedSelectedToMove.enumerated() {
+            let toBinKey = i == 0 ? self.binKey(before: fromBinKey) : reversedSelectedToMove[i - 1]
+
+            self.move(from: fromBinKey, to: toBinKey)
+        }
+        
+        return true
+    }
+    
+    private func moveToLeft(binKey: BinKey, distance: Int) -> Int {
+        
+        var iterBinKey = binKey
+        for i in 0..<distance {
+            if self.moveToLeft(binKey: iterBinKey) {
+                iterBinKey = self.binKey(before: iterBinKey)
+            } else {
+                return i
+            }
+        }
+        
+        return distance
+    }
+    
     // MARK: Allocate Bins for Task
     
     private func allocateBins(for task: WrappedTask) {
@@ -185,15 +331,15 @@ actor TaskOrderRecommendationGenerator {
         
         let deadlineBinKey = self.binKey(before: task.deadline)
         
-        let startBinKey: BinKey?
-        if let earliestStartDate = task.earliestStartDate {
-            startBinKey = self.binKey(afterOrAt: earliestStartDate)
-            
-            // TODO: This guard should be useless
-            guard startBinKey! <= deadlineBinKey else { return }
-        } else {
-            startBinKey = nil
-        }
+//        let startBinKey: BinKey?
+//        if let earliestStartDate = task.earliestStartDate {
+//            startBinKey = self.binKey(afterOrAt: earliestStartDate)
+//
+//            // TODO: This guard should be useless
+//            guard startBinKey! <= deadlineBinKey else { return }
+//        } else {
+//            startBinKey = nil
+//        }
         
         
         let binsNeeded = Int(task.timeNeeded.totalMinutes / minutesPerBin)
@@ -203,72 +349,36 @@ actor TaskOrderRecommendationGenerator {
 
         let iterSequence = sequence(first: deadlineBinKey) { binKey in
             let next = self.binKey(before: binKey)
-            if let startBinKey = startBinKey, next < startBinKey {
-                return nil
-            }
+//            if let startBinKey = startBinKey, next < startBinKey {
+//                return nil
+//            }
+            // TODO: is it okay to ignore earliestStartDate here? may screw up scheduling of other tasks
             return next
         }
         
         for binKey in iterSequence {
             guard remainingBinsNeeded > 0 else { break }
+            
             if self.placeTaskInBinIfEmpty(task, binKey: binKey) {
+                print("Placed \(task.task.title!) in \(binKey.date(minutesPerBin: minutesPerBin))")
+                remainingBinsNeeded -= 1
+            } else if self.moveToLeft(binKey: binKey) {
+                
+                let success = self.placeTaskInBinIfEmpty(task, binKey: binKey)
+                assert(success)
+                
+                print("Moved \(binKey.date(minutesPerBin: minutesPerBin)) one step to left")
+                print("Placed \(task.task.title!) in \(binKey.date(minutesPerBin: minutesPerBin))")
                 remainingBinsNeeded -= 1
             }
         }
         
-        // TODO: What if remainingBinsNeeded > 0
+        // TODO: What if remainingBinsNeeded > 0 (cannot happend anymore)
         print()
     }
 
     
-    struct BinKey: Hashable, Comparable, Strideable {
-        let binsSince1970: Int
-        
-        init(binsSince1970: Int) {
-            self.binsSince1970 = binsSince1970
-        }
-        
-        init(timeIntervalSince1970: TimeInterval, minutesPerBin: Int) {
-            self.binsSince1970 = Int(timeIntervalSince1970) / (60*minutesPerBin)
-        }
-        
-        
-        init(date: Date, minutesPerBin: Int) {
-            let startOfDay = Calendar.current.startOfDay(for: date)
-            let hours = Calendar.current.component(.hour, from: date)
-            var minutes = Calendar.current.component(.minute, from: date)
-            
-            minutes = (minutes / minutesPerBin) * minutesPerBin
-            // Is this needed?
-            let truncatedDate = Calendar.current.date(byAdding: .minute, value: minutes + hours * 60, to: startOfDay)!
-            
-            self.init(timeIntervalSince1970: truncatedDate.timeIntervalSince1970, minutesPerBin: minutesPerBin)
-        }
-        
-        static func < (lhs: TaskOrderRecommendationGenerator.BinKey, rhs: TaskOrderRecommendationGenerator.BinKey) -> Bool {
-            return lhs.binsSince1970 < rhs.binsSince1970
-        }
-        
-        func advanced(by n: Int) -> BinKey {
-            return BinKey(binsSince1970: self.binsSince1970 + n)
-        }
-
-        func distance(to other: BinKey) -> Int {
-            return other.binsSince1970 - self.binsSince1970
-        }
-        
-        func date(minutesPerBin: Int) -> Date {
-            return Date(timeIntervalSince1970: TimeInterval(binsSince1970 * minutesPerBin * 60))
-        }
-        
-        var prev: BinKey {
-            return advanced(by: -1)
-        }
-        
-        var next: BinKey {
-            return advanced(by: 1)
-        }
-    }
+    
     
     private func binKey(firstOfDay date: Date) -> BinKey {
         let startOfDay = Calendar.current.startOfDay(for: date)
@@ -303,42 +413,54 @@ actor TaskOrderRecommendationGenerator {
     }
     
     private func binKey(before date: Date) -> BinKey {
-        // return the bin at or the closes before date
-        
         return self.binKey(before: BinKey(date: date, minutesPerBin: minutesPerBin))
     }
     
-    private func binKey(afterOrAt date: Date) -> BinKey {
+    private func binKey(afterOrAt binKey: BinKey) -> BinKey {
         // return the bin at or the closes after date
         
-        var result = BinKey(date: date, minutesPerBin: minutesPerBin)
+        var result = binKey
         while !isWorktime(binKey: result) {
             result = result.next
         }
         return result
-        
+    }
+    
+    private func binKey(afterOrAt date: Date) -> BinKey {
+        return self.binKey(afterOrAt: BinKey(date: date, minutesPerBin: minutesPerBin))
     }
     
 
 
     private func placeTaskInBinIfEmpty(_ task: WrappedTask, binKey: BinKey) -> Bool {
-        if self.bins[binKey]?.task == nil {
-            self.bins[binKey, default: Bin()].task = task
+        if self.bins[binKey] == nil {
+            self.bins[binKey] = Bin(task: task)
             return true
         }
         return false
     }
     
+    private func binIsEmpty(binKey: BinKey) -> Bool {
+        return self.bins[binKey] == nil
+    }
+    
     
     // MARK: Calculate
     
-    func calculate() -> Result? {
+    func calculate() throws -> Result {
+        guard !self.workdays.isEmpty && self.startOfWorkDay < self.endOfWorkDay else {
+            throw TaskOrderRecommendationGeneratorError.badWorktimeSettings
+        }
+        
         // Fetch tasks and make bins: If one of them fails for whatever reason, we cannot recover, so abort.
-        guard self.fetchTasks() else {
-            return nil
+        guard self.fetchTasks(), !tasks.isEmpty else {
+            throw TaskOrderRecommendationGeneratorError.noCalculateableTasks
         }
 
+        print("\n\nSTART ALLOCATE")
+
         for task in tasks {
+            print("\nALLOCATING FOR \(task.task.title!)")
             self.allocateBins(for: task)
         }
         
@@ -362,7 +484,7 @@ actor TaskOrderRecommendationGenerator {
         
         
         for binKey in sortedBinKeys {
-            if let task = self.bins[binKey]?.task?.task, !tasksSet.contains(task) {
+            if let task = self.bins[binKey]?.task.task, !tasksSet.contains(task) {
                 tasksOrder.append(.init(task: task, latestStartDate: binKey.date(minutesPerBin: minutesPerBin)))
                 tasksSet.insert(task)
             }

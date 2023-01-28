@@ -102,3 +102,14 @@ struct Worktime: Hashable, Equatable, Comparable, AdditiveArithmetic {
     }
 }
 
+extension Worktime: RawRepresentable {
+    typealias RawValue = Int
+    
+    init(rawValue: Int) {
+        self.init(totalMinutes: rawValue)
+    }
+    
+    var rawValue: Int {
+        self.totalMinutes
+    }
+}

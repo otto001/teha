@@ -52,6 +52,9 @@ struct ContentView: View {
                 break
             }
         }
+        .onAppear {
+            SettingsAppStorageKey.setDefaultValuesIfNeeded()
+        }
     }
 }
 

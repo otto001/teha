@@ -35,6 +35,16 @@ struct TaskEditView: View {
         return editing ? data.title : String(localized: "new-task")
     }
     
+    var projectPickerBinding: Binding<THProject?> {
+        Binding {
+            data.project
+        } set: { newValue in
+            data.project = newValue
+            data.priority = newValue?.priority ?? data.priority
+        }
+
+    }
+    
     func done() {
         guard data.valid else {
             showError = true
@@ -71,10 +81,7 @@ struct TaskEditView: View {
             Form {
                 Section {
                     TextField(LocalizedStringKey("title"), text: $data.title)
-                    ProjectPicker("project",  selection: $data.project)
-                        .onChange(of: data.project) { newValue in
-                            data.priority = newValue?.priority ?? data.priority
-                        }
+                    ProjectPicker("project",  selection: projectPickerBinding)
                     PriorityPicker("priority", selection: $data.priority)
                 }
 

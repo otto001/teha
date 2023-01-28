@@ -16,10 +16,10 @@ struct RecommendedTab: View {
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
                 }
-                .navigationTitle("Suggestions")
+                .navigationTitle(LocalizedStringKey("suggestions"))
         }
         .tabItem {
-            Label("Suggestions", systemImage: "lightbulb")
+            Label(LocalizedStringKey("suggestions"), systemImage: "lightbulb")
         }
     }
 }
