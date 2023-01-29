@@ -119,6 +119,48 @@ class NotificationManager {
     }
     
     /**
+    Displays a time-based notification to the current time with the given task title and potential offset.
+    - Parameters:
+        - title: The title of the task. If `nil`, the function returns without doing anything.
+        - requestIdentifier: A unique string identifier for the notification request.
+        - offset: The time interval from now after which the notification should be triggered.
+    - Returns:
+        None.
+    */
+    func displayLocationNotificationNow(title: String?, requestIdentifier: String, offset: TimeInterval) {
+        
+        // Returns current notification center
+        let center = UNUserNotificationCenter.current()
+        
+        // Create content of notification
+        let content = UNMutableNotificationContent()
+        content.title = String(localized:"location-arrived-title")
+        if let title = title {
+            content.body = "\(title)-location-arrived-body"
+        } else {
+            return
+        }
+        content.sound = .default
+
+        // Create trigger for notification
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: offset, repeats: false)
+
+        // Create a notification request for notification center
+        let request = UNNotificationRequest(
+            identifier: requestIdentifier + "L", // An "L" is appended to the requestIdentifier to make the Id unique.
+            content: content,
+            trigger: trigger)
+
+        // Add request to notification center
+        center.add(request) { (error) in
+            if let error = error {
+                print("ERROR: \(error)")
+            }
+        }
+
+    }
+    
+    /**
         Given a deadline of type `Date` and an offset of type `ReminderOffset`, this function calculates the actual reminder date (deadline date minus the offset) and returns it as a value of type `DateComponents`.
         - Parameters:
             - deadline: The deadline date as a `Date` object.
@@ -255,6 +297,14 @@ class NotificationManager {
         }
 
         updateBadgesOfPendingRequests()
+    }
+    
+    /// Cancels any scheduled notifications that are associated with the request identifiers.
+    func cancelPendingNotifications(for requestIdentifiers: [String]) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: requestIdentifiers)
+        updateBadgesOfPendingRequests()
+        
     }
     
     /// Returns number of pending notifications in the current notification center
