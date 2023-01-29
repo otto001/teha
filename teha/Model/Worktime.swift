@@ -57,6 +57,13 @@ struct Worktime: Hashable, Equatable, Comparable, AdditiveArithmetic {
         self.totalMinutes = hours * 60 + minutes
     }
     
+    /// Init by extracting hours and minutes from current date using given calendar
+    init(extractFrom date: Date, calender: Calendar = Calendar.current) {
+        let hours = calender.component(.hour, from: date)
+        let minutes = calender.component(.minute, from: date)
+        self.init(hours: hours, minutes: minutes)
+    }
+    
     // Equatable and Comparable implementation
     static func == (lhs: Worktime, rhs: Worktime) -> Bool {
         return lhs.totalMinutes == rhs.totalMinutes

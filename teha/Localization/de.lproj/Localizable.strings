@@ -88,7 +88,7 @@
 
 "estimated-worktime" = "Geschätzter Aufwand";
 
-"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten.";
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 48 Stunden nicht überschreiten.";
 
 "filter" = "Filter";
 
@@ -101,6 +101,10 @@
 "high" = "Hoch";
 
 "high-priority" = "Hohe Priorität";
+
+"internal-error" = "Interner Fehler";
+
+"internal-error-recover" = "Sorry!";
 
 "low" = "Niedrig";
 
@@ -194,7 +198,7 @@
 
 "started" = "Angefangen";
 
-"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche äufgabe sie spätestens wann Anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen. Die Empfehlungen von teha betreffen immer nur Aufgaben mit Deadlines in den nächsten zwei Wochen.";
+"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche Aufgabe sie spätestens wann anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
 
 "suggestions" = "Vorschläge";
 
@@ -202,11 +206,13 @@
 
 "suggestions-bad-worktime-settings-recovery" = "Bitte überprüfen Sie Ihre Einstellungen.";
 
+"suggestions-loading" = "Vorschläge werden vorbereitet";
+
 "suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
 
 "suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
 
-"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise einige Überstunden machen.";
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise Überstunden machen.";
 
 "tag" = "Tag";
 

@@ -81,9 +81,7 @@ fileprivate struct WorktimeInput: View {
         Binding {
             Calendar.current.date(byAdding: .minute, value: startOfWorkDay.totalMinutes, to: baseDate)!
         } set: { newValue in
-            let hours = Calendar.current.component(.hour, from: newValue)
-            let minutes = Calendar.current.component(.minute, from: newValue)
-            startOfWorkDay = .init(hours: hours, minutes: minutes)
+            startOfWorkDay = .init(extractFrom: newValue)
         }
     }
     
@@ -91,9 +89,7 @@ fileprivate struct WorktimeInput: View {
         Binding {
             Calendar.current.date(byAdding: .minute, value: endOfWorkDay.totalMinutes, to: baseDate)!
         } set: { newValue in
-            let hours = Calendar.current.component(.hour, from: newValue)
-            let minutes = Calendar.current.component(.minute, from: newValue)
-            endOfWorkDay = .init(hours: hours, minutes: minutes)
+            endOfWorkDay = .init(extractFrom: newValue)
         }
     }
     

@@ -18,7 +18,7 @@ fileprivate var formatter: DateFormatter = {
 }()
 
 fileprivate struct SuggestionsListRow: View {
-    let taskWithLatestStartDate: TaskOrderRecommendationGenerator.TaskWithLatestStartDate
+    let taskWithLatestStartDate: SuggestionsGenerator.TaskWithLatestStartDate
     
     var hasMissedStart: Bool {
         taskWithLatestStartDate.latestStartDate < .now
@@ -96,35 +96,32 @@ struct SuggestionsInfoBoxButton: View {
 @MainActor
 struct SuggestionsListView: View {
     
-    @MainActor @State var tasks: [TaskOrderRecommendationGenerator.TaskWithLatestStartDate] = []
-    @MainActor @State var showInfeasible: Bool = false
+    @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var viewModel = SuggestionsViewModel.shared
     
-    @MainActor @State var isRefreshing = false
+    var isRefreshing: Bool {
+        viewModel.isRefreshing
+    }
     
-    @MainActor @State var error: TaskOrderRecommendationGeneratorError? = nil
+    var tasks: [SuggestionsGenerator.TaskWithLatestStartDate] {
+        viewModel.latestResult?.tasks ?? []
+    }
     
-
+    var showInfeasible: Bool {
+        !(viewModel.latestResult?.isFeasible ?? true)
+    }
+    
+    var error: SuggestionsGeneratorError? {
+        viewModel.latestError
+    }
+    
+    var showLargeProgressView: Bool {
+        isRefreshing && tasks.isEmpty && error == nil
+    }
     
     func refresh() {
         Task {
-            
-            isRefreshing = true
-            error = nil
-            defer {
-                DispatchQueue.main.async {
-                    isRefreshing = false
-                }
-            }
-            
-            do {
-                let generator = TaskOrderRecommendationGenerator(start: .now)
-                let result = try await generator.calculate()
-                
-                self.tasks = result.tasks
-                self.showInfeasible = !result.isFeasible
-            } catch let error as TaskOrderRecommendationGeneratorError {
-                self.error = error
-            }
+            await viewModel.refresh()
         }
     }
     
@@ -141,12 +138,19 @@ struct SuggestionsListView: View {
     }
     
     @ViewBuilder var content: some View {
-        if let error = error {
+        if showLargeProgressView {
+            VStack(spacing: 12) {
+                ProgressView()
+                    .tint(.secondaryLabel)
+                Text("suggestions-loading")
+            }
+        } else if let error = error {
             VStack {
                 Image(systemName: "lightbulb.slash")
                     .font(.largeTitle)
                     .padding(.bottom, 8)
                 Text(error.errorDescription ?? "")
+                    .padding(.bottom, 4)
                 Text(error.recoverySuggestion ?? "")
                     .font(.caption)
                     .foregroundColor(.secondaryLabel)
@@ -169,11 +173,12 @@ struct SuggestionsListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
-                    SuggestionsInfoBoxButton()
-
-                    if isRefreshing {
-                        ProgressView()
-                            .tint(.secondaryLabel)
+                    HStack {
+                        if isRefreshing && !showLargeProgressView {
+                            ProgressView()
+                                .tint(.secondaryLabel)
+                        }
+                        SuggestionsInfoBoxButton()
                     }
                 }
             }

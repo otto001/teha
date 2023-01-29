@@ -88,7 +88,7 @@
 
 "estimated-worktime" = "Estimated Time to Complete";
 
-"estimated-worktime-too-high" = "The estimated time to completion may not exceed 100 hours.";
+"estimated-worktime-too-high" = "The estimated time to completion may not exceed 48 hours.";
 
 "filter" = "Filter";
 
@@ -101,6 +101,10 @@
 "high" = "High";
 
 "high-priority" = "High Priority";
+
+"internal-error" = "Internal Error";
+
+"internal-error-recover" = "Sorry!";
 
 "low" = "Low";
 
@@ -194,13 +198,15 @@
 
 "started" = "Started";
 
-"suggestion-infobox-text" = "Based on the deadlines, earliest start date and estimated time to completion of your tasks, teha recommends when you should start working on each task at the latest. Please keep in mind that these are only recommendations, and it may make sense to start even earlier than suggested by teha. The recommendations only consider tasks with deadlines within the next two weeks.";
+"suggestion-infobox-text" = "Based on the deadlines, earliest start date and estimated time to completion of your tasks, teha recommends when you should start working on each task at the latest. Please keep in mind that these are only recommendations, and it may make sense to start even earlier than suggested by teha.";
 
 "suggestions" = "Suggestions";
 
 "suggestions-bad-worktime-settings" = "Worktime settings invalid";
 
 "suggestions-bad-worktime-settings-recovery" = "Please check your Settings.";
+
+"suggestions-loading" = "Preparing Suggestions";
 
 "suggestions-no-calculateable-tasks" = "Cannot generate suggestions";
 

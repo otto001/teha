@@ -199,9 +199,9 @@ extension TaskEditView {
             return false
         }
         
-        /// True when estimatedWorktime is over 100 hours.
+        /// True when estimatedWorktime is over 48 hours.
         var estimatedWorktimeTooHigh: Bool {
-            return estimatedWorktime > Worktime(hours: 100, minutes: 0)
+            return estimatedWorktime > Worktime(hours: 48, minutes: 0)
         }
         
         var error: FormError? {
