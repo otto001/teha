@@ -190,6 +190,8 @@
 
 "settings-open" = "Open Settings";
 
+"settings-use-themed-appicon" = "Use themed app icon";
+
 "settings-worktime-error" = "The start of works must be before the end of work.";
 
 "skip" = "Skip";

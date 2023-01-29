@@ -107,6 +107,15 @@ enum ColorChoice: Hashable, Identifiable, RawRepresentable {
         }
     }
     
+    /// The name of the AppIcon themed in this color
+    var appIconName: String? {
+        if case .custom = self {
+            return nil
+        }
+        
+        return "AppIcon-\(self)"
+    }
+    
     /// Whether the colorChoice is a custom color.
     /// - Returns: True when the color is a custom color.
     var isCustom: Bool {
