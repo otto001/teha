@@ -71,7 +71,8 @@ struct ProjectEditView: View {
                     SimpleColorPicker(title: "color", selection: $color)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $deadline)
+                                       selection: $deadline,
+                                       defaultDate: Calendar.current.date(byAdding: .month, value: 1, to: .now)!)
                 }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
