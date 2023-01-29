@@ -155,6 +155,16 @@ fileprivate struct Filters: View {
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
+                
+                Button(action: {
+                    filters.dateFilterMode = .disabled
+                    filters.project = nil
+                    filters.priority = nil
+                    filters.tagFilterMode = .disabled
+                }) {
+                    Text("reset-all-filters")
+                        .foregroundColor(.red)
+                }
             } header: {
                 sectionTitle("enabled-filters")
             }

@@ -146,6 +146,8 @@
 
 "remove-%@" = "Remove %@";
 
+"reset-all-filters" = "Reset all Filters";
+
 "select" = "Select";
 
 "select-tasks" = "Select Tasks";
