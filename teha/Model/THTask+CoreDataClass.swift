@@ -94,6 +94,90 @@ extension THTask {
 }
 
 
+// MARK: Repeating
+extension THTask {
+    
+    var repeatInterval: RepeatInterval? {
+        get {
+            guard self.repeatIntervalId != 0 else { return nil }
+            return RepeatInterval(rawValue: Int(self.repeatIntervalId))
+        }
+        set {
+            self.repeatIntervalId = Int32(newValue?.rawValue ?? 0)
+        }
+    }
+    
+    var isRepeating: Bool {
+        self.repeatInterval != nil
+    }
+    
+    var isRepeatingParent: Bool {
+        return (self.repeatingChildren?.count ?? 0) > 0
+    }
+    
+    var isRepeatingChild: Bool {
+        return self.repeatingParent != nil
+    }
+    
+    var repeatingSiblings: Set<THTask>? {
+        if isRepeatingParent {
+            var result = self.repeatingChildren as? Set<THTask>
+            result?.insert(self)
+            return result
+        } else if isRepeatingChild {
+            return self.repeatingParent?.repeatingSiblings
+        }
+        return nil
+    }
+    
+    private func makeRepeatingSibling(managedObjectContext: NSManagedObjectContext, timeshift: TimeInterval) -> THTask? {
+        guard let deadline = self.deadline else { return nil }
+        
+        let sibling = THTask(context: managedObjectContext)
+        
+        for (propertyName, _) in self.entity.propertiesByName {
+            sibling.setValue(self.value(forKey: propertyName), forKey: propertyName)
+        }
+        
+        sibling.creationDate = .now
+        sibling.deadline = deadline + timeshift
+        
+        if let earliestStartDate = self.earliestStartDate {
+            sibling.earliestStartDate = earliestStartDate + timeshift
+        }
+        
+        return sibling
+    }
+    
+    @discardableResult
+    func updateRepeating(managedObjectContext: NSManagedObjectContext?) -> Bool {
+
+        guard let managedObjectContext = managedObjectContext ?? self.managedObjectContext else {
+            return false
+        }
+        
+            // TODO: FIX< SKIP SELF AND PARENT??
+//        if let currentSiblings = self.repeatingSiblings {
+//            for sibling in currentSiblings {
+//                managedObjectContext.delete(sibling)
+//            }
+//        }
+        
+        guard let stepsize = self.repeatInterval?.timeInterval, self.deadline != nil else {
+            return true
+        }
+        
+        for i in 0..<10 {
+            let sibling = self.makeRepeatingSibling(managedObjectContext: managedObjectContext, timeshift: Double(i+1)*stepsize)
+            sibling?.repeatingParent = self
+        }
+        
+        return true
+    }
+    
+}
+
+
 //MARK: FetchRequests
 extension THTask {
     

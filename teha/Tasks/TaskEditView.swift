@@ -54,7 +54,7 @@ struct TaskEditView: View {
         let task = task ?? THTask(context: viewContext)
         
         task.title = data.title
-        task.notes = data.notes
+        task.project = data.project
         task.priority = data.priority
         
         task.earliestStartDate = data.earliestStartDate
@@ -62,21 +62,30 @@ struct TaskEditView: View {
         
         task.estimatedWorktime = data.estimatedWorktime
         
-        task.project = data.project
+        task.repeatInterval = data.repeatInterval
         
         task.reminderOffset = data.reminder
         task.reminderOffsetSecond = data.reminderSecond
         
+        task.notes = data.notes
         task.tags = data.tags as NSSet
         
         if !editing {
             task.creationDate = Date.now
         }
         
+        task.updateRepeating(managedObjectContext: viewContext)
+        
         // TODO: error handling
         try? viewContext.save()
         
+        // TODO: Move NotificationManager code
         NotificationManager.instance.scheduleReminderNotifications(task: task)
+        
+        task.repeatingSiblings?.forEach { repeatingSibling in
+            NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
+        }
+
             
         dismiss()
     }
@@ -115,6 +124,10 @@ struct TaskEditView: View {
                 }
 
                 if data.deadline != nil {
+                    Section {
+                        RepeatIntervalPicker("repeat", selection: $data.repeatInterval)
+                    }
+                    
                     Section {
                             ReminderPicker(title: "reminder", selection: $data.reminder)
                             if data.reminder != nil {
@@ -174,7 +187,7 @@ extension TaskEditView {
     
     struct FormData {
         var title: String = ""
-        var notes: String = ""
+        var project: THProject?
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
@@ -182,11 +195,12 @@ extension TaskEditView {
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
+        var repeatInterval: RepeatInterval?
+        
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
-        var project: THProject?
-        
+        var notes: String = ""
         var tags: Set<THTag> = .init()
         
         /// True when the deadline is before the earliestStartDate.
@@ -224,15 +238,20 @@ extension TaskEditView {
         
         init(task: THTask) {
             self.title = task.title ?? ""
-            self.notes = task.notes ?? ""
+            self.project = task.project
             self.priority = task.priority
+            
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
-            self.project = task.project
-            self.tags = task.tags as? Set<THTag> ?? .init()
+            
+            self.repeatInterval = task.repeatInterval
+            
             self.reminder = task.reminderOffset
             self.reminderSecond = task.reminderOffsetSecond
+            
+            self.notes = task.notes ?? ""
+            self.tags = task.tags as? Set<THTag> ?? .init()
         }
     }
     

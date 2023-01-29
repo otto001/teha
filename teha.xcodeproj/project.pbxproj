@@ -27,6 +27,8 @@
 		027629A329798EA1009663E8 /* TaskListToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027629A229798EA1009663E8 /* TaskListToolbarView.swift */; };
 		027F54B72986C10200450A73 /* RefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54B62986C10200450A73 /* RefreshModifier.swift */; };
 		027F54C02986DBA200450A73 /* WorktimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54BF2986DBA200450A73 /* WorktimeField.swift */; };
+		027F54C22986DBCC00450A73 /* RepeatIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54C12986DBCC00450A73 /* RepeatIntervalPicker.swift */; };
+		027F54C42986DBDA00450A73 /* RepeatInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54C32986DBDA00450A73 /* RepeatInterval.swift */; };
 		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
 		029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DF295617920073E378 /* SimpleColorPicker.swift */; };
@@ -103,6 +105,8 @@
 		027629A229798EA1009663E8 /* TaskListToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListToolbarView.swift; sourceTree = "<group>"; };
 		027F54B62986C10200450A73 /* RefreshModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshModifier.swift; sourceTree = "<group>"; };
 		027F54BF2986DBA200450A73 /* WorktimeField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorktimeField.swift; sourceTree = "<group>"; };
+		027F54C12986DBCC00450A73 /* RepeatIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatIntervalPicker.swift; sourceTree = "<group>"; };
+		027F54C32986DBDA00450A73 /* RepeatInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				921B56A029708B3600F5518F /* PriorityPicker.swift */,
 				029615DF295617920073E378 /* SimpleColorPicker.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
+				027F54C12986DBCC00450A73 /* RepeatIntervalPicker.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				0C041D1B2977163500E6A100 /* ReminderOffset.swift */,
 				02E7891E29759CFA00F521D0 /* Priority.swift */,
 				02CC1B0F298420670097490E /* Worktime.swift */,
+				027F54C32986DBDA00450A73 /* RepeatInterval.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -552,6 +558,7 @@
 				023DD6052985C2D700E35D4F /* SuggestionsGeneratorError.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
 				027F54C02986DBA200450A73 /* WorktimeField.swift in Sources */,
+				027F54C22986DBCC00450A73 /* RepeatIntervalPicker.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
 				027629A329798EA1009663E8 /* TaskListToolbarView.swift in Sources */,
@@ -560,6 +567,7 @@
 				02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
 				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
+				027F54C42986DBDA00450A73 /* RepeatInterval.swift in Sources */,
 				026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */,
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,

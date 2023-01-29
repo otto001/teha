@@ -178,6 +178,12 @@
 
 "remove-%@" = "Remove %@";
 
+"repeat" = "Repeat";
+
+"repeat-daily" = "Daily";
+
+"repeat-weekly" = "Weekly";
+
 "select" = "Select";
 
 "select-tasks" = "Select Tasks";

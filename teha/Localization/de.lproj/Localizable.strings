@@ -178,6 +178,12 @@
 
 "remove-%@" = "Entferne %@";
 
+"repeat" = "Wiederholen";
+
+"repeat-daily" = "Täglich";
+
+"repeat-weekly" = "Wöchentlich";
+
 "select" = "Auswählen";
 
 "select-tasks" = "Aufgaben auswählen";
