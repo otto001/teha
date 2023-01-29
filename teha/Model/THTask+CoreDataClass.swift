@@ -94,6 +94,25 @@ extension NSFetchRequest where ResultType == THTask {
         }
     }
     
+    /**
+        Filters the tasks based on the provided date interval. 
+     
+        Predicates are created for 4 different cases:
+            - Case 1: `earliestStartDate` and `deadline` are not `nil`
+                There is an overlap between [`earliestStartDate`, `deadline`] and the provided `dateInterval`.
+            - Case 2: `earliestStartDate` is `nil` and `deadline` is not `nil`
+                If there is no `earliestStartDate`, then the provided `dateInterval.begin` should be before `deadline`.
+            - Case 3: `deadline` is `nil` and `earliestStartDate` is not `nil`
+                If there is no `deadline`, then the provided `dateInterval.end` should be before `earliestStartDate`.
+            - Case 4: `earliestStartDate` and `deadline` are `nil`
+                The task can be returned since there are no constraints.
+
+        The predicates are combined by OR-ing them using a compound predicate (`NSCompoundPredicate`), and the filter is applied to the fetch request.
+
+        - Parameters:
+         - dateInterval: The date interval in which the task can be completed.
+     
+    */
     func filter(dateInterval: DateInterval) {
         // Case: earliestStartDate and deadline are not nil
         let leftOverlapPredicate = NSPredicate(format: "(%@ <= earliestStartDate AND %@ >= earliestStartDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)

@@ -26,7 +26,14 @@ class TasksFilterViewModel: ObservableObject {
     
     @Published var taskState: TaskStateFilter = .current
     
-    
+    /**
+        Property representing the current date filter mode.
+        When the value is set to:
+        - .matchToday: the `dateInterval` property is updated to represent the current day.
+        - .matchThisWeek: the `dateInterval` property is updated to represent the current week.
+        - .custom: the `dateInterval` property is left unchanged.
+        - .disabled: the `dateInterval` property is left unchanged.
+     */
     var dateFilterMode: DateFilterMode{
         get {
             return _dateFilterMode
