@@ -135,7 +135,7 @@ fileprivate struct Filters: View {
     @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View{
         if enabledSection == (filters.priority != nil) {
             PriorityPicker( selection: $filters.priority, noneText: "disabled"){
-                Label("Priority", systemImage: "text.line.first.and.arrowtriangle.forward")
+                Label("priority", systemImage: "text.line.first.and.arrowtriangle.forward")
             }
         }
         
