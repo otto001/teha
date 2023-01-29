@@ -63,6 +63,25 @@ extension THTask {
         }
     }
     
+    /// The actual deadline of the task, taking into consideration the Project's deadline
+    var deadline: Date? {
+        get {
+            if self.useProjectDeadline {
+                return self.project?.deadline
+            } else {
+                return self.deadlineOverride
+            }
+        }
+        set {
+            self.deadlineOverride = newValue
+            self.useProjectDeadline = false
+            
+            // CoreData can only sort by fields that are persisted.
+            // In order to allow sorting by deadline, persist the computed deadline as well
+            self.deadline_DO_NOT_USE = deadline
+        }
+    }
+    
     var isStarted: Bool { self.startDate != nil }
     var isCompleted: Bool { self.completionDate != nil }
     
@@ -99,7 +118,7 @@ extension THTask {
     
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true),
+        request.sortDescriptors = [NSSortDescriptor(key: "deadline_DO_NOT_USE", ascending: true),
                                    NSSortDescriptor(key: "priorityNumber", ascending: false),
                                    NSSortDescriptor(key: "creationDate", ascending: false),
                                    NSSortDescriptor(key: "title", ascending: true),]

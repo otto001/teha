@@ -171,7 +171,22 @@ extension TaskEditView {
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
-        var deadline: Date? = nil
+        
+        var deadlineOverride: Date? = nil
+        var useProjectDeadline = true
+        var deadline: Date? {
+            get {
+                if useProjectDeadline {
+                    return project?.deadline
+                } else {
+                    return deadlineOverride
+                }
+            }
+            set {
+                deadlineOverride = newValue
+                useProjectDeadline = false
+            }
+        }
         
         var estimatedWorktime: EstimatedWorktime = .init(hours: 1, minutes: 0)
         
