@@ -63,6 +63,8 @@ extension PersistenceController {
             newItem.priority = newItem.project?.priority ?? .normal
             
             newItem.deadline = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
+            newItem.earliestStartDate = newItem.deadline! - TimeInterval.week
+            newItem.estimatedWorktime = .init(hours: 4, minutes: 0)
             
             newItem.completionProgress = Double(i)/10
             newItem.startDate = newItem.completionProgress > 0 ? .now : nil

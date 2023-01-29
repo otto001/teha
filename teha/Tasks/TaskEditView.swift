@@ -35,6 +35,16 @@ struct TaskEditView: View {
         return editing ? data.title : String(localized: "new-task")
     }
     
+    var projectPickerBinding: Binding<THProject?> {
+        Binding {
+            data.project
+        } set: { newValue in
+            data.project = newValue
+            data.priority = newValue?.priority ?? data.priority
+        }
+
+    }
+    
     func done() {
         guard data.valid else {
             showError = true
@@ -87,10 +97,7 @@ struct TaskEditView: View {
             Form {
                 Section {
                     TextField(LocalizedStringKey("title"), text: $data.title)
-                    ProjectPicker("project",  selection: $data.project)
-                        .onChange(of: data.project) { newValue in
-                            data.priority = newValue?.priority ?? data.priority
-                        }
+                    ProjectPicker("project",  selection: projectPickerBinding)
                     PriorityPicker("priority", selection: $data.priority)
                 }
 
@@ -109,7 +116,7 @@ struct TaskEditView: View {
                 }
                 
                 Section {
-                    EstimatedWorktimeField(value: $data.estimatedWorktime)
+                    WorktimeField(value: $data.estimatedWorktime)
                 } footer: {
                     // Show error when estimatedWorktime exceed maximum value.
                     if data.estimatedWorktimeTooHigh {
@@ -191,7 +198,7 @@ extension TaskEditView {
         var earliestStartDate: Date? = nil
         var deadline: Date? = nil
         
-        var estimatedWorktime: EstimatedWorktime = .init(hours: 1, minutes: 0)
+        var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
@@ -214,9 +221,9 @@ extension TaskEditView {
             return false
         }
         
-        /// True when estimatedWorktime is over 100 hours.
+        /// True when estimatedWorktime is over 48 hours.
         var estimatedWorktimeTooHigh: Bool {
-            return estimatedWorktime > EstimatedWorktime(hours: 100, minutes: 0)
+            return estimatedWorktime > Worktime(hours: 48, minutes: 0)
         }
         
         var error: FormError? {
