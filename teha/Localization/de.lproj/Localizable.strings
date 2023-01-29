@@ -46,6 +46,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"date" = "Datum";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
@@ -103,6 +105,10 @@
 "match-all-tags" = "Alle ausgewählten Tags";
 
 "match-any-tag" = "Jedes der ausgewählten Tags";
+
+"match-this-week" = "Diese Woche";
+
+"match-today" = "Heute";
 
 "name" = "Name";
 
@@ -171,6 +177,8 @@
 "tasks-delete-confirmation" = "Aufgaben löschen?";
 
 "tasks-due-today" = "Bis heute";
+
+"tasks-filter" = "Aufgabenfilter";
 
 "tasks-finished" = "Fertig";
 

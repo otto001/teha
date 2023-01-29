@@ -46,6 +46,8 @@
 
 "custom" = "Custom";
 
+"date" = "Date";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Add Deadline";
@@ -103,6 +105,10 @@
 "match-all-tags" = "All Selected Tags";
 
 "match-any-tag" = "Any Selected Tag";
+
+"match-this-week" = "This Week";
+
+"match-today" = "Today";
 
 "name" = "Name";
 
@@ -173,6 +179,8 @@
 "tasks-due-today" = "Due today";
 
 "tasks-finished" = "Finished";
+
+"tasks-filter" = "Tasks Filter";
 
 "tasks-none" = "No tasks";
 

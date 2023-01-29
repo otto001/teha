@@ -19,14 +19,32 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tagFilterMode: TagFilterMode = .disabled
     @Published var tags: Set<THTag> = .init()
     
+    @Published var _dateFilterMode: DateFilterMode = .disabled
+    @Published var dateInterval: DateInterval = DateInterval()
+    
     @Published var search: String = ""
     
     @Published var taskState: TaskStateFilter = .current
     
     
+    var dateFilterMode: DateFilterMode{
+        get {
+            return _dateFilterMode
+        }
+        set {
+            _dateFilterMode = newValue
+            if _dateFilterMode == .matchToday {
+                dateInterval = today()
+            } else if _dateFilterMode == .matchThisWeek {
+                dateInterval = thisWeek()
+            }
+            print("dateinterval: \(dateInterval)")
+            print("set: \(_dateFilterMode)")
+        }
+    }
     
     private var filterActiveArray: [Bool] {
-        return [project != nil, priority != nil, tagFilterMode != .disabled]
+        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled]
     }
 
     var anyFilterActive: Bool {
@@ -70,8 +88,42 @@ class TasksFilterViewModel: ObservableObject {
             break
         }
         
+        switch dateFilterMode{
+        case .matchToday:
+            fetchRequest.filter(dateInterval: dateInterval)
+        case .matchThisWeek:
+            fetchRequest.filter(dateInterval: dateInterval)
+        case .custom:
+            fetchRequest.filter(dateInterval: dateInterval)
+        default:
+            break
+        }
+        
         
         return fetchRequest
+    }
+    
+    private func today() -> DateInterval {
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfDay = calendar.date(bySettingHour: 00, minute: 00, second: 00, of: now)!
+        print(startOfDay)
+        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now)!
+        print(endOfDay)
+        return DateInterval(start: startOfDay, end: endOfDay)
+    }
+    
+    private func thisWeek() -> DateInterval {
+        let calendar = Calendar.current
+        let now = Date()
+        var startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now))!
+        startOfWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: startOfWeek)!
+        startOfWeek = calendar.date(byAdding: .day, value: 1, to: startOfWeek)!
+        print(startOfWeek)
+        var endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek)!
+        endOfWeek = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek)!
+        print(endOfWeek)
+        return DateInterval(start: startOfWeek, end: endOfWeek)
     }
     
 }
@@ -79,6 +131,10 @@ class TasksFilterViewModel: ObservableObject {
 extension TasksFilterViewModel {
     enum TagFilterMode {
         case disabled, matchAny, matchAll
+    }
+    
+    enum DateFilterMode {
+        case disabled, matchToday, matchThisWeek, custom
     }
     
     enum TaskStateFilter: CaseIterable, Identifiable {
