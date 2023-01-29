@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="THProject" representedClassName="THProject" syncable="YES" codeGenerationType="category">
         <attribute name="colorCode" optional="YES" attributeType="String"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="project" inverseEntity="THTask"/>
@@ -20,9 +21,9 @@
         <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reminderMin" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="reminderMinSecond" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
-        <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="tasks" inverseEntity="THProject"/>
