@@ -76,6 +76,8 @@
 
 "filter" = "Filter";
 
+"from:" = "Vom:";
+
 "group" = "Gruppieren";
 
 "group-tasks-by" = "Aufgaben gruppieren nach:";
@@ -191,6 +193,8 @@
 "tasks-todo" = "To Do";
 
 "title" = "Titel";
+
+"to:" = "Bis zum:";
 
 "urgent" = "Dringend";
 

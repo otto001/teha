@@ -76,6 +76,8 @@
 
 "filter" = "Filter";
 
+"from:" = "From:";
+
 "group" = "Group";
 
 "group-tasks-by" = "Group Tasks by:";
@@ -189,6 +191,8 @@
 "tasks-overdue" = "Overdue";
 
 "tasks-todo" = "To Do";
+
+"to:" = "To:";
 
 "title" = "Title";
 
