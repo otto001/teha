@@ -159,14 +159,12 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     /**
      LocationManager method getting called if a something changes with the location authorization
      */
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
-        switch status {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
+        let statusCode = locationManager.authorizationStatus
+        switch statusCode {
         case .notDetermined, .restricted, .denied:
             print("No Location access granted!")
-        case .authorizedWhenInUse:
-            print("Location partly granted, needs always access!")
-            requestLocationPermissions()
-        case .authorizedAlways:
+        case .authorizedAlways, .authorizedWhenInUse:
             print("Location access granted!")
         @unknown default:
             break
