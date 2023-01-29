@@ -110,7 +110,7 @@ fileprivate struct DateFilter: View{
                 
                 if enabledSection, filters.dateFilterMode == .custom {
                     DatePicker(LocalizedStringKey("from:"), selection: $filters.dateInterval.start, displayedComponents: [.date])
-                    DatePicker(LocalizedStringKey("to:"), selection: $filters.dateInterval.end, displayedComponents: [.date])
+                    DatePicker(LocalizedStringKey("to:"), selection: $filters.dateInterval.end, in: filters.dateInterval.start..., displayedComponents: [.date])
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
