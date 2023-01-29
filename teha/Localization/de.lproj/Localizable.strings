@@ -88,7 +88,7 @@
 
 "estimated-worktime" = "Geschätzter Aufwand";
 
-"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 100 Stunden nicht überschreiten.";
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 48 Stunden nicht überschreiten.";
 
 "filter" = "Filter";
 
@@ -101,6 +101,10 @@
 "high" = "Hoch";
 
 "high-priority" = "Hohe Priorität";
+
+"internal-error" = "Interner Fehler";
+
+"internal-error-recover" = "Sorry!";
 
 "low" = "Niedrig";
 
@@ -182,11 +186,33 @@
 
 "settings" = "Einstellungen";
 
+"settings-no-workdays-selected-error" = "Bitte wähle mindestens einen Tag aus.";
+
 "settings-open" = "Öffne Einstellungen";
+
+"settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
 
 "skip" = "Überspringen";
 
+"start-before-%@" = "Fange spätestens %@ an";
+
 "started" = "Angefangen";
+
+"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche Aufgabe sie spätestens wann anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
+
+"suggestions" = "Vorschläge";
+
+"suggestions-bad-worktime-settings" = "Arbeitszeiteinstellungen ungültig";
+
+"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfen Sie Ihre Einstellungen.";
+
+"suggestions-loading" = "Vorschläge werden vorbereitet";
+
+"suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
+
+"suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
+
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise Überstunden machen.";
 
 "tag" = "Tag";
 
@@ -231,5 +257,13 @@
 "urgent-priority" = "Dringend";
 
 "week" = "Woche";
+
+"workday-end" = "Arbeitsende";
+
+"workday-start" = "Arbeitsbeginn";
+
+"workdays" = "Arbeitstage";
+
+"workdays-select-footer" = "Wähle alle Tage aus an denen du Zeit hast Aufgaben zu erledigen.";
 
 "year" = "Jahr";

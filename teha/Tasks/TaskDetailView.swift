@@ -118,6 +118,7 @@ struct TaskDetailView: View {
                 .frame(height: 16)
             
             // If there is estimatedWorktime remaining, show that underneath the progressbar
+            // TODO: BUG Does not update if user starts dragging when task is not yet started explicitly
             if task.estimatedWorktime > .zero, !task.isCompleted,
                let timeRemaining = task.estimatedWorktimeRemaining.formatted {
                 Text("\(timeRemaining)-worktime-remaining")

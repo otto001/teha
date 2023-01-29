@@ -17,25 +17,35 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 }()
 
 
+
 struct TaskRowView: View {
     @ObservedObject var task: THTask
-    
+    let now: Date
 
     /// The content of the text right above the progress bar.
     /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
     var timeRemainingText: String? {
         guard !task.isCompleted else { return nil }
+        
         if let deadline = task.deadline {
-            let now: Date = .now
-            return timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
+            let timeString = timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
+            return "\(String(localized: "deadline")) \(timeString)"
         }
         return nil
     }
     
     /// The color of the text right above the progress bar
     var timeRemainingColor: Color {
-        if let deadline = task.deadline {
-            return deadline < .now - .minute ? .red : .secondaryLabel
+        if !task.isCompleted, let deadline = task.deadline {
+            
+            if deadline < now {
+                return .red
+            } else if task.estimatedWorktimeRemaining != .zero  {
+                let absoluteLatestStartDate = Calendar.current.date(byAdding: .minute, value: -task.estimatedWorktimeRemaining.totalMinutes, to: deadline)!
+                if absoluteLatestStartDate <= now {
+                    return .orange
+                }
+            }
         }
         return .secondaryLabel
     }
@@ -107,7 +117,7 @@ struct TaskRowView_Previews: PreviewProvider {
         @FetchRequest(fetchRequest: THTask.all) var results: FetchedResults<THTask>
         var body: some View {
             List(results) { task in
-                TaskRowView(task: task)
+                TaskRowView(task: task, now: .now)
             }
         }
     }

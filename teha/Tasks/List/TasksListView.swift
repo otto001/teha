@@ -54,14 +54,18 @@ fileprivate struct FilteredTasksListView: View {
         }
     }
     
+    @State private var now = Date()
+
+
     var body: some View {
         List(selection: $selectedTasks) {
             ForEach(sections) { section in
-                TaskListSectionView(section) { task in
+                TaskListSectionView(section, now: now) { task in
                     taskToDelete = task
                 }
             }
         }
+        .autoRefresh(now: $now)
         .onAppear {
             // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
             // This is due to SwiftUI adding the rows tapped for navigation purposes to the selection, which is an annoying, not yet fixed bug.
