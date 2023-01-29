@@ -25,7 +25,7 @@ enum SettingsAppStorageKey: String {
         UserDefaults.standard.set(Worktime(hours: 16, minutes: 0).rawValue, forKey: endOfWorkDay.rawValue)
         UserDefaults.standard.set(Set<Int>([1,2,3,4,5]).rawValue, forKey: workDays.rawValue)
         UserDefaults.standard.set(true, forKey: didSetDefaultValues.rawValue)
-        UserDefaults.standard.set(true, forKey: useThemedAppIcon.rawValue)
+        UserDefaults.standard.set(false, forKey: useThemedAppIcon.rawValue)
     }
 }
 
@@ -45,7 +45,7 @@ struct AdvancedSettings: View {
 
 struct SettingsTab: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
-    @AppStorage(SettingsAppStorageKey.useThemedAppIcon.rawValue) private var useThemedAppIcon: Bool = true
+    @AppStorage(SettingsAppStorageKey.useThemedAppIcon.rawValue) private var useThemedAppIcon: Bool = false
     
     var body: some View {
         NavigationStack {
