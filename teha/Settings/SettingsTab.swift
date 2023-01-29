@@ -62,6 +62,14 @@ struct SettingsTab: View {
                 }
             }
             .navigationTitle(LocalizedStringKey("settings"))
+            .onChange(of: accentColor) { newValue in
+                guard useThemedAppIcon else { return }
+                UIApplication.shared.setAlternateIconName(newValue.appIconName)
+            }
+            .onChange(of: useThemedAppIcon) { newValue in
+                let name = newValue ? accentColor.appIconName : nil
+                UIApplication.shared.setAlternateIconName(name)
+            }
         }
         .tabItem {
             Label(LocalizedStringKey("settings"), systemImage: "gear")
