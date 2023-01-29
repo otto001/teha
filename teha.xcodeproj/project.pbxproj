@@ -206,16 +206,85 @@
 			path = Tags;
 			sourceTree = "<group>";
 		};
+		027F54B82986CE3C00450A73 /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				0C041D192977143500E6A100 /* ReminderPicker.swift */,
+				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
+				921B56A029708B3600F5518F /* PriorityPicker.swift */,
+				029615DF295617920073E378 /* SimpleColorPicker.swift */,
+				02FCDC202983EEB00028E229 /* WorktimeField.swift */,
+				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		027F54B92986CE4600450A73 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				027F54B62986C10200450A73 /* RefreshModifier.swift */,
+				02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		027F54BA2986CE6700450A73 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				0271BF2C29747D4C000A601D /* FlexHStack.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		027F54BB2986CE8000450A73 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				0C041D1B2977163500E6A100 /* ReminderOffset.swift */,
+				02E7891E29759CFA00F521D0 /* Priority.swift */,
+				02CC1B0F298420670097490E /* Worktime.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		027F54BC2986CE9400450A73 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				02C0DEE42965CAD30084D579 /* TasksListView.swift */,
+				02249ADA297DAD670057E002 /* TaskListSectionView.swift */,
+				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
+				027629A229798EA1009663E8 /* TaskListToolbarView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		027F54BD2986CEAD00450A73 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */,
+				025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */,
+			);
+			path = ProgressBar;
+			sourceTree = "<group>";
+		};
+		027F54BE2986CEBA00450A73 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
+				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		029615EE295617970073E378 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				029615DD295617920073E378 /* ProjectsTab.swift */,
 				02473757296F5B1800FE2943 /* ProjectsListView.swift */,
 				029615E5295617920073E378 /* ProjectEditView.swift */,
-				02513BB3296DE56C00D28CDD /* ProjectPicker.swift */,
 				025EF44229718CD400959F05 /* ProjectLabel.swift */,
 				6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */,
 				6E35D67729749E7300B42115 /* ProjectStatsView.swift */,
+				02513BB3296DE56C00D28CDD /* ProjectPicker.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -237,15 +306,11 @@
 		029615F0295617A50073E378 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				027F54BB2986CE8000450A73 /* Types */,
+				027F54BA2986CE6700450A73 /* Layouts */,
+				027F54B92986CE4600450A73 /* Modifiers */,
+				027F54B82986CE3C00450A73 /* Inputs */,
 				0CDD6B1629759786006F4B95 /* LocalNotification.swift */,
-				029615DF295617920073E378 /* SimpleColorPicker.swift */,
-				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
-				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
-				02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */,
-				921B56A029708B3600F5518F /* PriorityPicker.swift */,
-				0271BF2C29747D4C000A601D /* FlexHStack.swift */,
-				02FCDC202983EEB00028E229 /* WorktimeField.swift */,
-				027F54B62986C10200450A73 /* RefreshModifier.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -257,9 +322,6 @@
 				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
 				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
 				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
-				0C041D1B2977163500E6A100 /* ReminderOffset.swift */,
-				02E7891E29759CFA00F521D0 /* Priority.swift */,
-				02CC1B0F298420670097490E /* Worktime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,18 +329,12 @@
 		029E336629564E1E004A2E12 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				027F54BE2986CEBA00450A73 /* Filter */,
+				027F54BD2986CEAD00450A73 /* ProgressBar */,
+				027F54BC2986CE9400450A73 /* List */,
 				02C0DEDE2965BE520084D579 /* TasksTab.swift */,
-				02C0DEE42965CAD30084D579 /* TasksListView.swift */,
-				02249ADA297DAD670057E002 /* TaskListSectionView.swift */,
-				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
-				027629A229798EA1009663E8 /* TaskListToolbarView.swift */,
 				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
-				02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */,
-				025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
-				02C0DEE02965C2F90084D579 /* TasksFilterView.swift */,
-				926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */,
-				0C041D192977143500E6A100 /* ReminderPicker.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
