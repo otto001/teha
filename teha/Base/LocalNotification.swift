@@ -6,6 +6,7 @@
 //
 
 import UserNotifications
+import CoreLocation
 
 /**
     The object for managing notification-related activities such as scheduling reminder.
@@ -113,6 +114,63 @@ class NotificationManager {
         center.add(request) { (error) in
             if let error = error {
                 print("ERROR: \(error)")
+            }
+        }
+
+    }
+    
+    /**
+     Schedules a location-based notification using `UNUserNotificationCenter`.
+     
+     - Parameters:
+        - title: A string value that describes the task (task title).
+        - region: The `CLCircularRegion` that defines the location-based trigger for the notification.
+        - requestIdentifier: A unique identifier for the notification request.
+        - notifyOnEntry: A Boolean value that determines whether the notification should be triggered when the user enters the specified region.
+        - repeatsNotification: A Boolean value that determines whether the notification should repeat.
+     
+     - Returns:
+        Adds the notification request to `UNUserNotificationCenter` for delivery when the trigger conditions are met.
+     */
+    func scheduleLocationNotification(title: String?, region: CLCircularRegion, requestIdentifier: String, notifyOnEntry: Bool, repeatsNotification: Bool) {
+        
+        // Returns current notification center
+        let center = UNUserNotificationCenter.current()
+        
+        // Create content of notification
+        let content = UNMutableNotificationContent()
+        content.title = String(localized:"location-arrived-title")
+        if let title = title {
+            content.body = "\(title)-location-arrived-body"
+        } else {
+            return
+        }
+        content.sound = .default
+
+        // Create a location - depending on what you give as an argument one can create the CLCircularRegion value here
+//        let region = CLCircularRegion(
+//            center: locationManager.location!.coordinate,
+//            radius: 100,
+//            identifier: "CurrentLocation")
+        region.notifyOnEntry = notifyOnEntry
+        
+        // Create trigger for notification
+        let trigger = UNLocationNotificationTrigger(
+            region: region,
+            repeats: repeatsNotification)
+
+        // Create a notification request for notification center
+        let request = UNNotificationRequest(
+            identifier: requestIdentifier,
+            content: content,
+            trigger: trigger)
+
+        // Add request to notification center
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error adding request to notification center: \(error)")
+            } else {
+                print("Notification request added successfully.")
             }
         }
 
@@ -255,6 +313,14 @@ class NotificationManager {
         }
 
         updateBadgesOfPendingRequests()
+    }
+    
+    /// Cancels any scheduled notifications that are associated with the request identifiers.
+    func cancelPendingNotifications(for requestIdentifiers: [String]) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: requestIdentifiers)
+        updateBadgesOfPendingRequests()
+        
     }
     
     /// Returns number of pending notifications in the current notification center

@@ -4,6 +4,8 @@
 
 "%@" = "%@";
 
+"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe abgehakt werden. Willst du es probieren?";
+
 "%@-priority" = "%@ Priorität";
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
@@ -101,6 +103,8 @@
 "high" = "Hoch";
 
 "high-priority" = "Hohe Priorität";
+
+"location-arrived-title" = "Hacke diese Aufgabe ab";
 
 "low" = "Niedrig";
 

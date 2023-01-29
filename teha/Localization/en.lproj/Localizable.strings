@@ -4,6 +4,8 @@
 
 "%@" = "%@";
 
+"%@-location-arrived-body" = "Your task %@ can be completed right neext to you. You want to try it?";
+
 "%@-priority" = "%@ Priority";
 
 "%@-worktime-remaining" = "%@ remaining to complete";
@@ -101,6 +103,8 @@
 "high" = "High";
 
 "high-priority" = "High Priority";
+
+"location-arrived-title" = "Check out this task";
 
 "low" = "Low";
 
