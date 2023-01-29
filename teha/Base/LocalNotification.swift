@@ -118,6 +118,15 @@ class NotificationManager {
 
     }
     
+    /**
+    Displays a time-based notification to the current time with the given task title and potential offset.
+    - Parameters:
+        - title: The title of the task. If `nil`, the function returns without doing anything.
+        - requestIdentifier: A unique string identifier for the notification request.
+        - offset: The time interval from now after which the notification should be triggered.
+    - Returns:
+        None.
+    */
     func displayLocationNotificationNow(title: String?, requestIdentifier: String, offset: TimeInterval) {
         
         // Returns current notification center
@@ -138,7 +147,7 @@ class NotificationManager {
 
         // Create a notification request for notification center
         let request = UNNotificationRequest(
-            identifier: requestIdentifier + "L",
+            identifier: requestIdentifier + "L", // An "L" is appended to the requestIdentifier to make the Id unique.
             content: content,
             trigger: trigger)
 
