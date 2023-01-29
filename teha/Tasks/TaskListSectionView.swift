@@ -58,12 +58,15 @@ struct TaskListSectionView: View {
     
     let section: SectionedFetchResults<String, THTask>.Element
     
+    let now: Date
+    
     let deleteAction: (_ task: THTask) -> Void
     
     @State private var collapsed: Bool = false
     
-    init(_ section: SectionedFetchResults<String, THTask>.Element, deleteAction: @escaping (_ task: THTask) -> Void) {
+    init(_ section: SectionedFetchResults<String, THTask>.Element, now: Date, deleteAction: @escaping (_ task: THTask) -> Void) {
         self.section = section
+        self.now = now
         self.deleteAction = deleteAction
     }
     
@@ -107,7 +110,7 @@ struct TaskListSectionView: View {
             }
             if section.id != "none" || !collapsed {
                 ForEach(section) { task in
-                    TaskRowView(task: task)
+                    TaskRowView(task: task, now: now)
                         .swipeActions(edge: .trailing) {
                             Button {
                                 deleteAction(task)

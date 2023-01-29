@@ -20,6 +20,8 @@ fileprivate var formatter: DateFormatter = {
 fileprivate struct SuggestionsListRow: View {
     let taskWithLatestStartDate: SuggestionsGenerator.TaskWithLatestStartDate
     
+    let now: Date
+    
     var hasMissedStart: Bool {
         taskWithLatestStartDate.latestStartDate < .now
     }
@@ -37,7 +39,7 @@ fileprivate struct SuggestionsListRow: View {
     
     var body: some View {
         Section {
-            TaskRowView(task: taskWithLatestStartDate.task)
+            TaskRowView(task: taskWithLatestStartDate.task, now: now)
         } header: {
             HStack(spacing: 0) {
                 Text("start-before-\(formattedTime)")
@@ -98,6 +100,8 @@ struct SuggestionsListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var viewModel = SuggestionsViewModel.shared
+    
+    @State private var now: Date = .now
     
     var isRefreshing: Bool {
         viewModel.isRefreshing
@@ -162,7 +166,7 @@ struct SuggestionsListView: View {
                 infeasibleHeader
                 
                 ForEach(tasks) { taskWithLatestStartDate in
-                    SuggestionsListRow(taskWithLatestStartDate: taskWithLatestStartDate)
+                    SuggestionsListRow(taskWithLatestStartDate: taskWithLatestStartDate, now: now)
                 }
             }
         }
@@ -170,6 +174,7 @@ struct SuggestionsListView: View {
     
     var body: some View {
         content
+            .autoRefresh(now: $now)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
