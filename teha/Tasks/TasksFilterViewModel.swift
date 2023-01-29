@@ -89,16 +89,11 @@ class TasksFilterViewModel: ObservableObject {
         }
         
         switch dateFilterMode{
-        case .matchToday:
-            fetchRequest.filter(dateInterval: dateInterval)
-        case .matchThisWeek:
-            fetchRequest.filter(dateInterval: dateInterval)
-        case .custom:
+        case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(dateInterval: dateInterval)
         default:
             break
         }
-        
         
         return fetchRequest
     }
@@ -143,6 +138,15 @@ extension TasksFilterViewModel {
         case disabled, matchAny, matchAll
     }
     
+    
+    /**
+     Enumeration representing different modes for filtering dates.
+        Cases:
+         - `disabled`: The filter is turned off.
+         - `matchToday`: The filter should match the current day.
+         - `matchThisWeek`: The filter should match the current week.
+         - `custom`: The filter is set to a specific date interval.
+    */
     enum DateFilterMode {
         case disabled, matchToday, matchThisWeek, custom
     }
