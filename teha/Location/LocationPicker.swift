@@ -7,8 +7,6 @@
 
 import SwiftUI
 import MapKit
-import CoreLocation
-import os
 
 
 /*

@@ -109,7 +109,10 @@
 "location-add" = "Add Location";
 
 "location-search" = "Search for a location";
-"location-arrived-title" = "Check out this task";
+
+"location-arrived-body" = "task location is currently nearby. Do you want to take a look into it?";
+
+"location-arrived-title" = "Task nearby";
 
 "low" = "Low";
 

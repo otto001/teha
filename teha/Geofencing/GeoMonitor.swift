@@ -71,7 +71,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      A CLCircularRegion object is getting returned with the given coordinates and properties
      */
     private func createRegionForCoordinates(coordinates:CLLocationCoordinate2D, identifier:String) -> CLCircularRegion{
-        let maxDistance = 30 // The radius for the circle around the given coordinates
+        let maxDistance = 100 // The radius for the circle around the given coordinates
         let region = CLCircularRegion(
             center: coordinates,
             radius: CLLocationDistance(maxDistance),
@@ -120,26 +120,26 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
                 guard let task = task as? THTask else {return } //Typecasts the object into a THTask object
                 let now = Date.now
                 
-                if(task.earliestStartDate != nil && task.deadline != nil){
+                if task.earliestStartDate != nil && task.deadline != nil {
                     if(now >= task.earliestStartDate!){
                         if(now < task.deadline!){
-                            //TODO: NOTIFICATION HERE
+                            NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                         }else{
                             stopMonitoringTaskLocation(task: task)
                         }
                     }
-                }else if(task.earliestStartDate != nil && task.deadline == nil){
+                }else if task.earliestStartDate != nil && task.deadline == nil {
                     if(now >= task.earliestStartDate!){
-                        //TODO: NOTIFICATION HERE
+                        NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                     }
-                }else if(task.earliestStartDate == nil && task.deadline != nil){
+                }else if task.earliestStartDate == nil && task.deadline != nil {
                     if(now < task.deadline!){
-                        //TODO: NOTIFICATION HERE
+                        NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                     }else{
                         stopMonitoringTaskLocation(task: task)
                     }
                 }else{
-                    //TODO: NOTIFICATION HERE
+                    NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                 }
             }
         }

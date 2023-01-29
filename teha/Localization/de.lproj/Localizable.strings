@@ -109,7 +109,10 @@
 "location-search" = "Einen Standort suchen";
 
 "location-add" = "Standort hinzufügen";
-"location-arrived-title" = "Hacke diese Aufgabe ab";
+
+"location-arrived-body" = "ist gerade in der Nähe absolvierbar. Jetzt abchecken?";
+
+"location-arrived-title" = "Aufgabe in der Nähe";
 
 "low" = "Niedrig";
 
