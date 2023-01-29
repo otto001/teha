@@ -49,6 +49,7 @@ struct TaskEditView: View {
         
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
+        task.useProjectDeadline = data.useProjectDeadline
         
         task.estimatedWorktime = data.estimatedWorktime
         
@@ -94,6 +95,14 @@ struct TaskEditView: View {
                     if data.deadlineBeforeEarliestStartDate {
                         Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
                             .foregroundColor(.red)
+                    }
+                }
+                
+                if data.project != nil && data.deadline != data.project!.deadline {
+                    Section {
+                        Button("Use Project deadline") {
+                            data.useProjectDeadline = true
+                        }
                     }
                 }
                 
@@ -184,7 +193,7 @@ extension TaskEditView {
             }
             set {
                 deadlineOverride = newValue
-                useProjectDeadline = false
+                useProjectDeadline = deadlineOverride == project?.deadline
             }
         }
         
@@ -235,7 +244,8 @@ extension TaskEditView {
             self.notes = task.notes ?? ""
             self.priority = task.priority
             self.earliestStartDate = task.earliestStartDate
-            self.deadline = task.deadline
+            self.deadlineOverride = task.deadlineOverride
+            self.useProjectDeadline = task.useProjectDeadline
             self.estimatedWorktime = task.estimatedWorktime
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()

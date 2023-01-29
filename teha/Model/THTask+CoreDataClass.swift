@@ -74,7 +74,7 @@ extension THTask {
         }
         set {
             self.deadlineOverride = newValue
-            self.useProjectDeadline = false
+            self.useProjectDeadline = newValue == project?.deadline
             
             // CoreData can only sort by fields that are persisted.
             // In order to allow sorting by deadline, persist the computed deadline as well
