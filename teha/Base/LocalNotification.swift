@@ -176,6 +176,39 @@ class NotificationManager {
 
     }
     
+    func displayNotificationNow(title: String?, requestIdentifier: String, offset: TimeInterval) {
+        
+        // Returns current notification center
+        let center = UNUserNotificationCenter.current()
+        
+        // Create content of notification
+        let content = UNMutableNotificationContent()
+        content.title = String(localized:"location-arrived-title")
+        if let title = title {
+            content.body = "\(title)-location-arrived-body"
+        } else {
+            return
+        }
+        content.sound = .default
+
+        // Create trigger for notification
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: offset, repeats: false)
+
+        // Create a notification request for notification center
+        let request = UNNotificationRequest(
+            identifier: requestIdentifier,
+            content: content,
+            trigger: trigger)
+
+        // Add request to notification center
+        center.add(request) { (error) in
+            if let error = error {
+                print("ERROR: \(error)")
+            }
+        }
+
+    }
+    
     /**
         Given a deadline of type `Date` and an offset of type `ReminderOffset`, this function calculates the actual reminder date (deadline date minus the offset) and returns it as a value of type `DateComponents`.
         - Parameters:
