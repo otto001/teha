@@ -62,10 +62,8 @@
 		0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D192977143500E6A100 /* ReminderPicker.swift */; };
 		0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D1B2977163500E6A100 /* ReminderOffset.swift */; };
 		0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDD6B1629759786006F4B95 /* LocalNotification.swift */; };
-		5F921A0A29859D7300251F65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F921A0C29859D7300251F65 /* InfoPlist.strings */; };
-		5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */; };
-		5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */; };
-		5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB52358297C3C8B00B891E0 /* LocationPicker.swift */; };
+		02E7891F29759CFA00F521D0 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891E29759CFA00F521D0 /* Priority.swift */; };
+		02FCDC212983EEB00028E229 /* EstimatedWorktimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCDC202983EEB00028E229 /* EstimatedWorktimePicker.swift */; };
 		6E35D67829749E7300B42115 /* ProjectStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35D67729749E7300B42115 /* ProjectStatsView.swift */; };
 		6E6AB6D52971EBB900211CC0 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
@@ -146,12 +144,8 @@
 		0C041D192977143500E6A100 /* ReminderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPicker.swift; sourceTree = "<group>"; };
 		0C041D1B2977163500E6A100 /* ReminderOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderOffset.swift; sourceTree = "<group>"; };
 		0CDD6B1629759786006F4B95 /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
-		5F921A0B29859D7300251F65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5F921A0D29859D7F00251F65 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearch.swift; sourceTree = "<group>"; };
-		5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMonitor.swift; sourceTree = "<group>"; };
-		5FB52358297C3C8B00B891E0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
-		5FDA1BED2985B8E4003EC2DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		02E7891E29759CFA00F521D0 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
+		02FCDC202983EEB00028E229 /* EstimatedWorktimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatedWorktimePicker.swift; sourceTree = "<group>"; };
 		6E35D67729749E7300B42115 /* ProjectStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsView.swift; sourceTree = "<group>"; };
 		6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
@@ -380,9 +374,6 @@
 		02CB75552955DE5E005F4D35 /* teha */ = {
 			isa = PBXGroup;
 			children = (
-				5FDA1BED2985B8E4003EC2DB /* Info.plist */,
-				5FB52357297C3C3200B891E0 /* Location */,
-				5F0492082979F2B400F39A71 /* Geofencing */,
 				ACEF02282976D368007B199F /* Onboarding */,
 				02A5BAD229686198007AC6BE /* Localization */,
 				029615F1295617B00073E378 /* Model */,
@@ -399,7 +390,6 @@
 				02CB755F2955DE5F005F4D35 /* Assets.xcassets */,
 				02CB75612955DE60005F4D35 /* teha.entitlements */,
 				02CB75622955DE60005F4D35 /* Preview Content */,
-				5F921A0C29859D7300251F65 /* InfoPlist.strings */,
 			);
 			path = teha;
 			sourceTree = "<group>";
@@ -410,23 +400,6 @@
 				02CB75632955DE60005F4D35 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		5F0492082979F2B400F39A71 /* Geofencing */ = {
-			isa = PBXGroup;
-			children = (
-				5FAB66AB2981B1F7000895BE /* GeoMonitor.swift */,
-			);
-			path = Geofencing;
-			sourceTree = "<group>";
-		};
-		5FB52357297C3C3200B891E0 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				5FB52358297C3C8B00B891E0 /* LocationPicker.swift */,
-				5FA7A3E9297EDCA100CE52E4 /* LocationSearch.swift */,
-			);
-			path = Location;
 			sourceTree = "<group>";
 		};
 		A85AAA95296D92050078BA2D /* Settings */ = {
@@ -510,8 +483,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				de,
 				Base,
+				de,
 			);
 			mainGroup = 02CB754A2955DE5D005F4D35;
 			productRefGroup = 02CB75542955DE5E005F4D35 /* Products */;
@@ -540,7 +513,6 @@
 				02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */,
 				02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */,
 				02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */,
-				5F921A0A29859D7300251F65 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,7 +544,6 @@
 				0271BF2D29747D4C000A601D /* FlexHStack.swift in Sources */,
 				027629A129795CA5009663E8 /* SuggestionsGenerator.swift in Sources */,
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
-				5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */,
 				0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */,
 				023DD6022985C26800E35D4F /* SuggestionsGenerator+Structs.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
@@ -586,7 +557,6 @@
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
-				5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */,
 				027629A329798EA1009663E8 /* TaskListToolbarView.swift in Sources */,
 				0271BF27297466C3000A601D /* TagPicker.swift in Sources */,
 				921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */,
@@ -598,7 +568,6 @@
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
-				5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */,
 				0271BF2A2974738C000A601D /* THTag+CoreDataClass.swift in Sources */,
 				025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */,
 				027F54B72986C10200450A73 /* RefreshModifier.swift in Sources */,
@@ -649,15 +618,6 @@
 				02A5BAF9296876A5007AC6BE /* de */,
 			);
 			name = Localizable.stringsdict;
-			sourceTree = "<group>";
-		};
-		5F921A0C29859D7300251F65 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F921A0B29859D7300251F65 /* en */,
-				5F921A0D29859D7F00251F65 /* de */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -835,7 +795,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = teha/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = teha;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -881,7 +840,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = teha/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = teha;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

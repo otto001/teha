@@ -4,8 +4,6 @@
 
 "%@" = "%@";
 
-"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe abgehakt werden. Willst du es probieren?";
-
 "%@-priority" = "%@ Priorität";
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
@@ -107,16 +105,6 @@
 "internal-error" = "Interner Fehler";
 
 "internal-error-recover" = "Sorry!";
-
-"location" = "Standort";
-
-"location-add" = "Standort hinzufügen";
-
-"location-arrived-body" = "ist gerade in der Nähe absolvierbar. Jetzt abchecken?";
-
-"location-arrived-title" = "Aufgabe in der Nähe";
-
-"location-search" = "Einen Standort suchen";
 
 "low" = "Niedrig";
 

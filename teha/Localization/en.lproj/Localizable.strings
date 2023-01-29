@@ -4,8 +4,6 @@
 
 "%@" = "%@";
 
-"%@-location-arrived-body" = "Your task %@ can be completed right neext to you. You want to try it?";
-
 "%@-priority" = "%@ Priority";
 
 "%@-worktime-remaining" = "%@ remaining to complete";
@@ -107,16 +105,6 @@
 "internal-error" = "Internal Error";
 
 "internal-error-recover" = "Sorry!";
-
-"location" = "Location";
-
-"location-add" = "Add Location";
-
-"location-arrived-body" = "task location is currently nearby. Do you want to take a look into it?";
-
-"location-arrived-title" = "Task nearby";
-
-"location-search" = "Search for a location";
 
 "low" = "Low";
 

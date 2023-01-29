@@ -12,7 +12,7 @@ import SwiftUI
 struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
-    let geofencing = GeoMonitor()
+    
    
     @State var data = FormData()
     
@@ -61,9 +61,6 @@ struct TaskEditView: View {
         task.deadline = data.deadline
         
         task.estimatedWorktime = data.estimatedWorktime
-        task.address = data.address
-        task.lat = data.lat ?? 0
-        task.long = data.long ?? 0
         
         task.project = data.project
         
@@ -76,19 +73,11 @@ struct TaskEditView: View {
             task.creationDate = Date.now
         }
         
-        if task.address == ""{
-            task.lat = 0
-            task.long = 0
-        }
-
         // TODO: error handling
         try? viewContext.save()
         
         NotificationManager.instance.scheduleReminderNotifications(task: task)
             
-        geofencing.refreshLocationMonitoring(task: task)
-       
-       
         dismiss()
     }
     
@@ -137,13 +126,6 @@ struct TaskEditView: View {
                 Section {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
-                }
-                Section{
-                    LocationPicker("location",
-                                   addText: "location-add", address: $data.address, lat: $data.lat, long: $data.long)
-                }
-            
-                Section {
                     TagPicker(selection: $data.tags)
                 }
             }
@@ -203,10 +185,6 @@ extension TaskEditView {
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
-        var address: String?
-        var lat:Double?
-        var long:Double?
-        
         var project: THProject?
         
         var tags: Set<THTag> = .init()
@@ -251,9 +229,6 @@ extension TaskEditView {
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
-            self.address = task.address ?? ""
-            self.lat = task.lat
-            self.long = task.long
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
             self.reminder = task.reminderOffset
