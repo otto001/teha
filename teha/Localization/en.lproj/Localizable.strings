@@ -90,7 +90,7 @@
 
 "estimated-worktime" = "Estimated Time to Complete";
 
-"estimated-worktime-too-high" = "The estimated time to completion may not exceed 100 hours.";
+"estimated-worktime-too-high" = "The estimated time to completion may not exceed 48 hours.";
 
 "filter" = "Filter";
 
@@ -104,15 +104,19 @@
 
 "high-priority" = "High Priority";
 
+"internal-error" = "Internal Error";
+
+"internal-error-recover" = "Sorry!";
+
 "location" = "Location";
 
 "location-add" = "Add Location";
 
-"location-search" = "Search for a location";
-
 "location-arrived-body" = "task location is currently nearby. Do you want to take a look into it?";
 
 "location-arrived-title" = "Task nearby";
+
+"location-search" = "Search for a location";
 
 "low" = "Low";
 
@@ -194,11 +198,33 @@
 
 "settings" = "Settings";
 
+"settings-no-workdays-selected-error" = "Please select at least one day.";
+
 "settings-open" = "Open Settings";
+
+"settings-worktime-error" = "The start of works must be before the end of work.";
 
 "skip" = "Skip";
 
+"start-before-%@" = "Start before %@";
+
 "started" = "Started";
+
+"suggestion-infobox-text" = "Based on the deadlines, earliest start date and estimated time to completion of your tasks, teha recommends when you should start working on each task at the latest. Please keep in mind that these are only recommendations, and it may make sense to start even earlier than suggested by teha.";
+
+"suggestions" = "Suggestions";
+
+"suggestions-bad-worktime-settings" = "Worktime settings invalid";
+
+"suggestions-bad-worktime-settings-recovery" = "Please check your Settings.";
+
+"suggestions-loading" = "Preparing Suggestions";
+
+"suggestions-no-calculateable-tasks" = "Cannot generate suggestions";
+
+"suggestions-no-calculateable-tasks-recovery" = "Add a deadline and estimated time to completion to your tasks in order to enable suggestions.";
+
+"suggestions-time-issues" = "You may need to work some overtime to meet your current deadlines.";
 
 "tag" = "Tag";
 
@@ -241,5 +267,13 @@
 "urgent-priority" = "Urgent";
 
 "week" = "Week";
+
+"workday-end" = "End of Work";
+
+"workday-start" = "Start of Work";
+
+"workdays" = "Workdays";
+
+"workdays-select-footer" = "Select all weekdays on which you have time to complete Tasks.";
 
 "year" = "Year";

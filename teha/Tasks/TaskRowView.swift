@@ -17,6 +17,7 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 }()
 
 
+
 struct TaskRowView: View {
     @ObservedObject var task: THTask
     
@@ -27,7 +28,8 @@ struct TaskRowView: View {
         guard !task.isCompleted else { return nil }
         if let deadline = task.deadline {
             let now: Date = .now
-            return timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
+            let timeString = timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
+            return "\(String(localized: "deadline")) \(timeString)"
         }
         return nil
     }
