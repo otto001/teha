@@ -17,12 +17,15 @@ enum SettingsAppStorageKey: String {
     
     case didSetDefaultValues = "settings.didSetDefaultValues"
     
+    case useThemedAppIcon = "settings.useThemedAppIcon"
+    
     static func setDefaultValuesIfNeeded() {
         guard UserDefaults.standard.value(forKey: didSetDefaultValues.rawValue) as? Bool != true else { return }
         UserDefaults.standard.set(Worktime(hours: 8, minutes: 0).rawValue, forKey: startOfWorkDay.rawValue)
         UserDefaults.standard.set(Worktime(hours: 16, minutes: 0).rawValue, forKey: endOfWorkDay.rawValue)
         UserDefaults.standard.set(Set<Int>([1,2,3,4,5]).rawValue, forKey: workDays.rawValue)
         UserDefaults.standard.set(true, forKey: didSetDefaultValues.rawValue)
+        UserDefaults.standard.set(true, forKey: useThemedAppIcon.rawValue)
     }
 }
 
@@ -42,6 +45,7 @@ struct AdvancedSettings: View {
 
 struct SettingsTab: View {
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
+    @AppStorage(SettingsAppStorageKey.useThemedAppIcon.rawValue) private var useThemedAppIcon: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -49,6 +53,7 @@ struct SettingsTab: View {
                 WorkDaysSettingsView()
                 
                 SimpleColorPicker(title: "color-accent", selection: $accentColor)
+                Toggle("settings-use-themed-appicon", isOn: $useThemedAppIcon)
                 
                 Section {
                     NavigationLink("advanced-settings") {

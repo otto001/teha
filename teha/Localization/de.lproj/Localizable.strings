@@ -190,6 +190,8 @@
 
 "settings-open" = "Öffne Einstellungen";
 
+"settings-use-themed-appicon" = "App-Icon an Akzentfarbe anpassen";
+
 "settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
 
 "skip" = "Überspringen";
