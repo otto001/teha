@@ -128,13 +128,13 @@ class TasksFilterViewModel: ObservableObject {
     private func thisWeek() -> DateInterval {
         let defaultDate = DateInterval()
         
-        var calendar = Calendar.current
+        let calendar = Calendar.current
         let now = Date()
-        guard var startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else { return defaultDate }
-        guard var startOfWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: startOfWeek) else { return defaultDate }
-        guard var startOfWeek = calendar.date(byAdding: .day, value: 1, to: startOfWeek) else { return defaultDate }
-        guard var endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else { return defaultDate }
-        guard var endOfWeek = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek) else { return defaultDate }
+        guard let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else { return defaultDate }
+        guard let startOfWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: startOfWeek) else { return defaultDate }
+        guard let startOfWeek = calendar.date(byAdding: .day, value: 1, to: startOfWeek) else { return defaultDate }
+        guard let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else { return defaultDate }
+        guard let endOfWeek = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek) else { return defaultDate }
         return DateInterval(start: startOfWeek, end: endOfWeek)
     }
     
