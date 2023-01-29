@@ -13,12 +13,15 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="tags" inverseEntity="THTask"/>
     </entity>
     <entity name="THTask" representedClassName="THTask" syncable="YES" codeGenerationType="category">
+        <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="completionProgress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="reminderMin" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="reminderMinSecond" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>

@@ -4,6 +4,8 @@
 
 "%@" = "%@";
 
+"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe abgehakt werden. Willst du es probieren?";
+
 "%@-priority" = "%@ Priorität";
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
@@ -101,6 +103,16 @@
 "high" = "Hoch";
 
 "high-priority" = "Hohe Priorität";
+
+"location" = "Standort";
+
+"location-search" = "Einen Standort suchen";
+
+"location-add" = "Standort hinzufügen";
+
+"location-arrived-body" = "ist gerade in der Nähe absolvierbar. Jetzt abchecken?";
+
+"location-arrived-title" = "Aufgabe in der Nähe";
 
 "low" = "Niedrig";
 

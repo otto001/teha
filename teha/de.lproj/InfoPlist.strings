@@ -1,0 +1,14 @@
+/* 
+  InfoPlist.strings
+  teha
+
+  Created by Nurullah Keskin on 28.01.23.
+  
+*/
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Um Benachrichtigungen zu erhalten, falls du in der Nähe eine Aufgabe absolvieren kannst, wird der Standortzugriff immer benötigt.";
+
+"NSLocationUsageDescription" = "Um Benachrichtigungen zu erhalten, falls du in der Nähe eine Aufgabe absolvieren kannst, wird der Standortzugriff immer benötigt.";
+
+"NSLocationAlwaysUsageDescription" = "Um Benachrichtigungen zu erhalten, falls du in der Nähe eine Aufgabe absolvieren kannst, wird der Standortzugriff immer benötigt.";
+
+"NSLocationWhenInUseUsageDescription" = "Um Benachrichtigungen zu erhalten, falls du in der Nähe eine Aufgabe absolvieren kannst, wird der Standortzugriff immer benötigt.";
