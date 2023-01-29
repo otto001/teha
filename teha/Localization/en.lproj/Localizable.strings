@@ -204,6 +204,8 @@
 
 "task-must-have-title" = "The Task must have a title.";
 
+"task-use-project-deadline" = "Use Project Deadline";
+
 "tasks" = "Tasks";
 
 "tasks-completed" = "Completed tasks";

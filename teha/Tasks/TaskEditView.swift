@@ -100,7 +100,7 @@ struct TaskEditView: View {
                 
                 if data.project != nil && data.deadline != data.project!.deadline {
                     Section {
-                        Button("Use Project deadline") {
+                        Button("task-use-project-deadline") {
                             data.useProjectDeadline = true
                         }
                     }

@@ -204,6 +204,8 @@
 
 "task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
+"task-use-project-deadline" = "Projekt-Deadline nutzen";
+
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
