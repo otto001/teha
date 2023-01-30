@@ -86,11 +86,13 @@ struct TaskEditView: View {
         try? viewContext.save()
         
         NotificationManager.instance.scheduleReminderNotifications(task: task)
-        
         task.repeatingSiblings?.forEach { repeatingSibling in
             NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
         }
 
+            
+        GeoMonitor.shared.refreshLocationMonitoring(task: task)
+       
         dismiss()
     }
     

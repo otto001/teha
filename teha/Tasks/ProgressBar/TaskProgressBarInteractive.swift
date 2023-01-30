@@ -174,10 +174,7 @@ struct TaskProgressBarInteractive: View {
                         startTask()
                     } resetAction: {
                         // reset starting task on undo
-                        task.startDate = nil
-                        task.completionDate = nil
-                        task.completionProgress = 0
-                        NotificationManager.instance.scheduleReminderNotifications(task: task)
+                        task.resetStarted()
                     }
                     .zIndex(2) // place above bar in order to be tap-able
                     
@@ -198,8 +195,7 @@ struct TaskProgressBarInteractive: View {
                         completeTask()
                     } resetAction: {
                         // reset completing task on undo
-                        task.completionDate = nil
-                        NotificationManager.instance.scheduleReminderNotifications(task: task)
+                        task.resetCompleted()
                     }
                     .zIndex(2) // place above bar in order to be tap-able
                     

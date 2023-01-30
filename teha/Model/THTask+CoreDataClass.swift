@@ -82,6 +82,15 @@ extension THTask {
         self.startDate = .now
     }
     
+    /// Marks the task as not started
+    func resetStarted() {
+        self.startDate = nil
+        self.completionDate = nil
+        self.completionProgress = 0
+        NotificationManager.instance.scheduleReminderNotifications(task: self)
+        GeoMonitor.shared.refreshLocationMonitoring(task: self)
+    }
+    
     /// Marks the task as completed at the current date
     func completed() {
         self.completionDate = .now
@@ -93,6 +102,15 @@ extension THTask {
         
         // Remove pending notifications for task
         NotificationManager.instance.cancelPendingNotifications(for: self)
+        // Stop geofence
+        GeoMonitor.shared.refreshLocationMonitoring(task: self)
+    }
+    
+    /// Marks the task as not completed
+    func resetCompleted() {
+        self.completionDate = nil
+        NotificationManager.instance.scheduleReminderNotifications(task: self)
+        GeoMonitor.shared.refreshLocationMonitoring(task: self)
     }
     
     /// The remainder of the estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.

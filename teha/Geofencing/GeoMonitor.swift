@@ -9,10 +9,10 @@
 import CoreLocation
 import CoreData
 
-class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
+class GeoMonitor: NSObject, ObservableObject, CLLocationManagerDelegate{
+    static let shared = GeoMonitor()
+    
     var locationManager = CLLocationManager()
-    
-    
     
     override init(){
         super.init()
@@ -26,7 +26,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      - task: A THTask CoreData Object ob the given task, which should get monitored
      */
     func startMonitoringTaskLocation(task:THTask){
-        if(locationManager.authorizationStatus != .authorizedAlways){
+        if (locationManager.authorizationStatus != .authorizedAlways) {
             requestLocationPermissions()
         }
         let currentlymonitoredRegions = locationManager.monitoredRegions
@@ -43,7 +43,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      - Parameters:
      - task: A THTask CoreData Object ob the given task, which should removed from monitoring
      */
-    func stopMonitoringTaskLocation(task:THTask){
+    func stopMonitoringTaskLocation(task:THTask) {
         let coordinates = createCoordinates(lat: task.lat, long: task.long)
         let region = createRegionForCoordinates(coordinates: coordinates , identifier: "TODO")
         locationManager.stopMonitoring(for: region)
@@ -54,9 +54,9 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      - Parameters:
      - task: A THTask CoreData Object ob the given task, which should removed from monitoring
      */
-    func refreshLocationMonitoring(task:THTask){
+    func refreshLocationMonitoring(task:THTask) {
         stopMonitoringTaskLocation(task: task)
-        if task.address != "" {
+        if task.address != "" && !task.isCompleted {
             startMonitoringTaskLocation(task: task)
         }
     }
@@ -70,7 +70,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      - Returns:
      A CLCircularRegion object is getting returned with the given coordinates and properties
      */
-    private func createRegionForCoordinates(coordinates:CLLocationCoordinate2D, identifier:String) -> CLCircularRegion{
+    private func createRegionForCoordinates(coordinates:CLLocationCoordinate2D, identifier:String) -> CLCircularRegion {
         let maxDistance = 100 // The radius for the circle around the given coordinates
         let region = CLCircularRegion(
             center: coordinates,
@@ -90,7 +90,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      - Returns:
      A CLLocationCoordinate2D which is holding the coordinates in one Object
      */
-    func createCoordinates(lat:Double, long: Double) -> CLLocationCoordinate2D{
+    func createCoordinates(lat:Double, long: Double) -> CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))
     }
     
@@ -99,50 +99,51 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
      LocationManager method getting called if a monitored region is entered. It handles the identifier and triggers a notification
      */
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let region = region as? CLCircularRegion {
-            let identifier = region.identifier
-            if let url = URL(string: identifier){ //Converts the identifier of the region into an URL Object, since the identifiers are converted Object IDs
-                let container = PersistenceController.shared.container
-
-                
-                guard let objectID = container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) else{ // If an ObjectID isn't found by the given URL it breaks
-                    print("ObjectID not found!")
-                    return
-                }
-                let task = container.viewContext.object(with: objectID) // Fetches the object from the objectID
-                guard let task = task as? THTask else {return } //Typecasts the object into a THTask object
-                let now = Date.now
-                
-                if task.earliestStartDate != nil && task.deadline != nil {
-                    if(now >= task.earliestStartDate!){
-                        if(now < task.deadline!){
-                            NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
-                        }else{
-                            stopMonitoringTaskLocation(task: task)
+        DispatchQueue.main.async {
+            if let region = region as? CLCircularRegion {
+                let identifier = region.identifier
+                if let url = URL(string: identifier) { //Converts the identifier of the region into an URL Object, since the identifiers are converted Object IDs
+                    let container = PersistenceController.shared.container
+                    
+                    
+                    guard let objectID = container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) else { // If an ObjectID isn't found by the given URL it breaks
+                        print("ObjectID not found!")
+                        return
+                    }
+                    let task = container.viewContext.object(with: objectID) // Fetches the object from the objectID
+                    guard let task = task as? THTask else { return } //Typecasts the object into a THTask object
+                    let now = Date.now
+                    
+                    if task.earliestStartDate != nil && task.deadline != nil {
+                        if (now >= task.earliestStartDate!) {
+                            if (now < task.deadline!) {
+                                NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
+                            } else {
+                                self.stopMonitoringTaskLocation(task: task)
+                            }
                         }
-                    }
-                }else if task.earliestStartDate != nil && task.deadline == nil {
-                    if(now >= task.earliestStartDate!){
+                    } else if task.earliestStartDate != nil && task.deadline == nil {
+                        if(now >= task.earliestStartDate!) {
+                            NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
+                        }
+                    } else if task.earliestStartDate == nil && task.deadline != nil {
+                        if (now < task.deadline!) {
+                            NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
+                        } else{
+                            self.stopMonitoringTaskLocation(task: task)
+                        }
+                    } else {
                         NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                     }
-                }else if task.earliestStartDate == nil && task.deadline != nil {
-                    if(now < task.deadline!){
-                        NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
-                    }else{
-                        stopMonitoringTaskLocation(task: task)
-                    }
-                }else{
-                    NotificationManager.instance.displayLocationNotificationNow(title: task.title, requestIdentifier: identifier, offset: 1)
                 }
             }
         }
-        
     }
     
     /**
      Request always location permission and also when app is in use location permissions.
      */
-    func requestLocationPermissions(){
+    func requestLocationPermissions() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         // locationManager.allowsBackgroundLocationUpdates = true
@@ -152,7 +153,7 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
     /**
      LocationManager method getting called if a something changes with the location authorization
      */
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined, .restricted, .denied:
             print("No Location access granted!")
