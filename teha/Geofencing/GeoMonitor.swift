@@ -102,21 +102,14 @@ class GeoMonitor: NSObject,ObservableObject, CLLocationManagerDelegate{
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
             if let url = URL(string: identifier){ //Converts the identifier of the region into an URL Object, since the identifiers are converted Object IDs
-                lazy var persistentContainer: NSPersistentContainer = { //Creates an NSPersistentContainer and also configures it right away
-                    let container = NSPersistentContainer(name: "teha")
-                    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-                        if let error = error {
-                            fatalError("Unresolved error \(error), \(error)")
-                        }
-                    })
-                    return container
-                }()
+                let container = PersistenceController.shared.container
+
                 
-                guard let objectID = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) else{ // If an ObjectID isn't found by the given URL it breaks
+                guard let objectID = container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) else{ // If an ObjectID isn't found by the given URL it breaks
                     print("ObjectID not found!")
                     return
                 }
-                let task = persistentContainer.viewContext.object(with: objectID) // Fetches the object from the objectID
+                let task = container.viewContext.object(with: objectID) // Fetches the object from the objectID
                 guard let task = task as? THTask else {return } //Typecasts the object into a THTask object
                 let now = Date.now
                 
