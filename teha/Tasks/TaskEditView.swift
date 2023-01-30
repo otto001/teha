@@ -168,14 +168,16 @@ struct TaskEditView: View {
                     }
                 }
                 
-                Section {
-                    TextFieldMultiline(String(localized:"notes"), text: $data.notes)
-                        .frame(minHeight: 72)
-                }
                 Section{
                     LocationPicker("location",
                                    addText: "location-add", address: $data.address, lat: $data.lat, long: $data.long)
                 }
+                
+                Section {
+                    TextFieldMultiline(String(localized:"notes"), text: $data.notes)
+                        .frame(minHeight: 72)
+                }
+                
             
                 Section {
                     TagPicker(selection: $data.tags)

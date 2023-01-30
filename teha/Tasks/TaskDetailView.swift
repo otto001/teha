@@ -216,6 +216,14 @@ struct TaskDetailView: View {
                 projectSection
                 datesSection
                 reminderSection
+                
+                if let address = task.address, !address.isEmpty {
+                    HStack {
+                        Image(systemName: "mappin")
+                        Text(address)
+                    }
+                }
+                
                 notesSection
                 tagsSection
             }
