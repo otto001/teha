@@ -50,6 +50,8 @@
 
 "custom" = "Custom";
 
+"date" = "Date";
+
 "day" = "Day";
 
 "deadline" = "Deadline";
@@ -92,6 +94,8 @@
 
 "filter" = "Filter";
 
+"from:" = "From:";
+
 "group" = "Group";
 
 "group-tasks-by" = "Group Tasks by:";
@@ -125,6 +129,10 @@
 "match-all-tags" = "All Selected Tags";
 
 "match-any-tag" = "Any Selected Tag";
+
+"match-this-week" = "This Week";
+
+"match-today" = "Today";
 
 "month" = "Month";
 
@@ -177,6 +185,8 @@
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
+
+"reset-all-filters" = "Reset all Filters";
 
 "select" = "Select";
 
@@ -246,11 +256,15 @@
 
 "tasks-finished" = "Completed";
 
+"tasks-filter" = "Tasks Filter";
+
 "tasks-none" = "No tasks";
 
 "tasks-overdue" = "Overdue";
 
 "tasks-todo" = "Not Started";
+
+"to:" = "To:";
 
 "title" = "Title";
 

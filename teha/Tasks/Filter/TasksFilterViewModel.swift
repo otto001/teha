@@ -23,11 +23,39 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tagFilterMode: TagFilterMode = .disabled
     @Published var tags: Set<THTag> = .init()
     
+    @Published var _dateFilterMode: DateFilterMode = .disabled
+    @Published var dateInterval: DateInterval = DateInterval()
+    
     @Published var search: String = ""
     
+    init() {
+        self.dateInterval = self.today()
+    }
+    
+    /**
+        Property representing the current date filter mode.
+        When the value is set to:
+        - .matchToday: the `dateInterval` property is updated to represent the current day.
+        - .matchThisWeek: the `dateInterval` property is updated to represent the current week.
+        - .custom: the `dateInterval` property is left unchanged.
+        - .disabled: the `dateInterval` property is left unchanged.
+     */
+    var dateFilterMode: DateFilterMode{
+        get {
+            return _dateFilterMode
+        }
+        set {
+            _dateFilterMode = newValue
+            if _dateFilterMode == .matchToday {
+                dateInterval = today()
+            } else if _dateFilterMode == .matchThisWeek {
+                dateInterval = thisWeek()
+            }
+        }
+    }
     
     private var filterActiveArray: [Bool] {
-        return [project != nil, priority != nil, tagFilterMode != .disabled]
+        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled]
     }
 
     var anyFilterActive: Bool {
@@ -71,8 +99,41 @@ class TasksFilterViewModel: ObservableObject {
             break
         }
         
+        switch dateFilterMode{
+        case .matchToday, .matchThisWeek, .custom:
+            fetchRequest.filter(dateInterval: dateInterval)
+        default:
+            break
+        }
         
         return fetchRequest
+    }
+    
+    /**
+     Returns the date interval for today, starting from 00:00 AM  and ending on 11:59 PM.
+     
+     - Returns: A `DateInterval` object representing today. If a created optional is `nil`, the function will return a `deafaultInterval` which will return a `DateInterval` object where start and end time is equal to the current time.
+    */
+    private func today() -> DateInterval {
+        let calendar = Calendar.current
+        let now = Date()
+        let startOfDay = calendar.startOfDay(for: now)
+        let endOfDay = calendar.startOfDay(for: now) + TimeInterval.day
+        
+        return DateInterval(start: startOfDay, end: endOfDay)
+    }
+    
+    /**
+     Returns the date interval for the current week, starting from Monday 00:00 AM  and ending on Sunday 11:59 PM.
+     
+     - Returns: A `DateInterval` object representing the current week. If a created optional is `nil`, the function will return a `deafaultInterval` which will return a `DateInterval` object where start and end time is equal to the current time.
+    */
+    private func thisWeek() -> DateInterval {
+        let now = Date()
+        
+        let startOfWeek = now.startOfWeek
+        let startOfNextWeek = startOfWeek + TimeInterval.week
+        return DateInterval(start: startOfWeek, end: startOfNextWeek)
     }
     
 }
@@ -80,6 +141,19 @@ class TasksFilterViewModel: ObservableObject {
 extension TasksFilterViewModel {
     enum TagFilterMode {
         case disabled, matchAny, matchAll
+    }
+    
+    
+    /**
+     Enumeration representing different modes for filtering dates.
+        Cases:
+         - `disabled`: The filter is turned off.
+         - `matchToday`: The filter should match the current day.
+         - `matchThisWeek`: The filter should match the current week.
+         - `custom`: The filter is set to a specific date interval.
+    */
+    enum DateFilterMode {
+        case disabled, matchToday, matchThisWeek, custom
     }
     
     enum TaskStateFilter: CaseIterable, Identifiable {

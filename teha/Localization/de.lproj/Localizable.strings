@@ -50,6 +50,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"date" = "Datum";
+
 "day" = "Tag";
 
 "deadline" = "Deadline";
@@ -92,6 +94,8 @@
 
 "filter" = "Filter";
 
+"from:" = "Vom:";
+
 "group" = "Gruppieren";
 
 "group-tasks-by" = "Aufgaben gruppieren nach:";
@@ -125,6 +129,10 @@
 "match-all-tags" = "Alle ausgewählten Tags";
 
 "match-any-tag" = "Jedes der ausgewählten Tags";
+
+"match-this-week" = "Diese Woche";
+
+"match-today" = "Heute";
 
 "month" = "Monat";
 
@@ -177,6 +185,8 @@
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
+
+"reset-all-filters" = "Lösche alle Filter";
 
 "select" = "Auswählen";
 
@@ -244,6 +254,8 @@
 
 "tasks-due-today" = "Bis heute";
 
+"tasks-filter" = "Aufgabenfilter";
+
 "tasks-finished" = "Fertig";
 
 "tasks-none" = "Keine Aufgaben";
@@ -253,6 +265,8 @@
 "tasks-todo" = "Nicht angefangen";
 
 "title" = "Titel";
+
+"to:" = "Bis zum:";
 
 "urgent" = "Dringend";
 
