@@ -15,7 +15,9 @@ struct OnboardingPageData: Hashable, Identifiable {
     
     static let list: [OnboardingPageData] = [
         .init(id: 0, image: "screenshot-tasks", text: String(localized: "onboarding-tasks")),
-        .init(id: 1, image: "screenshot-projects", text: String(localized: "onboarding-projects"))
+        .init(id: 1, image: "screenshot-projects", text: String(localized: "onboarding-projects")),
+        .init(id: 2, image: "screenshot-suggestions", text: String(localized: "onboarding-suggestions")),
+        .init(id: 3, image: "screenshot-settings", text: String(localized: "onboarding-settings"))
     ]
 }
 

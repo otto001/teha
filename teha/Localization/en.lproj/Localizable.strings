@@ -186,6 +186,14 @@
 
 "onboarding-show" = "Show Onboarding";
 
+"onboarding-suggestions" = "Suggestions, based on your tasks";
+
+"onboarding-tasks" = "Create and organize your tasks";
+
+"onboarding-projects" = "Manage projects with multiple tasks";
+
+"onboarding-settings" = "Set your own personal work hours";
+
 "other-filters" = "Other Filters";
 
 "priority" = "Priority";
