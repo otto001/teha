@@ -16,8 +16,7 @@ struct OnboardingPageData: Hashable, Identifiable {
     static let list: [OnboardingPageData] = [
         .init(id: 0, image: "screenshot-tasks", text: String(localized: "onboarding-tasks")),
         .init(id: 1, image: "screenshot-projects", text: String(localized: "onboarding-projects")),
-        .init(id: 2, image: "screenshot-suggestions", text: String(localized: "onboarding-suggestions")),
-        .init(id: 3, image: "screenshot-settings", text: String(localized: "onboarding-settings"))
+        .init(id: 2, image: "screenshot-suggestions", text: String(localized: "onboarding-suggestions"))
     ]
 }
 
@@ -43,7 +42,12 @@ struct OnboardingPageView: View {
         Image(localizedImageKey)
             .resizable()
             .scaledToFit()
+            .mask {
+                Rectangle().padding(.top, 28)
+            }
+            .padding(.top, -28)
             .cornerRadius(24)
+            
     }
 
     // A View containing the displayed image and the text of the data object
@@ -62,15 +66,14 @@ struct OnboardingPageView: View {
                     .shadow(radius: 6)
             }
             
- 
-            Spacer()
-            
             Text(data.text)
-                .font(.title)
+                .font(.headline)
                 .bold()
+                .padding(.top, 10)
             
-            Spacer()
+            Spacer(minLength: 20)
         }
+        .frame(maxHeight: .infinity)
     }
 }
 
