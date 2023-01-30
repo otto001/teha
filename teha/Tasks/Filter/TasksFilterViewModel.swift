@@ -28,7 +28,9 @@ class TasksFilterViewModel: ObservableObject {
     
     @Published var search: String = ""
     
-    @Published var taskState: TaskStateFilter = .current
+    init() {
+        self.dateInterval = self.today()
+    }
     
     /**
         Property representing the current date filter mode.
@@ -49,8 +51,6 @@ class TasksFilterViewModel: ObservableObject {
             } else if _dateFilterMode == .matchThisWeek {
                 dateInterval = thisWeek()
             }
-            print("dateinterval: \(dateInterval)")
-            print("set: \(_dateFilterMode)")
         }
     }
     
@@ -115,12 +115,11 @@ class TasksFilterViewModel: ObservableObject {
      - Returns: A `DateInterval` object representing today. If a created optional is `nil`, the function will return a `deafaultInterval` which will return a `DateInterval` object where start and end time is equal to the current time.
     */
     private func today() -> DateInterval {
-        let defaultDate = DateInterval()
-        
         let calendar = Calendar.current
         let now = Date()
-        guard let startOfDay = calendar.date(bySettingHour: 00, minute: 00, second: 00, of: now) else { return defaultDate }
-        guard let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: now) else { return defaultDate }
+        let startOfDay = calendar.startOfDay(for: now)
+        let endOfDay = calendar.startOfDay(for: now) + TimeInterval.day
+        
         return DateInterval(start: startOfDay, end: endOfDay)
     }
     
@@ -130,16 +129,11 @@ class TasksFilterViewModel: ObservableObject {
      - Returns: A `DateInterval` object representing the current week. If a created optional is `nil`, the function will return a `deafaultInterval` which will return a `DateInterval` object where start and end time is equal to the current time.
     */
     private func thisWeek() -> DateInterval {
-        let defaultDate = DateInterval()
-        
-        let calendar = Calendar.current
         let now = Date()
-        guard let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now)) else { return defaultDate }
-        guard let startOfWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: startOfWeek) else { return defaultDate }
-        guard let startOfWeek = calendar.date(byAdding: .day, value: 1, to: startOfWeek) else { return defaultDate }
-        guard let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else { return defaultDate }
-        guard let endOfWeek = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek) else { return defaultDate }
-        return DateInterval(start: startOfWeek, end: endOfWeek)
+        
+        let startOfWeek = now.startOfWeek
+        let startOfNextWeek = startOfWeek + TimeInterval.week
+        return DateInterval(start: startOfWeek, end: startOfNextWeek)
     }
     
 }

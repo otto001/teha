@@ -95,6 +95,23 @@ fileprivate struct DateFilter: View{
         enabledSection == (filters.dateFilterMode != .disabled)
     }
     
+    var startBinding: Binding<Date> {
+        Binding {
+            return filters.dateInterval.start
+        } set: { newValue in
+            filters.dateInterval.start = Calendar.current.startOfDay(for: newValue)
+        }
+    }
+    
+    var endBinding: Binding<Date> {
+        Binding {
+            return filters.dateInterval.end - TimeInterval.day
+        } set: { newValue in
+            filters.dateInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
+        }
+    }
+    
+    
     var body: some View{
         if visible {
             VStack {
@@ -109,8 +126,8 @@ fileprivate struct DateFilter: View{
                 }
                 
                 if enabledSection, filters.dateFilterMode == .custom {
-                    DatePicker(LocalizedStringKey("from:"), selection: $filters.dateInterval.start, displayedComponents: [.date])
-                    DatePicker(LocalizedStringKey("to:"), selection: $filters.dateInterval.end, in: filters.dateInterval.start..., displayedComponents: [.date])
+                    DatePicker(LocalizedStringKey("from:"), selection: startBinding, displayedComponents: [.date])
+                    DatePicker(LocalizedStringKey("to:"), selection: endBinding, in: startBinding.wrappedValue..., displayedComponents: [.date])
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }

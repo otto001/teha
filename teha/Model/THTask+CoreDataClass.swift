@@ -177,15 +177,15 @@ extension NSFetchRequest where ResultType == THTask {
     */
     func filter(dateInterval: DateInterval) {
         // Case: earliestStartDate and deadline are not nil
-        let leftOverlapPredicate = NSPredicate(format: "(%@ <= earliestStartDate AND %@ >= earliestStartDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
-        let containedPredicate = NSPredicate(format: "(%@ >= earliestStartDate AND %@ <= deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
-        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadline AND %@ >= deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let leftOverlapPredicate = NSPredicate(format: "(%@ <= earliestStartDate AND %@ > earliestStartDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let containedPredicate = NSPredicate(format: "(%@ >= earliestStartDate AND %@ < deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadline AND %@ > deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
         
         // Case: earliestStartDate is nil and deadline is not nil
         let noBeginDatePredicate = NSPredicate(format: "earliestStartDate == nil AND %@ <= deadline", dateInterval.start as NSDate)
         
         // Case: deadline is nil and earliestStartDate is not nil
-        let noDeadlinePredicate = NSPredicate(format: "deadline == nil AND %@ >= earliestStartDate", dateInterval.end as NSDate)
+        let noDeadlinePredicate = NSPredicate(format: "deadline == nil AND %@ > earliestStartDate", dateInterval.end as NSDate)
         
         // Case: earliestStartDate and deadline are nil
         let bothNilPredicate = NSPredicate(format: "earliestStartDate == nil AND deadline == nil")
