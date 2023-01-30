@@ -14,7 +14,7 @@ struct TaskEditView: View {
     @Environment(\.dismiss) var dismiss: DismissAction
     
     // Used for setting the default deadline
-    @AppStorage(SettingsAppStorageKey.startOfWorkDay.rawValue) var startOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
+    @AppStorage(SettingsAppStorageKey.endOfWorkDay.rawValue) var endOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
    
     @State var data = FormData()
     
@@ -94,7 +94,7 @@ struct TaskEditView: View {
         }
         
         var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
-        date = Calendar.current.date(bySettingHour: startOfWorkDay.hours, minute: startOfWorkDay.minutes, second: 0, of: date) ?? .now
+        date = Calendar.current.date(bySettingHour: endOfWorkDay.hours, minute: endOfWorkDay.minutes, second: 0, of: date) ?? .now
         return date
     }
     
