@@ -12,9 +12,10 @@ import SwiftUI
 struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
-    
+
     // Used for setting the default deadline
     @AppStorage(SettingsAppStorageKey.endOfWorkDay.rawValue) var endOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
+
    
     @State var data = FormData()
     
@@ -74,17 +75,24 @@ struct TaskEditView: View {
             task.creationDate = Date.now
         }
         
+        if task.address == "" {
+            task.lat = 0
+            task.long = 0
+        }
+       
         let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
         task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
         
         try? viewContext.save()
         
         NotificationManager.instance.scheduleReminderNotifications(task: task)
-        
         task.repeatingSiblings?.forEach { repeatingSibling in
             NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
         }
 
+            
+        GeoMonitor.shared.refreshLocationMonitoring(task: task)
+       
         dismiss()
     }
     
@@ -163,6 +171,13 @@ struct TaskEditView: View {
                 Section {
                     TextFieldMultiline(String(localized:"notes"), text: $data.notes)
                         .frame(minHeight: 72)
+                }
+                Section{
+                    LocationPicker("location",
+                                   addText: "location-add", address: $data.address, lat: $data.lat, long: $data.long)
+                }
+            
+                Section {
                     TagPicker(selection: $data.tags)
                 }
             }
@@ -246,6 +261,11 @@ extension TaskEditView {
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
+        var address: String?
+        var lat: Double?
+        var long: Double?
+        
+        
         var notes: String = ""
         var tags: Set<THTag> = .init()
         
@@ -305,7 +325,12 @@ extension TaskEditView {
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
+
             
+            self.address = task.address ?? ""
+            self.lat = task.lat
+            self.long = task.long
+
             self.repeatInterval = task.repeatInterval
             self.repeatEndDate = task.repeatEndDate
             self.originalDeadline = task.deadline
@@ -335,6 +360,16 @@ extension TaskEditView {
             // Do not set reminders if no deadline is set
             task.reminderOffset = task.deadline != nil ? self.reminder : nil
             task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
+            
+            if let address = self.address {
+                task.address = address
+                task.lat = self.lat ?? 0
+                task.long = self.long ?? 0
+            } else {
+                task.address = ""
+                task.lat = 0
+                task.long = 0
+            }
             
             task.notes = self.notes
             task.tags = self.tags as NSSet

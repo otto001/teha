@@ -4,6 +4,8 @@
 
 "%@" = "%@";
 
+"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe erledigt werden.";
+
 "%@-priority" = "%@ Priorität";
 
 "%@-tasks-without-deadline" = "%@ Aufgaben ohne Deadline";
@@ -117,6 +119,14 @@
 "internal-error" = "Interner Fehler";
 
 "internal-error-recover" = "Sorry!";
+
+"location" = "Standort";
+
+"location-add" = "Standort hinzufügen";
+
+"location-arrived-title" = "Aufgabe in der Nähe";
+
+"location-search" = "Einen Standort suchen";
 
 "last-week" = "Letzte Woche";
 

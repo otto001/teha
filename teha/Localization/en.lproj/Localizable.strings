@@ -4,6 +4,8 @@
 
 "%@" = "%@";
 
+"%@-location-arrived-body" = "Your task %@ can be completed close to your current Location.";
+
 "%@-priority" = "%@ Priority";
 
 "%@-tasks-without-deadline" = "%@ Tasks without Deadline";
@@ -117,6 +119,14 @@
 "internal-error" = "Internal Error";
 
 "internal-error-recover" = "Sorry!";
+
+"location" = "Location";
+
+"location-add" = "Add Location";
+
+"location-arrived-title" = "Task nearby";
+
+"location-search" = "Search for a location";
 
 "low" = "Low";
 
