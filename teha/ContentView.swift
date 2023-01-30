@@ -33,8 +33,8 @@ struct ContentView: View {
             // Create root TabView and add all main views for app
             if (onboardingDone) {
                 TabView(selection: $tab) {
-                    TasksTab().tag(Tab.tasks)
                     SuggestionsTab().tag(Tab.suggestions)
+                    TasksTab().tag(Tab.tasks)
                     ProjectsTab().tag(Tab.projects)
                     SettingsTab().tag(Tab.settings)
                 }
