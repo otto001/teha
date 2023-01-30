@@ -24,7 +24,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     // ensure that the tasks tab is the default tab (i.e., landing page)
-    @State private var tab: Tab = .suggestions
+    @State private var tab: Tab = .tasks
     
     @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
     
@@ -33,8 +33,8 @@ struct ContentView: View {
             // Create root TabView and add all main views for app
             if (onboardingDone) {
                 TabView(selection: $tab) {
-                    SuggestionsTab().tag(Tab.suggestions)
                     TasksTab().tag(Tab.tasks)
+                    SuggestionsTab().tag(Tab.suggestions)
                     ProjectsTab().tag(Tab.projects)
                     SettingsTab().tag(Tab.settings)
                 }
