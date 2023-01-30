@@ -63,8 +63,7 @@ fileprivate struct FilteredTasksListView: View {
         
         if filters.anyFilterActive && sections.isEmpty {
             NoTaskFilterView()
-        }
-        else if sections.isEmpty{
+        } else if sections.isEmpty{
             NoTaskView()
         } else {
             List(selection: $selectedTasks) {

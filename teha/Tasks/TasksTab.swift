@@ -130,7 +130,6 @@ struct TasksTab: View {
         
         NavigationStack {
             TasksListView()
-                .id(taskListId)
                 .environment(\.editMode, editMode)
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
@@ -143,7 +142,7 @@ struct TasksTab: View {
                         } label: {
                             Image(systemName: "plus")
                         }
-                        
+                        .disabled(editMode?.wrappedValue.isEditing == true)
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -152,13 +151,10 @@ struct TasksTab: View {
                             TasksTabFiltersActiveButton().environment(\.editMode, editMode)
                             
                             Button {
-                                taskListId = UUID()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                    withAnimation {
-                                        editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
-                                    }
+                                withAnimation {
+                                    editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                    
                                 }
-                               
                             } label: {
                                 Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
                             }

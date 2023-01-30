@@ -93,6 +93,7 @@ fileprivate struct TasksChangeProjectSheet: View {
 
 struct TaskListToolbarView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.editMode) var editMode
     
     @Binding var selected: Set<NSManagedObjectID>
     
@@ -134,6 +135,7 @@ struct TaskListToolbarView: View {
                 }
                 
                 selected.removeAll()
+                editMode?.wrappedValue = .inactive
                 
                 // TODO: error handling
                 try? viewContext.save()
