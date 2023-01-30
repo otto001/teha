@@ -110,7 +110,7 @@ struct TaskListSectionView: View {
             }
             if section.id != "none" || !collapsed {
                 ForEach(section) { task in
-                    TaskRowView(task: task, now: now)
+                    TaskListRowView(task: task, now: now)
                         .swipeActions(edge: .trailing) {
                             Button {
                                 deleteAction(task)

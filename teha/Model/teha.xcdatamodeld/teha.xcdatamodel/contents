@@ -23,6 +23,8 @@
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reminderMin" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="reminderMinSecond" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="repeatEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="repeatIgnoredDates" optional="YES" attributeType="String"/>
         <attribute name="repeatIntervalId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
