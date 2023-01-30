@@ -88,7 +88,7 @@ struct ProjectEditView: View {
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $deadline,
-                                       defaultDate: Calendar.current.date(byAdding: .month, value: 1, to: .now)!)
+                                       defaultDate: defaultDeadline)
                 }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {

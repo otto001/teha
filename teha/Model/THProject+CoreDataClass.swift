@@ -18,6 +18,7 @@ public class THProject: NSManagedObject {
 
 extension THProject {
     
+    /// The priority of the project assigned by the user
     var priority: Priority {
         get {
             return Priority(rawValue: Int(self.priorityNumber))!
@@ -27,6 +28,7 @@ extension THProject {
         }
     }
     
+    /// The ColorChoice assigned to this project by the user 
     var color: ColorChoice {
         get {
             return ColorChoice(rawValue: self.colorCode ?? "") ?? .red
@@ -41,24 +43,12 @@ extension THProject {
 //MARK: FetchRequests
 extension THProject {
     
+    /// A fetch request fetching all projects sorted by: priority (desc), creationDate (asc)
     static var all: NSFetchRequest<THProject> {
         let request = THProject.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \THProject.priorityNumber, ascending: false),
                                    NSSortDescriptor(keyPath: \THProject.creationDate, ascending: true)]
         return request
     }
-    
-    static func all(completed: Bool) -> NSFetchRequest<THProject> {
-        let request = self.all
-        request.predicate = NSPredicate(format: "completed == %@", NSNumber(value: completed))
-        return request
-    }
-    
-    static func all(priority: Priority) -> NSFetchRequest<THProject> {
-        let request = self.all
-        request.predicate = NSPredicate(format: "priorityNumber == %@", priority.rawValue)
-        return request
-    }
-    
 }
 

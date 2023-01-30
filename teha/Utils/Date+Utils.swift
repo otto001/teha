@@ -19,6 +19,7 @@ extension Date {
     }
     
     /// The the date of the first day of the week of self
+    /// Respects the users locale
     var startOfWeek: Date {
         var components = Calendar.current.dateComponents([.weekday, .year, .month, .weekOfYear], from: self)
         components.weekday = Calendar.current.firstWeekday
