@@ -68,7 +68,7 @@ struct ProjectEditView: View {
 
                 Section {
                     PriorityPicker("priority", selection: $priority)
-                    SimpleColorPicker(title: "color", selection: $color)
+                    SimpleColorPicker(title: "color", selection: $color, allowCustomColor: true)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $deadline,
