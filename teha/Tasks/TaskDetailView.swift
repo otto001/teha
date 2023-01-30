@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// DateFormatter used for standard date formatting
 fileprivate var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
@@ -14,6 +15,7 @@ fileprivate var dateFormatter: DateFormatter = {
     return formatter
 }()
 
+/// DateFormatter used for relative date formatting, e.g. yesterday, in 2 weeks...
 fileprivate var dateFormatterRelative: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
@@ -22,6 +24,7 @@ fileprivate var dateFormatterRelative: DateFormatter = {
     return formatter
 }()
 
+/// A Row of a view containing a date formatted by the standard DateFormatter
 fileprivate struct DateRow: View {
     let title: LocalizedStringKey
     let date: Date?
@@ -38,37 +41,48 @@ fileprivate struct DateRow: View {
     }
 }
 
+///
 struct TaskDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
+    // The currently shown THTask
     @ObservedObject var task: THTask
-    
+
+    // variable that is true if the editSheet is currently used
     @State private var editSheet: Bool = false
     @State private var showNavigationBarTitle: Bool = false
     @State private var hasShownNavigationBarTitle: Bool = false
-    
+
+    // Is true if the user can Start the task, when startDate and completionDate are nil
     var canStart: Bool {
         task.startDate == nil && task.completionDate == nil
     }
-    
+
+    // Is true if a user can complete a task, when the completionDate is nil
     var canComplete: Bool {
         task.completionDate == nil
     }
-    
+
+    // The navigationBarTitle of the view. returns the title of the current task or an empty string if there is no title
     var navigationBarTitle: String {
         task.title ?? ""
     }
-    
+
+
     var subtitle: String? {
+        // returns the relative time to the completionDate as a string if one exists
         if let completionDate = task.completionDate {
             return "\(String(localized: "completed")): \(dateFormatterRelative.string(from: completionDate))"
-            
+
+        // Returns the relative time to the earliestStartDate if one exists, and a deadline exists, the earliestStartDate
+        // is bigger than .now, and the startDate is nil and the completionDate is nil
         } else if let earliestStartDate = task.earliestStartDate,
            !(task.deadline != nil && earliestStartDate <= .now),
            task.startDate == nil && task.completionDate == nil {
             
             return "\(String(localized: "earliest-startdate")): \(dateFormatterRelative.string(from: earliestStartDate))"
-            
+
+        // Returns the relative time to the deadline, if one exists and the completionDate is nil
         } else if let deadline = task.deadline, task.completionDate == nil {
             
             return "\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))"
@@ -77,7 +91,8 @@ struct TaskDetailView: View {
         // return empty text for spacing reasons (i know, kinda dirty, but this automatically adjusts to dynamic font sizes, which is hard to do otherwise in swift
         return " "
     }
-    
+
+
     @ViewBuilder func title(geo: GeometryProxy) -> some View {
 
         VStack(alignment: .leading, spacing: 6) {
@@ -87,6 +102,8 @@ struct TaskDetailView: View {
                 
                 .foregroundColor(.label)
                 .background {
+                    // Read the position of the current title, If it goes out of view show it as the navigationBarTitle
+                    // If it goes back into view reset the navigationBarTitle
                     GeometryReader { titleGeometry in
                         let titleY = titleGeometry.frame(in: .global).maxY
                         Color.clear
@@ -124,6 +141,7 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var projectSection: some View {
+        // Show the currently assigned project and priority of the task
         Section {
             if let project = task.project {
                 LabeledContent("project") {
@@ -138,6 +156,7 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var datesSection: some View {
+        // Show a dateRow for earliestStartDate and Deadline if they are not nil
         if task.earliestStartDate != nil || task.deadline != nil {
             Section {
                 DateRow(title: "earliest-startdate", date: task.earliestStartDate) { date in
@@ -150,20 +169,14 @@ struct TaskDetailView: View {
         }
     }
     
-    /**
-        View that displays the reminder information for a task.
-
-        If the task has a `reminderOffset`, a `Section` is created that displays
-        the `reminderOffset`'s name. If the task also has a second reminder `reminderOffsetSecond`,
-        it is displayed as well.
-     */
     @ViewBuilder var reminderSection: some View {
+        // Show the reminder of the task if one exists
         if let reminder = task.reminderOffset {
             Section {
                 LabeledContent("reminder") {
                     Text(reminder.name)
                 }
-                
+                // if a second reminder exists also show that reminder
                 if let reminderSecond = task.reminderOffsetSecond {
                     LabeledContent("reminder-second") {
                         Text(reminderSecond.name)
@@ -176,6 +189,7 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var notesSection: some View {
+        // Show a multiline Textfield if notes exist
         if let notes = task.notes, !notes.isEmpty {
             Section {
                 Text(notes)
@@ -184,6 +198,7 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var tagsSection: some View {
+        // Show a collection of tags if any exist
         if let tags = task.tags as? Set<THTag>, !tags.isEmpty {
             Section {
                 TagCollection("tags", tags: tags)
@@ -192,7 +207,7 @@ struct TaskDetailView: View {
     }
     
     var body: some View {
-        
+        // Geometry Reader to know where the top of the view is currently at, to know the position of the title
         GeometryReader { geo in
             List {
                 title(geo: geo)
@@ -215,6 +230,7 @@ struct TaskDetailView: View {
                     .animation(.linear(duration: 0.2), value: showNavigationBarTitle)
                     .transition(.opacity)
             }
+            // place button for the TaskEditView
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     editSheet = true
@@ -224,6 +240,7 @@ struct TaskDetailView: View {
                 
             }
         }
+        // Show the taskEditsheet
         .sheet(isPresented: $editSheet) {
             TaskEditView(mode: .edit(task))
         }

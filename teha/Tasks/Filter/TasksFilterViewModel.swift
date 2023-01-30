@@ -11,26 +11,38 @@ import SwiftUI
 
 
 class TasksFilterViewModel: ObservableObject {
-    
+
+    // The variable used for grouping the tasks into different timeslots, default: .week
     @Published var grouping: TasksGrouping = .week
-    
+
+    // The taskstate used to filter for a specific taskstate, default: .current
     @Published var taskState: TaskStateFilter = .current
-    
+
+    // The Project used to filter for a specific project
     @Published var project: THProject? = nil
-    
+
+    // The priority used to filter for a specific priority
     @Published var priority: Priority? = nil
-    
+
+    // The TagFiltermode used when filtering by tags
     @Published var tagFilterMode: TagFilterMode = .disabled
+    // The set of tags to filter by
     @Published var tags: Set<THTag> = .init()
-    
-    @Published var _upcomingFilterMode: DateFilterMode = .disabled
+
+    // internal states, see dateFilterMode
+    @Published private var _upcomingFilterMode: DateFilterMode = .disabled
+    // DateInterval where all tasks are shown that can be active during the DateInterval
     @Published var upcomingInterval: DateInterval = DateInterval()
-    
-    @Published var _deadlineFilterMode: DateFilterMode = .disabled
+
+    // internal states, see dateFilterMode
+    @Published private var _deadlineFilterMode: DateFilterMode = .disabled
+    // DateInterval where all tasks are shown that that have a deadline during the DateInterval
     @Published var deadlineInterval: DateInterval = DateInterval()
-    
+
+    // The User input from the search bar
     @Published var search: String = ""
-    
+
+
     init() {
         self.upcomingInterval = self.today()
         self.deadlineInterval = self.today()
@@ -79,22 +91,27 @@ class TasksFilterViewModel: ObservableObject {
             }
         }
     }
-    
+
+    // variable containing all currently active filters
     private var filterActiveArray: [Bool] {
         return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled, deadlineFilterMode != .disabled]
     }
 
+    // variable that returns true if any filter is active
     var anyFilterActive: Bool {
         return !filterActiveArray.allSatisfy { !$0 }
     }
-    
+
+    // variable that returns true if all filters are active
     var allFiltersActive: Bool {
         return filterActiveArray.allSatisfy { $0 }
     }
-    
+
+    // The fetchRequest for all THTasks of the User
     var fetchRequest: NSFetchRequest<THTask> {
         let fetchRequest = THTask.all
-        
+
+        // filter by the currently selected taskState
         switch taskState {
         case .current:
             fetchRequest.filter(completed: false)
@@ -103,19 +120,23 @@ class TasksFilterViewModel: ObservableObject {
         case .all:
             break
         }
-        
+
+        // filter by the currently selected project
         if let project = self.project {
             fetchRequest.filter(project: project)
         }
-        
+
+        // filter by the currently selected priority
         if let priority = self.priority {
             fetchRequest.filter(priority: priority)
         }
-        
+
+        // If the user has put anything into the searchBar, filter by the search string
         if !self.search.isEmpty {
             fetchRequest.filter(search: self.search)
         }
-        
+
+        // filter by currently selected tags and the tagFilterMode
         switch tagFilterMode{
         case .matchAny:
             fetchRequest.filter(tags: tags, mode: .matchAny)
@@ -124,14 +145,16 @@ class TasksFilterViewModel: ObservableObject {
         default:
             break
         }
-        
+
+        // filter by the dateInterval of the dateFilterMode
         switch dateFilterMode{
         case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(dateInterval: upcomingInterval)
         default:
             break
         }
-        
+
+        // filter by the dateInterval of the deadlineFilterMode
         switch deadlineFilterMode{
         case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(deadline: deadlineInterval)
@@ -172,8 +195,14 @@ class TasksFilterViewModel: ObservableObject {
 }
 
 extension TasksFilterViewModel {
+    /// enum representing the different tagFilterModes
     enum TagFilterMode {
-        case disabled, matchAny, matchAll
+        /// Filter is turned off
+        case disabled
+        /// If any tag of a task matches to any tag from the filter, the task is shown
+        case matchAny
+        ///If the tags from a task match to all tags from the filter, the task is shown
+        case matchAll
     }
     
     
@@ -188,9 +217,15 @@ extension TasksFilterViewModel {
     enum DateFilterMode {
         case disabled, matchToday, matchThisWeek, custom
     }
-    
+
+    /// enum representing the different TaskStateFilter
     enum TaskStateFilter: CaseIterable, Identifiable {
-        case all, current, completed
+        /// Show all tasks
+        case all
+        /// Show all non-completed tasks
+        case current
+        /// Show all completed tasks
+        case completed
         
         var id: Self {
             return self
@@ -204,9 +239,17 @@ extension TasksFilterViewModel {
             }
         }
     }
-    
+
+    /// Enum representing the grouping of tasks by a different timeslot
     enum TasksGrouping: CaseIterable, Identifiable {
-        case day, week, month, year
+        /// Group all tasks by days
+        case day
+        /// Group all tasks by weeks
+        case week
+        /// Group all tasks by months
+        case month
+        /// Group all tasks by year
+        case year
         
         var id: Self {
             return self
