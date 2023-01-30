@@ -1,120 +1,150 @@
 # teha
 
 teha is an app for freelancers, employees, students, and everyone else whose time is precious.
-teha allows you to keep track of your projects and todos, while stopping you from taking up too many tasks at once.
+teha allows you to keep track of your projects and todos, while recommending you with what to continue so you meet the deadline.
+The app is completly written in SwiftUi.
 
-## Views
-There are 3 tabs: Projects, Tasks, Settings. Tasks is the "landing page" of the app.
+# repository structure 
+
+```
+teha/
+├─ Onboarding/
+├─ Localization/
+├─ Model/
+├─ Base/
+├─ Utils/
+├─ Project/
+├─ Tasks/
+├─ Suggestions/
+├─ Tags/
+├─ Settings/
+├─ Preview Content/
+├─ Assets.xcassets
+├─ tehaApp.swift
+├─ Persistence.swift
+├─ ContentView.swift
+├─ teha.entitlements
+tehaTests/
+├─SuggestionsGeneratorTests.swift
+README.md 
+```
 
 
-### Projects
-- ~List/Table like of all projects~
-- Default sorting: priority
-  - Use Sections to divide projects based on priority
-- ~Show project title & color~
-- ~Mark projects as complete (hidden per default)~
-  - ~reduces overcrowidng of table/list~
-  - ~implemented as boolean property: otherwise, we'd need special handling for creation/edit UI~
-- ~Tap on project -> project detail view~
-- ~Button to open add project sheet~
-- Filter options (?)
-- Edit button
-  - Delete projects
-- ~Swipe gesture for project delete~
-- ~Searchable (?)~
+# implementation
 
-#### Add Project Sheet
-- ~Form Sheet~
-- ~Fields like: title, color, priority~
-- ~Add due date for project, use as default for project tasks~
+## Onboarding
+### structure
+```
+├─ Onboarding/
+  ├─ OnboardingView.swift // controller of multiple onboarding views
+  ├─ OnboardingPageView.swift // a single onboarding page
+  ```
+### functionality
 
-#### Project detail
-- Detailed Information on a single project
-- Shows title, priority, color
-- ~Shows some basic statisitcs (e.g., number of tasks/completed tasks/progress/hours left to do/hours completed)~
-- ~Edit button (trailing navigation)~
-  - ~Presents sheet like project add (reuse code!!)~
-- Navigation link to list of tasks of this project
-  - Re-use list from tasks tab, but with project filter locked
+Multiple OnboardingPageViews, which are controlled by the OnboardingView.swift to create a shot onboarding experience.
 
-### Tasks (Alternative Title: Overview?)
-- Landing tab
-- List/Table based
-- Shows pendings tasks sorted by priority and approaching deadline & earliest start date
-- Top: Segmented control (?)
-  - EDIT: Segmented Control will overload (clutter) the view, find other solution
-  - Choose between: group by Day/Week/Month
-- Trailing navigation menu (show me more/systemImage: ellipsis.circle)
-  - Toggable option: Group by projects
-  - Filter button (opens filter sheet, see Photos app)
-- Visual feedback for when filters are active (see Photos app for example)
-- Searchable
-  - Task title/notes
-  - Project names
-  - Tags
-  - Advanced Feature:
-    - If user inputs something that looks like a tag, suggest filtering by that tag
-- Tap on task -> task detail view
-- Add button -> Add Task Sheet (navigation leading)
-- Edit button (navigation trailing)
-  - Delete Tasks
-  - Select multiple tasks
-    - Mark as: completed, started, move to project, setting due date, etc...
-- Swipe gestures:
-  - Completed
-  - Started
-  - Delete (?)
+### Dependencies
 
-#### Filter sheet (Denis)
-- See Photos app for inspo
-- Options to filter by:
-  - Project 
-  - Tag
-  - Priority 
-  - Repeating
-  
-#### Add Task Sheet (Matteo)
-- Form Sheet
-- Fields for: Title, Notes, Dates, Project
-- Add reminder alerts
-- Repeating tasks
-  
-#### Task Detail view
-- Show title/notes/dates
-- Edit button
-  - Edit in place or as sheet (decide later) 
-- Buttons for:
-  - Started (with setting date to past option, i.e., "I started yesterday at 15:30")
-    - Time optional (?)
-  - Completed (with setting date to past option)
-    - Time optional (?)
-- Add reminder alerts
+- SwiftUI
+
+## Localization
+
+### structure
+```
+├─Localization/
+  ├─Localizable/ //stringfiles
+    ├─localizable (German)
+    ├─localizable (English)
+  ├─Localizabke/ //stringdicts
+    ├─localizable (German)
+    ├─localizable (English)
+ ```
+### functionality
+teha supports german and english translation. These files contain the translations of all texts and its pluralization rules.
+
     
-    
-### Settings
-- Color schemes
-- Langauge (preferably not in in-app settins but in system settings)
+## Model
+### structure
+```
+├─ Model/
+  ├─ teha.xcdatamodeld
+  ├─ THProject+CoreDataClass.swift
+  ├─ THTask+CoreDataClass.swift
+  ├─ THTag+CoreDataClass.swift
+ ``` 
+### functionality
+
+`THProject+CoreDataClass.swift` is a Swift class that represents a project managed by Core Data. It has properties like priority, color, and completion status, and provides methods for fetching projects from Core Data (e.g. all, all with a specific priority).
+
+`THTask+CoreDataClass.swift` is a Swift class that represents a task managed by Core Data. It has properties like priority, estimated worktime, and reminder offsets, and provides methods for managing the task's completion status and notifications.
+
+`THTag+CoreDataClass.swift` is a Swift class that represents a tag managed by Core Data. It provides fetchrequest ??????????
+
+### Dependencies
+- SwiftUI
+- CoreData
+- Fondation
+
+## Base
+### structure
+```
+├─ Base/
+  ├─ Types/
+    ├─ ReminderOffset.swift
+    ├─ Priority.swift
+    ├─ Worktime.swift
+  ├─Layouts/
+    ├─ FlexHStack.swift
+  ├─Modifiers/
+    ├─ RefreshModifier.swift
+    ├─ FormSheetNavigationBar.swift
+  ├─Inputs/
+    ├─ WorktimeField.swift
+    ├─ ReminderPicker.swift
+    ├─ OptionalDatePicker.swift
+    ├─ PriorityPicker.swift
+    ├─ SimpleColorPicker.swift
+    ├─ TextFieldMultiline.swift
+  ├─LocalNotification.swift
+ ``` 
+### functionality
+
+`ReminderOffset.swift`:  ReminderOffset is an enum that represents different time offsets that can be used to set a reminder given a deadline.
+
+`Priority.swift`: Priority is an enum that defines the priority levels of tasks or reminders. The four cases are low, normal, high, and urgent.
+
+`Worktime.swift`: The Worktime struct wraps around a number of minutes and supports basic arithmetic and comparison operations. It provides a formatted and localized string representation of the work time in hours and minutes. Additionally, it can be converted to a TimeInterval or a RawValue.
+
+`FlexHStack.swift`: A Layout container that, just like HStack, lays out its subviews horizontally. However, when its width is not sufficient for displaying all subviews next to eachother, it starts a new row below the previous items. Therefore, it does not grow in size horizontally, but vertically.
 
 
-## Misc
-### Notifications
+`RefreshModifier.swift`: The AutoRefreshModifier is a SwiftUI view modifier that updates a bound Date value once per minute to the current date rounded to the current minute. It does this by using a timer to check once per second if the time has changed and updating the bound Date value accordingly.
 
-- Task reminder alerts
-  - Approaching deadlines (default behaviour adjustable in setting)
+`FormSheetNavigationBar.swift`: The FormSheetNavigationBar is a view modifier in SwiftUI that configures the navigation bar for a form in a sheet. It adds a navigation title, a leading cancel button, and a trailing done/add button that are either labeled as "Done" or "Add" and disabled when invalid.
 
-## Implementation
-### SwiftUI
-We will attempt to use SwiftUI wherever possible. If SwiftUI starts acting up, we will replace the parts that act up with good ol' UIKit.
+`WorktimeField.swift`: A view used by the WorktimeField to allow the user to input a value.
 
-## Work division
-- Matteo, Denis: Tasktabs & -views
-- Andi: Settings
-- Alex: Projects
-- Jette: Notifications
-- Nuri: Geofencing
+`ReminderPicker.swift`: A view that allows users to select a reminder offset from a list of options.
+
+`OptionalDatePicker.swift`: The "OptionalDatePicker" struct in SwiftUI provides an input for a form that allows a user to select an optional date and time or remove their selection. 
+
+`PriorityPicker.swift`: A Picker input that allows the user to select a prioritiy. Support both optional and non-optional modes.
+
+`SimpleColorPicker.swift`: A enum representing a user-picked color. Supports both built-in standard colors (e.g., red, blue, ...) and custom 8-bit colors.
+
+`TextFieldMultiline.swift`: A Textfield that looks like a normal SwiftUI TextField but supports linebreaks.
+
+`LocalNotification`: The object for managing notification-related activities such as scheduling reminder.
+
+### Dependencies:
+- SwiftUI
+- Foundation
+- Usernotification
+
+  
+## SwiftUI bugs, that we can't fix
 
 
-## Rules
-- Always use translation strings!
-- No force pushing (unless explicitly discussed)
+
+
 
