@@ -138,6 +138,7 @@ struct TaskEditView: View {
                     }
                 }
 
+                // Section which allows the user to set a reminder and possible a second reminder. A value can only be selected if a deadline is set for the task.
                 if data.deadline != nil {
                     Section {
                             ReminderPicker(title: "reminder", selection: $data.reminder)

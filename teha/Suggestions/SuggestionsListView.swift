@@ -7,7 +7,13 @@
 
 import SwiftUI
 
+/**
+    Creates and returns a DateFormatter instance configured for medium date and short time style, formatting context of middle of sentence, and relative date formatting.
 
+    The formatter is used to format date and time values in a readable format.
+
+    - Returns: A DateFormatter instance with the specified configurations.
+ */
 fileprivate var formatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
@@ -17,19 +23,32 @@ fileprivate var formatter: DateFormatter = {
     return formatter
 }()
 
+/**
+ A view that displays a single row of task information in the SuggestionsList.
+ 
+ The view is composed of a Section that contains a `TaskRowView` and a header with start time information.
+ It also optionally includes a footer with remaining worktime if available. If the computed start time has passed, the the messages will be colored red.
+ 
+ - Returns: A view displaying a single row of task information including the start time in order to be on time.
+ */
+
 fileprivate struct SuggestionsListRow: View {
+    /// Wrapper around task that also contains the latest start date
     let taskWithLatestStartDate: SuggestionsGenerator.TaskWithLatestStartDate
     
     let now: Date
     
+    /// Computed boolean indicating if the latest start date has passed the current date.
     var hasMissedStart: Bool {
         taskWithLatestStartDate.latestStartDate < .now
     }
     
+    /// Computed string representation of the latest start date in a readable format.
     var formattedTime: String {
         formatter.string(for: taskWithLatestStartDate.latestStartDate) ?? ""
     }
     
+    /// Computed optional string key for localized display of the remaining worktime.
     var footerText: LocalizedStringKey? {
         guard let remainingWorktime = taskWithLatestStartDate.task.estimatedWorktimeRemaining.formatted else {
             return nil
@@ -59,8 +78,15 @@ fileprivate struct SuggestionsListRow: View {
     }
 }
 
+/**
+    A struct that implements the `View` protocol to create a button that displays information about the suggestion tab.
 
+    The button displays an info icon and when pressed, it toggles a popover view. The popover
+    contains a title of "suggestions", a close button, and text that explains what the suggestion tab is all about.
+ */
 struct SuggestionsInfoBoxButton: View {
+    
+    /// Boolean state variable which is used to keep track of whether the popover is shown or not.
     @State private var shown: Bool = false
     
     var body: some View {
@@ -95,40 +121,60 @@ struct SuggestionsInfoBoxButton: View {
     }
 }
 
+/**
+    A struct that implements the `View` protocol and displays the list of task suggestions.
+
+    It uses a managed object context from the environment to access data and an ObservedObject to bind to the view model.
+    It displays a list of task information in sections with headers and footers, and includes a button to toggle an info popover.
+    The view updates the now state variable to be the current date and time.
+    It also has a computed property indicating if the view model is currently in the process of refreshing data.
+    The tasks property returns an array of task information with the latest start date.
+
+    - Returns: A list view displaying task suggestion information, with sections and headers and footers, as well as an info popover.
+*/
 @MainActor
 struct SuggestionsListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    
+    /// Singelton instance of the `SuggestionsViewModel`
     @ObservedObject var viewModel = SuggestionsViewModel.shared
     
     @State private var now: Date = .now
     
+    /// Computed property indicating whether the view model is currently in the process of refreshing data or not.
     var isRefreshing: Bool {
         viewModel.isRefreshing
     }
     
+    /// Computed property returning an array of task information with the latest start date. If nil, an empty array is returned.
     var tasks: [SuggestionsGenerator.TaskWithLatestStartDate] {
         viewModel.latestResult?.tasks ?? []
     }
     
+    /// Computed property returning a Boolean value indicating if the view model's latest result is not feasible.
     var showInfeasible: Bool {
         !(viewModel.latestResult?.isFeasible ?? true)
     }
     
+    /// Computed property returning the latest error from the view model.
     var error: SuggestionsGeneratorError? {
         viewModel.latestError
     }
     
+    /// Computed property returning a Boolean value indicating whether to show the enlarged progress view.
     var showLargeProgressView: Bool {
         isRefreshing && tasks.isEmpty && error == nil
     }
     
+    /// Function which refreshes the data in the view model.
     func refresh() {
         Task {
             await viewModel.refresh()
         }
     }
     
+    /// View builder displaying a text indicating time issues if the `showInfeasible` property is `true`.
     @ViewBuilder var infeasibleHeader: some View {
         if showInfeasible {
             Text("suggestions-time-issues")
@@ -141,14 +187,15 @@ struct SuggestionsListView: View {
         }
     }
     
+    /// View builder displaying the main content of the view, which can be either a list of tasks suggestions, a large progress view or an error message depending on the value of `showLargeProgressView` and if `error` is not `nil`.
     @ViewBuilder var content: some View {
-        if showLargeProgressView {
+        if showLargeProgressView { // Show enlarged ProgressView
             VStack(spacing: 12) {
                 ProgressView()
                     .tint(.secondaryLabel)
                 Text("suggestions-loading")
             }
-        } else if let error = error {
+        } else if let error = error { // Show error message
             VStack {
                 Image(systemName: "lightbulb.slash")
                     .font(.largeTitle)
@@ -161,7 +208,7 @@ struct SuggestionsListView: View {
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal, 30)
-        } else {
+        } else { // Show list of tasks suggestions
             List {
                 infeasibleHeader
                 
@@ -172,6 +219,7 @@ struct SuggestionsListView: View {
         }
     }
     
+    /// `content` view builder is used to display the main content. The view also has a toolbar with an info button on the top right side. When the view appears, the `refresh` function is called causing the data in the view model to be refreshed.
     var body: some View {
         content
             .autoRefresh(now: $now)

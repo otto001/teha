@@ -8,7 +8,7 @@
 import UserNotifications
 
 /**
-    The object for managing notification-related activities such as scheduling reminder.
+    The object for managing notification-related activities such as scheduling reminder or geofencing notifications.
 */
 class NotificationManager {
     
@@ -91,14 +91,12 @@ class NotificationManager {
         content.subtitle = title ?? ""
         content.body = deadline.formatted()
         content.sound = .default
-//        content.badge = 1 as NSNumber
 
         // Create trigger for notification
         guard let dateComponents = reminderDateComponents(deadline: deadline, offset: reminderOffset) else {
             print("Error: Couldn't create reminder date!")
             return
         }
-        
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
             repeats: false)
@@ -167,7 +165,7 @@ class NotificationManager {
         Finally, it updates the notification request in the notification center with the new badge value.
     */
     func updateBadgesOfPendingRequests() {
-        var badgeCounter = getNumberOfDeliveredNotifications() // TODO: Need to remove this by an intern value if we want the badge to be independent of the NotificationCenter
+        var badgeCounter = getNumberOfDeliveredNotifications() // WARNING: This should later be removed by an internal reminder counter as we want the badge to be independent of the Notification Center
         orderPendingRequestsAscending { orderedRequests in
             for request in orderedRequests {
                 badgeCounter += 1
@@ -190,7 +188,6 @@ class NotificationManager {
         The function takes a completion closure as an argument, which is executed once the requests are sorted and passed to it.
         The closure takes an array of UNNotificationRequest as an argument, which contains the sorted requests.
     */
-
     func orderPendingRequestsAscending(completion: @escaping ([UNNotificationRequest]) -> Void) {
             
         let center = UNUserNotificationCenter.current()

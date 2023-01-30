@@ -162,6 +162,13 @@ struct TaskDetailView: View {
         }
     }
     
+    /**
+        View that displays the reminder information for a task.
+
+        If the task has a `reminderOffset`, a `Section` is created that displays
+        the `reminderOffset`'s name. If the task also has a second reminder `reminderOffsetSecond`,
+        it is displayed as well.
+     */
     @ViewBuilder var reminderSection: some View {
         if let reminder = task.reminderOffset {
             Section {
