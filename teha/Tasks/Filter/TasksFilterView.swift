@@ -88,7 +88,7 @@ fileprivate struct TagFilter: View{
     }
 }
 
-fileprivate struct DateFilter: View{
+fileprivate struct UpcomingFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
     let enabledSection: Bool
     
@@ -98,17 +98,17 @@ fileprivate struct DateFilter: View{
     
     var startBinding: Binding<Date> {
         Binding {
-            return filters.dateInterval.start
+            return filters.upcomingInterval.start
         } set: { newValue in
-            filters.dateInterval.start = Calendar.current.startOfDay(for: newValue)
+            filters.upcomingInterval.start = Calendar.current.startOfDay(for: newValue)
         }
     }
     
     var endBinding: Binding<Date> {
         Binding {
-            return filters.dateInterval.end - TimeInterval.day
+            return filters.upcomingInterval.end - TimeInterval.day
         } set: { newValue in
-            filters.dateInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
+            filters.upcomingInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
         }
     }
     
@@ -146,17 +146,17 @@ fileprivate struct DeadlineFilter: View{
     
     var startBinding: Binding<Date> {
         Binding {
-            return filters.deadline.start
+            return filters.deadlineInterval.start
         } set: { newValue in
-            filters.deadline.start = Calendar.current.startOfDay(for: newValue)
+            filters.deadlineInterval.start = Calendar.current.startOfDay(for: newValue)
         }
     }
     
     var endBinding: Binding<Date> {
         Binding {
-            return filters.deadline.end - TimeInterval.day
+            return filters.deadlineInterval.end - TimeInterval.day
         } set: { newValue in
-            filters.deadline.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
+            filters.deadlineInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
         }
     }
     
@@ -218,7 +218,7 @@ fileprivate struct Filters: View {
     var body: some View {
         if filters.anyFilterActive {
             Section { //TODO: Animation hinzufügen
-                DateFilter(enabledSection: true)
+                UpcomingFilter(enabledSection: true)
                 DeadlineFilter(enabledSection: true)
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
@@ -242,7 +242,7 @@ fileprivate struct Filters: View {
         
         if !filters.allFiltersActive {
             Section {
-                DateFilter(enabledSection: false)
+                UpcomingFilter(enabledSection: false)
                 DeadlineFilter(enabledSection: false)
                 projectPicker(enabledSection: false)
                 priorityPicker(enabledSection: false)

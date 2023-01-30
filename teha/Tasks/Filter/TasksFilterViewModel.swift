@@ -23,17 +23,17 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tagFilterMode: TagFilterMode = .disabled
     @Published var tags: Set<THTag> = .init()
     
-    @Published var _dateFilterMode: DateFilterMode = .disabled
-    @Published var dateInterval: DateInterval = DateInterval()
+    @Published var _upcomingFilterMode: DateFilterMode = .disabled
+    @Published var upcomingInterval: DateInterval = DateInterval()
     
     @Published var _deadlineFilterMode: DateFilterMode = .disabled
-    @Published var deadline: DateInterval = DateInterval()
+    @Published var deadlineInterval: DateInterval = DateInterval()
     
     @Published var search: String = ""
     
     init() {
-        self.dateInterval = self.today()
-        self.deadline = self.today()
+        self.upcomingInterval = self.today()
+        self.deadlineInterval = self.today()
     }
     
     /**
@@ -46,14 +46,14 @@ class TasksFilterViewModel: ObservableObject {
      */
     var dateFilterMode: DateFilterMode{
         get {
-            return _dateFilterMode
+            return _upcomingFilterMode
         }
         set {
-            _dateFilterMode = newValue
-            if _dateFilterMode == .matchToday {
-                dateInterval = today()
-            } else if _dateFilterMode == .matchThisWeek {
-                dateInterval = thisWeek()
+            _upcomingFilterMode = newValue
+            if _upcomingFilterMode == .matchToday {
+                upcomingInterval = today()
+            } else if _upcomingFilterMode == .matchThisWeek {
+                upcomingInterval = thisWeek()
             }
         }
     }
@@ -73,9 +73,9 @@ class TasksFilterViewModel: ObservableObject {
         set {
             _deadlineFilterMode = newValue
             if _deadlineFilterMode == .matchToday {
-                deadline = today()
+                deadlineInterval = today()
             } else if _deadlineFilterMode == .matchThisWeek {
-                deadline = thisWeek()
+                deadlineInterval = thisWeek()
             }
         }
     }
@@ -127,14 +127,14 @@ class TasksFilterViewModel: ObservableObject {
         
         switch dateFilterMode{
         case .matchToday, .matchThisWeek, .custom:
-            fetchRequest.filter(dateInterval: dateInterval)
+            fetchRequest.filter(dateInterval: upcomingInterval)
         default:
             break
         }
         
         switch deadlineFilterMode{
         case .matchToday, .matchThisWeek, .custom:
-            fetchRequest.filter(deadline: deadline)
+            fetchRequest.filter(deadline: deadlineInterval)
         default:
             break
         }
