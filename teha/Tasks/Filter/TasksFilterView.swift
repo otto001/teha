@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+// MARK: TasksFilterView
+
+/// A View designed to be placed in a sheet, allowing the user to configure filters for the TasksListView
 struct TasksFilterView: View {
     
     @Environment(\.dismiss) var dismiss
@@ -17,7 +20,7 @@ struct TasksFilterView: View {
             Form {
                 CompletionPicker()
                     .listRowBackground(Color.clear)
-                Filters()
+                FiltersSections()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -36,6 +39,9 @@ struct TasksFilterView: View {
     }
 }
 
+// MARK: CompletionPicker
+
+/// A View wrapping a SegmentedControl letting the user pick whether to show all tasks, just current ones or just completed ones.
 fileprivate struct CompletionPicker: View {
     @EnvironmentObject var filters: TasksFilterViewModel
 
@@ -58,10 +64,16 @@ fileprivate struct CompletionPicker: View {
 
 }
 
+// MARK: TagFilter
+
+/// A input view letting the user choose tags to filter by. Support filterting agains all or any tag.
 fileprivate struct TagFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
+    
+    /// True if view is placed in the enabled section, false if its in the disabled section
     let enabledSection: Bool
     
+    /// Only visible if the tag filter is enabled and in the enabled section or if it is disabled and in the disabled section.
     var visible: Bool {
         enabledSection == (filters.tagFilterMode != .disabled)
     }
@@ -78,7 +90,9 @@ fileprivate struct TagFilter: View{
                     Label(LocalizedStringKey("tags"), systemImage: "tag")
                 }
                 
-                if enabledSection{
+                if enabledSection {
+                    // If the picker is visible and in the enabledSection section, it is enabled
+                    // Thereforem we show the picker letting users pich tags
                     TagPicker(selection: $filters.tags, compact: true)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -87,6 +101,7 @@ fileprivate struct TagFilter: View{
     }
 }
 
+// MARK: UpcomingFilter
 /**
  A SwiftUI view that allows the user to filter tasks based on an date interval. It will return all upcoming tasks in the specified date interval.
  
@@ -148,6 +163,8 @@ fileprivate struct UpcomingFilter: View{
         }
     }
 }
+
+// MARK: DeadlineFilter
 
 /**
  A SwiftUI view that allows the user to filter tasks based on an deadline date interval. It will return all tasks which deadline lays  in the specified date interval.
@@ -211,28 +228,36 @@ fileprivate struct DeadlineFilter: View{
     }
 }
 
+// MARK: FiltersSections
 
-//all items ausgewählt wenn option = nil
-fileprivate struct Filters: View {
+/// The main part of of the TasksFiltersView, showing the enabled and disabled filters in seperate sections.
+fileprivate struct FiltersSections: View {
 
     @EnvironmentObject var filters: TasksFilterViewModel
     
+    /// Viewbuilder  the projectPicker
     @ViewBuilder func projectPicker(enabledSection: Bool) -> some View {
+        /// Only visible if the project filter is enabled and in the enabled section or if it is disabled and in the disabled section.
         if enabledSection == (filters.project != nil) {
+            /// Project picker for selecting a project to filter by
             ProjectPicker(selection: $filters.project, noneText: "disabled"){
                 Label("project", systemImage: "briefcase")
             }
         }
     }
     
+    /// Viewbuilder  the priorityPicker
     @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View {
+        /// Only visible if the priority filter is enabled and in the enabled section or if it is disabled and in the disabled section.
         if enabledSection == (filters.priority != nil) {
+            /// PriorityPicker to select a priority to filter by
             PriorityPicker( selection: $filters.priority, noneText: "disabled"){
                 Label("priority", systemImage: "text.line.first.and.arrowtriangle.forward")
             }
         }
     }
     
+    /// Viewbuilder for a section of filters
     @ViewBuilder func sectionTitle(_ titleKey: LocalizedStringKey) -> some View {
         Text(titleKey)
             .font(.headline)
@@ -242,13 +267,16 @@ fileprivate struct Filters: View {
     
     var body: some View {
         if filters.anyFilterActive {
-            Section { //TODO: Animation hinzufügen
+            // The section of active filters, only visible if at least one filter is active
+            
+            Section {
                 UpcomingFilter(enabledSection: true)
                 DeadlineFilter(enabledSection: true)
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
                 
+                // A button to reset all filters
                 Button(action: {
                     filters.dateFilterMode = .disabled
                     filters.deadlineFilterMode = .disabled
@@ -266,6 +294,7 @@ fileprivate struct Filters: View {
         
         
         if !filters.allFiltersActive {
+            // The section of all disabled filters, only visible if at least one filter is disabled
             Section {
                 UpcomingFilter(enabledSection: false)
                 DeadlineFilter(enabledSection: false)
@@ -279,6 +308,8 @@ fileprivate struct Filters: View {
     }
 }
 
+
+// MARK: Preview
 struct TasksFilterView_Previews: PreviewProvider {
     static var viewModel: TasksFilterViewModel {
         let viewModel = TasksFilterViewModel()

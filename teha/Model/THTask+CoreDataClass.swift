@@ -13,7 +13,9 @@ import CoreData
 public class THTask: NSManagedObject {
     // prepare a repeating task for deletion by removing it from the repeating chain of the parent
     public override func prepareForDeletion() {
+        // remove from repeating chain in needed
         self.removeFromRepeatingChain()
+        // cancel notifications
         NotificationManager.instance.cancelPendingNotifications(for: self)
         
     }
@@ -49,6 +51,7 @@ extension THTask {
         }
     }
     
+    /// The priority assiged to the task
     var priority: Priority {
         get {
             return Priority(rawValue: Int(self.priorityNumber))!
@@ -68,13 +71,18 @@ extension THTask {
         }
     }
     
+    /// True if the task was started by the user
     var isStarted: Bool { self.startDate != nil }
+    
+    /// True if the task was completed by the user
     var isCompleted: Bool { self.completionDate != nil }
     
+    /// Marks the task as started at the current date
     func started() {
         self.startDate = .now
     }
     
+    /// Marks the task as completed at the current date
     func completed() {
         self.completionDate = .now
         self.completionProgress = 1
@@ -104,6 +112,7 @@ extension THTask {
 //MARK: FetchRequests
 extension THTask {
     
+    /// A fetch request fetching all tags sorted by: deadline (asc), priority (desc), creationDate (desc), title (asc)
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true),
@@ -112,18 +121,13 @@ extension THTask {
                                    NSSortDescriptor(key: "title", ascending: true),]
         return request
     }
-    
-    static func filter(project: THProject) -> NSFetchRequest<THTask> {
-        let request = THTask.all
-        request.predicate = NSPredicate(format: "project == %@", project)
-        return request
-    }
-    
 }
 
 
 extension NSFetchRequest where ResultType == THTask {
     
+    /// Modifies the predicate of the fetch request to only include tasks that are/are not completed
+    /// - Parameter completed: If true, only completed tasks are inlcuded, if false, only not completed tasks are included.
     func filter(completed: Bool) {
         if completed {
             self.predicateAnd(with: NSPredicate(format: "completionDate != nil"))
@@ -132,31 +136,48 @@ extension NSFetchRequest where ResultType == THTask {
         }
     }
     
+    /// Modifies the predicate of the fetch request to only include tasks of the given project.
+    /// - Parameter project: The project to filter by.
     func filter(project: THProject) {
         self.predicateAnd(with: NSPredicate(format: "project == %@", project))
     }
     
+    /// Modifies the predicate of the fetch request to only include tasks of the given priority.
+    /// - Parameter priority: The priority to filter by.
     func filter(priority: Priority) {
         self.predicateAnd(with: NSPredicate(format: "priorityNumber == %d", priority.rawValue))
     }
     
+    /// Modifies the predicate of the fetch request to only include tasks that have their deadline before or at the given date.
+    /// - Parameter date: The date to filter by.
     func filter(deadlineBeforeEquals date: Date) {
         self.predicateAnd(with: NSPredicate(format: "deadline <= %@", date as NSDate))
     }
     
+    /// Modifies the predicate of the fetch request to only include tasks that have their deadline after the given date
+    /// - Parameter date: The date to filter by.
     func filter(deadlineAfter date: Date) {
         self.predicateAnd(with: NSPredicate(format: "deadline > %@", date as NSDate))
     }
     
-    enum TagFilterMode{
-        case matchAll, matchAny
+    /// Little helper enum for .filter(tags:mode:)
+    enum TagFilterMode {
+        /// Matching tasks must include all tags
+        case matchAll
+        
+        /// Matching tasks must include at least of the tags
+        case matchAny
     }
     
+    /// Modifies the predicate of the fetch request to only include tasks that have either any of all of the given tags.
+    /// - Parameter tags: The tags to filter by.
+    /// - Parameter mode: Whether to matches need to include at least one or all of the tags.
     func filter(tags: Set<THTag>, mode: TagFilterMode) {
         switch mode {
         case .matchAny:
             self.predicateAnd(with: NSPredicate(format: "(ANY tags IN %@)", Array(tags)))
         case .matchAll:
+            // Unfortunately (ALL tags IN %@) is not supported by CoreData, so we add a bunch of ANDs. This is fine, since the user generally does not include thousands of tags.
             for tag in tags {
                 self.predicateAnd(with: NSPredicate(format: "(ANY tags == %@)", tag))
             }
@@ -220,10 +241,14 @@ extension NSFetchRequest where ResultType == THTask {
 }
 
 //MARK: Sectioning
+
 extension THTask {
+    // The following computed vars are used to place tasks in different sections when fetching from core data.
+    
     
     /// ISO8601 string of the year, month and day of the deadline
     /// Format: "[year]-[month]-[day]"
+    /// - Note: Used for sectioning tasks by day.
     @objc var deadlineDayString: String {
         guard let deadline = self.deadline else { return "none" }
         return deadline.ISO8601Format(.iso8601Date(timeZone: .current))
@@ -231,6 +256,7 @@ extension THTask {
     
     /// The year and week of the deadline as a string.
     /// Format: "[year]-CW[week]"
+    /// - Note: Used for sectioning tasks by calendar week.
     @objc var deadlineWeekString: String {
         guard let deadline = self.deadline else { return "none" }
         let year = Calendar.current.component(.year, from: deadline)
@@ -240,6 +266,7 @@ extension THTask {
     
     /// Cropped ISO8601 string of the year and month of the deadline
     /// Format: "[year]-[month]"
+    /// - Note: Used for sectioning tasks by month.
     @objc var deadlineMonthString: String {
         guard let deadline = self.deadline else { return "none" }
         return String(deadline.ISO8601Format(.iso8601Date(timeZone: .current)).substring(start: 0, end: 7))
@@ -247,6 +274,7 @@ extension THTask {
     
     /// The year of the deadline as a string
     /// Format: "[year]"
+    /// - Note: Used for sectioning tasks by year.
     @objc var deadlineYearString: String {
         guard let deadline = self.deadline else { return "none" }
         let year = Calendar.current.component(.year, from: deadline)
