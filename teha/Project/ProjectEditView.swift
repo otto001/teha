@@ -15,6 +15,7 @@ struct ProjectEditView: View {
     @State private var name: String = ""
     @State private var priority: Priority = .normal
     @State private var color: ColorChoice = .pink
+    @State private var deadline: Date? = nil
     
     let project: THProject?
     
@@ -46,6 +47,7 @@ struct ProjectEditView: View {
         project.name = name
         project.priority = priority
         project.color = color
+        project.deadline = deadline
         
         if !editing {
             project.creationDate = Date.now
@@ -66,9 +68,11 @@ struct ProjectEditView: View {
 
                 Section {
                     PriorityPicker("priority", selection: $priority)
-
-
                     SimpleColorPicker(title: "color", selection: $color)
+                    OptionalDatePicker("deadline",
+                                       addText: "deadline-add",
+                                       selection: $deadline,
+                                       defaultDate: Calendar.current.date(byAdding: .month, value: 1, to: .now)!)
                 }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
@@ -80,6 +84,7 @@ struct ProjectEditView: View {
                 name = project.name ?? ""
                 priority = project.priority
                 color = project.color
+                deadline = project.deadline
             }
         }
         .interactiveDismissDisabled()

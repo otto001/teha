@@ -59,6 +59,7 @@ struct TaskEditView: View {
         
         task.earliestStartDate = data.earliestStartDate
         task.deadline = data.deadline
+        task.useProjectDeadline = data.useProjectDeadline
         
         task.estimatedWorktime = data.estimatedWorktime
         
@@ -101,6 +102,14 @@ struct TaskEditView: View {
                     if data.deadlineBeforeEarliestStartDate {
                         Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
                             .foregroundColor(.red)
+                    }
+                }
+                
+                if data.project != nil && data.deadline != data.project!.deadline {
+                    Section {
+                        Button("task-use-project-deadline") {
+                            data.useProjectDeadline = true
+                        }
                     }
                 }
                 
@@ -178,7 +187,22 @@ extension TaskEditView {
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
-        var deadline: Date? = nil
+        
+        var deadlineOverride: Date? = nil
+        var useProjectDeadline = true
+        var deadline: Date? {
+            get {
+                if useProjectDeadline {
+                    return project?.deadline
+                } else {
+                    return deadlineOverride
+                }
+            }
+            set {
+                deadlineOverride = newValue
+                useProjectDeadline = deadlineOverride == project?.deadline
+            }
+        }
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
@@ -227,7 +251,8 @@ extension TaskEditView {
             self.notes = task.notes ?? ""
             self.priority = task.priority
             self.earliestStartDate = task.earliestStartDate
-            self.deadline = task.deadline
+            self.deadlineOverride = task.deadlineOverride
+            self.useProjectDeadline = task.useProjectDeadline
             self.estimatedWorktime = task.estimatedWorktime
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
