@@ -78,9 +78,9 @@ struct StatView: View {
                     Image(systemName: systemName).foregroundStyle(.white)
                 }
                 HStack {
-                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1)
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1).foregroundColor(.label)
                     Spacer()
-                    Text("\(count)").bold().font(.title)
+                    Text("\(count)").bold().font(.title).foregroundColor(.label)
                 }
             }
             .padding(.all)
