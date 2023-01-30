@@ -24,13 +24,14 @@ extension Set: RawRepresentable where Element == Int {
 /// The View for inputting the workdays of every week
 fileprivate struct WorkDaysSettingInput: View {
     // Setting the workdays variable for the first time in the AppStorage
-    @AppStorage(SettingsAppStorageKey.workDays.rawValue) var activeDays: Set<Int> = Set<Int>([1, 2, 3, 4, 5])
+    @AppStorage(SettingsAppStorageKey.workDays.rawValue) var activeDays: Set<Int> = Set<Int>([2, 3, 4, 5, 6])
 
     /// Creates a useable button to select or deselect a day of the week
-    @ViewBuilder func dayButton(for day: Int) -> some View {
-        let isSelected = activeDays.contains(day)
+    @ViewBuilder func dayButton(for normedWeekday: Int) -> some View {
+        let isSelected = activeDays.contains(normedWeekday)
         
-        Text(dateFormatter.veryShortStandaloneWeekdaySymbols[day])
+        
+        Text(dateFormatter.veryShortStandaloneWeekdaySymbols[normedWeekday-1])
             .font(.system(size: 15))
             .frame(width: 30, height: 30)
             .background {
@@ -41,10 +42,11 @@ fileprivate struct WorkDaysSettingInput: View {
             // Removes or inserts the current day from the active workdays
             .onTapGesture {
                 if isSelected {
-                    activeDays.remove(day)
+                    activeDays.remove(normedWeekday)
                 } else {
-                    activeDays.insert(day)
+                    activeDays.insert(normedWeekday)
                 }
+                print(activeDays)
             }
     }
     
@@ -55,9 +57,10 @@ fileprivate struct WorkDaysSettingInput: View {
                 Text("workdays")
                 
                 HStack(spacing: 0) {
-                    let firstWeekDay = Calendar.current.firstWeekday
-                    ForEach(firstWeekDay ..< (firstWeekDay + 7)) { day in
-                        dayButton(for: (day - 1) % 7).frame(maxWidth: .infinity)
+                    ForEach(0..<7) { localizedDayStartingWithZero in
+                        // Careful: localizedDayStartingWithZero == 0 -> Sunday!
+                        let normalizedWeekDay = (localizedDayStartingWithZero + Calendar.current.firstWeekday - 1) % 7 + 1
+                        dayButton(for: normalizedWeekDay).frame(maxWidth: .infinity)
                     }
                 }
                 .frame(maxWidth: .infinity)
