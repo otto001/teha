@@ -9,6 +9,8 @@ The app is completly written in SwiftUi.
 ```
 teha/
 ├─ Onboarding/
+├─ Location/
+├─ Geofencing/
 ├─ Localization/
 ├─ Model/
 ├─ Base/
@@ -47,6 +49,36 @@ Multiple OnboardingPageViews, which are controlled by the OnboardingView.swift t
 
 - SwiftUI
 
+## Location
+### structure
+```
+├─ Location/
+  ├─ LocationPicker.swift // A button which opens a sheet and gives the opportunity to add a location
+  ├─ LocationSearch.swift // AutoComplete service for the LocationPicker
+  ```
+### functionality
+
+Sheet including an editbox, where you can put in an address and get suggestions. 
+
+### Dependencies
+
+- MapKit
+
+## Geofencing
+### structure
+```
+├─ Geofencing/
+  ├─ Geomonitor.swift // handling the region monitoring for tasks
+  ```
+### functionality
+
+Tasks can get monitored by giving their location to the Geomonitor. The Geomonitor will send out a notificiation if a task location is nearby.
+
+### Dependencies
+
+- MapKit
+- CoreLocation
+
 ## Localization
 
 ### structure
@@ -84,6 +116,7 @@ teha supports german and english translation. These files contain the translatio
 - SwiftUI
 - CoreData
 - Fondation
+
 
 ## Base
 ### structure
