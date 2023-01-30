@@ -64,7 +64,7 @@ struct SettingsTab: View {
             Form {
                 WorkDaysSettingsView()
                 
-                SimpleColorPicker(title: "color-accent", selection: $accentColor)
+                SimpleColorPicker(title: "color-accent", selection: $accentColor, allowCustomColor: false)
                 Toggle("settings-use-themed-appicon", isOn: $useThemedAppIcon)
                 
                 Section {

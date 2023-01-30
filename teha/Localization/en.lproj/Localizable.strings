@@ -248,17 +248,17 @@
 
 "tasks-delete-confirmation" = "Delete Tasks?";
 
-"tasks-doing" = "Doing";
+"tasks-doing" = "Started";
 
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Done";
+"tasks-finished" = "Completed";
 
 "tasks-none" = "No tasks";
 
 "tasks-overdue" = "Overdue";
 
-"tasks-todo" = "To Do";
+"tasks-todo" = "Not Started";
 
 "title" = "Title";
 
