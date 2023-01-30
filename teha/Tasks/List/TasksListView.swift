@@ -66,9 +66,7 @@ fileprivate struct FilteredTasksListView: View {
         }
         else if sections.isEmpty{
             NoTaskView()
-        }
-        
-        else {
+        } else {
             List(selection: $selectedTasks) {
                 ForEach(sections) { section in
                     TaskListSectionView(section, now: now) { task in

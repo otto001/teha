@@ -19,7 +19,7 @@ struct ProjectNoStatsView: View {
 struct ProjectDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State var edit = false
+    @State private var edit = false
     
     let project: THProject
     
