@@ -11,23 +11,23 @@ fileprivate func formatWeekOfYear(year: Int, weekOfYear: Int) -> String {
     let now: Date = .now
     let currentYear = Calendar.current.component(.year, from: now)
 
-    let weekString = "CW \(weekOfYear)"
+    let weekString = String(format: NSLocalizedString("CW-%@", comment: ""), "\(weekOfYear)")
     
     if year == currentYear {
         let currentWeek = Calendar.current.component(.weekOfYear, from: now)
         
         if weekOfYear == currentWeek - 1 {
-            return "Last Week"
+            return String(localized: "last-week")
         } else if weekOfYear == currentWeek {
-            return "This Week"
+            return String(localized: "this-week")
         } else if weekOfYear == currentWeek + 1 {
-            return "Next Week"
+            return String(localized: "next-week")
         }
         
         return weekString
     }
     
-    return "\(weekString), \(year)"
+    return "\(weekString), \(year)" // TODO: check if this is correct.
 }
 
 fileprivate let yearMonthParseFormatter: DateFormatter = {
@@ -72,7 +72,7 @@ struct TaskListSectionView: View {
     
     var sectionTitle: String {
         let id = section.id
-        guard id != "none" else { return "No Deadline" }
+        guard id != "none" else { return String(localized: "deadline-no") }
         let year = Int(id.substring(start: 0, end: 4))!
         
         if id.count >= 8 && id.substring(start: 4, end: 7) == "-CW" {
@@ -101,7 +101,7 @@ struct TaskListSectionView: View {
                     }
                 } label: {
                     HStack {
-                        Text("\(section.count) Tasks without Deadline")
+                        Text(String(format: NSLocalizedString("%@-tasks-without-deadline", comment: ""), "\(section.count)"))
                         Spacer()
                         Image(systemName: "chevron.right")
                             .rotationEffect(Angle(degrees:collapsed ? 0 : 90))

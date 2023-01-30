@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priority";
 
+"%@-tasks-without-deadline" = "%@ Tasks without Deadline";
+
 "%@-worktime-remaining" = "%@ remaining to complete";
 
 "add" = "Add";
@@ -50,6 +52,8 @@
 
 "custom" = "Custom";
 
+"CW-%@" = "Week %@";
+
 "date" = "Date";
 
 "day" = "Day";
@@ -61,6 +65,8 @@
 "deadline-approaching" = "Approaching Deadline:";
 
 "deadline-change" = "Change Deadline";
+
+"deadline-no" = "No Deadline";
 
 "deadline-remove" = "Remove Deadline";
 
@@ -143,6 +149,8 @@
 "new-task" = "New Task";
 
 "next" = "Next";
+
+"next-week" = "Next Week";
 
 "no-reminder" = "None";
 
@@ -273,6 +281,8 @@
 "tasks-todo" = "Not Started";
 
 "to:" = "To:";
+
+"this-week" = "This Week";
 
 "title" = "Title";
 

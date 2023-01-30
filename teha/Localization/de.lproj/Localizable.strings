@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%@-tasks-without-deadline" = "%@ Aufgaben ohne Deadline";
+
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
 
 "add" = "Hinzufügen";
@@ -50,6 +52,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"CW-%@" = "Woche %@";
+
 "date" = "Datum";
 
 "day" = "Tag";
@@ -61,6 +65,8 @@
 "deadline-approaching" = "Näher rückende Deadline:";
 
 "deadline-change" = "Deadline ändern";
+
+"deadline-no" = "Keine Deadline";
 
 "deadline-remove" = "Entferne Deadline";
 
@@ -110,6 +116,8 @@
 
 "internal-error-recover" = "Sorry!";
 
+"last-week" = "Letzte Woche";
+
 "low" = "Niedrig";
 
 "low-priority" = "Niedrige Priorität";
@@ -141,6 +149,8 @@
 "new-project" = "Neues Projekt";
 
 "new-task" = "Neue Aufgabe";
+
+"next-week" = "Nächste Woche";
 
 "next" = "Weiter";
 
@@ -271,6 +281,8 @@
 "tasks-overdue" = "Überfällig";
 
 "tasks-todo" = "Nicht angefangen";
+
+"this-week" = "Diese Woche";
 
 "title" = "Titel";
 
