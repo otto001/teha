@@ -144,8 +144,8 @@ class TasksFilterViewModel: ObservableObject {
             fetchRequest.filterReoccuringTask()
         }
         
-
         // filter by currently selected tags and the tagFilterMode
+        switch tagFilterMode{
         case .matchAny:
             fetchRequest.filter(tags: tags, mode: .matchAny)
         case .matchAll:
