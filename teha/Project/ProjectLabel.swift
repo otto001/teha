@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ProjectLabel: View {
-    let project: THProject
+    @ObservedObject var project: THProject
     var body: some View {
         HStack {
             Image(systemName: "circle.fill")
                 .foregroundStyle(project.color.color, .gray)
             Text(project.name ?? "")
         }
+        //.onAppear()
     }
 }
 

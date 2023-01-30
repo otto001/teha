@@ -44,6 +44,7 @@ struct TaskEditView: View {
         } set: { newValue in
             data.project = newValue
             data.priority = newValue?.priority ?? data.priority
+            data.deadline = newValue?.deadline ?? data.deadline
         }
 
     }
@@ -92,6 +93,10 @@ struct TaskEditView: View {
     }
     
     var defaultDeadline: Date {
+        if let deadline = data.project?.deadline {
+            return deadline
+        }
+        
         var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
         date = Calendar.current.date(bySettingHour: startOfWorkDay.hours, minute: startOfWorkDay.minutes, second: 0, of: date) ?? .now
         return date
@@ -121,10 +126,12 @@ struct TaskEditView: View {
                     }
                 }
                 
-                if data.project != nil && data.deadline != data.project!.deadline {
+                if data.deadline != nil
+                    && data.project?.deadline != nil
+                    && data.deadline != data.project?.deadline {
                     Section {
                         Button("task-use-project-deadline") {
-                            data.useProjectDeadline = true
+                            data.deadline = data.project?.deadline
                         }
                     }
                 }
@@ -223,21 +230,7 @@ extension TaskEditView {
         
         var earliestStartDate: Date? = nil
         
-        var deadlineOverride: Date? = nil
-        var useProjectDeadline = true
-        var deadline: Date? {
-            get {
-                if useProjectDeadline {
-                    return project?.deadline
-                } else {
-                    return deadlineOverride
-                }
-            }
-            set {
-                deadlineOverride = newValue
-                useProjectDeadline = deadlineOverride == project?.deadline
-            }
-        }
+        var deadline: Date? = nil
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
@@ -291,8 +284,7 @@ extension TaskEditView {
             self.priority = task.priority
             
             self.earliestStartDate = task.earliestStartDate
-            self.deadlineOverride = task.deadlineOverride
-            self.useProjectDeadline = task.useProjectDeadline
+            self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
             
             self.repeatInterval = task.repeatInterval

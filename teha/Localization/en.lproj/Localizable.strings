@@ -50,6 +50,8 @@
 
 "custom" = "Custom";
 
+"date" = "Date";
+
 "day" = "Day";
 
 "deadline" = "Deadline";
@@ -92,6 +94,8 @@
 
 "filter" = "Filter";
 
+"from:" = "From:";
+
 "group" = "Group";
 
 "group-tasks-by" = "Group Tasks by:";
@@ -126,6 +130,10 @@
 
 "match-any-tag" = "Any Selected Tag";
 
+"match-this-week" = "This Week";
+
+"match-today" = "Today";
+
 "month" = "Month";
 
 "name" = "Name";
@@ -137,6 +145,14 @@
 "next" = "Next";
 
 "no-reminder" = "None";
+
+"no-projects" = "No projects available";
+
+"no-projects-empty-text" = "Are you sure, that you don't have any upcoming projects? Add them now!";
+
+"no-tasks" = "No tasks available";
+
+"no-tasks-empty-text" = "It's quite empty here. Let's start getting productive together and add your first task!";
 
 "none" = "None";
 
@@ -183,6 +199,8 @@
 "repeat-daily" = "Daily";
 
 "repeat-weekly" = "Weekly";
+
+"reset-all-filters" = "Reset all Filters";
 
 "select" = "Select";
 
@@ -252,11 +270,15 @@
 
 "tasks-finished" = "Completed";
 
+"tasks-filter" = "Tasks Filter";
+
 "tasks-none" = "No tasks";
 
 "tasks-overdue" = "Overdue";
 
 "tasks-todo" = "Not Started";
+
+"to:" = "To:";
 
 "title" = "Title";
 

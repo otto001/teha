@@ -24,7 +24,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     // ensure that the tasks tab is the default tab (i.e., landing page)
-    @State private var tab: Tab = .suggestions
+    @State private var tab: Tab = .tasks
     
     @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
     
