@@ -55,8 +55,9 @@ fileprivate struct WorkDaysSettingInput: View {
                 Text("workdays")
                 
                 HStack(spacing: 0) {
-                    ForEach(0..<7) { day in
-                        dayButton(for: day).frame(maxWidth: .infinity)
+                    let firstWeekDay = Calendar.current.firstWeekday
+                    ForEach(firstWeekDay ..< (firstWeekDay + 7)) { day in
+                        dayButton(for: (day - 1) % 7).frame(maxWidth: .infinity)
                     }
                 }
                 .frame(maxWidth: .infinity)
