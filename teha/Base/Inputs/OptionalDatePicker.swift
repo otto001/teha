@@ -17,6 +17,7 @@ struct OptionalDatePicker: View {
     let removeText: LocalizedStringKey
     
     @Binding var selection: Date?
+    /// The default value to be used when the user chooses to add a value.
     @State private var defaultValue: Date = .now
     
     init(_ title: LocalizedStringKey,
@@ -35,6 +36,7 @@ struct OptionalDatePicker: View {
         self.removeText = removeText
         self._selection = selection
         
+        // Some wonky stuff to make the default value work
         self._defaultValue = .init(initialValue: defaultDate)
     }
     

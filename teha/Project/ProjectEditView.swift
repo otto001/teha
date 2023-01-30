@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+/// A view that allows the user to edit or create a project.
 struct ProjectEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
@@ -22,6 +23,7 @@ struct ProjectEditView: View {
     
     let project: THProject?
     
+    /// Set up the view for editing or creating a project.
     init(_ mode: Mode) {
         switch mode {
         case .add:
@@ -31,24 +33,29 @@ struct ProjectEditView: View {
         }
     }
     
+    /// Whether the view is in edit mode.
     var editing: Bool {
         project != nil
     }
     
+    /// Whether the view is in a valid state & the user can save the project.
     var valid: Bool {
         return !name.isEmpty
     }
     
+    /// The title of the navigation bar.
     var navigationTitle: String {
         return editing ? name : String(localized: "new-project")
     }
     
+    /// The default deadline for a new project, this is the end of the work day in 7 days.
     var defaultDeadline: Date {
         var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
         date = Calendar.current.date(bySettingHour: endOfWorkDay.hours, minute: endOfWorkDay.minutes, second: 0, of: date) ?? .now
         return date
     }
     
+    /// Save the project and dismiss the view.
     func done() {
         guard valid else { return }
         let editing = project != nil
@@ -81,7 +88,7 @@ struct ProjectEditView: View {
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
                                        selection: $deadline,
-                                       defaultDate: Calendar.current.date(byAdding: .month, value: 1, to: .now)!)
+                                       defaultDate: defaultDeadline)
                 }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
@@ -90,16 +97,18 @@ struct ProjectEditView: View {
         }
         .onAppear {
             if let project = project {
+                // Set the initial values to the project's values
                 name = project.name ?? ""
                 priority = project.priority
                 color = project.color
                 deadline = project.deadline
             }
         }
-        .interactiveDismissDisabled()
+        .interactiveDismissDisabled() // Prevent the user from accidentally dismissing the view
     }
 }
 
+/// The mode of the view.
 extension ProjectEditView {
     enum Mode {
         case add

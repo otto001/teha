@@ -131,6 +131,7 @@ struct SimpleColorPicker: View {
     let title: LocalizedStringKey
     @Binding var selection: ColorChoice
     
+    /// Whether the user is allowed to pick a custom color, or only the standard colors.
     let allowCustomColor: Bool
     
     /// True when the detail page (which is the actual input) is pushed.

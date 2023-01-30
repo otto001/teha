@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-struct ProjectNoStatsView: View {
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "list.bullet").font(.largeTitle)
-            Text("tasks-none")
-        }
-    }
-}
 
+/// A view that shows the stats of a project.
+/// This handles navigation and the possibility of an empty project, while the actual stats are shown in `ProjectStatsView`.
 struct ProjectDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -29,7 +23,7 @@ struct ProjectDetailView: View {
                 ProjectStatsView(project: project)
             } else {
                 VStack {
-                    ProjectNoStatsView()
+                    NoTaskView()
                 }
             }
         }
