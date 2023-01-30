@@ -98,18 +98,14 @@ struct ProjectsListView: View {
     var body: some View {
         if sections.isEmpty{
             NoProjectView()
-        }
-        
-        else {
-            NavigationStack {
-                List {
-                    ForEach(sections) { section in
-                        let projects = section.search(query: query)
-                        if projects.count > 0 {
-                            Section(sectionTitle(for: section.id)) {
-                                ForEach(projects) { project in
-                                    ProjectRow(project: project)
-                                }
+        } else {
+            List {
+                ForEach(sections) { section in
+                    let projects = section.search(query: query)
+                    if projects.count > 0 {
+                        Section(sectionTitle(for: section.id)) {
+                            ForEach(projects) { project in
+                                ProjectRow(project: project)
                             }
                         }
                     }
