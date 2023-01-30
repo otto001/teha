@@ -4,7 +4,7 @@
 
 "%@" = "%@";
 
-"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe abgehakt werden. Willst du es probieren?";
+"%@-location-arrived-body" = "Deine Aufgabe %@ kann direkt in deiner Nähe erledigt werden.";
 
 "%@-priority" = "%@ Priorität";
 
@@ -121,8 +121,6 @@
 "location" = "Standort";
 
 "location-add" = "Standort hinzufügen";
-
-"location-arrived-body" = "ist gerade in der Nähe absolvierbar. Jetzt abchecken?";
 
 "location-arrived-title" = "Aufgabe in der Nähe";
 

@@ -4,7 +4,7 @@
 
 "%@" = "%@";
 
-"%@-location-arrived-body" = "Your task %@ can be completed right neext to you. You want to try it?";
+"%@-location-arrived-body" = "Your task %@ can be completed close to your current Location.";
 
 "%@-priority" = "%@ Priority";
 
@@ -121,8 +121,6 @@
 "location" = "Location";
 
 "location-add" = "Add Location";
-
-"location-arrived-body" = "task location is currently nearby. Do you want to take a look into it?";
 
 "location-arrived-title" = "Task nearby";
 
