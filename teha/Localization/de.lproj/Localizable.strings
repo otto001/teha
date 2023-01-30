@@ -154,6 +154,10 @@
 
 "no-tasks-empty-text" = "Sieht ziemlich leer aus! Lass uns gemeinsam produktiv werden und erstelle deine erste Aufgabe!";
 
+"no-tasks-filter" = "No tasks match these filters";
+
+"no-project-filter" = "No projects match these filters";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -230,7 +234,7 @@
 
 "suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
 
-"suggestions-no-calculateable-tasks-recovery" = "Du hast alle Aufgaben mit Deadlines erledigt, oder keine Deadlines bei deinen Aufgaben gesetzt";
+"suggestions-no-calculateable-tasks-recovery" = "Du hast alle Aufgaben mit Deadlines erledigt, oder keine Deadlines bei deinen Aufgaben gesetzt.";
 
 "suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müsstes du möglicherweise Überstunden machen.";
 
