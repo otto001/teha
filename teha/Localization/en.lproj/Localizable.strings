@@ -8,7 +8,11 @@
 
 "%@-priority" = "%@ Priority";
 
+"%@-tasks-without-deadline" = "%@ Tasks without Deadline";
+
 "%@-worktime-remaining" = "%@ remaining to complete";
+
+"CW-%@" = "Week %@";
 
 "add" = "Add";
 
@@ -52,6 +56,8 @@
 
 "custom" = "Custom";
 
+"date" = "Date";
+
 "day" = "Day";
 
 "deadline" = "Deadline";
@@ -61,6 +67,8 @@
 "deadline-approaching" = "Approaching Deadline:";
 
 "deadline-change" = "Change Deadline";
+
+"deadline-no" = "No Deadline";
 
 "deadline-remove" = "Remove Deadline";
 
@@ -93,6 +101,8 @@
 "estimated-worktime-too-high" = "The estimated time to completion may not exceed 48 hours.";
 
 "filter" = "Filter";
+
+"from:" = "From:";
 
 "group" = "Group";
 
@@ -138,9 +148,15 @@
 
 "match-any-tag" = "Any Selected Tag";
 
+"match-this-week" = "This Week";
+
+"match-today" = "Today";
+
 "month" = "Month";
 
 "name" = "Name";
+
+"never" = "Never";
 
 "new-project" = "New Project";
 
@@ -148,7 +164,21 @@
 
 "next" = "Next";
 
+"next-week" = "Next Week";
+
+"no-project-filter" = "No projects match these filters";
+
+"no-projects" = "No projects available";
+
+"no-projects-empty-text" = "Are you sure, that you don't have any upcoming projects? Add them now!";
+
 "no-reminder" = "None";
+
+"no-tasks" = "No tasks available";
+
+"no-tasks-empty-text" = "It's quite empty here. Let's start getting productive together and add your first task!";
+
+"no-tasks-filter" = "No tasks match these filters";
 
 "none" = "None";
 
@@ -166,7 +196,15 @@
 
 "ok" = "Ok";
 
+"onboarding-projects" = "Manage projects with multiple tasks";
+
+"onboarding-settings" = "Set your own personal work hours";
+
 "onboarding-show" = "Show Onboarding";
+
+"onboarding-suggestions" = "Suggestions, based on your tasks";
+
+"onboarding-tasks" = "Create and organize your tasks";
 
 "other-filters" = "Other Filters";
 
@@ -190,6 +228,32 @@
 
 "remove-%@" = "Remove %@";
 
+"repeat" = "Repeat";
+
+"repeat-daily" = "Daily";
+
+"repeat-deadline-after" = "The end date of the repetitions must be after the deadline of the task.";
+
+"repeat-deadline-years" = "The end date of the repetitions must not be more than two years in the future.";
+
+"repeat-weekly" = "Weekly";
+
+"repeating-delete-future" = "Delete all future Tasks";
+
+"repeating-delete-only-self" = "Delete only this Task";
+
+"repeating-delete-prompt" = "This is a repeating Task.";
+
+"repeating-end-date" = "Last Repeat";
+
+"repeating-update-future" = "Change all future tasks";
+
+"repeating-update-future-prompt" = "This is a repeating Task.";
+
+"repeating-update-only-self" = "Only change this task";
+
+"reset-all-filters" = "Reset all Filters";
+
 "select" = "Select";
 
 "select-tasks" = "Select Tasks";
@@ -201,6 +265,8 @@
 "settings-no-workdays-selected-error" = "Please select at least one day.";
 
 "settings-open" = "Open Settings";
+
+"settings-use-themed-appicon" = "Use themed app icon";
 
 "settings-worktime-error" = "The start of works must be before the end of work.";
 
@@ -242,25 +308,35 @@
 
 "task-must-have-title" = "The Task must have a title.";
 
+"task-use-project-deadline" = "Use Project Deadline";
+
 "tasks" = "Tasks";
 
 "tasks-completed" = "Completed tasks";
 
 "tasks-delete-confirmation" = "Delete Tasks?";
 
-"tasks-doing" = "Doing";
+"tasks-doing" = "Started";
 
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Done";
+"tasks-filter" = "Tasks Filter";
+
+"tasks-finished" = "Completed";
 
 "tasks-none" = "No tasks";
 
 "tasks-overdue" = "Overdue";
 
-"tasks-todo" = "To Do";
+"tasks-todo" = "Not Started";
+
+"this-week" = "This Week";
 
 "title" = "Title";
+
+"to:" = "To:";
+
+"upcoming" = "Upcoming";
 
 "urgent" = "Urgent";
 

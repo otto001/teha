@@ -93,6 +93,7 @@ fileprivate struct TasksChangeProjectSheet: View {
 
 struct TaskListToolbarView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.editMode) var editMode
     
     @Binding var selected: Set<NSManagedObjectID>
     
@@ -134,6 +135,7 @@ struct TaskListToolbarView: View {
                 }
                 
                 selected.removeAll()
+                editMode?.wrappedValue = .inactive
                 
                 // TODO: error handling
                 try? viewContext.save()
@@ -157,8 +159,7 @@ struct TaskListToolbarView: View {
                 // TODO: error handling
                 try? viewContext.save()
             } label: {
-                // TODO: change icons?
-                Label("mark-as-not-started", systemImage: "play.circle")
+                Label("mark-as-not-started", systemImage: "circle")
             }
             
             Button {
@@ -170,8 +171,7 @@ struct TaskListToolbarView: View {
                 // TODO: error handling
                 try? viewContext.save()
             } label: {
-                // TODO: change icons?
-                Label("mark-as-started", systemImage: "play.circle")
+                Label("mark-as-started", systemImage: "minus")
             }
             
             Button {
@@ -181,8 +181,7 @@ struct TaskListToolbarView: View {
                 // TODO: error handling
                 try? viewContext.save()
             } label: {
-                // TODO: change icons?
-                Label("mark-as-completed", systemImage: "play.circle")
+                Label("mark-as-completed", systemImage: "circle.fill")
             }
         }
     }
@@ -192,12 +191,12 @@ struct TaskListToolbarView: View {
             Button {
                 showChangeDeadlineSheet = true
             } label: {
-                Label("deadline-change", systemImage: "play.circle")
+                Label("deadline-change", systemImage: "calendar.badge.exclamationmark")
             }
             Button {
                 showChangeEarliestStartdateSheet = true
             } label: {
-                Label("earliest-startdate-change", systemImage: "play.circle")
+                Label("earliest-startdate-change", systemImage: "calendar")
             }
             Button {
                 showChangeProjectSheet = true

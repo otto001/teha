@@ -7,16 +7,31 @@
 
 import SwiftUI
 
-
+/// A view that displays a list of projects.
+/// This view is mainly used for navigation, and the actual list is displayed in `ProjectsListView`.
 struct ProjectsTab: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    /// Whether the add sheet is currently presented.
     @State private var addSheet: Bool = false
+    /// The current search query.
     @State private var search = ""
     
     var body: some View {
         NavigationStack {
             ProjectsListView(query: search)
+            .navigationDestination(for: THProject.self) { project in
+                // Navigate to the project detail view.
+                ProjectDetailView(project: project)
+            }
+            .navigationDestination(for: StatsViewPath.self) { path in
+                // Navigate to the stats view.
+                TasksListView().environmentObject(path.makeFiltersViewModel()).navigationTitle(path.title)
+            }
+            .navigationDestination(for: THTask.self) { task in
+                // Navigate to the task detail view; this is a workaround for a SwiftUI bug.
+                TaskDetailView(task: task)
+            }
             .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

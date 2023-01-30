@@ -18,6 +18,7 @@ public class THTag: NSManagedObject {
 //MARK: FetchRequests
 extension THTag {
     
+    /// A fetch request fetching all tags sorted by name
     static var all: NSFetchRequest<THTag> {
         let request = THTag.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]

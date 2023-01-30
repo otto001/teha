@@ -26,6 +26,10 @@
 		027629A129795CA5009663E8 /* SuggestionsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027629A029795CA5009663E8 /* SuggestionsGenerator.swift */; };
 		027629A329798EA1009663E8 /* TaskListToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027629A229798EA1009663E8 /* TaskListToolbarView.swift */; };
 		027F54B72986C10200450A73 /* RefreshModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54B62986C10200450A73 /* RefreshModifier.swift */; };
+		027F54C02986DBA200450A73 /* WorktimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54BF2986DBA200450A73 /* WorktimeField.swift */; };
+		027F54C22986DBCC00450A73 /* RepeatIntervalInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54C12986DBCC00450A73 /* RepeatIntervalInput.swift */; };
+		027F54C42986DBDA00450A73 /* RepeatInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54C32986DBDA00450A73 /* RepeatInterval.swift */; };
+		027F54C6298725F700450A73 /* THTask+RepeatingTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */; };
 		029615E6295617920073E378 /* ProjectsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DD295617920073E378 /* ProjectsTab.swift */; };
 		029615E7295617920073E378 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DE295617920073E378 /* String+Substring.swift */; };
 		029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029615DF295617920073E378 /* SimpleColorPicker.swift */; };
@@ -44,7 +48,7 @@
 		02A8FCD429848B61006AFF9A /* WorkDaysSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */; };
 		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
 		02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE02965C2F90084D579 /* TasksFilterView.swift */; };
-		02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskRowView.swift */; };
+		02C0DEE32965C9C20084D579 /* TaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskListRowView.swift */; };
 		02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE42965CAD30084D579 /* TasksListView.swift */; };
 		02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */; };
 		02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C9928C297D823E0069E17B /* OnboardingPageView.swift */; };
@@ -58,7 +62,6 @@
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
 		02E7891F29759CFA00F521D0 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891E29759CFA00F521D0 /* Priority.swift */; };
-		02FCDC212983EEB00028E229 /* WorktimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCDC202983EEB00028E229 /* WorktimeField.swift */; };
 		0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D192977143500E6A100 /* ReminderPicker.swift */; };
 		0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D1B2977163500E6A100 /* ReminderOffset.swift */; };
 		0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDD6B1629759786006F4B95 /* LocalNotification.swift */; };
@@ -70,6 +73,9 @@
 		6E6AB6D52971EBB900211CC0 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
+		928FF3672987E27300BE3137 /* NoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928FF3662987E27300BE3137 /* NoTaskView.swift */; };
+		928FF3692987E65D00BE3137 /* NoProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928FF3682987E65D00BE3137 /* NoProjectView.swift */; };
+		929C911829881FBB000B724B /* NoTaskFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929C911729881FBB000B724B /* NoTaskFilterView.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Utils.swift */; };
 		ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEF022B2976D528007B199F /* OnboardingView.swift */; };
@@ -106,6 +112,10 @@
 		027629A029795CA5009663E8 /* SuggestionsGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionsGenerator.swift; sourceTree = "<group>"; };
 		027629A229798EA1009663E8 /* TaskListToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListToolbarView.swift; sourceTree = "<group>"; };
 		027F54B62986C10200450A73 /* RefreshModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshModifier.swift; sourceTree = "<group>"; };
+		027F54BF2986DBA200450A73 /* WorktimeField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorktimeField.swift; sourceTree = "<group>"; };
+		027F54C12986DBCC00450A73 /* RepeatIntervalInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatIntervalInput.swift; sourceTree = "<group>"; };
+		027F54C32986DBDA00450A73 /* RepeatInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
+		027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+RepeatingTasks.swift"; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
@@ -126,7 +136,7 @@
 		02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDaysSettingsView.swift; sourceTree = "<group>"; };
 		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
 		02C0DEE02965C2F90084D579 /* TasksFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterView.swift; sourceTree = "<group>"; };
-		02C0DEE22965C9C20084D579 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
+		02C0DEE22965C9C20084D579 /* TaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRowView.swift; sourceTree = "<group>"; };
 		02C0DEE42965CAD30084D579 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
 		02C6D686296CD4DF00FE1116 /* FormSheetNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetNavigationBar.swift; sourceTree = "<group>"; };
 		02C9928C297D823E0069E17B /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
@@ -142,7 +152,6 @@
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
 		02E7891E29759CFA00F521D0 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
-		02FCDC202983EEB00028E229 /* WorktimeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorktimeField.swift; sourceTree = "<group>"; };
 		0C041D192977143500E6A100 /* ReminderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPicker.swift; sourceTree = "<group>"; };
 		0C041D1B2977163500E6A100 /* ReminderOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderOffset.swift; sourceTree = "<group>"; };
 		0CDD6B1629759786006F4B95 /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
@@ -156,6 +165,9 @@
 		6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
+		928FF3662987E27300BE3137 /* NoTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTaskView.swift; sourceTree = "<group>"; };
+		928FF3682987E65D00BE3137 /* NoProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProjectView.swift; sourceTree = "<group>"; };
+		929C911729881FBB000B724B /* NoTaskFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTaskFilterView.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Utils.swift"; sourceTree = "<group>"; };
 		ACEF022B2976D528007B199F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -209,12 +221,13 @@
 		027F54B82986CE3C00450A73 /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
+				027F54BF2986DBA200450A73 /* WorktimeField.swift */,
 				0C041D192977143500E6A100 /* ReminderPicker.swift */,
 				029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */,
 				921B56A029708B3600F5518F /* PriorityPicker.swift */,
 				029615DF295617920073E378 /* SimpleColorPicker.swift */,
-				02FCDC202983EEB00028E229 /* WorktimeField.swift */,
 				02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */,
+				027F54C12986DBCC00450A73 /* RepeatIntervalInput.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -242,6 +255,7 @@
 				0C041D1B2977163500E6A100 /* ReminderOffset.swift */,
 				02E7891E29759CFA00F521D0 /* Priority.swift */,
 				02CC1B0F298420670097490E /* Worktime.swift */,
+				027F54C32986DBDA00450A73 /* RepeatInterval.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -251,7 +265,7 @@
 			children = (
 				02C0DEE42965CAD30084D579 /* TasksListView.swift */,
 				02249ADA297DAD670057E002 /* TaskListSectionView.swift */,
-				02C0DEE22965C9C20084D579 /* TaskRowView.swift */,
+				02C0DEE22965C9C20084D579 /* TaskListRowView.swift */,
 				027629A229798EA1009663E8 /* TaskListToolbarView.swift */,
 			);
 			path = List;
@@ -285,6 +299,7 @@
 				6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */,
 				6E35D67729749E7300B42115 /* ProjectStatsView.swift */,
 				02513BB3296DE56C00D28CDD /* ProjectPicker.swift */,
+				928FF3682987E65D00BE3137 /* NoProjectView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -321,6 +336,7 @@
 				029615E2295617920073E378 /* teha.xcdatamodeld */,
 				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
 				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
+				027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */,
 				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
 			);
 			path = Model;
@@ -335,6 +351,8 @@
 				02C0DEDE2965BE520084D579 /* TasksTab.swift */,
 				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
+				928FF3662987E27300BE3137 /* NoTaskView.swift */,
+				929C911729881FBB000B724B /* NoTaskFilterView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -574,16 +592,21 @@
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
 				5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */,
 				0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */,
+				027F54C6298725F700450A73 /* THTask+RepeatingTasks.swift in Sources */,
 				023DD6022985C26800E35D4F /* SuggestionsGenerator+Structs.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
+				928FF3672987E27300BE3137 /* NoTaskView.swift in Sources */,
+				928FF3692987E65D00BE3137 /* NoProjectView.swift in Sources */,
 				0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				023DD6052985C2D700E35D4F /* SuggestionsGeneratorError.swift in Sources */,
 				02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */,
+				027F54C02986DBA200450A73 /* WorktimeField.swift in Sources */,
+				027F54C22986DBCC00450A73 /* RepeatIntervalInput.swift in Sources */,
 				02C0DEE52965CAD30084D579 /* TasksListView.swift in Sources */,
 				029615EB295617930073E378 /* teha.xcdatamodeld in Sources */,
 				5FAB66AC2981B1F8000895BE /* GeoMonitor.swift in Sources */,
@@ -592,8 +615,8 @@
 				921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */,
 				02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
-				02FCDC212983EEB00028E229 /* WorktimeField.swift in Sources */,
 				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
+				027F54C42986DBDA00450A73 /* RepeatInterval.swift in Sources */,
 				026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */,
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
@@ -603,9 +626,10 @@
 				025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */,
 				027F54B72986C10200450A73 /* RefreshModifier.swift in Sources */,
 				02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */,
+				929C911829881FBB000B724B /* NoTaskFilterView.swift in Sources */,
 				025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */,
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
-				02C0DEE32965C9C20084D579 /* TaskRowView.swift in Sources */,
+				02C0DEE32965C9C20084D579 /* TaskListRowView.swift in Sources */,
 				025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */,
 				023DD6002985B1F900E35D4F /* SuggestionsViewModel.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
@@ -824,6 +848,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = teha/teha.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
@@ -831,7 +856,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"teha/Preview Content\"";
-				DEVELOPMENT_TEAM = 489XFYT3X5;
+				DEVELOPMENT_TEAM = 4M6M5Q2HDX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -846,14 +871,14 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwig.teha-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwidg.teha-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -870,6 +895,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = teha/teha.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
@@ -892,8 +918,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";

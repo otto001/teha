@@ -6,79 +6,120 @@
 //
 
 import SwiftUI
+import CoreData
 
-func isSameDay(a: DateComponents, b: DateComponents) -> Bool {
-    a.year == b.year && a.month == b.month && a.day == b.day
+enum StatsViewType {
+    case all, today, finished, current
 }
 
+/// This struct is pushed onto the navigation stack to display the tasks matching the filter.
+struct StatsViewPath: Hashable {
+    let type: StatsViewType
+    let project: THProject
+    
+    var title: LocalizedStringKey {
+        switch type {
+        case .all:
+            return LocalizedStringKey("all")
+        case .current:
+            return LocalizedStringKey("current")
+        case .finished:
+            return LocalizedStringKey("tasks-finished")
+        case .today:
+            return LocalizedStringKey("tasks-due-today")
+        }
+    }
+    
+    /// Generate a filter viewmodel in order to fetch the tasks matching the path.
+    func makeFiltersViewModel() -> TasksFilterViewModel {
+        let filter = TasksFilterViewModel()
+        filter.taskState = .current
+        filter.dateFilterMode = .disabled
+        
+        switch type {
+        case .all:
+            filter.taskState = .all
+        case .current:
+            filter.taskState = .current
+        case .finished:
+            filter.taskState = .completed
+        case .today:
+            filter.dateFilterMode = .matchToday
+        }
+        
+        filter.project = project
+        return filter
+    }
+}
+
+/// A view that displays a single stat.
+/// The stat is a count of the number of tasks matching the filter.
 struct StatView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    
     let name: String
-    let value: Float
+    let path: StatsViewPath
     let color: Color
     let systemName: String
     
+    // The number of tasks matching the filter.
+    // This is a state variable so it can be set asynchronously.
+    @State private var count: Int = 0
+    
+    /// Fetch the number of tasks matching the filter.
+    private func fetch(project: THProject) {
+        let filter = path.makeFiltersViewModel()
+        let request = filter.fetchRequest
+        self.count = (try? viewContext.fetch(request))?.count ?? 0
+    }
+    
     var body: some View {
-        HStack {
+        NavigationLink(value: path) {
             VStack(alignment: .leading) {
                 ZStack {
                     Circle().frame(width: 32).foregroundStyle(color)
                     Image(systemName: systemName).foregroundStyle(.white)
                 }
-                Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1)
+                HStack {
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1).foregroundColor(.label)
+                    Spacer()
+                    Text("\(count)").bold().font(.title).foregroundColor(.label)
+                }
             }
-            Spacer()
-            Text(String(format: "%.0f", value)).bold().font(.title)
+            .padding(.all)
+            .background(Color.tertiarySystemFill)
+            .cornerRadius(8)
+            .onChange(of: path) { newValue in
+                // If the filter changes, fetch the new count.
+                fetch(project: newValue.project)
+            }
+            .onAppear {
+                fetch(project: path.project)
+            }
         }
-        .padding(.all)
-        .background(Color.tertiarySystemFill)
-        .cornerRadius(8)
     }
 }
 
+/// A view that displays the stats for a project.
+/// When a stat is tapped, it pushes a new view onto the navigation stack.
 struct ProjectStatsView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     let project: THProject
-    
-    var tasks: [THTask] {
-        guard let tasks = project.tasks else {return []}
-        return Array(tasks as! Set<THTask>)
-    }
-    
-    var dueToday: Float {
-        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date.now)
-        let dueToday = tasks
-            .filter { $0.deadline != nil }
-            .filter { isSameDay(a: Calendar.current.dateComponents([.year, .month, .day], from: $0.deadline!), b: today) }
-            .count
-        return Float(dueToday)
-    }
-    
-    var todo: Float {
-        let todo = tasks.filter { $0.completionDate == nil }.count
-        return Float(todo)
-    }
-    
-    var finished: Float {
-        let finished = tasks.filter { $0.completionDate != nil }.count
-        return Float(finished)
-    }
-    
-    var doing: Float {
-        let doing = tasks.filter { $0.isStarted && !$0.isCompleted }.count
-        return Float(doing)
-    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                StatView(name: "tasks-due-today", value: dueToday, color: .orange, systemName: "calendar")
-                StatView(name: "tasks-todo", value: todo, color: .blue, systemName: "circle")
+                StatView(name: "all", path: .init(type: .all, project: project), color: .blue, systemName: "circle")
+                StatView(name: "tasks-due-today", path: .init(type: .today, project: project), color: .orange, systemName: "calendar.badge.exclamationmark")
             }
             HStack(spacing: 12) {
-                StatView(name: "tasks-doing", value: doing, color: .mint, systemName: "minus")
-                StatView(name: "tasks-finished", value: finished, color: .green, systemName: "circle.fill")
+                StatView(name: "current", path: .init(type: .current, project: project), color: .mint, systemName: "minus")
+                StatView(name: "tasks-finished", path: .init(type: .finished, project: project), color: .green, systemName: "circle.fill")
             }
             Spacer()
-        }.padding(.horizontal, 24)
+        }
+        .padding(.horizontal, 24)
+        
     }
 }
 

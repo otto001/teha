@@ -12,11 +12,18 @@ import SwiftUI
 struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
+<<<<<<< HEAD
     let geofencing = GeoMonitor()
+=======
+    
+    // Used for setting the default deadline
+    @AppStorage(SettingsAppStorageKey.endOfWorkDay.rawValue) var endOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
+>>>>>>> main
    
     @State var data = FormData()
     
     @State var showError: Bool = false
+    @State var showRepeatingUpdateChoices: Bool = false
     
     let mode: Mode
     
@@ -41,55 +48,63 @@ struct TaskEditView: View {
         } set: { newValue in
             data.project = newValue
             data.priority = newValue?.priority ?? data.priority
+            data.deadline = newValue?.deadline ?? data.deadline
         }
 
     }
     
-    func done() {
+    func done(updateFutureChildren: Bool? = nil) {
         guard data.valid else {
             showError = true
             return
         }
         
+        guard !(task?.hasFutureSiblings() == true && updateFutureChildren == nil) else {
+            if showRepeatingUpdateChoices == true {
+                showRepeatingUpdateChoices = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    showRepeatingUpdateChoices = true
+                }
+            } else {
+                showRepeatingUpdateChoices = true
+            }
+            return
+        }
+        
         let task = task ?? THTask(context: viewContext)
+        data.apply(to: task)
         
-        task.title = data.title
-        task.notes = data.notes
-        task.priority = data.priority
-        
-        task.earliestStartDate = data.earliestStartDate
-        task.deadline = data.deadline
-        
-        task.estimatedWorktime = data.estimatedWorktime
-        task.address = data.address
-        task.lat = data.lat ?? 0
-        task.long = data.long ?? 0
-        
-        task.project = data.project
-        
-        task.reminderOffset = data.reminder
-        task.reminderOffsetSecond = data.reminderSecond
-        
-        task.tags = data.tags as NSSet
-        
-        if !editing {
+        if task.creationDate == nil {
             task.creationDate = Date.now
         }
         
-        if task.address == ""{
+        if task.address == "" {
             task.lat = 0
             task.long = 0
         }
-
-        // TODO: error handling
+       
+        let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
+        task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
+        
         try? viewContext.save()
         
         NotificationManager.instance.scheduleReminderNotifications(task: task)
-            
-        geofencing.refreshLocationMonitoring(task: task)
-       
-       
+        
+        task.repeatingSiblings?.forEach { repeatingSibling in
+            NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
+        }
+
         dismiss()
+    }
+    
+    var defaultDeadline: Date {
+        if let deadline = data.project?.deadline {
+            return deadline
+        }
+        
+        var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
+        date = Calendar.current.date(bySettingHour: endOfWorkDay.hours, minute: endOfWorkDay.minutes, second: 0, of: date) ?? .now
+        return date
     }
     
     var body: some View {
@@ -107,11 +122,22 @@ struct TaskEditView: View {
                                        selection: $data.earliestStartDate)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $data.deadline)
+                                       selection: $data.deadline,
+                                       defaultDate: defaultDeadline)
                 } footer: {
                     if data.deadlineBeforeEarliestStartDate {
                         Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
                             .foregroundColor(.red)
+                    }
+                }
+                
+                if data.deadline != nil
+                    && data.project?.deadline != nil
+                    && data.deadline != data.project?.deadline {
+                    Section {
+                        Button("task-use-project-deadline") {
+                            data.deadline = data.project?.deadline
+                        }
                     }
                 }
                 
@@ -125,7 +151,16 @@ struct TaskEditView: View {
                     }
                 }
 
+                // Section which allows the user to set a reminder and possible a second reminder. A value can only be selected if a deadline is set for the task.
                 if data.deadline != nil {
+                    Section {
+                        RepeatIntervalInput("repeat", interval: $data.repeatInterval, endDate: $data.repeatEndDate)
+                    } footer: {
+                        if let repeatError = data.repeatError {
+                            Text(repeatError.failureReason!).foregroundColor(.red)
+                        }
+                    }
+                    
                     Section {
                             ReminderPicker(title: "reminder", selection: $data.reminder)
                             if data.reminder != nil {
@@ -147,26 +182,41 @@ struct TaskEditView: View {
                     TagPicker(selection: $data.tags)
                 }
             }
-            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
+            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid) {
+                done()
+            } cancel: {
                 dismiss()
             }
-            .alert(isPresented: $showError, error: data.error) { _ in
-                Button {
-                    showError = false
-                } label: {
-                    Text("ok")
-                }
-            } message: { error in
-                Text(error.failureReason ?? "")
-            }
-            .onAppear {
-                if let task = task {
-                    self.data = .init(task: task)
-                }
-                
-                NotificationManager.instance.requestAuthorization()
-            }
+            
         }
+        .alert(isPresented: $showError, error: data.error) { _ in
+            Button {
+                showError = false
+            } label: {
+                Text("ok")
+            }
+        } message: { error in
+            Text(error.failureReason ?? "")
+        }
+        .confirmationDialog("repeating-update-future-prompt", isPresented: $showRepeatingUpdateChoices) {
+            Button("repeating-update-future") {
+                self.done(updateFutureChildren: true)
+            }
+            Button("repeating-update-only-self") {
+                self.done(updateFutureChildren: false)
+            }
+            
+        } message: {
+            Text("repeating-update-future-prompt")
+        }
+        .onAppear {
+            if let task = task {
+                self.data = .init(task: task)
+            }
+            
+            NotificationManager.instance.requestAuthorization()
+        }
+        .interactiveDismissDisabled()
     }
 }
 
@@ -175,6 +225,8 @@ extension TaskEditView {
         case noTitle
         case deadlineBeforeEarliestStartDate
         case estimatedWorktimeTooHigh
+        case repeatingEndDateBeforeDeadline
+        case repeatingEndDateTooFarInFuture
         
         var errorDescription: String? {
             String(localized: "cannot-save-task")
@@ -184,31 +236,42 @@ extension TaskEditView {
             switch self {
             case .noTitle: return String(localized: "task-must-have-title")
             case .deadlineBeforeEarliestStartDate: return String(localized: "task-deadline-must-be-after-earliest-startdate")
-            case .estimatedWorktimeTooHigh:
-                return String(localized: "estimated-worktime-too-high") // TODO: LOCALIZE
+            case .estimatedWorktimeTooHigh: return String(localized: "estimated-worktime-too-high")
+            case .repeatingEndDateBeforeDeadline: return String(localized: "repeat-deadline-after")
+            case .repeatingEndDateTooFarInFuture: return String(localized: "repeat-deadline-years")
             }
         }
     }
     
     struct FormData {
         var title: String = ""
-        var notes: String = ""
+        var project: THProject?
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
+        
         var deadline: Date? = nil
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
+        var repeatInterval: RepeatInterval?
+        var repeatEndDate: Date?
+        var originalDeadline: Date?
+        var alreadyWasRepeating: Bool = false
+        
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
+<<<<<<< HEAD
         var address: String?
         var lat:Double?
         var long:Double?
         
         var project: THProject?
         
+=======
+        var notes: String = ""
+>>>>>>> main
         var tags: Set<THTag> = .init()
         
         /// True when the deadline is before the earliestStartDate.
@@ -226,6 +289,19 @@ extension TaskEditView {
             return estimatedWorktime > Worktime(hours: 48, minutes: 0)
         }
         
+        var repeatError: FormError? {
+            guard let repeatEndDate = repeatEndDate, let deadline = deadline else {
+                return nil
+            }
+            if repeatEndDate <= deadline {
+                return .repeatingEndDateBeforeDeadline
+            } else if repeatEndDate > Calendar.current.date(byAdding: .year, value: 2, to: deadline)! {
+                return .repeatingEndDateTooFarInFuture
+            }
+            return nil
+        }
+        
+        
         var error: FormError? {
             if title.isEmpty {
                 return .noTitle
@@ -233,6 +309,8 @@ extension TaskEditView {
                 return .deadlineBeforeEarliestStartDate
             } else if estimatedWorktimeTooHigh {
                 return .estimatedWorktimeTooHigh
+            } else if let repeatError = repeatError {
+                return repeatError
             }
             return nil
         }
@@ -246,18 +324,53 @@ extension TaskEditView {
         
         init(task: THTask) {
             self.title = task.title ?? ""
-            self.notes = task.notes ?? ""
+            self.project = task.project
             self.priority = task.priority
+            
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
+<<<<<<< HEAD
             self.address = task.address ?? ""
             self.lat = task.lat
             self.long = task.long
             self.project = task.project
             self.tags = task.tags as? Set<THTag> ?? .init()
+=======
+            
+            self.repeatInterval = task.repeatInterval
+            self.repeatEndDate = task.repeatEndDate
+            self.originalDeadline = task.deadline
+            self.alreadyWasRepeating = task.isRepeating
+            
+>>>>>>> main
             self.reminder = task.reminderOffset
             self.reminderSecond = task.reminderOffsetSecond
+            
+            self.notes = task.notes ?? ""
+            self.tags = task.tags as? Set<THTag> ?? .init()
+        }
+        
+        func apply(to task: THTask) {
+            task.title = self.title
+            task.project = self.project
+            task.priority = self.priority
+            
+            task.earliestStartDate = self.earliestStartDate
+            task.deadline = self.deadline
+            
+            task.estimatedWorktime = self.estimatedWorktime
+            
+            // Do not set task to repeat if no deadline is set
+            task.repeatInterval = task.deadline != nil ? self.repeatInterval : nil
+            task.repeatEndDate = task.deadline != nil ? self.repeatEndDate : nil
+            
+            // Do not set reminders if no deadline is set
+            task.reminderOffset = task.deadline != nil ? self.reminder : nil
+            task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
+            
+            task.notes = self.notes
+            task.tags = self.tags as NSSet
         }
     }
     

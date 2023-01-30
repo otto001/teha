@@ -40,9 +40,6 @@ struct ProjectPicker<PickerLabel: View>: View {
     
     var body: some View {
         HStack {
-            // Input Label
-            label()
-            Spacer()
             Menu {
                 
                 // None Option
@@ -65,19 +62,23 @@ struct ProjectPicker<PickerLabel: View>: View {
                 }
             } label: {
                 HStack(spacing: 1) {
+                    // Input Label
+                    label()
+                    Spacer()
                     if let selection = selection {
                         ProjectLabel(project: selection).foregroundColor(.secondaryLabel)
-                        
                     } else {
                         Text(noneText).foregroundColor(.secondaryLabel)
                     }
                     // Add the chevrons to emulate the look of the SwiftUI Picker
                     Image(systemName: "chevron.up.chevron.down")
-                        .scaleEffect(0.8)
+                        .font(.system(size: 10))
+                        .fontWeight(.medium)
                         .offset(x: 1)
                         .foregroundColor(.secondaryLabel)
                 }
             }
+            .buttonStyle(.plain)
             .transaction { t in
                 // We disable the animation of all transactions, as otherwise the label of the menu plays some sketchy animation everytime the user changes their selection
                 t.animation = nil
@@ -101,11 +102,14 @@ struct ProjectPicker_Previews: PreviewProvider {
     
     struct ProjectPickerPreview: View {
         @State var project: THProject? = nil
+        @State var selection: String = ""
         
         var body: some View {
             ProjectPicker(selection: $project) {
                 Label("projects", systemImage: "circle")
-                
+            }
+            Picker("Hello", selection: $selection) {
+                Text("asdf")
             }
         }
     }

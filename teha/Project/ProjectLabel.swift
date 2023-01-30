@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+/// A view that displays a project's name and color.
 struct ProjectLabel: View {
-    let project: THProject
+    @ObservedObject var project: THProject
     var body: some View {
         HStack {
             Image(systemName: "circle.fill")

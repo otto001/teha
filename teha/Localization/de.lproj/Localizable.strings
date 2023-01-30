@@ -8,7 +8,11 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%@-tasks-without-deadline" = "%@ Aufgaben ohne Deadline";
+
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
+
+"CW-%@" = "Woche %@";
 
 "add" = "Hinzufügen";
 
@@ -52,6 +56,8 @@
 
 "custom" = "Benutzerdefiniert";
 
+"date" = "Datum";
+
 "day" = "Tag";
 
 "deadline" = "Deadline";
@@ -61,6 +67,8 @@
 "deadline-approaching" = "Näher rückende Deadline:";
 
 "deadline-change" = "Deadline ändern";
+
+"deadline-no" = "Keine Deadline";
 
 "deadline-remove" = "Entferne Deadline";
 
@@ -94,6 +102,8 @@
 
 "filter" = "Filter";
 
+"from:" = "Vom:";
+
 "group" = "Gruppieren";
 
 "group-tasks-by" = "Aufgaben gruppieren nach:";
@@ -118,6 +128,8 @@
 
 "location-search" = "Einen Standort suchen";
 
+"last-week" = "Letzte Woche";
+
 "low" = "Niedrig";
 
 "low-priority" = "Niedrige Priorität";
@@ -138,9 +150,15 @@
 
 "match-any-tag" = "Jedes der ausgewählten Tags";
 
+"match-this-week" = "Diese Woche";
+
+"match-today" = "Heute";
+
 "month" = "Monat";
 
 "name" = "Name";
+
+"never" = "Niemals";
 
 "new-project" = "Neues Projekt";
 
@@ -148,7 +166,21 @@
 
 "next" = "Weiter";
 
+"next-week" = "Nächste Woche";
+
+"no-project-filter" = "No projects match these filters";
+
+"no-projects" = "Keine Projekte vorhanden";
+
+"no-projects-empty-text" = "Sicher, dass du nichts vor hast? Erstelle jetzt ein neues Projekt!";
+
 "no-reminder" = "Keine";
+
+"no-tasks" = "Keine Aufgaben vorhanden";
+
+"no-tasks-empty-text" = "Sieht ziemlich leer aus! Lass uns gemeinsam produktiv werden und erstelle deine erste Aufgabe!";
+
+"no-tasks-filter" = "No tasks match these filters";
 
 "none" = "Nichts";
 
@@ -160,13 +192,21 @@
 
 "notifications-allow" = "Erlaube Benachrichtigungen";
 
-"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
+"notifications-allow-message" = "Bitte erlaube Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "now" = "Jetzt";
 
 "ok" = "Ok";
 
+"onboarding-projects" = "Verwalte Projekte mit mehreren Aufgaben";
+
+"onboarding-settings" = "Stelle deine persönlichen Arbeitszeiten ein";
+
 "onboarding-show" = "Onboarding anzeigen";
+
+"onboarding-suggestions" = "Vorschläge, basierend auf deinen Aufgaben";
+
+"onboarding-tasks" = "Erstelle und organisiere deine Aufgaben";
 
 "other-filters" = "Weitere Filter";
 
@@ -190,6 +230,32 @@
 
 "remove-%@" = "Entferne %@";
 
+"repeat" = "Wiederholen";
+
+"repeat-daily" = "Täglich";
+
+"repeat-deadline-after" = "Das Enddatum der Wiederholungen muss nach der Deadline der Aufgabe liegen.";
+
+"repeat-deadline-years" = "Das Enddatum der Wiederholungen darf nicht mehr als zwei Jahre in der Zukunft liegen.";
+
+"repeat-weekly" = "Wöchentlich";
+
+"repeating-delete-future" = "Alle zukünftigen Aufgaben löschen";
+
+"repeating-delete-only-self" = "Nur diese Aufgabe löschen";
+
+"repeating-delete-prompt" = "Diese Aufgabe wiederholt sich.";
+
+"repeating-end-date" = "Letzte Wiederholung";
+
+"repeating-update-future" = "Alle zukünftigen Aufgaben ändern";
+
+"repeating-update-future-prompt" = "Diese Aufgabe wiederholt sich.";
+
+"repeating-update-only-self" = "Nur diese Aufgabe ändern";
+
+"reset-all-filters" = "Lösche alle Filter";
+
 "select" = "Auswählen";
 
 "select-tasks" = "Aufgaben auswählen";
@@ -202,6 +268,8 @@
 
 "settings-open" = "Öffne Einstellungen";
 
+"settings-use-themed-appicon" = "App-Icon an Akzentfarbe anpassen";
+
 "settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
 
 "skip" = "Überspringen";
@@ -210,21 +278,21 @@
 
 "started" = "Angefangen";
 
-"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche Aufgabe sie spätestens wann anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
+"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von deinen Aufgaben gibt teha Empfehlungen, welche Aufgabe Du spätestens wann anfangen solltest, um deine Deadlines einhalten zu können. Bitte bedenke, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
 
 "suggestions" = "Vorschläge";
 
 "suggestions-bad-worktime-settings" = "Arbeitszeiteinstellungen ungültig";
 
-"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfen Sie Ihre Einstellungen.";
+"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfe deine Einstellungen.";
 
 "suggestions-loading" = "Vorschläge werden vorbereitet";
 
 "suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
 
-"suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
+"suggestions-no-calculateable-tasks-recovery" = "Du hast alle Aufgaben mit Deadlines erledigt, oder keine Deadlines bei deinen Aufgaben gesetzt.";
 
-"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise Überstunden machen.";
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müsstes du möglicherweise Überstunden machen.";
 
 "tag" = "Tag";
 
@@ -242,15 +310,19 @@
 
 "task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
+"task-use-project-deadline" = "Projekt-Deadline nutzen";
+
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
 
-"tasks-doing" = "In Arbeit";
+"tasks-doing" = "Angefangen";
 
 "tasks-due-today" = "Bis heute";
+
+"tasks-filter" = "Aufgabenfilter";
 
 "tasks-finished" = "Fertig";
 
@@ -258,9 +330,15 @@
 
 "tasks-overdue" = "Überfällig";
 
-"tasks-todo" = "To Do";
+"tasks-todo" = "Nicht angefangen";
+
+"this-week" = "Diese Woche";
 
 "title" = "Titel";
+
+"to:" = "Bis zum:";
+
+"upcoming" = "Anstehend";
 
 "urgent" = "Dringend";
 
