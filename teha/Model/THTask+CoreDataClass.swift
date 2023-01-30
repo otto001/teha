@@ -153,11 +153,11 @@ extension NSFetchRequest where ResultType == THTask {
     }
     
     func filter(deadlineBeforeEquals date: Date) {
-        self.predicateAnd(with: NSPredicate(format: "deadline <= %@", date as NSDate))
+        self.predicateAnd(with: NSPredicate(format: "deadline_DO_NOT_USE <= %@", date as NSDate))
     }
     
     func filter(deadlineAfter date: Date) {
-        self.predicateAnd(with: NSPredicate(format: "deadline > %@", date as NSDate))
+        self.predicateAnd(with: NSPredicate(format: "deadline_DO_NOT_USE > %@", date as NSDate))
     }
     
     enum TagFilterMode{
