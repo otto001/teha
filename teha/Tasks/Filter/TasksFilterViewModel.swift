@@ -37,12 +37,12 @@ class TasksFilterViewModel: ObservableObject {
     }
     
     /**
-        Property representing the current date filter mode.
+        Property representing the upcomingfilter mode.
         When the value is set to:
-        - .matchToday: the `dateInterval` property is updated to represent the current day.
-        - .matchThisWeek: the `dateInterval` property is updated to represent the current week.
-        - .custom: the `dateInterval` property is left unchanged.
-        - .disabled: the `dateInterval` property is left unchanged.
+        - .matchToday: the `upcomingInterval` property is updated to represent the current day.
+        - .matchThisWeek: the `upcomingInterval` property is updated to represent the current week.
+        - .custom: the `upcomingInterval` property is left unchanged.
+        - .disabled: the `upcomingInterval` property is left unchanged.
      */
     var dateFilterMode: DateFilterMode{
         get {
@@ -61,10 +61,10 @@ class TasksFilterViewModel: ObservableObject {
     /**
         Property representing the current deadline filter mode.
         When the value is set to:
-        - .matchToday: the `dateInterval` property is updated to represent the current day.
-        - .matchThisWeek: the `dateInterval` property is updated to represent the current week.
-        - .custom: the `dateInterval` property is left unchanged.
-        - .disabled: the `dateInterval` property is left unchanged.
+        - .matchToday: the `deadlineInterval` property is updated to represent the current day.
+        - .matchThisWeek: the `deadlineInterval` property is updated to represent the current week.
+        - .custom: the `deadlineInterval` property is left unchanged.
+        - .disabled: the `deadlineInterval` property is left unchanged.
      */
     var deadlineFilterMode: DateFilterMode{
         get {

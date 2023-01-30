@@ -88,14 +88,25 @@ fileprivate struct TagFilter: View{
     }
 }
 
+/**
+ A SwiftUI view that allows the user to filter tasks based on an date interval. It will return all upcoming tasks in the specified date interval.
+ 
+ The view displays a picker for selecting the type of date filter and date pickers for selecting the start and end dates of the custom date interval. The view is bound to an `EnvironmentObject` that holds the state of the filter view.
+ 
+ - Parameters:
+    - enabledSection: A boolean indicating if the date filter section should be displayed in the active filter section or the non-active filter section. If `true`, the view will be displayed in the active filter section. If `false`, the view will be displayed in the non-active filter section.
+    - filters: An `EnvironmentObject` of type `TasksFilterViewModel` that holds the state of the filter view.
+*/
 fileprivate struct UpcomingFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
     let enabledSection: Bool
     
+    // A computed property that returns a boolean indicating if the section should be displayed
     var visible: Bool {
         enabledSection == (filters.dateFilterMode != .disabled)
     }
     
+    // A binding, needed to set the start of the date interval to the beginning of the selected day
     var startBinding: Binding<Date> {
         Binding {
             return filters.upcomingInterval.start
@@ -104,6 +115,7 @@ fileprivate struct UpcomingFilter: View{
         }
     }
     
+    // A binding, needed to set the end of the date interval to the end of the selected day
     var endBinding: Binding<Date> {
         Binding {
             return filters.upcomingInterval.end - TimeInterval.day
@@ -127,7 +139,9 @@ fileprivate struct UpcomingFilter: View{
                 }
                 
                 if enabledSection, filters.dateFilterMode == .custom {
+                    // A date picker for selecting the start date
                     DatePicker(LocalizedStringKey("from:"), selection: startBinding, displayedComponents: [.date])
+                    // A date picker for selecting the end date
                     DatePicker(LocalizedStringKey("to:"), selection: endBinding, in: startBinding.wrappedValue..., displayedComponents: [.date])
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -136,14 +150,25 @@ fileprivate struct UpcomingFilter: View{
     }
 }
 
+/**
+ A SwiftUI view that allows the user to filter tasks based on an deadline date interval. It will return all tasks which deadline lays  in the specified date interval.
+ 
+ The view displays a picker for selecting the type of date filter and date pickers for selecting the start and end dates of the custom date interval. The view is bound to an `EnvironmentObject` that holds the state of the filter view.
+ 
+ - Parameters:
+    - enabledSection: A boolean indicating if the date filter section should be displayed in the active filter section or the non-active filter section. If `true`, the view will be displayed in the active filter section. If `false`, the view will be displayed in the non-active filter section.
+    - filters: An `EnvironmentObject` of type `TasksFilterViewModel` that holds the state of the filter view.
+*/
 fileprivate struct DeadlineFilter: View{
     @EnvironmentObject var filters: TasksFilterViewModel
     let enabledSection: Bool
     
+    // A computed property that returns a boolean indicating if the section should be displayed
     var visible: Bool {
         enabledSection == (filters.deadlineFilterMode != .disabled)
     }
     
+    // A binding, needed to set the start of the date interval to the beginning of the selected day
     var startBinding: Binding<Date> {
         Binding {
             return filters.deadlineInterval.start
@@ -152,6 +177,7 @@ fileprivate struct DeadlineFilter: View{
         }
     }
     
+    // A binding, needed to set the end of the date interval to the end of the selected day
     var endBinding: Binding<Date> {
         Binding {
             return filters.deadlineInterval.end - TimeInterval.day
@@ -175,7 +201,9 @@ fileprivate struct DeadlineFilter: View{
                 }
                 
                 if enabledSection, filters.deadlineFilterMode == .custom {
+                    // A date picker for selecting the start date
                     DatePicker(LocalizedStringKey("from:"), selection: startBinding, displayedComponents: [.date])
+                    // A date picker for selecting the end date
                     DatePicker(LocalizedStringKey("to:"), selection: endBinding, in: startBinding.wrappedValue..., displayedComponents: [.date])
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }

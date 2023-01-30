@@ -194,6 +194,15 @@ extension NSFetchRequest where ResultType == THTask {
         self.predicateAnd(with: allCases)
     }
     
+    /**
+     Filters tasks based on a given deadline date interval.
+     
+     - Parameters:
+        - deadline: The date interval used to filter tasks. Only tasks with deadlines falling within this interval will be included.
+     
+     - Returns:
+        The filtered collection of tasks with deadlines falling within the given date interval.
+    */
     func filter(deadline: DateInterval) {
         self.predicateAnd(with: NSPredicate(format: "(%@ <= deadline AND deadline < %@)", deadline.start as NSDate, deadline.end as NSDate))
     }
