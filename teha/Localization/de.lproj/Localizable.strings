@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priorität";
 
+"%@-worktime-remaining" = "%@ Aufwand verbleibend";
+
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -19,6 +21,8 @@
 "back" = "Zurück";
 
 "cancel" = "Abbrechen";
+
+"cannot-save-task" = "Aufgabe kann nicht gespeichert werden";
 
 "color" = "Farbe";
 
@@ -48,15 +52,25 @@
 
 "date" = "Datum";
 
+"day" = "Tag";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Füge Deadline hinzu";
+
+"deadline-approaching" = "Näher rückende Deadline:";
 
 "deadline-change" = "Deadline ändern";
 
 "deadline-remove" = "Entferne Deadline";
 
 "delete" = "Löschen";
+
+"delete-project-keep-tasks" = "Projekt löschen und Aufgaben behalten";
+
+"delete-project-message" = "Auch die Aufgaben des Projekts löschen?";
+
+"delete-project-with-tasks" = "Projekt und Aufgaben löschen";
 
 "disabled" = "Aus";
 
@@ -74,6 +88,10 @@
 
 "enabled-filters" = "Aktivierte Filter";
 
+"estimated-worktime" = "Geschätzter Aufwand";
+
+"estimated-worktime-too-high" = "Der geschätzte Arbeitsaufwand darf 48 Stunden nicht überschreiten.";
+
 "filter" = "Filter";
 
 "from:" = "Vom:";
@@ -87,6 +105,10 @@
 "high" = "Hoch";
 
 "high-priority" = "Hohe Priorität";
+
+"internal-error" = "Interner Fehler";
+
+"internal-error-recover" = "Sorry!";
 
 "low" = "Niedrig";
 
@@ -112,6 +134,8 @@
 
 "match-today" = "Heute";
 
+"month" = "Monat";
+
 "name" = "Name";
 
 "new-project" = "Neues Projekt";
@@ -119,6 +143,8 @@
 "new-task" = "Neue Aufgabe";
 
 "next" = "Weiter";
+
+"no-reminder" = "Keine";
 
 "none" = "Nichts";
 
@@ -128,7 +154,13 @@
 
 "notes" = "Notizen";
 
+"notifications-allow" = "Erlaube Benachrichtigungen";
+
+"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
+
 "now" = "Jetzt";
+
+"ok" = "Ok";
 
 "onboarding-show" = "Onboarding anzeigen";
 
@@ -144,6 +176,12 @@
 
 "projects" = "Projekte";
 
+"reminder" = "Erinnerung";
+
+"reminder-add" = "Füge Erinnerung hinzu";
+
+"reminder-second" = "Zweite Erinnerung";
+
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
@@ -158,9 +196,33 @@
 
 "settings" = "Einstellungen";
 
+"settings-no-workdays-selected-error" = "Bitte wähle mindestens einen Tag aus.";
+
+"settings-open" = "Öffne Einstellungen";
+
+"settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
+
 "skip" = "Überspringen";
 
+"start-before-%@" = "Fange spätestens %@ an";
+
 "started" = "Angefangen";
+
+"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche Aufgabe sie spätestens wann anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
+
+"suggestions" = "Vorschläge";
+
+"suggestions-bad-worktime-settings" = "Arbeitszeiteinstellungen ungültig";
+
+"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfen Sie Ihre Einstellungen.";
+
+"suggestions-loading" = "Vorschläge werden vorbereitet";
+
+"suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
+
+"suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
+
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise Überstunden machen.";
 
 "tag" = "Tag";
 
@@ -172,13 +234,19 @@
 
 "task" = "Aufgabe";
 
+"task-deadline-must-be-after-earliest-startdate" = "Die Deadline der Aufgabe muss nach dem frühesten Beginn liegen.";
+
 "task-delete-confirmation" = "Aufgabe löschen?";
+
+"task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
+
+"tasks-doing" = "In Arbeit";
 
 "tasks-due-today" = "Bis heute";
 
@@ -199,3 +267,15 @@
 "urgent" = "Dringend";
 
 "urgent-priority" = "Dringend";
+
+"week" = "Woche";
+
+"workday-end" = "Arbeitsende";
+
+"workday-start" = "Arbeitsbeginn";
+
+"workdays" = "Arbeitstage";
+
+"workdays-select-footer" = "Wähle alle Tage aus an denen du Zeit hast Aufgaben zu erledigen.";
+
+"year" = "Jahr";

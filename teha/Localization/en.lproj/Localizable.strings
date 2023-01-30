@@ -6,6 +6,8 @@
 
 "%@-priority" = "%@ Priority";
 
+"%@-worktime-remaining" = "%@ remaining to complete";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";
@@ -19,6 +21,8 @@
 "back" = "Back";
 
 "cancel" = "Cancel";
+
+"cannot-save-task" = "Cannot Save Task";
 
 "color" = "Color";
 
@@ -48,9 +52,13 @@
 
 "date" = "Date";
 
+"day" = "Day";
+
 "deadline" = "Deadline";
 
 "deadline-add" = "Add Deadline";
+
+"deadline-approaching" = "Approaching Deadline:";
 
 "deadline-change" = "Change Deadline";
 
@@ -58,21 +66,31 @@
 
 "delete" = "Delete";
 
+"delete-project-keep-tasks" = "Delete Project but keep Tasks";
+
+"delete-project-message" = "Also delete the Tasks of the Project?";
+
+"delete-project-with-tasks" = "Delete Project and Tasks";
+
 "disabled" = "Disabled";
 
 "done" = "Done";
 
-"earliest-startdate" = "Earliest Startdate";
+"earliest-startdate" = "Earliest Start Date";
 
-"earliest-startdate-add" = "Add Earliest Startdate";
+"earliest-startdate-add" = "Add Earliest Start Date";
 
-"earliest-startdate-change" = "Change earliest Startdate";
+"earliest-startdate-change" = "Change earliest Start Date";
 
-"earliest-startdate-remove" = "Remove Earliest Startdate";
+"earliest-startdate-remove" = "Remove Earliest Start Date";
 
 "edit" = "Edit";
 
 "enabled-filters" = "Enabled Filters";
+
+"estimated-worktime" = "Estimated Time to Complete";
+
+"estimated-worktime-too-high" = "The estimated time to completion may not exceed 48 hours.";
 
 "filter" = "Filter";
 
@@ -87,6 +105,10 @@
 "high" = "High";
 
 "high-priority" = "High Priority";
+
+"internal-error" = "Internal Error";
+
+"internal-error-recover" = "Sorry!";
 
 "low" = "Low";
 
@@ -112,6 +134,8 @@
 
 "match-today" = "Today";
 
+"month" = "Month";
+
 "name" = "Name";
 
 "new-project" = "New Project";
@@ -119,6 +143,8 @@
 "new-task" = "New Task";
 
 "next" = "Next";
+
+"no-reminder" = "None";
 
 "none" = "None";
 
@@ -128,7 +154,13 @@
 
 "notes" = "Notes";
 
+"notifications-allow" = "Allow Notifications";
+
+"notifications-allow-message" = "Please allow notifications in the settings app to set a reminder.";
+
 "now" = "Now";
+
+"ok" = "Ok";
 
 "onboarding-show" = "Show Onboarding";
 
@@ -144,6 +176,12 @@
 
 "projects" = "Projects";
 
+"reminder" = "Reminder";
+
+"reminder-add" = "Add Reminder";
+
+"reminder-second" = "Second Reminder";
+
 "remove" = "Remove";
 
 "remove-%@" = "Remove %@";
@@ -158,9 +196,33 @@
 
 "settings" = "Settings";
 
+"settings-no-workdays-selected-error" = "Please select at least one day.";
+
+"settings-open" = "Open Settings";
+
+"settings-worktime-error" = "The start of works must be before the end of work.";
+
 "skip" = "Skip";
 
+"start-before-%@" = "Start before %@";
+
 "started" = "Started";
+
+"suggestion-infobox-text" = "Based on the deadlines, earliest start date and estimated time to completion of your tasks, teha recommends when you should start working on each task at the latest. Please keep in mind that these are only recommendations, and it may make sense to start even earlier than suggested by teha.";
+
+"suggestions" = "Suggestions";
+
+"suggestions-bad-worktime-settings" = "Worktime settings invalid";
+
+"suggestions-bad-worktime-settings-recovery" = "Please check your Settings.";
+
+"suggestions-loading" = "Preparing Suggestions";
+
+"suggestions-no-calculateable-tasks" = "Cannot generate suggestions";
+
+"suggestions-no-calculateable-tasks-recovery" = "Add a deadline and estimated time to completion to your tasks in order to enable suggestions.";
+
+"suggestions-time-issues" = "You may need to work some overtime to meet your current deadlines.";
 
 "tag" = "Tag";
 
@@ -172,7 +234,11 @@
 
 "task" = "Task";
 
+"task-deadline-must-be-after-earliest-startdate" = "The deadline of the task must be after its earliest start date.";
+
 "task-delete-confirmation" = "Delete Task?";
+
+"task-must-have-title" = "The Task must have a title.";
 
 "tasks" = "Tasks";
 
@@ -180,9 +246,11 @@
 
 "tasks-delete-confirmation" = "Delete Tasks?";
 
+"tasks-doing" = "Doing";
+
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Finished";
+"tasks-finished" = "Done";
 
 "tasks-filter" = "Tasks Filter";
 
@@ -199,3 +267,15 @@
 "urgent" = "Urgent";
 
 "urgent-priority" = "Urgent";
+
+"week" = "Week";
+
+"workday-end" = "End of Work";
+
+"workday-start" = "Start of Work";
+
+"workdays" = "Workdays";
+
+"workdays-select-footer" = "Select all weekdays on which you have time to complete Tasks.";
+
+"year" = "Year";

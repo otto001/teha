@@ -15,6 +15,20 @@ private struct ProjectRow: View {
     
     @State private var showDeleteDialog = false
     
+    func delete(deleteTasks: Bool) {
+        if deleteTasks{
+            // Remove all reminders from all tasks of the project
+            NotificationManager.instance.cancelPendingNotifications(for: project.tasks)
+            
+            // Delete all tasks
+            (project.tasks as? Set<THTask>)?.forEach(viewContext.delete(_:))
+        }
+        
+        viewContext.delete(project)
+        // TODO: error handling
+        try? viewContext.save()
+    }
+    
     var body: some View {
         HStack {
             Circle()
@@ -26,13 +40,29 @@ private struct ProjectRow: View {
             }
         }
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
-            Button("delete", role: .destructive) {
-                viewContext.delete(project)
-                // TODO: error handling
-                try? viewContext.save()
+            
+            if project.tasks?.count ?? 0 > 0 {
+                // Delete Project but keep tasks
+                Button("delete-project-keep-tasks", role: .destructive) {
+                    self.delete(deleteTasks: false)
+                }
+                
+                // Delete Project and all of its tasks
+                Button("delete-project-with-tasks", role: .destructive) {
+                    self.delete(deleteTasks: true)
+                }
+            } else {
+                // Delete Project that has no tasks
+                Button("delete", role: .destructive) {
+                    self.delete(deleteTasks: true)
+                }
             }
             Button("cancel", role: .cancel) {
                 showDeleteDialog = false
+            }
+        } message: {
+            if project.tasks?.count ?? 0 > 0 {
+                Text("delete-project-message")
             }
         }
         .swipeActions {
@@ -68,7 +98,7 @@ struct ProjectsListView: View {
     }
     
     var body: some View {
-        RoutedNavigation { router in
+        NavigationStack {
             List {
                 ForEach(sections) { section in
                     let projects = section.search(query: query)

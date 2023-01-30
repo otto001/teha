@@ -101,6 +101,7 @@ struct TaskDetailView: View {
             if let subtitle = subtitle {
                 Text(subtitle)
                     .foregroundColor(.secondaryLabel)
+                    .font(.subheadline)
             }
             
         }
@@ -111,12 +112,27 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var progressBar: some View {
-        TaskProgressBarInteractive(task: task)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            .padding(.horizontal, 8)
-            .padding(.top, 22)
+        VStack {
+            // The teha-style interactive progress bar for reading and setting task progress
+            TaskProgressBarInteractive(task: task)
+                .frame(height: 16)
+            
+            // If there is estimatedWorktime remaining, show that underneath the progressbar
+            // TODO: BUG Does not update if user starts dragging when task is not yet started explicitly
+            if task.estimatedWorktime > .zero, !task.isCompleted,
+               let timeRemaining = task.estimatedWorktimeRemaining.formatted {
+                Text("\(timeRemaining)-worktime-remaining")
+                    .monospacedDigit()
+                    .foregroundColor(.secondaryLabel)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .padding(.horizontal, 8)
+        .padding(.top, 22)
     }
     
     @ViewBuilder var projectSection: some View {
@@ -146,6 +162,24 @@ struct TaskDetailView: View {
         }
     }
     
+    @ViewBuilder var reminderSection: some View {
+        if let reminder = task.reminderOffset {
+            Section {
+                LabeledContent("reminder") {
+                    Text(reminder.name)
+                }
+                
+                if let reminderSecond = task.reminderOffsetSecond {
+                    LabeledContent("reminder-second") {
+                        Text(reminderSecond.name)
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
     @ViewBuilder var notesSection: some View {
         if let notes = task.notes, !notes.isEmpty {
             Section {
@@ -171,6 +205,7 @@ struct TaskDetailView: View {
                 
                 projectSection
                 datesSection
+                reminderSection
                 notesSection
                 tagsSection
             }
@@ -208,10 +243,15 @@ struct TaskDetailView_Previews: PreviewProvider {
         
         task.earliestStartDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 28).date!
         task.deadline = DateComponents(calendar: .current, year: 2023, month: 1, day: 24, hour: 23, minute: 59).date!
+        task.reminderOffset = ReminderOffset(rawValue: 10)
+        task.reminderOffsetSecond = ReminderOffset(rawValue: 30)
         task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
         
         task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
-        task.completionProgress = 0.4
+        task.completionProgress = 0.5
+        
+        task.estimatedWorktime = .init(hours: 2, minutes: 20)
+        
         return task
     }
     

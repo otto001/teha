@@ -10,8 +10,9 @@ import CoreData
 
 /// An enum of all tabs avaliable in teha.
 enum Tab: String, RawRepresentable {
-    case projects = "projects"
+    case suggestions = "suggestions"
     case tasks = "tasks"
+    case projects = "projects"
     case settings = "settings"
 }
 
@@ -23,7 +24,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     // ensure that the tasks tab is the default tab (i.e., landing page)
-    @State private var tab: Tab = .tasks
+    @State private var tab: Tab = .suggestions
     
     @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
     
@@ -32,8 +33,9 @@ struct ContentView: View {
             // Create root TabView and add all main views for app
             if (onboardingDone) {
                 TabView(selection: $tab) {
-                    ProjectsTab().tag(Tab.projects)
+                    SuggestionsTab().tag(Tab.suggestions)
                     TasksTab().tag(Tab.tasks)
+                    ProjectsTab().tag(Tab.projects)
                     SettingsTab().tag(Tab.settings)
                 }
                 .tint(accentColor.color) // apply accent color setting to app
@@ -50,11 +52,55 @@ struct ContentView: View {
                 break
             }
         }
+        .onAppear {
+            // By calling this as soon as the app appears, we ensure that the UserDefaults have been set up correctly.
+            // The method ensures it only actually does something on first start-up
+            SettingsAppStorageKey.setDefaultValuesIfNeeded()
+            
+            // Starting the SuggestionsViewModel in order for teha to start generating suggestions
+            SuggestionsViewModel.shared.start()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
+
+
+fileprivate let isoDateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+    return formatter
+}()
+struct TaskDescription {
+    let earliestStart: String?
+    let deadline: String
+    let worktime: Worktime
+    let priority: Priority
+    
+    func task(context: NSManagedObjectContext, title: String) -> THTask {
+        let task = THTask(context: context)
+        task.estimatedWorktime = worktime
+        task.priority = priority
+        task.earliestStartDate = earliestStart.map { isoDateFormatter.date(from: $0)! }
+        task.deadline = isoDateFormatter.date(from: deadline)!
+        task.title = title
+        return task
+    }
+}
+
+func createTasks() {
+    var taskDescriptions = [TaskDescription]()
+    
+    for _ in 0..<50 {
+        taskDescriptions.append(.init(earliestStart: nil, deadline:  "2023-03-01T16:00", worktime: .init(hours: 8, minutes: 0), priority: .normal))
+    }
+    
+    
+    _ = taskDescriptions.enumerated().map { (i, description) in
+        description.task(context: PersistenceController.shared.container.viewContext, title: "Task \(i)")
     }
 }

@@ -117,7 +117,7 @@ struct TaskProgressBarInteractive: View {
                     
                     let barPadding = gestureWidth - barWidth
                     draggingProgress = max(0, min(1, (action.location.x - barPadding/2)  / barWidth))
-                    
+                    task.completionProgress = draggingProgress
                     if draggingProgress != lastDraggingProgress {
                         
                         for threshold in thresholds {
@@ -159,6 +159,7 @@ struct TaskProgressBarInteractive: View {
                     task.startDate = nil
                     task.completionDate = nil
                     task.completionProgress = 0
+                    NotificationManager.instance.scheduleReminderNotifications(task: task)
                 }
                 .zIndex(2)
                 
@@ -178,6 +179,7 @@ struct TaskProgressBarInteractive: View {
                     completeTask()
                 } undoAction: {
                     task.completionDate = nil
+                    NotificationManager.instance.scheduleReminderNotifications(task: task)
                 }
                 .zIndex(2)
                 

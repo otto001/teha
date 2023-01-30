@@ -58,20 +58,18 @@ struct ProjectEditView: View {
     }
     
     var body: some View {
-        RoutedNavigation { router in
+        NavigationStack {
             Form {
                 Section {
                     TextField(LocalizedStringKey("name"), text: $name)
                 }
+
                 Section {
                     PriorityPicker("priority", selection: $priority)
 
-                    
-                    SimpleColorPicker(title: String(localized: "color"), color: $color)
+
+                    SimpleColorPicker(title: "color", selection: $color)
                 }
-            }
-            .registerSimpleColorPicker {
-                router.pop()
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
                 dismiss()

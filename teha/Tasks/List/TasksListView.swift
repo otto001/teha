@@ -9,19 +9,36 @@ import SwiftUI
 import CoreData
 
 
+
 struct TasksListView: View {
-    @EnvironmentObject var filter: TasksFilterViewModel
+    @EnvironmentObject var filters: TasksFilterViewModel
+    
+    var fetchRequest: SectionedFetchRequest<String, THTask> {
+        switch filters.grouping {
+        case .year:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineYearString)
+        case .month:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineMonthString)
+        case .week:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineWeekString)
+        case .day:
+            return SectionedFetchRequest(fetchRequest: filters.fetchRequest, sectionIdentifier: \THTask.deadlineDayString)
+        }
+    }
     
     var body: some View {
-        FilteredTasksListView(tasks: FetchRequest(fetchRequest: filter.fetchRequest))
+        FilteredTasksListView(sections: fetchRequest)
     }
 }
 
+
+/// The actual view that shows a list of tasks.
+/// TasksListView is just a proxy needed due to SwiftUI reasons (wrapping the FetchRequest)
 fileprivate struct FilteredTasksListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.editMode) var editMode
     
-    @FetchRequest var tasks: FetchedResults<THTask>
+    @SectionedFetchRequest var sections: SectionedFetchResults<String, THTask>
     
     @State var selectedTasks: Set<NSManagedObjectID> = .init()
     
@@ -37,20 +54,18 @@ fileprivate struct FilteredTasksListView: View {
         }
     }
     
+    @State private var now = Date()
+
+
     var body: some View {
-        List(tasks, id: \.objectID, selection: $selectedTasks) { task in
-            TaskRowView(task: task)
-                .swipeActions(edge: .trailing) {
-                    Button() {
-                        taskToDelete = task
-                    } label: {
-                        Label("delete", systemImage: "trash")
-                    }
-                    .tint(Color.red)
+        List(selection: $selectedTasks) {
+            ForEach(sections) { section in
+                TaskListSectionView(section, now: now) { task in
+                    taskToDelete = task
                 }
-                .disabled(editMode?.wrappedValue == .active)
-                .id(task.id)
+            }
         }
+        .autoRefresh(now: $now)
         .onAppear {
             // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
             // This is due to SwiftUI adding the rows tapped for navigation purposes to the selection, which is an annoying, not yet fixed bug.
@@ -70,6 +85,10 @@ fileprivate struct FilteredTasksListView: View {
         .confirmationDialog("task-delete-confirmation", isPresented: showDeleteDialogBinding) {
             Button("delete", role: .destructive) {
                 guard let taskToDelete = taskToDelete else { return }
+                
+                // Remove all pending reminders for task
+                NotificationManager.instance.cancelPendingNotifications(for: taskToDelete)
+                
                 viewContext.delete(taskToDelete)
                 // TODO: error handling
                 try? viewContext.save()
