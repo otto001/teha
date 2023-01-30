@@ -146,9 +146,8 @@ extension THTask {
             firstChild.repeatingParent = nil
             // assert that all the children were removed
             assert((self.repeatingSiblings?.count ?? 0) == 0)
-        }
-        // else if the current THTask is a child add the child to the ignoredRepeatDates of the parent
-        else if let deadline = self.deadline {
+        } else if self.isRepeatingChild, let deadline = self.deadline {
+            // else if the current THTask is a child add the child to the ignoredRepeatDates of the parent
             self.repeatingParent?.addToIgnoredRepeatDates(date: deadline)
         }
         // remove all not needed properties of the current task
