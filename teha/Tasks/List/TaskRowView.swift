@@ -1,5 +1,5 @@
 //
-//  TaskListRowView.swift
+//  TaskRowView.swift
 //  teha
 //
 //  Created by Matteo Ludwig on 04.01.23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// The formatter used in TaskListRowView for the remining time until deadline
+// The formatter used in TaskRowView for the remaining time until deadline
 fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
     let formatter = RelativeDateTimeFormatter()
     formatter.unitsStyle = .full
@@ -18,13 +18,9 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 
 
 
-struct TaskListRowView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
+struct TaskRowView: View {
     @ObservedObject var task: THTask
     let now: Date
-    
-    @State var showDeleteDialog: Bool = false
 
     /// The content of the text right above the progress bar.
     /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
@@ -38,8 +34,7 @@ struct TaskListRowView: View {
         return nil
     }
     
-    /// The color of the text right above the progress bar, if the deadline is in the past the color is red, if the
-    /// absoluteLatestStartDate is in the past, it is orange
+    /// The color of the text right above the progress bar
     var timeRemainingColor: Color {
         if !task.isCompleted, let deadline = task.deadline {
             
@@ -67,23 +62,12 @@ struct TaskListRowView: View {
                     .strikethrough(task.isCompleted)
                     .fontWeight(.medium)
                 
-                HStack(spacing: 6) {
-                    // Show project label if applicable
-                    if let project = task.project {
-                        ProjectLabel(project: project)
-                            .lineLimit(1)
-                            .font(.caption)
-                            .foregroundColor(.secondaryLabel)
-                    }
-                    // Show if the task is a repeating task
-                    if task.isRepeating {
-                        Image(systemName: "repeat")
-                            .font(.caption)
-                            .foregroundColor(.accentColor)
-                            .scaleEffect(0.75)
-                            .padding(.leading, 2)
-                        
-                    }
+                // Show project label if applicable
+                if let project = task.project {
+                    ProjectLabel(project: project)
+                        .lineLimit(1)
+                        .font(.caption)
+                        .foregroundColor(.secondaryLabel)
                 }
             }
             
@@ -119,59 +103,27 @@ struct TaskListRowView: View {
         .padding(.vertical, 2)
         .contentShape(Rectangle())
         .background {
-            // navigationLink to the selected task
+            // create navigationlink to the selected task
             NavigationLink(value: task) {
                 EmptyView()
             }.opacity(0)
         }
         .frame(minHeight: 36)
-        // On swipe show a delete dialog
-        .swipeActions(edge: .trailing) {
-            Button {
-                showDeleteDialog = true
-            } label: {
-                Label("delete", systemImage: "trash")
-            }
-            .tint(Color.red)
-        }
-        // Present a confirmationDialog if a user really wants to delete a task
-        .confirmationDialog("task-delete-confirmation", isPresented: $showDeleteDialog) {
-            let hasFutureSiblings = task.hasFutureSiblings()
-            if hasFutureSiblings {
-                Button("repeating-delete-future", role: .destructive) {
-                    // Remove all pending reminders for task
-                    NotificationManager.instance.cancelPendingNotifications(for: task)
-                    // Call the deleteFutureRepeatSiblings Task if the task is a repeating task
-                    task.deleteFutureRepeatSiblings(context: viewContext)
-                    viewContext.delete(task)
-                    try? viewContext.save()
-                }
-            }
-            Button(hasFutureSiblings ? "repeating-delete-only-self" : "delete", role: .destructive) {
-                // Remove all pending reminders for task
-                NotificationManager.instance.cancelPendingNotifications(for: task)
-                
-                viewContext.delete(task)
-                try? viewContext.save()
-            }
-        } message: {
-            Text(task.hasFutureSiblings() ? "repeating-delete-prompt" : "task-delete-confirmation")
-        }
     }
 }
 
-struct TaskListRowView_Previews: PreviewProvider {
+struct TaskRowView_Previews: PreviewProvider {
     
-    private struct TaskListRowViewPreview: View {
+    private struct TaskRowViewPreview: View {
         @FetchRequest(fetchRequest: THTask.all) var results: FetchedResults<THTask>
         var body: some View {
             List(results) { task in
-                TaskListRowView(task: task, now: .now)
+                TaskRowView(task: task, now: .now)
             }
         }
     }
     
     static var previews: some View {
-        TaskListRowViewPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TaskRowViewPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
