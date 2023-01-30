@@ -12,6 +12,9 @@ struct ProjectEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
     
+    // Used for setting the default deadline
+    @AppStorage(SettingsAppStorageKey.endOfWorkDay.rawValue) var endOfWorkDay: Worktime = .init(hours: 16, minutes: 0)
+    
     @State private var name: String = ""
     @State private var priority: Priority = .normal
     @State private var color: ColorChoice = .pink
@@ -38,6 +41,12 @@ struct ProjectEditView: View {
     
     var navigationTitle: String {
         return editing ? name : String(localized: "new-project")
+    }
+    
+    var defaultDeadline: Date {
+        var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
+        date = Calendar.current.date(bySettingHour: endOfWorkDay.hours, minute: endOfWorkDay.minutes, second: 0, of: date) ?? .now
+        return date
     }
     
     func done() {

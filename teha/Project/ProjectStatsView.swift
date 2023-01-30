@@ -18,16 +18,19 @@ struct StatView: View {
     let systemName: String
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                ZStack {
-                    Circle().frame(width: 32).foregroundStyle(color)
-                    Image(systemName: systemName).foregroundStyle(.white)
-                }
-                Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1)
+        VStack(alignment: .leading) {
+            ZStack {
+                Circle().frame(width: 32).foregroundStyle(color)
+                Image(systemName: systemName).foregroundStyle(.white)
             }
-            Spacer()
-            Text(String(format: "%.0f", value)).bold().font(.title)
+            HStack {
+                ZStack {
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(2)
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(2...2).opacity(0)
+                }
+                Spacer()
+                Text(String(format: "%.0f", value)).bold().font(.title)
+            }
         }
         .padding(.all)
         .background(Color.tertiarySystemFill)
