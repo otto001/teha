@@ -8,10 +8,6 @@
 import SwiftUI
 import CoreData
 
-func isSameDay(a: DateComponents, b: DateComponents) -> Bool {
-    a.year == b.year && a.month == b.month && a.day == b.day
-}
-
 enum StatsViewType {
     case all, today, finished, current
 }
