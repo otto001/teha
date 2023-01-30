@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/// displayed text, if no tasks are available
 struct NoTaskView: View {
     var body: some View {
         VStack{

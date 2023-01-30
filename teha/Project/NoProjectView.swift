@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-
+/// displayed text, if no projects areavailable
 struct NoProjectView: View {
-    var body: some View {
+    var body: some View { 
         VStack{
             Image(systemName: "rectangle.stack.badge.plus")
                 .font(.largeTitle)

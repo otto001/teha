@@ -162,6 +162,10 @@
 
 "no-tasks-empty-text" = "It's quite empty here. Let's start getting productive together and add your first task!";
 
+"no-tasks-filter" = "No tasks match these filters";
+
+"no-project-filter" = "No projects match these filters";
+
 "none" = "None";
 
 "normal" = "Normal";

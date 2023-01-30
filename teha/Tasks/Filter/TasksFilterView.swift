@@ -26,7 +26,6 @@ struct TasksFilterView: View {
                     } label: {
                         Text("done").fontWeight(.semibold)
                     }
-                    
                 }
             }
             .navigationTitle("filter")
@@ -224,16 +223,14 @@ fileprivate struct Filters: View {
                 Label("project", systemImage: "briefcase")
             }
         }
-        
     }
     
-    @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View{
+    @ViewBuilder func priorityPicker(enabledSection: Bool) -> some View {
         if enabledSection == (filters.priority != nil) {
             PriorityPicker( selection: $filters.priority, noneText: "disabled"){
                 Label("priority", systemImage: "text.line.first.and.arrowtriangle.forward")
             }
         }
-        
     }
     
     @ViewBuilder func sectionTitle(_ titleKey: LocalizedStringKey) -> some View {

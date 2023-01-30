@@ -17,6 +17,15 @@ struct ProjectsTab: View {
     var body: some View {
         NavigationStack {
             ProjectsListView(query: search)
+            .navigationDestination(for: THProject.self) { project in
+                ProjectDetailView(project: project)
+            }
+            .navigationDestination(for: StatsViewPath.self) { path in
+                TasksListView().environmentObject(path.makeFiltersViewModel()).navigationTitle(path.title)
+            }
+            .navigationDestination(for: THTask.self) { task in
+                TaskDetailView(task: task)
+            }
             .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

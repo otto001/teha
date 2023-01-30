@@ -35,9 +35,7 @@ private struct ProjectRow: View {
                 .foregroundColor(project.color.color)
                 .fixedSize()
             Text(project.name ?? "").strikethrough(project.completed)
-            NavigationLink("") {
-                ProjectDetailView(project: project)
-            }
+            NavigationLink("", value: project)
         }
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
             
@@ -101,7 +99,8 @@ struct ProjectsListView: View {
         if sections.isEmpty{
             NoProjectView()
         }
-        else{
+        
+        else {
             NavigationStack {
                 List {
                     ForEach(sections) { section in
