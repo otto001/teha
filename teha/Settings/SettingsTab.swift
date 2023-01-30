@@ -31,7 +31,7 @@ enum SettingsAppStorageKey: String {
         guard UserDefaults.standard.value(forKey: didSetDefaultValues.rawValue) as? Bool != true else { return }
         UserDefaults.standard.set(Worktime(hours: 8, minutes: 0).rawValue, forKey: startOfWorkDay.rawValue)
         UserDefaults.standard.set(Worktime(hours: 16, minutes: 0).rawValue, forKey: endOfWorkDay.rawValue)
-        UserDefaults.standard.set(Set<Int>([1,2,3,4,5]).rawValue, forKey: workDays.rawValue)
+        UserDefaults.standard.set(Set<Int>([2, 3, 4, 5, 6]).rawValue, forKey: workDays.rawValue)
         UserDefaults.standard.set(true, forKey: didSetDefaultValues.rawValue)
         UserDefaults.standard.set(false, forKey: useThemedAppIcon.rawValue)
     }

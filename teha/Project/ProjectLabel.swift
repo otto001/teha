@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view that displays a project's name and color.
 struct ProjectLabel: View {
     @ObservedObject var project: THProject
     var body: some View {
@@ -15,7 +16,6 @@ struct ProjectLabel: View {
                 .foregroundStyle(project.color.color, .gray)
             Text(project.name ?? "")
         }
-        //.onAppear()
     }
 }
 

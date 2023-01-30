@@ -74,7 +74,8 @@ struct TaskDetailView: View {
             return "\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))"
             
         }
-        return nil
+        // return empty text for spacing reasons (i know, kinda dirty, but this automatically adjusts to dynamic font sizes, which is hard to do otherwise in swift
+        return " "
     }
     
     @ViewBuilder func title(geo: GeometryProxy) -> some View {
@@ -112,22 +113,9 @@ struct TaskDetailView: View {
     }
     
     @ViewBuilder var progressBar: some View {
-        VStack {
-            // The teha-style interactive progress bar for reading and setting task progress
-            TaskProgressBarInteractive(task: task)
-                .frame(height: 16)
-            
-            // If there is estimatedWorktime remaining, show that underneath the progressbar
-            // TODO: BUG Does not update if user starts dragging when task is not yet started explicitly
-            if task.estimatedWorktime > .zero, !task.isCompleted,
-               let timeRemaining = task.estimatedWorktimeRemaining.formatted {
-                Text("\(timeRemaining)-worktime-remaining")
-                    .monospacedDigit()
-                    .foregroundColor(.secondaryLabel)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        }
+        
+        // The teha-style interactive progress bar for reading and setting task progress
+        TaskProgressBarInteractive(task: task)
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)

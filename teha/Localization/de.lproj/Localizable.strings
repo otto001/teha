@@ -10,6 +10,8 @@
 
 "%@-worktime-remaining" = "%@ Aufwand verbleibend";
 
+"CW-%@" = "Woche %@";
+
 "add" = "Hinzufügen";
 
 "add-%@" = "Füge %@ hinzu";
@@ -51,8 +53,6 @@
 "current" = "Aktuelle";
 
 "custom" = "Benutzerdefiniert";
-
-"CW-%@" = "Woche %@";
 
 "date" = "Datum";
 
@@ -146,27 +146,29 @@
 
 "name" = "Name";
 
+"never" = "Niemals";
+
 "new-project" = "Neues Projekt";
 
 "new-task" = "Neue Aufgabe";
 
-"next-week" = "Nächste Woche";
-
 "next" = "Weiter";
 
-"no-reminder" = "Keine";
+"next-week" = "Nächste Woche";
+
+"no-project-filter" = "No projects match these filters";
 
 "no-projects" = "Keine Projekte vorhanden";
 
 "no-projects-empty-text" = "Sicher, dass du nichts vor hast? Erstelle jetzt ein neues Projekt!";
+
+"no-reminder" = "Keine";
 
 "no-tasks" = "Keine Aufgaben vorhanden";
 
 "no-tasks-empty-text" = "Sieht ziemlich leer aus! Lass uns gemeinsam produktiv werden und erstelle deine erste Aufgabe!";
 
 "no-tasks-filter" = "No tasks match these filters";
-
-"no-project-filter" = "No projects match these filters";
 
 "none" = "Nichts";
 
@@ -184,7 +186,15 @@
 
 "ok" = "Ok";
 
+"onboarding-projects" = "Verwalte Projekte mit mehreren Aufgaben";
+
+"onboarding-settings" = "Stelle deine persönlichen Arbeitszeiten ein";
+
 "onboarding-show" = "Onboarding anzeigen";
+
+"onboarding-suggestions" = "Vorschläge, basierend auf deinen Aufgaben";
+
+"onboarding-tasks" = "Erstelle und organisiere deine Aufgaben";
 
 "other-filters" = "Weitere Filter";
 
@@ -207,6 +217,30 @@
 "remove" = "Entfernen";
 
 "remove-%@" = "Entferne %@";
+
+"repeat" = "Wiederholen";
+
+"repeat-daily" = "Täglich";
+
+"repeat-deadline-after" = "Das Enddatum der Wiederholungen muss nach der Deadline der Aufgabe liegen.";
+
+"repeat-deadline-years" = "Das Enddatum der Wiederholungen darf nicht mehr als zwei Jahre in der Zukunft liegen.";
+
+"repeat-weekly" = "Wöchentlich";
+
+"repeating-delete-future" = "Alle zukünftigen Aufgaben löschen";
+
+"repeating-delete-only-self" = "Nur diese Aufgabe löschen";
+
+"repeating-delete-prompt" = "Diese Aufgabe wiederholt sich.";
+
+"repeating-end-date" = "Letzte Wiederholung";
+
+"repeating-update-future" = "Alle zukünftigen Aufgaben ändern";
+
+"repeating-update-future-prompt" = "Diese Aufgabe wiederholt sich.";
+
+"repeating-update-only-self" = "Nur diese Aufgabe ändern";
 
 "reset-all-filters" = "Lösche alle Filter";
 

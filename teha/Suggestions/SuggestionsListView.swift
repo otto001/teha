@@ -58,7 +58,7 @@ fileprivate struct SuggestionsListRow: View {
     
     var body: some View {
         Section {
-            TaskRowView(task: taskWithLatestStartDate.task, now: now)
+            TaskListRowView(task: taskWithLatestStartDate.task, now: now)
         } header: {
             HStack(spacing: 0) {
                 Text("start-before-\(formattedTime)")

@@ -11,7 +11,12 @@ import CoreData
 
 @objc(THTask)
 public class THTask: NSManagedObject {
-
+    // prepare a repeating task for deletion by removing it from the repeating chain of the parent
+    public override func prepareForDeletion() {
+        self.removeFromRepeatingChain()
+        NotificationManager.instance.cancelPendingNotifications(for: self)
+        
+    }
 }
 
 
@@ -92,6 +97,8 @@ extension THTask {
         return self.estimatedWorktime.percentage(1 - self.completionProgress)
     }
 }
+
+
 
 
 //MARK: FetchRequests

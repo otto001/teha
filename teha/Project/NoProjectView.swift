@@ -1,12 +1,14 @@
 //
-//  noProjectView.swift
+//  NoProjectView.swift
 //  teha
 //
 //  Created by Denis Ukehaxhaj on 30.01.23.
 //
 
 import SwiftUI
-/// displayed text, if no projects areavailable
+
+
+/// A view that shows when no projects have been created yet.
 struct NoProjectView: View {
     var body: some View { 
         VStack{

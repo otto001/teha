@@ -9,12 +9,16 @@ import SwiftUI
 import CoreData
 
 
+/// A view that displays a single project.
 private struct ProjectRow: View {
+    /// The project to display; this is observed so that the view is updated when the project changes in anothrer view.
     @ObservedObject var project: THProject
     @Environment(\.managedObjectContext) private var viewContext
     
+    /// Whether the delete confirmation dialog is currently presented.
     @State private var showDeleteDialog = false
     
+    /// Deletes the project. If `deleteTasks` is `true`, all tasks of the project are deleted as well.
     func delete(deleteTasks: Bool) {
         if deleteTasks{
             // Remove all reminders from all tasks of the project
@@ -37,8 +41,8 @@ private struct ProjectRow: View {
             Text(project.name ?? "").strikethrough(project.completed)
             NavigationLink("", value: project)
         }
+        // Handle the delete action, specifically what happens to the related tasks.
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
-            
             if project.tasks?.count ?? 0 > 0 {
                 // Delete Project but keep tasks
                 Button("delete-project-keep-tasks", role: .destructive) {
@@ -71,7 +75,6 @@ private struct ProjectRow: View {
         .swipeActions(edge: .leading) {
             Button {
                 project.completed = !project.completed
-                // TODO: error handling
                 try? viewContext.save()
             } label: {
                 Label("complete", systemImage: project.completed ? "xmark.rectangle.portrait" : "checkmark.rectangle.portrait")
@@ -80,14 +83,19 @@ private struct ProjectRow: View {
     }
 }
 
+/// A view that displays a list of projects.
+/// The list is grouped by priority and completed status.
 struct ProjectsListView: View {
+    /// Fetch all projects and group them by priority and completed status
     @SectionedFetchRequest<Int, THProject>(fetchRequest: THProject.projectsListFetchRequest, sectionIdentifier: \.projectsListSection, animation: .easeInOut)
     private var sections: SectionedFetchResults<Int, THProject>
     
+    /// The query to filter the projects by.
     var query: String
     
     @State private var editProject: THProject? = nil
     
+    /// Get the localized name of the section with the given id.
     func sectionTitle(for id: Int) -> LocalizedStringKey {
         if id == THProject.completedSectionId {
             return LocalizedStringKey("completed")
@@ -98,18 +106,14 @@ struct ProjectsListView: View {
     var body: some View {
         if sections.isEmpty{
             NoProjectView()
-        }
-        
-        else {
-            NavigationStack {
-                List {
-                    ForEach(sections) { section in
-                        let projects = section.search(query: query)
-                        if projects.count > 0 {
-                            Section(sectionTitle(for: section.id)) {
-                                ForEach(projects) { project in
-                                    ProjectRow(project: project)
-                                }
+        } else {
+            List {
+                ForEach(sections) { section in
+                    let projects = section.search(query: query) // Filter projects by query
+                    if projects.count > 0 { // Only show sections that contain projects
+                        Section(sectionTitle(for: section.id)) {
+                            ForEach(projects) { project in
+                                ProjectRow(project: project)
                             }
                         }
                     }
@@ -123,13 +127,15 @@ struct ProjectsListView: View {
 }
 
 fileprivate extension SectionedFetchResults<Int, THProject>.Element {
+    /// Filter the projects in this section by the given query.
     func search(query: String) -> [THProject] {
-        if query == "" {return Array(self)}
+        if query == "" { return Array(self) }
         
         return Array(self).filter { $0.name?.contains(query) ?? false }
     }
 }
 
+// Implement sectioned fetch requests
 fileprivate extension THProject {
     static let completedSectionId = Priority.allCases.map {$0.rawValue}.max()! + 1
     

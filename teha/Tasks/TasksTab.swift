@@ -120,6 +120,8 @@ struct TasksTab: View {
     
     @StateObject var filters = TasksFilterViewModel()
     
+    @State var taskListId = UUID()
+    
     var filtersAreActive: Bool {
         return filters.anyFilterActive
     }
@@ -140,7 +142,7 @@ struct TasksTab: View {
                         } label: {
                             Image(systemName: "plus")
                         }
-                        
+                        .disabled(editMode?.wrappedValue.isEditing == true)
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -151,6 +153,7 @@ struct TasksTab: View {
                             Button {
                                 withAnimation {
                                     editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                    
                                 }
                             } label: {
                                 Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
