@@ -7,18 +7,26 @@
 
 import SwiftUI
 
+/// enum for all UserDefaults set for the app.
 enum SettingsAppStorageKey: String {
+    // UserDefault for the AccentColor of the app
     case accentColor = "settings.accentColor"
+    // UserDefault if the Onboarding has been done. Is also used to let the OnboardingView reappear
     case onboardingDone = "settings.onboardingDone"
-    
+
+    // UserDefault for the days the User works in the week
     case workDays = "settings.workDays"
+    // UserDefault for the starting hour of each workday
     case startOfWorkDay = "settings.startOfWorkDay"
+    // UserDefault for the ending hour of each workday
     case endOfWorkDay = "settings.endOfWorkDay"
-    
+    // UserDefault, if the DefaultValues have been set
     case didSetDefaultValues = "settings.didSetDefaultValues"
     
     case useThemedAppIcon = "settings.useThemedAppIcon"
     
+
+    /// Function used to set the UserDefaults to standard values when the User starts the app for the first time.
     static func setDefaultValuesIfNeeded() {
         guard UserDefaults.standard.value(forKey: didSetDefaultValues.rawValue) as? Bool != true else { return }
         UserDefaults.standard.set(Worktime(hours: 8, minutes: 0).rawValue, forKey: startOfWorkDay.rawValue)
@@ -29,7 +37,9 @@ enum SettingsAppStorageKey: String {
     }
 }
 
+/// A View to get Advanced Settings. This is currently used to show the onboarding view again.
 struct AdvancedSettings: View {
+    // Setting the onboardingDone variable for the first time in the AppStorage
     @AppStorage(SettingsAppStorageKey.onboardingDone.rawValue) private var onboardingDone: Bool = false
     
     var body: some View {
@@ -43,7 +53,9 @@ struct AdvancedSettings: View {
     }
 }
 
+/// The View for the SettingsTab including the workday settings, the accentColor setting and the advanced settings
 struct SettingsTab: View {
+// Setting the accentColor variable for the first time in the AppStorage
     @AppStorage(SettingsAppStorageKey.accentColor.rawValue) private var accentColor: ColorChoice = .blue
     @AppStorage(SettingsAppStorageKey.useThemedAppIcon.rawValue) private var useThemedAppIcon: Bool = false
     
