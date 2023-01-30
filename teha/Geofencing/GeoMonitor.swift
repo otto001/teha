@@ -25,7 +25,7 @@ class GeoMonitor: NSObject, ObservableObject, CLLocationManagerDelegate{
      - Parameters:
      - task: A THTask CoreData Object ob the given task, which should get monitored
      */
-    func startMonitoringTaskLocation(task:THTask){
+    func startMonitoringTaskLocation(task: THTask){
         if (locationManager.authorizationStatus != .authorizedAlways) {
             requestLocationPermissions()
         }
@@ -71,7 +71,7 @@ class GeoMonitor: NSObject, ObservableObject, CLLocationManagerDelegate{
      A CLCircularRegion object is getting returned with the given coordinates and properties
      */
     private func createRegionForCoordinates(coordinates:CLLocationCoordinate2D, identifier:String) -> CLCircularRegion {
-        let maxDistance = 100 // The radius for the circle around the given coordinates
+        let maxDistance = 200 // The radius for the circle around the given coordinates
         let region = CLCircularRegion(
             center: coordinates,
             radius: CLLocationDistance(maxDistance),
@@ -146,7 +146,7 @@ class GeoMonitor: NSObject, ObservableObject, CLLocationManagerDelegate{
     func requestLocationPermissions() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
-        // locationManager.allowsBackgroundLocationUpdates = true
+        
         locationManager.startUpdatingLocation()
     }
     

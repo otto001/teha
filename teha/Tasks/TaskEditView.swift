@@ -361,6 +361,16 @@ extension TaskEditView {
             task.reminderOffset = task.deadline != nil ? self.reminder : nil
             task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
             
+            if let address = self.address {
+                task.address = address
+                task.lat = self.lat ?? 0
+                task.long = self.long ?? 0
+            } else {
+                task.address = ""
+                task.lat = 0
+                task.long = 0
+            }
+            
             task.notes = self.notes
             task.tags = self.tags as NSSet
         }

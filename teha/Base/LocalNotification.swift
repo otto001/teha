@@ -132,9 +132,9 @@ class NotificationManager {
         
         // Create content of notification
         let content = UNMutableNotificationContent()
-        content.title = String(localized:"location-arrived-title")
+        content.title = String(localized: "location-arrived-title")
         if let title = title {
-            content.body = "\(title)-location-arrived-body"
+            content.body = String(localized: "\(title)-location-arrived-body")
         } else {
             return
         }
