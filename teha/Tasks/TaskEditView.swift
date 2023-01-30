@@ -12,13 +12,10 @@ import SwiftUI
 struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
-<<<<<<< HEAD
-    let geofencing = GeoMonitor()
-=======
-    
+
     // Used for setting the default deadline
     @AppStorage(SettingsAppStorageKey.endOfWorkDay.rawValue) var endOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
->>>>>>> main
+
    
     @State var data = FormData()
     
@@ -262,16 +259,12 @@ extension TaskEditView {
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
-<<<<<<< HEAD
         var address: String?
-        var lat:Double?
-        var long:Double?
+        var lat: Double?
+        var long: Double?
         
-        var project: THProject?
         
-=======
         var notes: String = ""
->>>>>>> main
         var tags: Set<THTag> = .init()
         
         /// True when the deadline is before the earliestStartDate.
@@ -330,20 +323,17 @@ extension TaskEditView {
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
-<<<<<<< HEAD
+
+            
             self.address = task.address ?? ""
             self.lat = task.lat
             self.long = task.long
-            self.project = task.project
-            self.tags = task.tags as? Set<THTag> ?? .init()
-=======
-            
+
             self.repeatInterval = task.repeatInterval
             self.repeatEndDate = task.repeatEndDate
             self.originalDeadline = task.deadline
             self.alreadyWasRepeating = task.isRepeating
             
->>>>>>> main
             self.reminder = task.reminderOffset
             self.reminderSecond = task.reminderOffsetSecond
             
