@@ -208,6 +208,12 @@
 
 "remove-%@" = "Entferne %@";
 
+"repeat" = "Wiederholen";
+
+"repeat-daily" = "Täglich";
+
+"repeat-weekly" = "Wöchentlich";
+
 "reset-all-filters" = "Lösche alle Filter";
 
 "select" = "Auswählen";

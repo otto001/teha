@@ -206,6 +206,12 @@
 
 "remove-%@" = "Remove %@";
 
+"repeat" = "Repeat";
+
+"repeat-daily" = "Daily";
+
+"repeat-weekly" = "Weekly";
+
 "reset-all-filters" = "Reset all Filters";
 
 "select" = "Select";

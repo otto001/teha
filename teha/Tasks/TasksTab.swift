@@ -120,6 +120,8 @@ struct TasksTab: View {
     
     @StateObject var filters = TasksFilterViewModel()
     
+    @State var taskListId = UUID()
+    
     var filtersAreActive: Bool {
         return filters.anyFilterActive
     }
@@ -128,6 +130,7 @@ struct TasksTab: View {
         
         NavigationStack {
             TasksListView()
+                .id(taskListId)
                 .environment(\.editMode, editMode)
                 .navigationDestination(for: THTask.self) { task in
                     TaskDetailView(task: task)
@@ -149,9 +152,13 @@ struct TasksTab: View {
                             TasksTabFiltersActiveButton().environment(\.editMode, editMode)
                             
                             Button {
-                                withAnimation {
-                                    editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                taskListId = UUID()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                    withAnimation {
+                                        editMode?.wrappedValue = (editMode?.wrappedValue.isEditing == true ? EditMode.inactive : EditMode.active)
+                                    }
                                 }
+                               
                             } label: {
                                 Text(editMode?.wrappedValue.isEditing == true ? "done" : "select")
                             }

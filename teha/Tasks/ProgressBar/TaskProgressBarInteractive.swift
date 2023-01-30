@@ -65,14 +65,21 @@ struct TaskProgressBarInteractive: View {
     
     @State private var lastDraggingProgress: Double = 0
     
-    var thresholds: [Double] {
-        [0, 1]
-    }
-    
+
     init(task: THTask, activeColor: Color = .accentColor, inactiveColor: Color = .secondaryLabel) {
         self.task = task
         self.activeColor = activeColor
         self.inactiveColor = inactiveColor
+    }
+    
+    func getSnappedProgress(progress: Double) -> Double {
+        guard task.estimatedWorktime != .zero else {
+            return progress
+        }
+        
+        let totalReaminingMinutes = Double(task.estimatedWorktime.totalMinutes) * (1 - progress)
+        let snappedRemainingMinutes = 5 * Int(round(totalReaminingMinutes/5))
+        return 1 - ((Double(snappedRemainingMinutes) + 0.5) / Double(task.estimatedWorktime.totalMinutes))
     }
     
     var shownProgress: Double {
@@ -82,6 +89,11 @@ struct TaskProgressBarInteractive: View {
             return 1
         }
         return task.completionProgress
+    }
+    
+    
+    var snappedProgress: Double {
+        return self.getSnappedProgress(progress: shownProgress)
     }
     
     var startedCircleActive: Bool {
@@ -117,21 +129,27 @@ struct TaskProgressBarInteractive: View {
                     
                     let barPadding = gestureWidth - barWidth
                     draggingProgress = max(0, min(1, (action.location.x - barPadding/2)  / barWidth))
-                    task.completionProgress = draggingProgress
+                    
+                    task.completionProgress = snappedProgress
+                    
                     if draggingProgress != lastDraggingProgress {
                         
-                        for threshold in thresholds {
-                            if draggingProgress >= threshold && lastDraggingProgress <= threshold {
+                        if task.estimatedWorktime != .zero {
+                            if self.snappedProgress != self.getSnappedProgress(progress: lastDraggingProgress) {
                                 UISelectionFeedbackGenerator().selectionChanged()
-                                break
                             }
+                        }
+                        
+                        if (draggingProgress == 1 && lastDraggingProgress != 1)
+                        || (lastDraggingProgress == 0 && draggingProgress != 0) {
+                            UIImpactFeedbackGenerator().impactOccurred(intensity: 0.7)
                         }
                     }
                 }
             }
             .onEnded { _ in
                 
-                task.completionProgress = draggingProgress
+                task.completionProgress = snappedProgress
                 if draggingProgress >= 1 {
                     completeTask()
                 } else if draggingProgress > 0 && !task.isStarted {
@@ -144,49 +162,65 @@ struct TaskProgressBarInteractive: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-            
-            HStack(spacing: 0) {
+        VStack {
+            GeometryReader { geo in
                 
-                ProgressCircleInteractive(titleKey: "started",
-                                          resetConfirmationTitleKey: "mark-as-not-started-are-you-sure",
-                                          resetConfirmationActionKey: "mark-as-not-started",
-                                          active: startedCircleActive,
-                                          activeColor: activeColor,
-                                          inactiveColor: inactiveColor) {
-                    startTask()
-                } undoAction: {
-                    task.startDate = nil
-                    task.completionDate = nil
-                    task.completionProgress = 0
-                    NotificationManager.instance.scheduleReminderNotifications(task: task)
-                }
-                .zIndex(2)
-                
-                TaskProgressBar.ProgressSlider(progress: shownProgress,
-                                                size: geo.size,
-                                                activeColor: activeColor,
-                                                inactiveColor: inactiveColor)
-                .zIndex(1)
-                
-                ProgressCircleInteractive(titleKey: "completed",
-                                          resetConfirmationTitleKey: "mark-as-not-completed-are-you-sure",
-                                          resetConfirmationActionKey: "mark-as-not-completed",
-                                          active: completedCircleActive,
-                                          activeColor: activeColor,
-                                          inactiveColor: inactiveColor) {
+                HStack(spacing: 0) {
                     
-                    completeTask()
-                } undoAction: {
-                    task.completionDate = nil
-                    NotificationManager.instance.scheduleReminderNotifications(task: task)
+                    ProgressCircleInteractive(titleKey: "started",
+                                              resetConfirmationTitleKey: "mark-as-not-started-are-you-sure",
+                                              resetConfirmationActionKey: "mark-as-not-started",
+                                              active: startedCircleActive,
+                                              activeColor: activeColor,
+                                              inactiveColor: inactiveColor) {
+                        startTask()
+                    } undoAction: {
+                        task.startDate = nil
+                        task.completionDate = nil
+                        task.completionProgress = 0
+                        NotificationManager.instance.scheduleReminderNotifications(task: task)
+                    }
+                    .zIndex(2)
+                    
+                    TaskProgressBar.ProgressSlider(progress: shownProgress,
+                                                   size: geo.size,
+                                                   activeColor: activeColor,
+                                                   inactiveColor: inactiveColor)
+                    .zIndex(1)
+                    
+                    ProgressCircleInteractive(titleKey: "completed",
+                                              resetConfirmationTitleKey: "mark-as-not-completed-are-you-sure",
+                                              resetConfirmationActionKey: "mark-as-not-completed",
+                                              active: completedCircleActive,
+                                              activeColor: activeColor,
+                                              inactiveColor: inactiveColor) {
+                        
+                        completeTask()
+                    } undoAction: {
+                        task.completionDate = nil
+                        NotificationManager.instance.scheduleReminderNotifications(task: task)
+                    }
+                    .zIndex(2)
+                    
                 }
-                .zIndex(2)
-                
+                .gesture(dragGesture(gestureWidth: geo.size.width, barWidth: geo.size.width - geo.size.height*2))
             }
-            .gesture(dragGesture(gestureWidth: geo.size.width, barWidth: geo.size.width - geo.size.height*2))
+            .frame(height: 16)
+            
+            // If there is estimatedWorktime remaining, show that underneath the progressbar
+            // TODO: BUG Does not update if user starts dragging when task is not yet started explicitly
+            if task.estimatedWorktime > .zero,
+                !task.isCompleted,
+               let timeRemaining = task.estimatedWorktime.percentage(1 - snappedProgress).formatted {
+                Text("\(timeRemaining)-worktime-remaining")
+                    .monospacedDigit()
+                    .foregroundColor(.secondaryLabel)
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            } else {
+                Text(" ").font(.caption)
+            }
         }
-        .frame(maxHeight: 16)
     }
 }
 

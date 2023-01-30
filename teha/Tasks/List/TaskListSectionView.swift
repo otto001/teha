@@ -110,15 +110,7 @@ struct TaskListSectionView: View {
             }
             if section.id != "none" || !collapsed {
                 ForEach(section) { task in
-                    TaskRowView(task: task, now: now)
-                        .swipeActions(edge: .trailing) {
-                            Button {
-                                deleteAction(task)
-                            } label: {
-                                Label("delete", systemImage: "trash")
-                            }
-                            .tint(Color.red)
-                        }
+                    TaskListRowView(task: task, now: now)
                         .disabled(editMode?.wrappedValue == .active)
                         .id(task.id)
                         .tag(task.objectID)

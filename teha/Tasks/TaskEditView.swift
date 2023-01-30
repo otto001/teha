@@ -19,6 +19,7 @@ struct TaskEditView: View {
     @State var data = FormData()
     
     @State var showError: Bool = false
+    @State var showRepeatingUpdateChoices: Bool = false
     
     let mode: Mode
     
@@ -48,39 +49,46 @@ struct TaskEditView: View {
 
     }
     
-    func done() {
+    func done(updateFutureChildren: Bool? = nil) {
         guard data.valid else {
             showError = true
             return
         }
         
+
+        guard !(task?.hasFutureSiblings() == true && updateFutureChildren == nil) else {
+            print("showRepeatingUpdateChoices")
+            if showRepeatingUpdateChoices == true {
+                showRepeatingUpdateChoices = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    showRepeatingUpdateChoices = true
+                }
+            } else {
+                showRepeatingUpdateChoices = true
+            }
+            return
+        }
+        
         let task = task ?? THTask(context: viewContext)
+        data.apply(to: task)
         
-        task.title = data.title
-        task.notes = data.notes
-        task.priority = data.priority
-        
-        task.earliestStartDate = data.earliestStartDate
-        task.deadline = data.deadline
-        
-        task.estimatedWorktime = data.estimatedWorktime
-        
-        task.project = data.project
-        
-        task.reminderOffset = data.reminder
-        task.reminderOffsetSecond = data.reminderSecond
-        
-        task.tags = data.tags as NSSet
-        
-        if !editing {
+        if task.creationDate == nil {
             task.creationDate = Date.now
         }
+        
+        let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
+        task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
         
         // TODO: error handling
         try? viewContext.save()
         
+        // TODO: Move NotificationManager code to somewhere else
         NotificationManager.instance.scheduleReminderNotifications(task: task)
-            
+        
+        task.repeatingSiblings?.forEach { repeatingSibling in
+            NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
+        }
+
         dismiss()
     }
     
@@ -140,6 +148,10 @@ struct TaskEditView: View {
 
                 if data.deadline != nil {
                     Section {
+                        RepeatIntervalInput("repeat", interval: $data.repeatInterval, endDate: $data.repeatEndDate)
+                    }
+                    
+                    Section {
                             ReminderPicker(title: "reminder", selection: $data.reminder)
                             if data.reminder != nil {
                                 ReminderPicker(title: "reminder-second", selection: $data.reminderSecond)
@@ -153,26 +165,41 @@ struct TaskEditView: View {
                     TagPicker(selection: $data.tags)
                 }
             }
-            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid, done: done) {
+            .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: data.valid) {
+                done()
+            } cancel: {
                 dismiss()
             }
-            .alert(isPresented: $showError, error: data.error) { _ in
-                Button {
-                    showError = false
-                } label: {
-                    Text("ok")
-                }
-            } message: { error in
-                Text(error.failureReason ?? "")
-            }
-            .onAppear {
-                if let task = task {
-                    self.data = .init(task: task)
-                }
-                
-                NotificationManager.instance.requestAuthorization()
-            }
+            
         }
+        .alert(isPresented: $showError, error: data.error) { _ in
+            Button {
+                showError = false
+            } label: {
+                Text("ok")
+            }
+        } message: { error in
+            Text(error.failureReason ?? "")
+        }
+        .confirmationDialog("repeating-update-future-prompt", isPresented: $showRepeatingUpdateChoices) {
+            Button("repeating-update-future") {
+                self.done(updateFutureChildren: true)
+            }
+            Button("repeating-update-only-self") {
+                self.done(updateFutureChildren: false)
+            }
+            
+        } message: {
+            Text("repeating-update-future-prompt")
+        }
+        .onAppear {
+            if let task = task {
+                self.data = .init(task: task)
+            }
+            
+            NotificationManager.instance.requestAuthorization()
+        }
+        .interactiveDismissDisabled()
     }
 }
 
@@ -198,7 +225,7 @@ extension TaskEditView {
     
     struct FormData {
         var title: String = ""
-        var notes: String = ""
+        var project: THProject?
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
@@ -207,11 +234,15 @@ extension TaskEditView {
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
+        var repeatInterval: RepeatInterval?
+        var repeatEndDate: Date?
+        var originalDeadline: Date?
+        var alreadyWasRepeating: Bool = false
+        
         var reminder: ReminderOffset? = nil
         var reminderSecond: ReminderOffset? = nil
         
-        var project: THProject?
-        
+        var notes: String = ""
         var tags: Set<THTag> = .init()
         
         /// True when the deadline is before the earliestStartDate.
@@ -249,15 +280,43 @@ extension TaskEditView {
         
         init(task: THTask) {
             self.title = task.title ?? ""
-            self.notes = task.notes ?? ""
+            self.project = task.project
             self.priority = task.priority
+            
             self.earliestStartDate = task.earliestStartDate
             self.deadline = task.deadline
             self.estimatedWorktime = task.estimatedWorktime
-            self.project = task.project
-            self.tags = task.tags as? Set<THTag> ?? .init()
+            
+            self.repeatInterval = task.repeatInterval
+            self.repeatEndDate = task.repeatEndDate
+            self.originalDeadline = task.deadline
+            self.alreadyWasRepeating = task.isRepeating
+            
             self.reminder = task.reminderOffset
             self.reminderSecond = task.reminderOffsetSecond
+            
+            self.notes = task.notes ?? ""
+            self.tags = task.tags as? Set<THTag> ?? .init()
+        }
+        
+        func apply(to task: THTask) {
+            task.title = self.title
+            task.project = self.project
+            task.priority = self.priority
+            
+            task.earliestStartDate = self.earliestStartDate
+            task.deadline = self.deadline
+            
+            task.estimatedWorktime = self.estimatedWorktime
+            
+            task.repeatInterval = self.repeatInterval
+            task.repeatEndDate = self.repeatEndDate
+            
+            task.reminderOffset = self.reminder
+            task.reminderOffsetSecond = self.reminderSecond
+            
+            task.notes = self.notes
+            task.tags = self.tags as NSSet
         }
     }
     

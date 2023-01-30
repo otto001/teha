@@ -1,5 +1,5 @@
 //
-//  TaskRowView.swift
+//  TaskListRowView.swift
 //  teha
 //
 //  Created by Matteo Ludwig on 04.01.23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// The formatter used in TaskRowView for the remining time until deadline
+// The formatter used in TaskListRowView for the remining time until deadline
 fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
     let formatter = RelativeDateTimeFormatter()
     formatter.unitsStyle = .full
@@ -18,9 +18,13 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 
 
 
-struct TaskRowView: View {
+struct TaskListRowView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var task: THTask
     let now: Date
+    
+    @State var showDeleteDialog: Bool = false
 
     /// The content of the text right above the progress bar.
     /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
@@ -62,12 +66,23 @@ struct TaskRowView: View {
                     .strikethrough(task.isCompleted)
                     .fontWeight(.medium)
                 
-                // Show project label if applicable
-                if let project = task.project {
-                    ProjectLabel(project: project)
-                        .lineLimit(1)
-                        .font(.caption)
-                        .foregroundColor(.secondaryLabel)
+                HStack(spacing: 6) {
+                    // Show project label if applicable
+                    if let project = task.project {
+                        ProjectLabel(project: project)
+                            .lineLimit(1)
+                            .font(.caption)
+                            .foregroundColor(.secondaryLabel)
+                    }
+                    
+                    if task.isRepeating {
+                        Image(systemName: "repeat")
+                            .font(.caption)
+                            .foregroundColor(.accentColor)
+                            .scaleEffect(0.75)
+                            .padding(.leading, 2)
+                        
+                    }
                 }
             }
             
@@ -108,21 +123,54 @@ struct TaskRowView: View {
             }.opacity(0)
         }
         .frame(minHeight: 36)
+        
+        .swipeActions(edge: .trailing) {
+            Button {
+                showDeleteDialog = true
+            } label: {
+                Label("delete", systemImage: "trash")
+            }
+            .tint(Color.red)
+        }
+        .confirmationDialog("task-delete-confirmation", isPresented: $showDeleteDialog) {
+            let hasFutureSiblings = task.hasFutureSiblings()
+            if hasFutureSiblings {
+                Button("repeating-delete-future", role: .destructive) {
+                    // Remove all pending reminders for task
+                    NotificationManager.instance.cancelPendingNotifications(for: task)
+                    
+                    task.deleteFutureRepeatSiblings(context: viewContext)
+                    viewContext.delete(task)
+                    // TODO: error handling
+                    try? viewContext.save()
+                }
+            }
+            Button(hasFutureSiblings ? "repeating-delete-only-self" : "delete", role: .destructive) {
+                // Remove all pending reminders for task
+                NotificationManager.instance.cancelPendingNotifications(for: task)
+                
+                viewContext.delete(task)
+                // TODO: error handling
+                try? viewContext.save()
+            }
+        } message: {
+            Text("task-delete-confirmation")
+        }
     }
 }
 
-struct TaskRowView_Previews: PreviewProvider {
+struct TaskListRowView_Previews: PreviewProvider {
     
-    private struct TaskRowViewPreview: View {
+    private struct TaskListRowViewPreview: View {
         @FetchRequest(fetchRequest: THTask.all) var results: FetchedResults<THTask>
         var body: some View {
             List(results) { task in
-                TaskRowView(task: task, now: .now)
+                TaskListRowView(task: task, now: .now)
             }
         }
     }
     
     static var previews: some View {
-        TaskRowViewPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        TaskListRowViewPreview().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
