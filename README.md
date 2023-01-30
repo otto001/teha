@@ -4,8 +4,9 @@ teha is an app for freelancers, employees, students, and everyone else whose tim
 teha allows you to keep track of your projects and todos, while recommending you with what to continue so you meet the deadline.
 The app is completly written in SwiftUi.
 
-# repository structure  
+# repository structure 
 
+```
 teha/
 ├─ Onboarding/
 ├─ Localization/
@@ -26,16 +27,18 @@ teha/
 tehaTests/
 ├─SuggestionsGeneratorTests.swift
 README.md 
+```
+
 
 # implementation
 
-##Onboarding
+## Onboarding
 ### structure
-
+```
 ├─ Onboarding/
   ├─ OnboardingView.swift // controller of multiple onboarding views
   ├─ OnboardingPageView.swift // a single onboarding page
-  
+  ```
 ### functionality
 
 Multiple OnboardingPageViews, which are controlled by the OnboardingView.swift to create a shot onboarding experience.
@@ -47,6 +50,7 @@ Multiple OnboardingPageViews, which are controlled by the OnboardingView.swift t
 ## Localization
 
 ### structure
+```
 ├─Localization/
   ├─Localizable/ //stringfiles
     ├─localizable (German)
@@ -54,20 +58,20 @@ Multiple OnboardingPageViews, which are controlled by the OnboardingView.swift t
   ├─Localizabke/ //stringdicts
     ├─localizable (German)
     ├─localizable (English)
-    
+ ```
 ### functionality
 teha supports german and english translation. These files contain the translations of all texts and its pluralization rules.
 
     
-##Model
+## Model
 ### structure
-
+```
 ├─ Model/
   ├─ teha.xcdatamodeld
   ├─ THProject+CoreDataClass.swift
   ├─ THTask+CoreDataClass.swift
   ├─ THTag+CoreDataClass.swift
-  
+ ``` 
 ### functionality
 
 ´THProject+CoreDataClass.swift´ is a Swift class that represents a project managed by Core Data. It has properties like priority, color, and completion status, and provides methods for fetching projects from Core Data (e.g. all, all with a specific priority).
@@ -81,9 +85,9 @@ teha supports german and english translation. These files contain the translatio
 - CoreData
 - Fondation
 
-##Base
+## Base
 ### structure
-
+```
 ├─ Base/
   ├─ Types/
     ├─ ReminderOffset.swift
@@ -102,7 +106,7 @@ teha supports german and english translation. These files contain the translatio
     ├─ SimpleColorPicker.swift
     ├─ TextFieldMultiline.swift
   ├─LocalNotification.swift
-  
+ ``` 
 ### functionality
 
 ´ReminderOffset.swift´:  ReminderOffset is an enum that represents different time offsets that can be used to set a reminder given a deadline.
