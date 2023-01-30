@@ -136,6 +136,55 @@ fileprivate struct DateFilter: View{
     }
 }
 
+fileprivate struct DeadlineFilter: View{
+    @EnvironmentObject var filters: TasksFilterViewModel
+    let enabledSection: Bool
+    
+    var visible: Bool {
+        enabledSection == (filters.deadlineFilterMode != .disabled)
+    }
+    
+    var startBinding: Binding<Date> {
+        Binding {
+            return filters.deadline.start
+        } set: { newValue in
+            filters.deadline.start = Calendar.current.startOfDay(for: newValue)
+        }
+    }
+    
+    var endBinding: Binding<Date> {
+        Binding {
+            return filters.deadline.end - TimeInterval.day
+        } set: { newValue in
+            filters.deadline.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
+        }
+    }
+    
+    
+    var body: some View{
+        if visible {
+            VStack {
+                Picker(selection: $filters.deadlineFilterMode) {
+                    Text("disabled").tag(TasksFilterViewModel.DeadlineFilterMode.disabled)
+                    Divider()
+                    Text("match-today").tag(TasksFilterViewModel.DeadlineFilterMode.matchToday)
+                    Text("match-this-week").tag(TasksFilterViewModel.DeadlineFilterMode.matchThisWeek)
+                    Text("custom").tag(TasksFilterViewModel.DeadlineFilterMode.custom)
+                } label: {
+                    Label(LocalizedStringKey("deadline"), systemImage: "calendar.badge.exclamationmark")
+                }
+                
+                if enabledSection, filters.deadlineFilterMode == .custom {
+                    DatePicker(LocalizedStringKey("from:"), selection: startBinding, displayedComponents: [.date])
+                    DatePicker(LocalizedStringKey("to:"), selection: endBinding, in: startBinding.wrappedValue..., displayedComponents: [.date])
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        }
+    }
+}
+
+
 //all items ausgewählt wenn option = nil
 fileprivate struct Filters: View {
 
@@ -170,12 +219,14 @@ fileprivate struct Filters: View {
         if filters.anyFilterActive {
             Section { //TODO: Animation hinzufügen
                 DateFilter(enabledSection: true)
+                DeadlineFilter(enabledSection: true)
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
                 
                 Button(action: {
                     filters.dateFilterMode = .disabled
+                    filters.deadlineFilterMode = .disabled
                     filters.project = nil
                     filters.priority = nil
                     filters.tagFilterMode = .disabled
@@ -192,6 +243,7 @@ fileprivate struct Filters: View {
         if !filters.allFiltersActive {
             Section {
                 DateFilter(enabledSection: false)
+                DeadlineFilter(enabledSection: false)
                 projectPicker(enabledSection: false)
                 priorityPicker(enabledSection: false)
                 TagFilter(enabledSection: false)

@@ -26,10 +26,14 @@ class TasksFilterViewModel: ObservableObject {
     @Published var _dateFilterMode: DateFilterMode = .disabled
     @Published var dateInterval: DateInterval = DateInterval()
     
+    @Published var _deadlineFilterMode: DeadlineFilterMode = .disabled
+    @Published var deadline: DateInterval = DateInterval()
+    
     @Published var search: String = ""
     
     init() {
         self.dateInterval = self.today()
+        self.deadline = self.today()
     }
     
     /**
@@ -54,8 +58,22 @@ class TasksFilterViewModel: ObservableObject {
         }
     }
     
+    var deadlineFilterMode: DeadlineFilterMode{
+        get {
+            return _deadlineFilterMode
+        }
+        set {
+            _deadlineFilterMode = newValue
+            if _deadlineFilterMode == .matchToday {
+                deadline = today()
+            } else if _deadlineFilterMode == .matchThisWeek {
+                deadline = thisWeek()
+            }
+        }
+    }
+    
     private var filterActiveArray: [Bool] {
-        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled]
+        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled, deadlineFilterMode != .disabled]
     }
 
     var anyFilterActive: Bool {
@@ -102,6 +120,13 @@ class TasksFilterViewModel: ObservableObject {
         switch dateFilterMode{
         case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(dateInterval: dateInterval)
+        default:
+            break
+        }
+        
+        switch deadlineFilterMode{
+        case .matchToday, .matchThisWeek, .custom:
+            fetchRequest.filter(deadline: deadline)
         default:
             break
         }
@@ -153,6 +178,10 @@ extension TasksFilterViewModel {
          - `custom`: The filter is set to a specific date interval.
     */
     enum DateFilterMode {
+        case disabled, matchToday, matchThisWeek, custom
+    }
+    
+    enum DeadlineFilterMode {
         case disabled, matchToday, matchThisWeek, custom
     }
     
