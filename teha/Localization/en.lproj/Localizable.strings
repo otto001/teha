@@ -144,6 +144,8 @@
 
 "name" = "Name";
 
+"never" = "Never";
+
 "new-project" = "New Project";
 
 "new-task" = "New Task";
@@ -211,6 +213,24 @@
 "repeat-daily" = "Daily";
 
 "repeat-weekly" = "Weekly";
+
+"repeat-deadline-after" = "The end date of the repetitions must be after the deadline of the task";
+
+"repeat-deadline-years" = "The end date of the repetitions must not be more than two years in the future";
+
+"repeating-end-date" = "End date of repetitions";
+
+"repeating-update-future-prompt" = "Update tasks";
+
+"repeating-update-future" = "Update all future tasks";
+
+"repeating-update-only-self" "Update only this task";
+
+"repeating-delete-prompt" = "Delete tasks";
+
+"repeating-delete-future" = "Delete all future tasks";
+
+"repeating-delete-only-self" = "Delete only this task";
 
 "reset-all-filters" = "Reset all Filters";
 
