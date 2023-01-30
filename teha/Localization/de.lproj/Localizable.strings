@@ -92,6 +92,8 @@
 
 "edit" = "Bearbeiten";
 
+"enabled" = "An";
+
 "enabled-filters" = "Aktivierte Filter";
 
 "estimated-worktime" = "Geschätzter Aufwand";
@@ -156,7 +158,9 @@
 
 "next-week" = "Nächste Woche";
 
-"no-project-filter" = "No projects match these filters";
+"no" = "Nein";
+
+"no-project-filter" = "Keine Projekte entsprechen diesen Filtern";
 
 "no-projects" = "Keine Projekte vorhanden";
 
@@ -241,6 +245,8 @@
 "repeating-update-future-prompt" = "Diese Aufgabe wiederholt sich.";
 
 "repeating-update-only-self" = "Nur diese Aufgabe ändern";
+
+"repetitions-only" = "Nur Wiederholungen";
 
 "reset-all-filters" = "Lösche alle Filter";
 
@@ -343,3 +349,5 @@
 "workdays-select-footer" = "Wähle alle Tage aus an denen du Zeit hast Aufgaben zu erledigen.";
 
 "year" = "Jahr";
+
+"yes" = "Ja";

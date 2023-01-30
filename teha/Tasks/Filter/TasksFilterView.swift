@@ -233,6 +233,26 @@ fileprivate struct Filters: View {
         }
     }
     
+    /**
+        This function generates a picker view to filter recurring tasks.
+        The picker provides two options to select, either "enabled" or "disabled".
+        
+        - Parameters:
+            - enabledSection: A boolean indicating if the date filter section should be displayed in the active filter section or the non-active filter section. If `true`, the view will be displayed in the active filter section. If `false`, the view will be displayed in the non-active filter section.
+        - Returns: A picker view for filtering recurring tasks.
+    */
+
+    @ViewBuilder func recurringTaskPicker(enabledSection: Bool) -> some View {
+        if enabledSection == (filters.recurringTask) {
+            Picker(selection: $filters.recurringTask) {
+                Text("disabled").tag(false)
+                Text("enabled").tag(true)
+            } label: {
+                Label(LocalizedStringKey("repetitions-only"), systemImage: "repeat")
+            }
+        }
+    }
+    
     @ViewBuilder func sectionTitle(_ titleKey: LocalizedStringKey) -> some View {
         Text(titleKey)
             .font(.headline)
@@ -248,13 +268,16 @@ fileprivate struct Filters: View {
                 projectPicker(enabledSection: true)
                 priorityPicker(enabledSection: true)
                 TagFilter(enabledSection: true)
+                recurringTaskPicker(enabledSection: true)
                 
+                // Turns all filters off
                 Button(action: {
                     filters.dateFilterMode = .disabled
                     filters.deadlineFilterMode = .disabled
                     filters.project = nil
                     filters.priority = nil
                     filters.tagFilterMode = .disabled
+                    filters.recurringTask = false
                 }) {
                     Text("reset-all-filters")
                         .foregroundColor(.red)
@@ -272,6 +295,7 @@ fileprivate struct Filters: View {
                 projectPicker(enabledSection: false)
                 priorityPicker(enabledSection: false)
                 TagFilter(enabledSection: false)
+                recurringTaskPicker(enabledSection: false)
             } header: {
                 sectionTitle("other-filters")
             }

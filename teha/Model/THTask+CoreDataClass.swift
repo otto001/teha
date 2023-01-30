@@ -214,6 +214,16 @@ extension NSFetchRequest where ResultType == THTask {
         self.predicateAnd(with: NSPredicate(format: "(%@ <= deadline AND deadline < %@)", deadline.start as NSDate, deadline.end as NSDate))
     }
     
+    /**
+     Filters repeating tasks.
+     
+     - Returns:
+        The filtered collection of tasks which are repeating.
+    */
+    func filterReoccuringTask() {
+        self.predicateAnd(with: NSPredicate(format: "repeatIntervalId != 0"))
+    }
+    
     func filter(search: String) {
         self.predicateAnd(with: NSPredicate(format: "(title CONTAINS[cd] %@) OR (project.name CONTAINS[cd] %@) OR (notes CONTAINS[cd] %@) OR (ANY tags.name CONTAINS[cd] %@)", search, search, search, search))
     }

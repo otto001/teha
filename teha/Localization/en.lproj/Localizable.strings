@@ -92,6 +92,8 @@
 
 "edit" = "Edit";
 
+"enabled-filters" = "Enabled";
+
 "enabled-filters" = "Enabled Filters";
 
 "estimated-worktime" = "Estimated Time to Complete";
@@ -153,6 +155,8 @@
 "next" = "Next";
 
 "next-week" = "Next Week";
+
+"no" = "No";
 
 "no-project-filter" = "No projects match these filters";
 
@@ -239,6 +243,8 @@
 "repeating-update-future-prompt" = "This is a repeating Task.";
 
 "repeating-update-only-self" = "Only change this task";
+
+"repetitions-only" = "Repetitions only";
 
 "reset-all-filters" = "Reset all Filters";
 
@@ -341,3 +347,5 @@
 "workdays-select-footer" = "Select all weekdays on which you have time to complete Tasks.";
 
 "year" = "Year";
+
+"yes" = "Yes";

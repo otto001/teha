@@ -23,13 +23,19 @@ class TasksFilterViewModel: ObservableObject {
     @Published var tagFilterMode: TagFilterMode = .disabled
     @Published var tags: Set<THTag> = .init()
     
+    // Published variables to filter upcoming tasks based on a interval selected by the user
     @Published var _upcomingFilterMode: DateFilterMode = .disabled
     @Published var upcomingInterval: DateInterval = DateInterval()
     
+    // Published variables to filter tasks based on their deadline
     @Published var _deadlineFilterMode: DateFilterMode = .disabled
     @Published var deadlineInterval: DateInterval = DateInterval()
     
+    /// Filter flag for recurring tasks
+    @Published var recurringTask: Bool = false
+    
     @Published var search: String = ""
+    
     
     init() {
         self.upcomingInterval = self.today()
@@ -81,7 +87,7 @@ class TasksFilterViewModel: ObservableObject {
     }
     
     private var filterActiveArray: [Bool] {
-        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled, deadlineFilterMode != .disabled]
+        return [project != nil, priority != nil, tagFilterMode != .disabled, dateFilterMode != .disabled, deadlineFilterMode != .disabled, recurringTask == true]
     }
 
     var anyFilterActive: Bool {
@@ -114,6 +120,10 @@ class TasksFilterViewModel: ObservableObject {
         
         if !self.search.isEmpty {
             fetchRequest.filter(search: self.search)
+        }
+        
+        if recurringTask {
+            fetchRequest.filterReoccuringTask()
         }
         
         switch tagFilterMode{
