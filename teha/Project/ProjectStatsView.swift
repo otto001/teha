@@ -12,6 +12,7 @@ enum StatsViewType {
     case all, today, finished, current
 }
 
+/// This struct is pushed onto the navigation stack to display the tasks matching the filter.
 struct StatsViewPath: Hashable {
     let type: StatsViewType
     let project: THProject
@@ -29,6 +30,7 @@ struct StatsViewPath: Hashable {
         }
     }
     
+    /// Generate a filter viewmodel in order to fetch the tasks matching the path.
     func makeFiltersViewModel() -> TasksFilterViewModel {
         let filter = TasksFilterViewModel()
         filter.taskState = .current
@@ -50,6 +52,8 @@ struct StatsViewPath: Hashable {
     }
 }
 
+/// A view that displays a single stat.
+/// The stat is a count of the number of tasks matching the filter.
 struct StatView: View {
     @Environment(\.managedObjectContext) var viewContext
     
@@ -58,8 +62,11 @@ struct StatView: View {
     let color: Color
     let systemName: String
     
+    // The number of tasks matching the filter.
+    // This is a state variable so it can be set asynchronously.
     @State private var count: Int = 0
     
+    /// Fetch the number of tasks matching the filter.
     private func fetch(project: THProject) {
         let filter = path.makeFiltersViewModel()
         let request = filter.fetchRequest
@@ -83,6 +90,7 @@ struct StatView: View {
             .background(Color.tertiarySystemFill)
             .cornerRadius(8)
             .onChange(of: path) { newValue in
+                // If the filter changes, fetch the new count.
                 fetch(project: newValue.project)
             }
             .onAppear {
@@ -92,40 +100,11 @@ struct StatView: View {
     }
 }
 
+/// A view that displays the stats for a project.
+/// When a stat is tapped, it pushes a new view onto the navigation stack.
 struct ProjectStatsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let project: THProject
-    
-    @StateObject var tasksDueTodayFilter: TasksFilterViewModel = {
-        let filter = TasksFilterViewModel()
-        filter.dateFilterMode = .matchToday
-        return filter
-    }()
-    
-    @StateObject var tasksAllFilter: TasksFilterViewModel = {
-        let filter = TasksFilterViewModel()
-        filter.taskState = .all
-        return filter
-    }()
-    
-    @StateObject var tasksCurrentFilter: TasksFilterViewModel = {
-        let filter = TasksFilterViewModel()
-        filter.taskState = .current
-        return filter
-    }()
-    
-    @StateObject var tasksDoneFilter: TasksFilterViewModel = {
-        let filter = TasksFilterViewModel()
-        filter.taskState = .completed
-        return filter
-    }()
-    
-    func updateViewModels(with project: THProject) {
-        tasksAllFilter.project = project
-        tasksDoneFilter.project = project
-        tasksCurrentFilter.project = project
-        tasksDueTodayFilter.project = project
-    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
