@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/// displayed text, if no tasks are available due to active filters
 struct NoTaskFilterView: View {
     var body: some View {
         VStack{
