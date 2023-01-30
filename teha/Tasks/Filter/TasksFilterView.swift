@@ -123,7 +123,7 @@ fileprivate struct DateFilter: View{
                     Text("match-this-week").tag(TasksFilterViewModel.DateFilterMode.matchThisWeek)
                     Text("custom").tag(TasksFilterViewModel.DateFilterMode.custom)
                 } label: {
-                    Label(LocalizedStringKey("date"), systemImage: "calendar")
+                    Label(LocalizedStringKey("upcoming"), systemImage: "calendar.day.timeline.left")
                 }
                 
                 if enabledSection, filters.dateFilterMode == .custom {
