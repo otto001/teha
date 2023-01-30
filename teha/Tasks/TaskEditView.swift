@@ -13,6 +13,8 @@ struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
     
+    // Used for setting the default deadline
+    @AppStorage(SettingsAppStorageKey.startOfWorkDay.rawValue) var startOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
    
     @State var data = FormData()
     
@@ -82,6 +84,12 @@ struct TaskEditView: View {
         dismiss()
     }
     
+    var defaultDeadline: Date {
+        var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
+        date = Calendar.current.date(bySettingHour: startOfWorkDay.hours, minute: startOfWorkDay.minutes, second: 0, of: date) ?? .now
+        return date
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -97,7 +105,8 @@ struct TaskEditView: View {
                                        selection: $data.earliestStartDate)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $data.deadline)
+                                       selection: $data.deadline,
+                                       defaultDate: defaultDeadline)
                 } footer: {
                     if data.deadlineBeforeEarliestStartDate {
                         Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
