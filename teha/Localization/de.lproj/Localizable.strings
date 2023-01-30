@@ -196,6 +196,8 @@
 
 "settings-open" = "Öffne Einstellungen";
 
+"settings-use-themed-appicon" = "App-Icon an Akzentfarbe anpassen";
+
 "settings-worktime-error" = "Der Arbeitsbeginn muss vor dem Arbeitsende liegen.";
 
 "skip" = "Überspringen";
@@ -236,13 +238,15 @@
 
 "task-must-have-title" = "Die Aufgabe muss einen Titel haben.";
 
+"task-use-project-deadline" = "Projekt-Deadline nutzen";
+
 "tasks" = "Aufgaben";
 
 "tasks-completed" = "Beendete Aufgaben";
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
 
-"tasks-doing" = "In Arbeit";
+"tasks-doing" = "Angefangen";
 
 "tasks-due-today" = "Bis heute";
 
@@ -252,7 +256,7 @@
 
 "tasks-overdue" = "Überfällig";
 
-"tasks-todo" = "To Do";
+"tasks-todo" = "Nicht angefangen";
 
 "title" = "Titel";
 

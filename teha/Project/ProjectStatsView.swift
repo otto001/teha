@@ -18,16 +18,19 @@ struct StatView: View {
     let systemName: String
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                ZStack {
-                    Circle().frame(width: 32).foregroundStyle(color)
-                    Image(systemName: systemName).foregroundStyle(.white)
-                }
-                Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(1)
+        VStack(alignment: .leading) {
+            ZStack {
+                Circle().frame(width: 32).foregroundStyle(color)
+                Image(systemName: systemName).foregroundStyle(.white)
             }
-            Spacer()
-            Text(String(format: "%.0f", value)).bold().font(.title)
+            HStack {
+                ZStack {
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(2)
+                    Text(LocalizedStringKey(name)).bold().font(.callout).lineLimit(2...2).opacity(0)
+                }
+                Spacer()
+                Text(String(format: "%.0f", value)).bold().font(.title)
+            }
         }
         .padding(.all)
         .background(Color.tertiarySystemFill)
@@ -70,7 +73,7 @@ struct ProjectStatsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                StatView(name: "tasks-due-today", value: dueToday, color: .orange, systemName: "calendar")
+                StatView(name: "tasks-due-today", value: dueToday, color: .orange, systemName: "calendar.badge.exclamationmark")
                 StatView(name: "tasks-todo", value: todo, color: .blue, systemName: "circle")
             }
             HStack(spacing: 12) {

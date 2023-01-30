@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A Data struct to easily iterate over every oboarding page containing a text and an image
 struct OnboardingPageData: Hashable, Identifiable {
     let id: Int
     let image: String
@@ -18,19 +19,23 @@ struct OnboardingPageData: Hashable, Identifiable {
     ]
 }
 
+/// The view that displays an onboarding page
 struct OnboardingPageView: View {
     var data: OnboardingPageData
-    
+
+    // Get the User set environment variables of language and color scheme
     @Environment(\.locale) var locale
     @Environment(\.colorScheme) var colorScheme
-    
+
+    // Create a string to the image file according to image name , color scheme and language
     var localizedImageKey: String {
         let colorSchemeCode = colorScheme == .dark ? "dark" : "light"
         let localeIdentifier = locale.identifier.isEmpty ? "en_GB" : locale.identifier
         let localeCode = localeIdentifier.substring(start: 0, end: 2)
         return "\(data.image)-\(colorSchemeCode)-\(localeCode)"
     }
-    
+
+    // A View displaying the image
     @ViewBuilder var image: some View {
         
         Image(localizedImageKey)
@@ -38,7 +43,8 @@ struct OnboardingPageView: View {
             .scaledToFit()
             .cornerRadius(24)
     }
-    
+
+    // A View containing the displayed image and the text of the data object
     var body: some View {
         VStack(spacing: 20){
             

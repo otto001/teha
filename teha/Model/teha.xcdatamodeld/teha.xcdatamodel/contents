@@ -4,6 +4,7 @@
         <attribute name="colorCode" optional="YES" attributeType="String"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="project" inverseEntity="THTask"/>
@@ -16,7 +17,8 @@
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="completionProgress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadline_DO_NOT_USE" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadlineOverride" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
@@ -28,6 +30,7 @@
         <attribute name="repeatIntervalId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="useProjectDeadline" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="tasks" inverseEntity="THProject"/>
         <relationship name="repeatingChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="repeatingParent" inverseEntity="THTask"/>
         <relationship name="repeatingParent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THTask" inverseName="repeatingChildren" inverseEntity="THTask"/>

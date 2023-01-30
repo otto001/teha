@@ -19,8 +19,12 @@ fileprivate var timeRemainingFormatter: RelativeDateTimeFormatter = {
 
 
 struct TaskListRowView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var task: THTask
     let now: Date
+    
+    @State var showDeleteDialog: Bool = false
 
     /// The content of the text right above the progress bar.
     /// Shows time remaining until deadline or the time passed since the deadline (if a deadline is set)
@@ -119,6 +123,39 @@ struct TaskListRowView: View {
             }.opacity(0)
         }
         .frame(minHeight: 36)
+        
+        .swipeActions(edge: .trailing) {
+            Button {
+                showDeleteDialog = true
+            } label: {
+                Label("delete", systemImage: "trash")
+            }
+            .tint(Color.red)
+        }
+        .confirmationDialog("task-delete-confirmation", isPresented: $showDeleteDialog) {
+            let hasFutureSiblings = task.hasFutureSiblings()
+            if hasFutureSiblings {
+                Button("repeating-delete-future", role: .destructive) {
+                    // Remove all pending reminders for task
+                    NotificationManager.instance.cancelPendingNotifications(for: task)
+                    
+                    task.deleteFutureRepeatSiblings(context: viewContext)
+                    viewContext.delete(task)
+                    // TODO: error handling
+                    try? viewContext.save()
+                }
+            }
+            Button(hasFutureSiblings ? "repeating-delete-only-self" : "delete", role: .destructive) {
+                // Remove all pending reminders for task
+                NotificationManager.instance.cancelPendingNotifications(for: task)
+                
+                viewContext.delete(task)
+                // TODO: error handling
+                try? viewContext.save()
+            }
+        } message: {
+            Text("task-delete-confirmation")
+        }
     }
 }
 

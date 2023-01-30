@@ -13,6 +13,8 @@ struct TaskEditView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss: DismissAction
     
+    // Used for setting the default deadline
+    @AppStorage(SettingsAppStorageKey.startOfWorkDay.rawValue) var startOfWorkDay: Worktime = .init(hours: 8, minutes: 0)
    
     @State var data = FormData()
     
@@ -52,6 +54,7 @@ struct TaskEditView: View {
             return
         }
         
+
         guard !(task?.hasFutureSiblings() == true && updateFutureChildren == nil) else {
             print("showRepeatingUpdateChoices")
             if showRepeatingUpdateChoices == true {
@@ -64,7 +67,6 @@ struct TaskEditView: View {
             }
             return
         }
-        // showRepeatingUpdateChoices = false
         
         let task = task ?? THTask(context: viewContext)
         data.apply(to: task)
@@ -74,7 +76,7 @@ struct TaskEditView: View {
         }
         
         let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
-        task.updateRepeating(managedObjectContext: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
+        task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
         
         // TODO: error handling
         try? viewContext.save()
@@ -87,6 +89,12 @@ struct TaskEditView: View {
         }
 
         dismiss()
+    }
+    
+    var defaultDeadline: Date {
+        var date = Calendar.current.date(byAdding: .day, value: 7, to: .now) ?? .now
+        date = Calendar.current.date(bySettingHour: startOfWorkDay.hours, minute: startOfWorkDay.minutes, second: 0, of: date) ?? .now
+        return date
     }
     
     var body: some View {
@@ -104,11 +112,20 @@ struct TaskEditView: View {
                                        selection: $data.earliestStartDate)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $data.deadline)
+                                       selection: $data.deadline,
+                                       defaultDate: defaultDeadline)
                 } footer: {
                     if data.deadlineBeforeEarliestStartDate {
                         Text(FormError.deadlineBeforeEarliestStartDate.failureReason!)
                             .foregroundColor(.red)
+                    }
+                }
+                
+                if data.project != nil && data.deadline != data.project!.deadline {
+                    Section {
+                        Button("task-use-project-deadline") {
+                            data.useProjectDeadline = true
+                        }
                     }
                 }
                 
@@ -205,7 +222,22 @@ extension TaskEditView {
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
-        var deadline: Date? = nil
+        
+        var deadlineOverride: Date? = nil
+        var useProjectDeadline = true
+        var deadline: Date? {
+            get {
+                if useProjectDeadline {
+                    return project?.deadline
+                } else {
+                    return deadlineOverride
+                }
+            }
+            set {
+                deadlineOverride = newValue
+                useProjectDeadline = deadlineOverride == project?.deadline
+            }
+        }
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
@@ -259,7 +291,8 @@ extension TaskEditView {
             self.priority = task.priority
             
             self.earliestStartDate = task.earliestStartDate
-            self.deadline = task.deadline
+            self.deadlineOverride = task.deadlineOverride
+            self.useProjectDeadline = task.useProjectDeadline
             self.estimatedWorktime = task.estimatedWorktime
             
             self.repeatInterval = task.repeatInterval

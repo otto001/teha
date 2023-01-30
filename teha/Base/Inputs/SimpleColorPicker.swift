@@ -107,6 +107,15 @@ enum ColorChoice: Hashable, Identifiable, RawRepresentable {
         }
     }
     
+    /// The name of the AppIcon themed in this color
+    var appIconName: String? {
+        if case .custom = self {
+            return nil
+        }
+        
+        return "AppIcon-\(self)"
+    }
+    
     /// Whether the colorChoice is a custom color.
     /// - Returns: True when the color is a custom color.
     var isCustom: Bool {
@@ -122,12 +131,15 @@ struct SimpleColorPicker: View {
     let title: LocalizedStringKey
     @Binding var selection: ColorChoice
     
+    let allowCustomColor: Bool
+    
     /// True when the detail page (which is the actual input) is pushed.
     @State private var pageIsPushed: Bool = false
     
-    init(title: LocalizedStringKey, selection: Binding<ColorChoice>) {
+    init(title: LocalizedStringKey, selection: Binding<ColorChoice>, allowCustomColor: Bool) {
         self.title = title
         self._selection = selection
+        self.allowCustomColor = allowCustomColor
     }
     
     var body: some View {
@@ -147,7 +159,7 @@ struct SimpleColorPicker: View {
         .buttonStyle(.plain)
         .navigationDestination(isPresented: $pageIsPushed) {
             // The actual input
-            SimpleColorPickerPage(title: title, selection: $selection) {
+            SimpleColorPickerPage(title: title, selection: $selection, allowCustomColor: allowCustomColor) {
                 // This closure is called when the page wants to dissmiss
                 pageIsPushed = false
             }
@@ -162,6 +174,7 @@ struct SimpleColorPicker: View {
 fileprivate struct SimpleColorPickerPage: View {
     let title: LocalizedStringKey
     @Binding var selection: ColorChoice
+    let allowCustomColor: Bool
     let back: () -> Void
     
     /// The custom color the user picked
@@ -202,31 +215,33 @@ fileprivate struct SimpleColorPickerPage: View {
             ForEach(ColorChoice.baseColors) { choice in
                 colorRow(choice)
             }
-            ColorPicker(selection: $customColor, supportsOpacity: false) {
-                // label for the custom color picker that visually matches the other rows
-                Text("custom")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .fontWeight(selection.isCustom ? .semibold : .regular)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selection = .custom(customColor)
-                        // navigate back on select
-                        back()
-                    }
-            }
-            .background {
-                if selection.isCustom {
-                    selectedBackground
+            if allowCustomColor {
+                ColorPicker(selection: $customColor, supportsOpacity: false) {
+                    // label for the custom color picker that visually matches the other rows
+                    Text("custom")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fontWeight(selection.isCustom ? .semibold : .regular)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selection = .custom(customColor)
+                            // navigate back on select
+                            back()
+                        }
                 }
-            }
-            .onChange(of: customColor) { newValue in
-                // If the custom color picker by the user changes, we update the selection accordingly
-                selection = .custom(newValue)
-            }
-            .onAppear {
-                // On first appear, when the selection is a custom color, we set the color we bind to the ColorPicker above to the selected custom color to preserve the users previous input
-                if case .custom(let cGColor) = selection {
-                    customColor = cGColor
+                .background {
+                    if selection.isCustom {
+                        selectedBackground
+                    }
+                }
+                .onChange(of: customColor) { newValue in
+                    // If the custom color picker by the user changes, we update the selection accordingly
+                    selection = .custom(newValue)
+                }
+                .onAppear {
+                    // On first appear, when the selection is a custom color, we set the color we bind to the ColorPicker above to the selected custom color to preserve the users previous input
+                    if case .custom(let cGColor) = selection {
+                        customColor = cGColor
+                    }
                 }
             }
                 
@@ -245,7 +260,7 @@ struct SimpleColorPicker_Previews: PreviewProvider {
         var body: some View {
             NavigationStack {
                 Form {
-                    SimpleColorPicker(title: "Color", selection: $color)
+                    SimpleColorPicker(title: "Color", selection: $color, allowCustomColor: true)
                 }
             }
         }

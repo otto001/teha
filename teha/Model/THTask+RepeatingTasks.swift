@@ -46,16 +46,16 @@ extension THTask {
         return nil
     }
     
+    func repeatingSiblings(after date: Date) -> Set<THTask>? {
+        self.repeatingSiblings?.filter { sibling in
+            guard let siblingDeadline = sibling.deadline else { return false }
+            return siblingDeadline >= date
+        }
+    }
+    
     func hasFutureSiblings() -> Bool {
         guard let deadline = self.deadline else { return false }
-        guard let repeatingSiblings = self.repeatingSiblings else { return false }
-        for repeatingSibling in repeatingSiblings {
-            if let otherDeadline = repeatingSibling.deadline, otherDeadline > deadline {
-                return true
-            }
-        }
-        
-        return false
+        return !(self.repeatingSiblings(after: deadline)?.isEmpty ?? true)
     }
     
     fileprivate func updateRepeatingChild(_ child: THTask, timeshift: TimeInterval) {
@@ -109,16 +109,17 @@ extension THTask {
         self.setIgnoredRepeatDates(currentDates)
     }
     
-    fileprivate func removeFromRepeatingChain() {
+    func removeFromRepeatingChain() {
         
         if self.isRepeatingParent {
             let firstChild = self.repeatingSiblings!.filter { $0.deadline != nil }.max { a, b in
-                return a.deadline! < b.deadline!
-            }
+                return a.deadline! > b.deadline!
+            }!
             for child in self.repeatingSiblings! {
                 guard child != firstChild else { continue }
                 child.repeatingParent = firstChild
             }
+            firstChild.repeatingParent = nil
             
             assert((self.repeatingSiblings?.count ?? 0) == 0)
         } else if let deadline = self.deadline {
@@ -132,7 +133,7 @@ extension THTask {
     }
     
     @discardableResult
-    func updateRepeating(managedObjectContext: NSManagedObjectContext?, oldDeadline: Date?, updateFutureChildren: Bool) -> Bool {
+    func updateRepeat(context managedObjectContext: NSManagedObjectContext, oldDeadline: Date?, updateFutureChildren: Bool) -> Bool {
 
         
         // If we do not want to update other children, we are done here
@@ -146,39 +147,16 @@ extension THTask {
               let deadline = self.deadline,
                 let timeshiftStep = self.repeatInterval?.timeInterval,
                 let repeatEndDate = self.repeatEndDate else { return false }
-        
-        // ... and also a managedObjectContext
-        guard let managedObjectContext = managedObjectContext ?? self.managedObjectContext else {
-            return false
-        }
-        
-        
-        //var rejectedSiblings: [THTask] = []
-        var siblingsToAdopt: [THTask] = []
-        
-        // use map
-        for sibling in (self.repeatingSiblings ?? []) {
-            guard sibling != self else { continue }
-            guard let siblingDeadline = sibling.deadline else { continue }
-            if siblingDeadline < oldDeadline {
-                //rejectedSiblings.append(sibling)
-            } else {
-                siblingsToAdopt.append(sibling)
-            }
-        }
-        
 
-        let oldParent = self.repeatingParent
-        self.repeatingParent = nil
-        
-
-       
-        siblingsToAdopt.sort { a, b in
+        var siblingsToAdopt = (self.repeatingSiblings(after: oldDeadline) ?? []).sorted { a, b in
             a.deadline! < b.deadline!
         }
         
-        let ignoredRepeatDates = self.getIgnoredRepeatDates()
+        let oldParent = self.repeatingParent
+        self.repeatingParent = nil
         
+        let ignoredRepeatDates = (oldParent ?? self).getIgnoredRepeatDates()
+    
         let repeatEndDateStartOfNextDay = Calendar.current.startOfDay(for: repeatEndDate) + TimeInterval.day
 
         let sequence = sequence(first: deadline + timeshiftStep) { current in
@@ -200,10 +178,18 @@ extension THTask {
             managedObjectContext.delete(superfloursChild)
         }
         
-        if let oldParent = oldParent {
+        if let oldParent = oldParent, let oldParentDeadline = oldParent.deadline {
             let lastChildOfParentDeadline = oldParent.repeatingSiblings?.compactMap { $0.deadline }.max()
             if let lastChildOfParentDeadline = lastChildOfParentDeadline {
                 oldParent.repeatEndDate = lastChildOfParentDeadline
+                let oldParentRepeatEndDateString = Self.dateFormatter.string(for: oldParent.repeatEndDate!)!
+                
+                let oldParentNewIgnoredRepeatDates = oldParent.getIgnoredRepeatDates().filter { ignoredDate in
+                    ignoredDate <= oldParentRepeatEndDateString
+                }
+                oldParent.setIgnoredRepeatDates(oldParentNewIgnoredRepeatDates)
+                
+                oldParent.updateRepeat(context: managedObjectContext, oldDeadline: oldParentDeadline, updateFutureChildren: true)
             } else {
                 oldParent.removeFromRepeatingChain()
             }
@@ -212,4 +198,15 @@ extension THTask {
         return true
     }
     
+    func deleteFutureRepeatSiblings(context: NSManagedObjectContext) {
+        guard let deadline = self.deadline else { return }
+        
+        
+        self.updateRepeat(context: context, oldDeadline: deadline, updateFutureChildren: true)
+        for sibling in (self.repeatingSiblings(after: deadline) ?? .init()) {
+            context.delete(sibling)
+        }
+        
+        self.setIgnoredRepeatDates(.init())
+    }
 }

@@ -82,23 +82,7 @@ fileprivate struct FilteredTasksListView: View {
             }
             
         }
-        .confirmationDialog("task-delete-confirmation", isPresented: showDeleteDialogBinding) {
-            Button("delete", role: .destructive) {
-                guard let taskToDelete = taskToDelete else { return }
-                
-                // Remove all pending reminders for task
-                NotificationManager.instance.cancelPendingNotifications(for: taskToDelete)
-                
-                viewContext.delete(taskToDelete)
-                // TODO: error handling
-                try? viewContext.save()
-            }
-            Button("cancel", role: .cancel) {
-                showDeleteDialogBinding.wrappedValue = false
-            }
-        } message: {
-            Text("task-delete-confirmation")
-        }
+        
     }
 }
 
