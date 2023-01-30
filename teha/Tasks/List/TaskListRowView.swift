@@ -154,7 +154,7 @@ struct TaskListRowView: View {
                 try? viewContext.save()
             }
         } message: {
-            Text("task-delete-confirmation")
+            Text(task.hasFutureSiblings() ? "repeating-delete-prompt" : "task-delete-confirmation")
         }
     }
 }

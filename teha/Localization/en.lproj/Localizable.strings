@@ -10,6 +10,8 @@
 
 "%@-worktime-remaining" = "%@ remaining to complete";
 
+"CW-%@" = "Week %@";
+
 "add" = "Add";
 
 "add-%@" = "Add %@";
@@ -51,8 +53,6 @@
 "current" = "Current";
 
 "custom" = "Custom";
-
-"CW-%@" = "Week %@";
 
 "date" = "Date";
 
@@ -144,6 +144,8 @@
 
 "name" = "Name";
 
+"never" = "Never";
+
 "new-project" = "New Project";
 
 "new-task" = "New Task";
@@ -152,19 +154,19 @@
 
 "next-week" = "Next Week";
 
-"no-reminder" = "None";
+"no-project-filter" = "No projects match these filters";
 
 "no-projects" = "No projects available";
 
 "no-projects-empty-text" = "Are you sure, that you don't have any upcoming projects? Add them now!";
+
+"no-reminder" = "None";
 
 "no-tasks" = "No tasks available";
 
 "no-tasks-empty-text" = "It's quite empty here. Let's start getting productive together and add your first task!";
 
 "no-tasks-filter" = "No tasks match these filters";
-
-"no-project-filter" = "No projects match these filters";
 
 "none" = "None";
 
@@ -182,7 +184,15 @@
 
 "ok" = "Ok";
 
+"onboarding-projects" = "Manage projects with multiple tasks";
+
+"onboarding-settings" = "Set your own personal work hours";
+
 "onboarding-show" = "Show Onboarding";
+
+"onboarding-suggestions" = "Suggestions, based on your tasks";
+
+"onboarding-tasks" = "Create and organize your tasks";
 
 "other-filters" = "Other Filters";
 
@@ -210,7 +220,25 @@
 
 "repeat-daily" = "Daily";
 
+"repeat-deadline-after" = "The end date of the repetitions must be after the deadline of the task.";
+
+"repeat-deadline-years" = "The end date of the repetitions must not be more than two years in the future.";
+
 "repeat-weekly" = "Weekly";
+
+"repeating-delete-future" = "Delete all future Tasks";
+
+"repeating-delete-only-self" = "Delete only this Task";
+
+"repeating-delete-prompt" = "This is a repeating Task.";
+
+"repeating-end-date" = "Last Repeat";
+
+"repeating-update-future" = "Change all future tasks";
+
+"repeating-update-future-prompt" = "This is a repeating Task.";
+
+"repeating-update-only-self" = "Only change this task";
 
 "reset-all-filters" = "Reset all Filters";
 
@@ -280,9 +308,9 @@
 
 "tasks-due-today" = "Due today";
 
-"tasks-finished" = "Completed";
-
 "tasks-filter" = "Tasks Filter";
+
+"tasks-finished" = "Completed";
 
 "tasks-none" = "No tasks";
 
@@ -290,15 +318,15 @@
 
 "tasks-todo" = "Not Started";
 
-"to:" = "To:";
-
 "this-week" = "This Week";
 
 "title" = "Title";
 
-"urgent" = "Urgent";
+"to:" = "To:";
 
 "upcoming" = "Upcoming";
+
+"urgent" = "Urgent";
 
 "urgent-priority" = "Urgent";
 

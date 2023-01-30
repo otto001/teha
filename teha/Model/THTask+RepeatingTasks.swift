@@ -146,9 +146,8 @@ extension THTask {
             firstChild.repeatingParent = nil
             // assert that all the children were removed
             assert((self.repeatingSiblings?.count ?? 0) == 0)
-        }
-        // else if the current THTask is a child add the child to the ignoredRepeatDates of the parent
-        else if let deadline = self.deadline {
+        } else if self.isRepeatingChild, let deadline = self.deadline {
+            // else if the current THTask is a child add the child to the ignoredRepeatDates of the parent
             self.repeatingParent?.addToIgnoredRepeatDates(date: deadline)
         }
         // remove all not needed properties of the current task
@@ -186,8 +185,13 @@ extension THTask {
         let oldParent = self.repeatingParent
         self.repeatingParent = nil
 
-        // get the ignoredRepeatDates from the oldparent
-        let ignoredRepeatDates = (oldParent ?? self).getIgnoredRepeatDates()
+        if let oldParent = oldParent {
+            // copy the ignored dates from the old parent (if there is one)
+            self.setIgnoredRepeatDates(oldParent.getIgnoredRepeatDates())
+        }
+        
+        // read the ignoredRepeatDates
+        let ignoredRepeatDates = self.getIgnoredRepeatDates()
         // variable to get the start of the next day after the repeatEndDate
         let repeatEndDateStartOfNextDay = Calendar.current.startOfDay(for: repeatEndDate) + TimeInterval.day
 

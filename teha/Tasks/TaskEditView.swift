@@ -55,9 +55,7 @@ struct TaskEditView: View {
             return
         }
         
-
         guard !(task?.hasFutureSiblings() == true && updateFutureChildren == nil) else {
-            print("showRepeatingUpdateChoices")
             if showRepeatingUpdateChoices == true {
                 showRepeatingUpdateChoices = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
@@ -79,10 +77,8 @@ struct TaskEditView: View {
         let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
         task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
         
-        // TODO: error handling
         try? viewContext.save()
         
-        // TODO: Move NotificationManager code to somewhere else
         NotificationManager.instance.scheduleReminderNotifications(task: task)
         
         task.repeatingSiblings?.forEach { repeatingSibling in
@@ -149,6 +145,10 @@ struct TaskEditView: View {
                 if data.deadline != nil {
                     Section {
                         RepeatIntervalInput("repeat", interval: $data.repeatInterval, endDate: $data.repeatEndDate)
+                    } footer: {
+                        if let repeatError = data.repeatError {
+                            Text(repeatError.failureReason!).foregroundColor(.red)
+                        }
                     }
                     
                     Section {
@@ -208,6 +208,8 @@ extension TaskEditView {
         case noTitle
         case deadlineBeforeEarliestStartDate
         case estimatedWorktimeTooHigh
+        case repeatingEndDateBeforeDeadline
+        case repeatingEndDateTooFarInFuture
         
         var errorDescription: String? {
             String(localized: "cannot-save-task")
@@ -217,8 +219,9 @@ extension TaskEditView {
             switch self {
             case .noTitle: return String(localized: "task-must-have-title")
             case .deadlineBeforeEarliestStartDate: return String(localized: "task-deadline-must-be-after-earliest-startdate")
-            case .estimatedWorktimeTooHigh:
-                return String(localized: "estimated-worktime-too-high") // TODO: LOCALIZE
+            case .estimatedWorktimeTooHigh: return String(localized: "estimated-worktime-too-high")
+            case .repeatingEndDateBeforeDeadline: return String(localized: "repeat-deadline-after")
+            case .repeatingEndDateTooFarInFuture: return String(localized: "repeat-deadline-years")
             }
         }
     }
@@ -260,6 +263,19 @@ extension TaskEditView {
             return estimatedWorktime > Worktime(hours: 48, minutes: 0)
         }
         
+        var repeatError: FormError? {
+            guard let repeatEndDate = repeatEndDate, let deadline = deadline else {
+                return nil
+            }
+            if repeatEndDate <= deadline {
+                return .repeatingEndDateBeforeDeadline
+            } else if repeatEndDate > Calendar.current.date(byAdding: .year, value: 2, to: deadline)! {
+                return .repeatingEndDateTooFarInFuture
+            }
+            return nil
+        }
+        
+        
         var error: FormError? {
             if title.isEmpty {
                 return .noTitle
@@ -267,6 +283,8 @@ extension TaskEditView {
                 return .deadlineBeforeEarliestStartDate
             } else if estimatedWorktimeTooHigh {
                 return .estimatedWorktimeTooHigh
+            } else if let repeatError = repeatError {
+                return repeatError
             }
             return nil
         }
@@ -309,11 +327,13 @@ extension TaskEditView {
             
             task.estimatedWorktime = self.estimatedWorktime
             
-            task.repeatInterval = self.repeatInterval
-            task.repeatEndDate = self.repeatEndDate
+            // Do not set task to repeat if no deadline is set
+            task.repeatInterval = task.deadline != nil ? self.repeatInterval : nil
+            task.repeatEndDate = task.deadline != nil ? self.repeatEndDate : nil
             
-            task.reminderOffset = self.reminder
-            task.reminderOffsetSecond = self.reminderSecond
+            // Do not set reminders if no deadline is set
+            task.reminderOffset = task.deadline != nil ? self.reminder : nil
+            task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
             
             task.notes = self.notes
             task.tags = self.tags as NSSet
