@@ -101,7 +101,8 @@ struct ProjectsListView: View {
         if sections.isEmpty{
             NoProjectView()
         }
-        else{
+        
+        else {
             NavigationStack {
                 List {
                     ForEach(sections) { section in

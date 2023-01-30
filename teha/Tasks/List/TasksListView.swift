@@ -38,6 +38,8 @@ fileprivate struct FilteredTasksListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.editMode) var editMode
     
+    @EnvironmentObject var filters: TasksFilterViewModel
+    
     @SectionedFetchRequest var sections: SectionedFetchResults<String, THTask>
     
     @State var selectedTasks: Set<NSManagedObjectID> = .init()
@@ -58,10 +60,15 @@ fileprivate struct FilteredTasksListView: View {
 
 
     var body: some View {
-        if sections.isEmpty{
+        
+        if filters.anyFilterActive && sections.isEmpty {
+            NoTaskFilterView()
+        }
+        else if sections.isEmpty{
             NoTaskView()
         }
-        else{
+        
+        else {
             List(selection: $selectedTasks) {
                 ForEach(sections) { section in
                     TaskListSectionView(section, now: now) { task in
