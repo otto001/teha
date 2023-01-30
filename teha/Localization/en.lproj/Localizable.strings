@@ -146,6 +146,14 @@
 
 "no-reminder" = "None";
 
+"no-projects" = "No projects available";
+
+"no-projects-empty-text" = "Are you sure, that you don't have any upcoming projects? Add them now!";
+
+"no-tasks" = "No tasks available";
+
+"no-tasks-empty-text" = "It's quite empty here. Let's start getting productive together and add your first task!";
+
 "none" = "None";
 
 "normal" = "Normal";

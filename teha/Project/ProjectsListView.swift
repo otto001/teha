@@ -98,25 +98,29 @@ struct ProjectsListView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(sections) { section in
-                    let projects = section.search(query: query)
-                    if projects.count > 0 {
-                        Section(sectionTitle(for: section.id)) {
-                            ForEach(projects) { project in
-                                ProjectRow(project: project)
+        if sections.isEmpty{
+            NoProjectView()
+        }
+        else{
+            NavigationStack {
+                List {
+                    ForEach(sections) { section in
+                        let projects = section.search(query: query)
+                        if projects.count > 0 {
+                            Section(sectionTitle(for: section.id)) {
+                                ForEach(projects) { project in
+                                    ProjectRow(project: project)
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        .listStyle(.insetGrouped)
-        .sheet(item: $editProject) { project in
-            ProjectEditView(.edit(project))
-        }
-    }
+            .listStyle(.insetGrouped)
+            .sheet(item: $editProject) { project in
+                ProjectEditView(.edit(project))
+            }
+        }}
 }
 
 fileprivate extension SectionedFetchResults<Int, THProject>.Element {

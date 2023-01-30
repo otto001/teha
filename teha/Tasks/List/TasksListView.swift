@@ -58,46 +58,51 @@ fileprivate struct FilteredTasksListView: View {
 
 
     var body: some View {
-        List(selection: $selectedTasks) {
-            ForEach(sections) { section in
-                TaskListSectionView(section, now: now) { task in
-                    taskToDelete = task
+        if sections.isEmpty{
+            NoTaskView()
+        }
+        else{
+            List(selection: $selectedTasks) {
+                ForEach(sections) { section in
+                    TaskListSectionView(section, now: now) { task in
+                        taskToDelete = task
+                    }
                 }
             }
-        }
-        .autoRefresh(now: $now)
-        .onAppear {
-            // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
-            // This is due to SwiftUI adding the rows tapped for navigation purposes to the selection, which is an annoying, not yet fixed bug.
-            // This behaviour causes SwiftUI to be rather unpredicable (aka: the row entries start to rave) when navigating or selecting, unless you manually clear the selection like we do here.
-            selectedTasks.removeAll()
-        }
-        .toolbar {
-            if editMode?.wrappedValue == .active {
-                ToolbarItem(placement: .bottomBar) {
-                    TaskListToolbarView(selected: $selectedTasks)
-                        .padding(.horizontal, -10)
-                        .padding(.top, -6)
+            .autoRefresh(now: $now)
+            .onAppear {
+                // Evertime the user navigates back to this view (which calls onAppear), we need to manually clear the selection.
+                // This is due to SwiftUI adding the rows tapped for navigation purposes to the selection, which is an annoying, not yet fixed bug.
+                // This behaviour causes SwiftUI to be rather unpredicable (aka: the row entries start to rave) when navigating or selecting, unless you manually clear the selection like we do here.
+                selectedTasks.removeAll()
+            }
+            .toolbar {
+                if editMode?.wrappedValue == .active {
+                    ToolbarItem(placement: .bottomBar) {
+                        TaskListToolbarView(selected: $selectedTasks)
+                            .padding(.horizontal, -10)
+                            .padding(.top, -6)
+                    }
                 }
-            }
-            
-        }
-        .confirmationDialog("task-delete-confirmation", isPresented: showDeleteDialogBinding) {
-            Button("delete", role: .destructive) {
-                guard let taskToDelete = taskToDelete else { return }
                 
-                // Remove all pending reminders for task
-                NotificationManager.instance.cancelPendingNotifications(for: taskToDelete)
-                
-                viewContext.delete(taskToDelete)
-                // TODO: error handling
-                try? viewContext.save()
             }
-            Button("cancel", role: .cancel) {
-                showDeleteDialogBinding.wrappedValue = false
+            .confirmationDialog("task-delete-confirmation", isPresented: showDeleteDialogBinding) {
+                Button("delete", role: .destructive) {
+                    guard let taskToDelete = taskToDelete else { return }
+                    
+                    // Remove all pending reminders for task
+                    NotificationManager.instance.cancelPendingNotifications(for: taskToDelete)
+                    
+                    viewContext.delete(taskToDelete)
+                    // TODO: error handling
+                    try? viewContext.save()
+                }
+                Button("cancel", role: .cancel) {
+                    showDeleteDialogBinding.wrappedValue = false
+                }
+            } message: {
+                Text("task-delete-confirmation")
             }
-        } message: {
-            Text("task-delete-confirmation")
         }
     }
 }

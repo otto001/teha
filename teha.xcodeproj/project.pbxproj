@@ -66,6 +66,8 @@
 		6E6AB6D52971EBB900211CC0 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */; };
 		921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B56A029708B3600F5518F /* PriorityPicker.swift */; };
 		926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */; };
+		928FF3672987E27300BE3137 /* NoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928FF3662987E27300BE3137 /* NoTaskView.swift */; };
+		928FF3692987E65D00BE3137 /* NoProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928FF3682987E65D00BE3137 /* NoProjectView.swift */; };
 		A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA96296D92480078BA2D /* SettingsTab.swift */; };
 		A85AAA99296D9C6B0078BA2D /* CGColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85AAA98296D9C6B0078BA2D /* CGColor+Utils.swift */; };
 		ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEF022B2976D528007B199F /* OnboardingView.swift */; };
@@ -146,6 +148,8 @@
 		6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		921B56A029708B3600F5518F /* PriorityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityPicker.swift; sourceTree = "<group>"; };
 		926AC4FE297057BD00F3889D /* TasksFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterViewModel.swift; sourceTree = "<group>"; };
+		928FF3662987E27300BE3137 /* NoTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTaskView.swift; sourceTree = "<group>"; };
+		928FF3682987E65D00BE3137 /* NoProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProjectView.swift; sourceTree = "<group>"; };
 		A85AAA96296D92480078BA2D /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		A85AAA98296D9C6B0078BA2D /* CGColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Utils.swift"; sourceTree = "<group>"; };
 		ACEF022B2976D528007B199F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 				6E6AB6D42971EBB900211CC0 /* ProjectDetailView.swift */,
 				6E35D67729749E7300B42115 /* ProjectStatsView.swift */,
 				02513BB3296DE56C00D28CDD /* ProjectPicker.swift */,
+				928FF3682987E65D00BE3137 /* NoProjectView.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				02C0DEDE2965BE520084D579 /* TasksTab.swift */,
 				025EF4402970A2A300959F05 /* TaskDetailView.swift */,
 				029E336729564E36004A2E12 /* TaskEditView.swift */,
+				928FF3662987E27300BE3137 /* NoTaskView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -547,6 +553,8 @@
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,
+				928FF3672987E27300BE3137 /* NoTaskView.swift in Sources */,
+				928FF3692987E65D00BE3137 /* NoProjectView.swift in Sources */,
 				0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */,
 				926AC4FF297057BD00F3889D /* TasksFilterViewModel.swift in Sources */,
 				023DD6052985C2D700E35D4F /* SuggestionsGeneratorError.swift in Sources */,
@@ -802,8 +810,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -848,8 +856,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";

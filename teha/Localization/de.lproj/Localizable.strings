@@ -146,6 +146,14 @@
 
 "no-reminder" = "Keine";
 
+"no-projects" = "Keine Projekte vorhanden";
+
+"no-projects-empty-text" = "Sicher, dass du nichts vor hast? Erstelle jetzt ein neues Projekt!";
+
+"no-tasks" = "Keine Aufgaben vorhanden";
+
+"no-tasks-empty-text" = "Sieht ziemlich leer aus! Lass uns gemeinsam produktiv werden und erstelle deine erste Aufgabe!";
+
 "none" = "Nichts";
 
 "normal" = "Normal";
@@ -156,7 +164,7 @@
 
 "notifications-allow" = "Erlaube Benachrichtigungen";
 
-"notifications-allow-message" = "Bitte erlauben Sie Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
+"notifications-allow-message" = "Bitte erlaube Benachrichtigungen in der Einstellungs-App, um eine Erinnerung zu setzen.";
 
 "now" = "Jetzt";
 
@@ -210,21 +218,21 @@
 
 "started" = "Angefangen";
 
-"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von Ihren Aufgaben gibt teha empfehlungen, welche Aufgabe sie spätestens wann anfangen sollten, um Ihre Deadlines einhalten zu können. Bitte bedenken Sie, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
+"suggestion-infobox-text" = "Basierend auf den Deadlines, frühesten Beginn und dem geschätzten Arbeitsaufwand von deinen Aufgaben gibt teha empfehlungen, welche Aufgabe Du spätestens wann anfangen sollten, um deine Deadlines einhalten zu können. Bitte bedenke, dass es sich hierbei nur um Empfehlungen handelt, und es sinnvoll sein kann, noch früher als von teha vorgeschlagen anzufangen.";
 
 "suggestions" = "Vorschläge";
 
 "suggestions-bad-worktime-settings" = "Arbeitszeiteinstellungen ungültig";
 
-"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfen Sie Ihre Einstellungen.";
+"suggestions-bad-worktime-settings-recovery" = "Bitte überprüfe deine Einstellungen.";
 
 "suggestions-loading" = "Vorschläge werden vorbereitet";
 
 "suggestions-no-calculateable-tasks" = "Keine Empfehlungen möglich";
 
-"suggestions-no-calculateable-tasks-recovery" = "Geben Sie Ihren Aufgaben Deadlines und einen geschätzen Arbeitsaufwand, um Empfehlungen zu ermöglichen.";
+"suggestions-no-calculateable-tasks-recovery" = "Du hast alle Aufgaben mit Deadlines erledigt, oder keine Deadlines bei deinen Aufgaben gesetzt";
 
-"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müssen Sie möglicherweise Überstunden machen.";
+"suggestions-time-issues" = "Um die anstehenden Deadlines zu bewältigen, müsstes du möglicherweise Überstunden machen.";
 
 "tag" = "Tag";
 
