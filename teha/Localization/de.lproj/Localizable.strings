@@ -240,7 +240,7 @@
 
 "tasks-delete-confirmation" = "Aufgaben löschen?";
 
-"tasks-doing" = "In Arbeit";
+"tasks-doing" = "Angefangen";
 
 "tasks-due-today" = "Bis heute";
 
@@ -250,7 +250,7 @@
 
 "tasks-overdue" = "Überfällig";
 
-"tasks-todo" = "To Do";
+"tasks-todo" = "Nicht angefangen";
 
 "title" = "Titel";
 
