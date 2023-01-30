@@ -26,7 +26,7 @@ class TasksFilterViewModel: ObservableObject {
     @Published var _dateFilterMode: DateFilterMode = .disabled
     @Published var dateInterval: DateInterval = DateInterval()
     
-    @Published var _deadlineFilterMode: DeadlineFilterMode = .disabled
+    @Published var _deadlineFilterMode: DateFilterMode = .disabled
     @Published var deadline: DateInterval = DateInterval()
     
     @Published var search: String = ""
@@ -58,7 +58,15 @@ class TasksFilterViewModel: ObservableObject {
         }
     }
     
-    var deadlineFilterMode: DeadlineFilterMode{
+    /**
+        Property representing the current deadline filter mode.
+        When the value is set to:
+        - .matchToday: the `dateInterval` property is updated to represent the current day.
+        - .matchThisWeek: the `dateInterval` property is updated to represent the current week.
+        - .custom: the `dateInterval` property is left unchanged.
+        - .disabled: the `dateInterval` property is left unchanged.
+     */
+    var deadlineFilterMode: DateFilterMode{
         get {
             return _deadlineFilterMode
         }
@@ -178,10 +186,6 @@ extension TasksFilterViewModel {
          - `custom`: The filter is set to a specific date interval.
     */
     enum DateFilterMode {
-        case disabled, matchToday, matchThisWeek, custom
-    }
-    
-    enum DeadlineFilterMode {
         case disabled, matchToday, matchThisWeek, custom
     }
     

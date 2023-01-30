@@ -165,11 +165,11 @@ fileprivate struct DeadlineFilter: View{
         if visible {
             VStack {
                 Picker(selection: $filters.deadlineFilterMode) {
-                    Text("disabled").tag(TasksFilterViewModel.DeadlineFilterMode.disabled)
+                    Text("disabled").tag(TasksFilterViewModel.DateFilterMode.disabled)
                     Divider()
-                    Text("match-today").tag(TasksFilterViewModel.DeadlineFilterMode.matchToday)
-                    Text("match-this-week").tag(TasksFilterViewModel.DeadlineFilterMode.matchThisWeek)
-                    Text("custom").tag(TasksFilterViewModel.DeadlineFilterMode.custom)
+                    Text("match-today").tag(TasksFilterViewModel.DateFilterMode.matchToday)
+                    Text("match-this-week").tag(TasksFilterViewModel.DateFilterMode.matchThisWeek)
+                    Text("custom").tag(TasksFilterViewModel.DateFilterMode.custom)
                 } label: {
                     Label(LocalizedStringKey("deadline"), systemImage: "calendar.badge.exclamationmark")
                 }
