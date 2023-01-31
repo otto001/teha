@@ -339,7 +339,7 @@ class SuggestionsGenerator {
     /// - Parameter binKey: The BinKey at which to start.
     /// - Returns: A BinKey that is left of (i.e., before) the given one and also lies withitn the users worktime.
     private func binKey(leftOf binKey: BinKey) -> BinKey {
-        var result = binKey.prev
+        var result = binKey
         
         repeat {
             result = result.prev
