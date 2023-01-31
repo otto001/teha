@@ -116,6 +116,7 @@
 		027F54C12986DBCC00450A73 /* RepeatIntervalInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatIntervalInput.swift; sourceTree = "<group>"; };
 		027F54C32986DBDA00450A73 /* RepeatInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
 		027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+RepeatingTasks.swift"; sourceTree = "<group>"; };
+		02960AEB298928F200D6B039 /* tehaDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tehaDebug.entitlements; sourceTree = "<group>"; };
 		029615DD295617920073E378 /* ProjectsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTab.swift; sourceTree = "<group>"; };
 		029615DE295617920073E378 /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		029615DF295617920073E378 /* SimpleColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleColorPicker.swift; sourceTree = "<group>"; };
@@ -398,6 +399,7 @@
 		02CB75552955DE5E005F4D35 /* teha */ = {
 			isa = PBXGroup;
 			children = (
+				02960AEB298928F200D6B039 /* tehaDebug.entitlements */,
 				5FDA1BED2985B8E4003EC2DB /* Info.plist */,
 				5FB52357297C3C3200B891E0 /* Location */,
 				5F0492082979F2B400F39A71 /* Geofencing */,
@@ -849,7 +851,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = teha/teha.entitlements;
+				CODE_SIGN_ENTITLEMENTS = teha/tehaDebug.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -878,7 +880,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwidg.teha-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.mludwidg.teha-app-ck";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
