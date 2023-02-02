@@ -373,8 +373,11 @@ This is one of the main four tabs of the app, that provides all settings of the 
 ### Dependencies:
 - SwiftUI
 
-## SwiftUI bugs, that we can't fix
 
+## SwiftUI bugs, that we can't fix
+- Sometimes, the Select mode in the swiftUI List just fails. The only thing we found to fix that was to change the id of the list (using the `id(_:)` view modifier) everytime the user presses select. However, this lead to other glitchy behaviour, which is why we stopped trying to hack it and just hoped iOS 16.3 might fix it.
+- Sometimes, modal presentions cannot be dismissed (simulator only). No idea why, happens very rarely. In these cases, calling the dismissAction produces nothing, not even a warning.
+- Sometimes, when navigation back from a detail view to a list view, the selected row from the list will remain gray, as if it is still selected. We attempted some fixes in the TasksListView, with some success. However, the issue still occurs in certain cases.
 
 
 
