@@ -17,6 +17,7 @@ struct PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
+            // Change iCloud Container name here!
             container.persistentStoreDescriptions.first!.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.de.mludwig.teha-app-ck")
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in

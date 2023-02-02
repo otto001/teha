@@ -373,8 +373,28 @@ This is one of the main four tabs of the app, that provides all settings of the 
 ### Dependencies:
 - SwiftUI
 
-## SwiftUI bugs, that we can't fix
+## CloudKit
+teha can synchronise a users projects, tasks and tags wih CloudKit.
+With these instructions, you should be able to compile teha with CloudKit.
+This will create a new CloudKit container on your account for teha. Careful: You will never be able to delete that container again!
+To enable CloudKit, follow these steps:
+- Open the project in XCode, click on the project file (called teha) at the top of the directory structure.
+- Select the teha Target and then the Signing & Capabilities tab.
+-  First change the Bundle identifier of teha to one compatible with your account. Example: `com.your-organization.teha-app` (Note the part after the last dot appears to have a minumum character requirement, so just `teha` would be to short.)
+- Scroll down in the same target to the iCloud section. Deselect all selected iCloud containers.
+- Add a new iCloud container by clicking the plus button directly below to the list. When asked for the containers name, we recommend using the same bundle identifier you used for the app bunlde. When pressin OK, XCode will automatically prepend `iCloud.` to the container name, this is normal.
+- Go to the Persistence.swift file and edit the identifier in line 21. You can also just search for `Change iCloud Container name here!`, which is the comment above that line. Here, paste the iCloud container name, including the `iCloud.` prefix.
+- When you now build and run the project, an iCloud container should be automatically generated using the name you set for it, and teha should be able to synchronise user data. 
+- You can check `https://icloud.developer.apple.com/dashboard/` to inspect the new container.
 
+### Troubleshoot
+During this process, XCode may generate new provisioning profiles for you account(s) and device(s). That frequently fails for apple-ty reasons. 
+When in doubt, go to XCode -> Settings -> Account -> (Your apple id) -> Download Manual profiles. Then, restart XCode a bunch of times. Usually works for me.
+
+## SwiftUI bugs, that we can't fix
+- Sometimes, the Select mode in the swiftUI List just fails. The only thing we found to fix that was to change the id of the list (using the `id(_:)` view modifier) everytime the user presses select. However, this lead to other glitchy behaviour, which is why we stopped trying to hack it and just hoped iOS 16.3 might fix it.
+- Sometimes, modal presentions cannot be dismissed (simulator only). No idea why, happens very rarely. In these cases, calling the dismissAction produces nothing, not even a warning.
+- Sometimes, when navigation back from a detail view to a list view, the selected row from the list will remain gray, as if it is still selected. We attempted some fixes in the TasksListView, with some success. However, the issue still occurs in certain cases.
 
 
 
