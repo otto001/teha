@@ -22,7 +22,7 @@ private struct ProjectRow: View {
     func delete(deleteTasks: Bool) {
         if deleteTasks{
             // Remove all reminders from all tasks of the project
-            NotificationManager.instance.cancelPendingNotifications(for: project.tasks)
+            //NotificationManager.instance.cancelPendingNotifications(for: project.tasks)
             
             // Delete all tasks
             (project.tasks as? Set<THTask>)?.forEach(viewContext.delete(_:))
@@ -43,7 +43,7 @@ private struct ProjectRow: View {
         }
         // Handle the delete action, specifically what happens to the related tasks.
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {
-            if project.tasks?.count ?? 0 > 0 {
+            if project.tasks.count > 0 {
                 // Delete Project but keep tasks
                 Button("delete-project-keep-tasks", role: .destructive) {
                     self.delete(deleteTasks: false)
@@ -63,7 +63,7 @@ private struct ProjectRow: View {
                 showDeleteDialog = false
             }
         } message: {
-            if project.tasks?.count ?? 0 > 0 {
+            if project.tasks.count > 0 {
                 Text("delete-project-message")
             }
         }

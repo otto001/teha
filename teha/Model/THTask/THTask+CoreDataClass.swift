@@ -13,8 +13,6 @@ import CoreData
 public class THTask: NSManagedObject {
     // prepare a repeating task for deletion by removing it from the repeating chain of the parent
     public override func prepareForDeletion() {
-        // remove from repeating chain in needed
-        self.removeFromRepeatingChain()
         // cancel notifications
         NotificationManager.instance.cancelPendingNotifications(for: self)
         
@@ -24,24 +22,16 @@ public class THTask: NSManagedObject {
 
 extension THTask {
     
+    var title: String? { self.taskDescription?.title }
+    
     /// The ReminderOffset to the tasks deadline of the first reminder of the Task
-    var reminderOffset: ReminderOffset? {
-        get {
-            self.reminderMin.flatMap { ReminderOffset(rawValue: Int(truncating: $0)) }
-        }
-        set {
-            self.reminderMin = (newValue?.rawValue).map { NSNumber(value: $0) }
-        }
+    var reminderFirstOffset: ReminderOffset? {
+        self.taskDescription?.reminderFirstOffset
     }
     
     /// The ReminderOffset to the tasks deadline of the second reminder of the Task 
-    var reminderOffsetSecond: ReminderOffset? {
-        get {
-            self.reminderMinSecond.flatMap { ReminderOffset(rawValue: Int(truncating: $0)) }
-        }
-        set {
-            self.reminderMinSecond = (newValue?.rawValue).map { NSNumber(value: $0) }
-        }
+    var reminderSecondOffset: ReminderOffset? {
+        self.taskDescription?.reminderSecondOffset
     }
     
     /// The Id of the task used by LocalNotification
@@ -53,22 +43,12 @@ extension THTask {
     
     /// The priority assiged to the task
     var priority: Priority {
-        get {
-            return Priority(rawValue: Int(self.priorityNumber))!
-        }
-        set {
-            self.priorityNumber = Int16(newValue.rawValue)
-        }
+        self.taskDescription?.priority ?? .normal
     }
     
     /// The estimatedWorktime of the Task.
-    var estimatedWorktime: Worktime {
-        get {
-            return Worktime(totalMinutes: Int(self.estimatedWorktimeMinutes))
-        }
-        set {
-            self.estimatedWorktimeMinutes = Int16(newValue.totalMinutes)
-        }
+    var estimatedWorktime: Worktime? {
+        self.taskDescription?.estimatedWorktime
     }
     
     /// True if the task was started by the user
@@ -114,17 +94,23 @@ extension THTask {
     }
     
     /// The remainder of the estimatedWorktime of the Task when factoring in the tasks completionProgress and the tasks completion/started state.
-    var estimatedWorktimeRemaining: Worktime {
+    var estimatedWorktimeRemaining: Worktime? {
+        guard let estimatedWorktime = self.estimatedWorktime else { return nil }
         if self.isCompleted {
             return .zero
         } else if !self.isStarted {
-            return self.estimatedWorktime
+            return estimatedWorktime
         }
-        return self.estimatedWorktime.percentage(1 - self.completionProgress)
+        return estimatedWorktime.percentage(1 - self.completionProgress)
     }
+    
+    func updateFromDescription(offset: TimeInterval) {
+        self.earliestStartDate = self.taskDescription?.earliestStartDate?.addingTimeInterval(offset)
+        self.deadlineDate = self.taskDescription?.deadlineDate?.addingTimeInterval(offset)
+        self.project = self.taskDescription?.project
+    }
+    
 }
-
-
 
 
 //MARK: FetchRequests
@@ -133,10 +119,10 @@ extension THTask {
     /// A fetch request fetching all tags sorted by: deadline (asc), priority (desc), creationDate (desc), title (asc)
     static var all: NSFetchRequest<THTask> {
         let request = THTask.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true),
-                                   NSSortDescriptor(key: "priorityNumber", ascending: false),
+        request.sortDescriptors = [NSSortDescriptor(key: "deadlineDate", ascending: true),
+                                   NSSortDescriptor(key: "taskDescription.priorityNumber", ascending: false),
                                    NSSortDescriptor(key: "creationDate", ascending: false),
-                                   NSSortDescriptor(key: "title", ascending: true),]
+                                   NSSortDescriptor(key: "taskDescription.title", ascending: true),]
         return request
     }
 }
@@ -163,19 +149,19 @@ extension NSFetchRequest where ResultType == THTask {
     /// Modifies the predicate of the fetch request to only include tasks of the given priority.
     /// - Parameter priority: The priority to filter by.
     func filter(priority: Priority) {
-        self.predicateAnd(with: NSPredicate(format: "priorityNumber == %d", priority.rawValue))
+        self.predicateAnd(with: NSPredicate(format: "taskDescription.priorityNumber == %d", priority.rawValue))
     }
     
     /// Modifies the predicate of the fetch request to only include tasks that have their deadline before or at the given date.
     /// - Parameter date: The date to filter by.
     func filter(deadlineBeforeEquals date: Date) {
-        self.predicateAnd(with: NSPredicate(format: "deadline <= %@", date as NSDate))
+        self.predicateAnd(with: NSPredicate(format: "deadlineDate <= %@", date as NSDate))
     }
     
     /// Modifies the predicate of the fetch request to only include tasks that have their deadline after the given date
     /// - Parameter date: The date to filter by.
     func filter(deadlineAfter date: Date) {
-        self.predicateAnd(with: NSPredicate(format: "deadline > %@", date as NSDate))
+        self.predicateAnd(with: NSPredicate(format: "deadlineDate > %@", date as NSDate))
     }
     
     /// Little helper enum for .filter(tags:mode:)
@@ -224,17 +210,17 @@ extension NSFetchRequest where ResultType == THTask {
     func filter(dateInterval: DateInterval) {
         // Case: earliestStartDate and deadline are not nil
         let leftOverlapPredicate = NSPredicate(format: "(%@ <= earliestStartDate AND %@ > earliestStartDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
-        let containedPredicate = NSPredicate(format: "(%@ >= earliestStartDate AND %@ < deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
-        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadline AND %@ > deadline)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let containedPredicate = NSPredicate(format: "(%@ >= earliestStartDate AND %@ < deadlineDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadline AND %@ > deadlineDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
         
         // Case: earliestStartDate is nil and deadline is not nil
-        let noBeginDatePredicate = NSPredicate(format: "earliestStartDate == nil AND %@ <= deadline", dateInterval.start as NSDate)
+        let noBeginDatePredicate = NSPredicate(format: "earliestStartDate == nil AND %@ <= deadlineDate", dateInterval.start as NSDate)
         
         // Case: deadline is nil and earliestStartDate is not nil
-        let noDeadlinePredicate = NSPredicate(format: "deadline == nil AND %@ > earliestStartDate", dateInterval.end as NSDate)
+        let noDeadlinePredicate = NSPredicate(format: "deadlineDate == nil AND %@ > earliestStartDate", dateInterval.end as NSDate)
         
         // Case: earliestStartDate and deadline are nil
-        let bothNilPredicate = NSPredicate(format: "earliestStartDate == nil AND deadline == nil")
+        let bothNilPredicate = NSPredicate(format: "earliestStartDate == nil AND deadlineDate == nil")
         
         let allCases = NSCompoundPredicate(orPredicateWithSubpredicates: [leftOverlapPredicate, containedPredicate, rightOverlapPredicate, noBeginDatePredicate, noDeadlinePredicate, bothNilPredicate])
         self.predicateAnd(with: allCases)
@@ -250,7 +236,7 @@ extension NSFetchRequest where ResultType == THTask {
         The filtered collection of tasks with deadlines falling within the given date interval.
     */
     func filter(deadline: DateInterval) {
-        self.predicateAnd(with: NSPredicate(format: "(%@ <= deadline AND deadline < %@)", deadline.start as NSDate, deadline.end as NSDate))
+        self.predicateAnd(with: NSPredicate(format: "(%@ <= deadlineDate AND deadlineDate < %@)", deadline.start as NSDate, deadline.end as NSDate))
     }
     
     /**
@@ -278,7 +264,7 @@ extension THTask {
     /// Format: "[year]-[month]-[day]"
     /// - Note: Used for sectioning tasks by day.
     @objc var deadlineDayString: String {
-        guard let deadline = self.deadline else { return "none" }
+        guard let deadline = self.deadlineDate else { return "none" }
         return deadline.ISO8601Format(.iso8601Date(timeZone: .current))
     }
     
@@ -286,7 +272,7 @@ extension THTask {
     /// Format: "[year]-CW[week]"
     /// - Note: Used for sectioning tasks by calendar week.
     @objc var deadlineWeekString: String {
-        guard let deadline = self.deadline else { return "none" }
+        guard let deadline = self.deadlineDate else { return "none" }
         let year = Calendar.current.component(.year, from: deadline)
         let week = Calendar.current.component(.weekOfYear, from: deadline)
         return "\(year)-CW\(week)"
@@ -296,7 +282,7 @@ extension THTask {
     /// Format: "[year]-[month]"
     /// - Note: Used for sectioning tasks by month.
     @objc var deadlineMonthString: String {
-        guard let deadline = self.deadline else { return "none" }
+        guard let deadline = self.taskDescription?.deadlineDate else { return "none" }
         return String(deadline.ISO8601Format(.iso8601Date(timeZone: .current)).substring(start: 0, end: 7))
     }
     
@@ -304,7 +290,7 @@ extension THTask {
     /// Format: "[year]"
     /// - Note: Used for sectioning tasks by year.
     @objc var deadlineYearString: String {
-        guard let deadline = self.deadline else { return "none" }
+        guard let deadline = self.deadlineDate else { return "none" }
         let year = Calendar.current.component(.year, from: deadline)
         return "\(year)"
     }

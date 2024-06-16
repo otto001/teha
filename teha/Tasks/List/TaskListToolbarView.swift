@@ -264,7 +264,7 @@ struct TaskListToolbarView: View {
             TasksChangeProjectSheet(tasks: tasks).presentationDetents([.height(220)])
         }
         .sheet(isPresented: $showChangeDeadlineSheet) {
-            TasksChangeDateSheet(title: String(localized: "deadline-change"), addKey: "deadline-add", fieldNameKey: "deadline", tasks: tasks, keypath: \.deadline).presentationDetents([.height(220)])
+            TasksChangeDateSheet(title: String(localized: "deadline-change"), addKey: "deadline-add", fieldNameKey: "deadline", tasks: tasks, keypath: \.deadlineDate).presentationDetents([.height(220)])
         }
         .sheet(isPresented: $showChangeEarliestStartdateSheet) {
             TasksChangeDateSheet(title: String(localized: "earliest-startdate-change"), addKey: "earliest-startdate-add", fieldNameKey: "earliest-startdate", tasks: tasks, keypath: \.earliestStartDate).presentationDetents([.height(220)])

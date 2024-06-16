@@ -19,7 +19,7 @@ struct ProjectDetailView: View {
     
     var body: some View {
         Group {
-            if (project.tasks?.count ?? 0) > 0 {
+            if project.tasks.count > 0 {
                 ProjectStatsView(project: project)
             } else {
                 VStack {
@@ -47,12 +47,12 @@ struct ProjectDetailView_Previews: PreviewProvider {
         let context = PersistenceController.preview.container.viewContext
         
         let project = THProject(context: context)
-        for i in 0..<50 {
-            let task = THTask(context: context)
-            task.title = "Task \(i)"
-            task.completionDate = Calendar.current.date(byAdding: .day, value: Int.random(in: -6...0), to: .now)
-            task.project = project
-        }
+//        for i in 0..<50 {
+//            let task = THTask(context: context)
+//            task.title = "Task \(i)"
+//            task.completionDate = Calendar.current.date(byAdding: .day, value: Int.random(in: -6...0), to: .now)
+//            task.project = project
+//        }
         
         return ProjectDetailView(project: project)
     }

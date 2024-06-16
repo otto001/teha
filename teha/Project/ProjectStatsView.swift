@@ -123,18 +123,18 @@ struct ProjectStatsView: View {
     }
 }
 
-struct ProjectStatsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = PersistenceController.preview.container.viewContext
-        
-        let project = THProject(context: context)
-        for i in 0..<50 {
-            let task = THTask(context: context)
-            task.title = "Task \(i)"
-            task.completionDate = Calendar.current.date(byAdding: .day, value: Int.random(in: -6...0), to: .now)
-            task.project = project
-        }
-        
-        return ProjectStatsView(project: project)
-    }
-}
+//struct ProjectStatsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let context = PersistenceController.preview.container.viewContext
+//        
+//        let project = THProject(context: context)
+//        for i in 0..<50 {
+//            let task = THTask(context: context)
+//            task.title = "Task \(i)"
+//            task.completionDate = Calendar.current.date(byAdding: .day, value: Int.random(in: -6...0), to: .now)
+//            task.project = project
+//        }
+//        
+//        return ProjectStatsView(project: project)
+//    }
+//}

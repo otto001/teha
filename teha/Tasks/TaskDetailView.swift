@@ -77,13 +77,13 @@ struct TaskDetailView: View {
         // Returns the relative time to the earliestStartDate if one exists, and a deadline exists, the earliestStartDate
         // is bigger than .now, and the startDate is nil and the completionDate is nil
         } else if let earliestStartDate = task.earliestStartDate,
-           !(task.deadline != nil && earliestStartDate <= .now),
+           !(task.deadlineDate != nil && earliestStartDate <= .now),
            task.startDate == nil && task.completionDate == nil {
             
             return "\(String(localized: "earliest-startdate")): \(dateFormatterRelative.string(from: earliestStartDate))"
 
         // Returns the relative time to the deadline, if one exists and the completionDate is nil
-        } else if let deadline = task.deadline, task.completionDate == nil {
+        } else if let deadline = task.deadlineDate, task.completionDate == nil {
             
             return "\(String(localized: "deadline")): \(dateFormatterRelative.string(from: deadline))"
             
@@ -157,12 +157,12 @@ struct TaskDetailView: View {
     
     @ViewBuilder var datesSection: some View {
         // Show a dateRow for earliestStartDate and Deadline if they are not nil
-        if task.earliestStartDate != nil || task.deadline != nil {
+        if task.earliestStartDate != nil || task.deadlineDate != nil {
             Section {
                 DateRow(title: "earliest-startdate", date: task.earliestStartDate) { date in
                     return date <= .now ? .green : .label
                 }
-                DateRow(title: "deadline", date: task.deadline) { date in
+                DateRow(title: "deadline", date: task.deadlineDate) { date in
                     return date < .now ? .red : .label
                 }
             }
@@ -171,13 +171,13 @@ struct TaskDetailView: View {
     
     @ViewBuilder var reminderSection: some View {
         // Show the reminder of the task if one exists
-        if let reminder = task.reminderOffset {
+        if let reminder = task.reminderFirstOffset {
             Section {
                 LabeledContent("reminder") {
                     Text(reminder.name)
                 }
                 // if a second reminder exists also show that reminder
-                if let reminderSecond = task.reminderOffsetSecond {
+                if let reminderSecond = task.reminderSecondOffset {
                     LabeledContent("reminder-second") {
                         Text(reminderSecond.name)
                     }
@@ -190,7 +190,7 @@ struct TaskDetailView: View {
     
     @ViewBuilder var notesSection: some View {
         // Show a multiline Textfield if notes exist
-        if let notes = task.notes, !notes.isEmpty {
+        if let notes = task.taskDescription?.notes, !notes.isEmpty {
             Section {
                 Text(notes)
             }
@@ -199,7 +199,7 @@ struct TaskDetailView: View {
     
     @ViewBuilder var tagsSection: some View {
         // Show a collection of tags if any exist
-        if let tags = task.tags as? Set<THTag>, !tags.isEmpty {
+        if let tags = task.taskDescription?.tags, !tags.isEmpty {
             Section {
                 TagCollection("tags", tags: tags)
             }
@@ -217,12 +217,12 @@ struct TaskDetailView: View {
                 datesSection
                 reminderSection
                 
-                if let address = task.address, !address.isEmpty {
-                    HStack {
-                        Image(systemName: "mappin")
-                        Text(address)
-                    }
-                }
+//                if let address = task.address, !address.isEmpty {
+//                    HStack {
+//                        Image(systemName: "mappin")
+//                        Text(address)
+//                    }
+//                }
                 
                 notesSection
                 tagsSection
@@ -254,32 +254,32 @@ struct TaskDetailView: View {
         }
     }
 }
-
-struct TaskDetailView_Previews: PreviewProvider {
-    static var task: THTask {
-        let task = try! PersistenceController.preview.container.viewContext.fetch(THTask.all).first!
-        
-        task.title = "Super important Task with kinda long title that goes on forever and is really just pointless"
-        
-        task.earliestStartDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 28).date!
-        task.deadline = DateComponents(calendar: .current, year: 2023, month: 1, day: 24, hour: 23, minute: 59).date!
-        task.reminderOffset = ReminderOffset(rawValue: 10)
-        task.reminderOffsetSecond = ReminderOffset(rawValue: 30)
-        task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
-        
-        task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
-        task.completionProgress = 0.5
-        
-        task.estimatedWorktime = .init(hours: 2, minutes: 20)
-        
-        return task
-    }
-    
-    static var previews: some View {
-        
-        
-        NavigationStack {
-            TaskDetailView(task: TaskDetailView_Previews.task)
-        }
-    }
-}
+//
+//struct TaskDetailView_Previews: PreviewProvider {
+//    static var task: THTask {
+//        let task = try! PersistenceController.preview.container.viewContext.fetch(THTask.all).first!
+//        
+//        task.title = "Super important Task with kinda long title that goes on forever and is really just pointless"
+//        
+//        task.earliestStartDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 28).date!
+//        task.deadline = DateComponents(calendar: .current, year: 2023, month: 1, day: 24, hour: 23, minute: 59).date!
+//        task.reminderOffset = ReminderOffset(rawValue: 10)
+//        task.reminderOffsetSecond = ReminderOffset(rawValue: 30)
+//        task.notes = "This Task is super important, DO NOT FORGET!\nAlso call Janet."
+//        
+//        task.startDate = DateComponents(calendar: .current, year: 2022, month: 12, day: 29).date!
+//        task.completionProgress = 0.5
+//        
+//        task.estimatedWorktime = .init(hours: 2, minutes: 20)
+//        
+//        return task
+//    }
+//    
+//    static var previews: some View {
+//        
+//        
+//        NavigationStack {
+//            TaskDetailView(task: TaskDetailView_Previews.task)
+//        }
+//    }
+//}

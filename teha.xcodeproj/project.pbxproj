@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		02249ADB297DAD670057E002 /* TaskListSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02249ADA297DAD670057E002 /* TaskListSectionView.swift */; };
+		0238D8DE2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8DC2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift */; };
+		0238D8E92C1D754600C91A3B /* THProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8E12C1D754600C91A3B /* THProject+CoreDataProperties.swift */; };
+		0238D8EB2C1D754600C91A3B /* THTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8E32C1D754600C91A3B /* THTag+CoreDataProperties.swift */; };
+		0238D8ED2C1D754600C91A3B /* THTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8E52C1D754600C91A3B /* THTask+CoreDataProperties.swift */; };
+		0238D8EF2C1D754600C91A3B /* THTaskDescription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8E72C1D754600C91A3B /* THTaskDescription+CoreDataProperties.swift */; };
 		023DD6002985B1F900E35D4F /* SuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DD5FF2985B1F900E35D4F /* SuggestionsViewModel.swift */; };
 		023DD6022985C26800E35D4F /* SuggestionsGenerator+Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DD6012985C26800E35D4F /* SuggestionsGenerator+Structs.swift */; };
 		023DD6052985C2D700E35D4F /* SuggestionsGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DD6042985C2D700E35D4F /* SuggestionsGeneratorError.swift */; };
@@ -93,6 +98,11 @@
 
 /* Begin PBXFileReference section */
 		02249ADA297DAD670057E002 /* TaskListSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListSectionView.swift; sourceTree = "<group>"; };
+		0238D8DC2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTaskDescription+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0238D8E12C1D754600C91A3B /* THProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0238D8E32C1D754600C91A3B /* THTag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0238D8E52C1D754600C91A3B /* THTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0238D8E72C1D754600C91A3B /* THTaskDescription+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTaskDescription+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		023DD5FF2985B1F900E35D4F /* SuggestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewModel.swift; sourceTree = "<group>"; };
 		023DD6012985C26800E35D4F /* SuggestionsGenerator+Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuggestionsGenerator+Structs.swift"; sourceTree = "<group>"; };
 		023DD6042985C2D700E35D4F /* SuggestionsGeneratorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsGeneratorError.swift; sourceTree = "<group>"; };
@@ -191,6 +201,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0238D8F02C1D755C00C91A3B /* THTag */ = {
+			isa = PBXGroup;
+			children = (
+				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
+				0238D8E32C1D754600C91A3B /* THTag+CoreDataProperties.swift */,
+			);
+			path = THTag;
+			sourceTree = "<group>";
+		};
+		0238D8F12C1D756500C91A3B /* THProject */ = {
+			isa = PBXGroup;
+			children = (
+				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
+				0238D8E12C1D754600C91A3B /* THProject+CoreDataProperties.swift */,
+			);
+			path = THProject;
+			sourceTree = "<group>";
+		};
+		0238D8F22C1D756C00C91A3B /* THTask */ = {
+			isa = PBXGroup;
+			children = (
+				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
+				0238D8E52C1D754600C91A3B /* THTask+CoreDataProperties.swift */,
+				027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */,
+			);
+			path = THTask;
+			sourceTree = "<group>";
+		};
+		0238D8F32C1D757E00C91A3B /* THTaskDescription */ = {
+			isa = PBXGroup;
+			children = (
+				0238D8DC2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift */,
+				0238D8E72C1D754600C91A3B /* THTaskDescription+CoreDataProperties.swift */,
+			);
+			path = THTaskDescription;
+			sourceTree = "<group>";
+		};
 		023DD6032985C2C500E35D4F /* Generator */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,11 +380,11 @@
 		029615F1295617B00073E378 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0238D8F32C1D757E00C91A3B /* THTaskDescription */,
+				0238D8F22C1D756C00C91A3B /* THTask */,
+				0238D8F12C1D756500C91A3B /* THProject */,
+				0238D8F02C1D755C00C91A3B /* THTag */,
 				029615E2295617920073E378 /* teha.xcdatamodeld */,
-				029615E0295617920073E378 /* THProject+CoreDataClass.swift */,
-				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
-				027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */,
-				0271BF282974738C000A601D /* THTag+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -591,11 +638,16 @@
 				027629A129795CA5009663E8 /* SuggestionsGenerator.swift in Sources */,
 				029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */,
 				5FA7A3EA297EDCA100CE52E4 /* LocationSearch.swift in Sources */,
+				0238D8DE2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift in Sources */,
 				0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */,
 				027F54C6298725F700450A73 /* THTask+RepeatingTasks.swift in Sources */,
 				023DD6022985C26800E35D4F /* SuggestionsGenerator+Structs.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
+				0238D8E92C1D754600C91A3B /* THProject+CoreDataProperties.swift in Sources */,
+				0238D8EB2C1D754600C91A3B /* THTag+CoreDataProperties.swift in Sources */,
+				0238D8ED2C1D754600C91A3B /* THTask+CoreDataProperties.swift in Sources */,
+				0238D8EF2C1D754600C91A3B /* THTaskDescription+CoreDataProperties.swift in Sources */,
 				02CB75592955DE5E005F4D35 /* Persistence.swift in Sources */,
 				02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */,
 				02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */,

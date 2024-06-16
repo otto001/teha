@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="THProject" representedClassName="THProject" syncable="YES" codeGenerationType="category">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="THProject" representedClassName="THProject" syncable="YES">
         <attribute name="colorCode" optional="YES" attributeType="String"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadlineDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="taskDescriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="project" inverseEntity="THTaskDescription"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="project" inverseEntity="THTask"/>
     </entity>
-    <entity name="THTag" representedClassName="THTag" syncable="YES" codeGenerationType="category">
+    <entity name="THTag" representedClassName="THTag" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString=""/>
-        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="tags" inverseEntity="THTask"/>
+        <relationship name="taskDescriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="tags" inverseEntity="THTaskDescription"/>
     </entity>
-    <entity name="THTask" representedClassName="THTask" syncable="YES" codeGenerationType="category">
-        <attribute name="address" optional="YES" attributeType="String"/>
+    <entity name="THTask" representedClassName="THTask" syncable="YES">
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="completionProgress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadlineDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="notes" optional="YES" attributeType="String"/>
-        <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reminderMin" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
-        <attribute name="reminderMinSecond" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
-        <attribute name="repeatEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="repeatIgnoredDates" optional="YES" attributeType="String"/>
-        <attribute name="repeatIntervalId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="tasks" inverseEntity="THProject"/>
-        <relationship name="repeatingChildren" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="repeatingParent" inverseEntity="THTask"/>
-        <relationship name="repeatingParent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THTask" inverseName="repeatingChildren" inverseEntity="THTask"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTag" inverseName="tasks" inverseEntity="THTag"/>
+        <relationship name="taskDescription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="tasks" inverseEntity="THTaskDescription"/>
+    </entity>
+    <entity name="THTaskDescription" representedClassName="THTaskDescription" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deadlineDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="locationAddress" optional="YES" attributeType="String"/>
+        <attribute name="locationLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="locationLongitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="priorityNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reminderFirstMinutes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reminderSecondMinutes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="repeatEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="repeatExceptionsString" optional="YES" attributeType="String"/>
+        <attribute name="repeatIntervalMinutes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="taskDescriptions" inverseEntity="THProject"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTag" inverseName="taskDescriptions" inverseEntity="THTag"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="taskDescription" inverseEntity="THTask"/>
     </entity>
 </model>

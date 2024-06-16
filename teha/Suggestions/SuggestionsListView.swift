@@ -50,7 +50,7 @@ fileprivate struct SuggestionsListRow: View {
     
     /// Computed optional string key for localized display of the remaining worktime.
     var footerText: LocalizedStringKey? {
-        guard let remainingWorktime = taskWithLatestStartDate.task.estimatedWorktimeRemaining.formatted else {
+        guard let remainingWorktime = taskWithLatestStartDate.task.estimatedWorktimeRemaining?.formatted else {
             return nil
         }
         return "\(remainingWorktime)-worktime-remaining"

@@ -63,7 +63,7 @@ struct ProjectEditView: View {
         project.name = name
         project.priority = priority
         project.color = color
-        project.deadline = deadline
+        project.deadlineDate = deadline
         
         if !editing {
             project.creationDate = Date.now
@@ -101,7 +101,7 @@ struct ProjectEditView: View {
                 name = project.name ?? ""
                 priority = project.priority
                 color = project.color
-                deadline = project.deadline
+                deadline = project.deadlineDate
             }
         }
         .interactiveDismissDisabled() // Prevent the user from accidentally dismissing the view

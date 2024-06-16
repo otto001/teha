@@ -23,7 +23,10 @@ extension SuggestionsGenerator {
         
         /// Init only succeeds if the task has a deadline set and more than 0 worktime remaining.
         init?(_ task: THTask) {
-            guard let deadline = task.deadline else { return nil }
+            guard let deadline = task.deadlineDate, 
+            let estimatedWorktimeRemaining = task.estimatedWorktimeRemaining else {
+                return nil
+            }
             
             // Ignore if task is completed or no estimatedWorktime was ever set
             guard task.estimatedWorktimeRemaining != .zero else { return nil }
@@ -31,7 +34,7 @@ extension SuggestionsGenerator {
             self.task = task
             self.earliestStartDate = task.earliestStartDate
             self.deadline = deadline
-            self.remainingEsitmatedWorktime = task.estimatedWorktimeRemaining
+            self.remainingEsitmatedWorktime = estimatedWorktimeRemaining
         }
         
         // Equatable Implementation

@@ -66,7 +66,7 @@ class SuggestionsGenerator {
         request.fetchLimit = 10
         
         // It is VERY important for our sorting & checking algorithm that the tasks are ordered by deadline in ascending order!
-        request.sortDescriptors = [NSSortDescriptor(key: "deadline", ascending: true), NSSortDescriptor(key: "priorityNumber", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "deadlineDate", ascending: true), NSSortDescriptor(key: "taskDescription.priorityNumber", ascending: false)]
         
         var tasks: [THTask]?
         

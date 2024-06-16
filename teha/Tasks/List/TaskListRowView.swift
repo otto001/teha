@@ -31,7 +31,7 @@ struct TaskListRowView: View {
     var timeRemainingText: String? {
         guard !task.isCompleted else { return nil }
         
-        if let deadline = task.deadline {
+        if let deadline = task.deadlineDate {
             let timeString = timeRemainingFormatter.localizedString(for: deadline, relativeTo: now)
             return "\(String(localized: "deadline")) \(timeString)"
         }
@@ -41,12 +41,12 @@ struct TaskListRowView: View {
     /// The color of the text right above the progress bar, if the deadline is in the past the color is red, if the
     /// absoluteLatestStartDate is in the past, it is orange
     var timeRemainingColor: Color {
-        if !task.isCompleted, let deadline = task.deadline {
+        if !task.isCompleted, let deadline = task.deadlineDate {
             
             if deadline < now {
                 return .red
             } else if task.estimatedWorktimeRemaining != .zero  {
-                let absoluteLatestStartDate = Calendar.current.date(byAdding: .minute, value: -task.estimatedWorktimeRemaining.totalMinutes, to: deadline)!
+                let absoluteLatestStartDate = Calendar.current.date(byAdding: .minute, value: -(task.estimatedWorktimeRemaining?.totalMinutes ?? 0), to: deadline)!
                 if absoluteLatestStartDate <= now {
                     return .orange
                 }
@@ -76,7 +76,7 @@ struct TaskListRowView: View {
                             .foregroundColor(.secondaryLabel)
                     }
                     // Show if the task is a repeating task
-                    if task.isRepeating {
+                    if task.taskDescription?.isRepeatingTask == true {
                         Image(systemName: "repeat")
                             .font(.caption)
                             .foregroundColor(.accentColor)
@@ -136,13 +136,15 @@ struct TaskListRowView: View {
         }
         // Present a confirmationDialog if a user really wants to delete a task
         .confirmationDialog("task-delete-confirmation", isPresented: $showDeleteDialog) {
-            let hasFutureSiblings = task.hasFutureSiblings()
+            let hasFutureSiblings = task.hasFutureRepeats()
+            
             if hasFutureSiblings {
                 Button("repeating-delete-future", role: .destructive) {
                     // Remove all pending reminders for task
                     NotificationManager.instance.cancelPendingNotifications(for: task)
                     // Call the deleteFutureRepeatSiblings Task if the task is a repeating task
-                    task.deleteFutureRepeatSiblings(context: viewContext)
+                    
+                    task.deleteFutureRepeats()
                     viewContext.delete(task)
                     try? viewContext.save()
                 }
@@ -155,7 +157,23 @@ struct TaskListRowView: View {
                 try? viewContext.save()
             }
         } message: {
-            Text(task.hasFutureSiblings() ? "repeating-delete-prompt" : "task-delete-confirmation")
+            Text(task.hasFutureRepeats() ? "repeating-delete-prompt" : "task-delete-confirmation")
+        }
+        .contextMenu {
+            Button {
+                let formData = TaskEditView.FormData(task: self.task)
+                let task = THTask(context: viewContext)
+                formData.apply(to: task, updateFutureRepeats: true)
+            } label: {
+                Label("duplicate-task", systemImage: "doc.on.doc")
+            }
+            
+            Button {
+                showDeleteDialog = true
+            } label: {
+                Label("delete", systemImage: "trash")
+            }
+            .tint(Color.red)
         }
     }
 }

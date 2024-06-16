@@ -25,5 +25,11 @@ extension Date {
         components.weekday = Calendar.current.firstWeekday
         return Calendar.current.date(from: components)!
     }
+    
+    /// The the date of the first day of the week of self
+    /// Respects the users locale
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
 }
 

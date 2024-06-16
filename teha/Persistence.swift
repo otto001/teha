@@ -56,21 +56,21 @@ extension PersistenceController {
         }
         
         
-        for i in 0...10 {
-            let newItem = THTask(context: viewContext)
-            newItem.title = "Task \(i)"
-            newItem.project = i <= 8 ? projects[i] : nil
-            newItem.priority = newItem.project?.priority ?? .normal
-            
-            newItem.deadline = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
-            newItem.earliestStartDate = newItem.deadline! - TimeInterval.week
-            newItem.estimatedWorktime = .init(hours: 4, minutes: 0)
-            
-            newItem.completionProgress = Double(i)/10
-            newItem.startDate = newItem.completionProgress > 0 ? .now : nil
-            newItem.completionDate = newItem.completionProgress >= 1 ? .now : nil
-            
-        }
+//        for i in 0...10 {
+//            let newItem = THTask(context: viewContext)
+//            newItem.title = "Task \(i)"
+//            newItem.project = i <= 8 ? projects[i] : nil
+//            newItem.priority = newItem.project?.priority ?? .normal
+//            
+//            newItem.deadline = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
+//            newItem.earliestStartDate = newItem.deadline! - TimeInterval.week
+//            newItem.estimatedWorktime = .init(hours: 4, minutes: 0)
+//            
+//            newItem.completionProgress = Double(i)/10
+//            newItem.startDate = newItem.completionProgress > 0 ? .now : nil
+//            newItem.completionDate = newItem.completionProgress >= 1 ? .now : nil
+//            
+//        }
         
         do {
             try viewContext.save()

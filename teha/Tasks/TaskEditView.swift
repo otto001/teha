@@ -42,10 +42,10 @@ struct TaskEditView: View {
     var projectPickerBinding: Binding<THProject?> {
         Binding {
             data.project
-        } set: { newValue in
+        } set: { (newValue: THProject?) in
             data.project = newValue
             data.priority = newValue?.priority ?? data.priority
-            data.deadline = newValue?.deadline ?? data.deadline
+            data.deadlineDate = newValue?.deadlineDate ?? data.deadlineDate
         }
 
     }
@@ -56,7 +56,7 @@ struct TaskEditView: View {
             return
         }
         
-        guard !(task?.hasFutureSiblings() == true && updateFutureChildren == nil) else {
+        guard !(task?.hasFutureRepeats() == true && updateFutureChildren == nil) else {
             if showRepeatingUpdateChoices == true {
                 showRepeatingUpdateChoices = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
@@ -69,26 +69,18 @@ struct TaskEditView: View {
         }
         
         let task = task ?? THTask(context: viewContext)
-        data.apply(to: task)
+        data.apply(to: task, updateFutureRepeats: updateFutureChildren == true)
         
         if task.creationDate == nil {
             task.creationDate = Date.now
         }
         
-        if task.address == "" {
-            task.lat = 0
-            task.long = 0
-        }
-       
-        let updateFutureChildren = !data.alreadyWasRepeating || updateFutureChildren!
-        task.updateRepeat(context: viewContext, oldDeadline: data.originalDeadline, updateFutureChildren: updateFutureChildren)
-        
         try? viewContext.save()
         
         NotificationManager.instance.scheduleReminderNotifications(task: task)
-        task.repeatingSiblings?.forEach { repeatingSibling in
-            NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
-        }
+//        task.repeatingSiblings?.forEach { repeatingSibling in
+//            NotificationManager.instance.scheduleReminderNotifications(task: repeatingSibling)
+//        }
 
             
         GeoMonitor.shared.refreshLocationMonitoring(task: task)
@@ -97,7 +89,7 @@ struct TaskEditView: View {
     }
     
     var defaultDeadline: Date {
-        if let deadline = data.project?.deadline {
+        if let deadline = data.project?.deadlineDate {
             return deadline
         }
         
@@ -121,7 +113,7 @@ struct TaskEditView: View {
                                        selection: $data.earliestStartDate)
                     OptionalDatePicker("deadline",
                                        addText: "deadline-add",
-                                       selection: $data.deadline,
+                                       selection: $data.deadlineDate,
                                        defaultDate: defaultDeadline)
                 } footer: {
                     if data.deadlineBeforeEarliestStartDate {
@@ -130,12 +122,12 @@ struct TaskEditView: View {
                     }
                 }
                 
-                if data.deadline != nil
-                    && data.project?.deadline != nil
-                    && data.deadline != data.project?.deadline {
+                if data.deadlineDate != nil
+                    && data.project?.deadlineDate != nil
+                    && data.deadlineDate != data.project?.deadlineDate {
                     Section {
                         Button("task-use-project-deadline") {
-                            data.deadline = data.project?.deadline
+                            data.deadlineDate = data.project?.deadlineDate
                         }
                     }
                 }
@@ -150,8 +142,8 @@ struct TaskEditView: View {
                     }
                 }
 
-                // Section which allows the user to set a reminder and possible a second reminder. A value can only be selected if a deadline is set for the task.
-                if data.deadline != nil {
+                //Section which allows the user to set a reminder and possible a second reminder. A value can only be selected if a deadline is set for the task.
+                if data.deadlineDate != nil {
                     Section {
                         RepeatIntervalInput("repeat", interval: $data.repeatInterval, endDate: $data.repeatEndDate)
                     } footer: {
@@ -250,8 +242,7 @@ extension TaskEditView {
         var priority: Priority = .normal
         
         var earliestStartDate: Date? = nil
-        
-        var deadline: Date? = nil
+        var deadlineDate: Date? = nil
         
         var estimatedWorktime: Worktime = .init(hours: 1, minutes: 0)
         
@@ -274,7 +265,7 @@ extension TaskEditView {
         /// True when the deadline is before the earliestStartDate.
         var deadlineBeforeEarliestStartDate: Bool {
             if let earliestStartDate = earliestStartDate,
-               let deadline = deadline,
+               let deadline = deadlineDate,
                earliestStartDate > deadline {
                 return true
             }
@@ -283,11 +274,11 @@ extension TaskEditView {
         
         /// True when estimatedWorktime is over 48 hours.
         var estimatedWorktimeTooHigh: Bool {
-            return estimatedWorktime > Worktime(hours: 48, minutes: 0)
+            return (estimatedWorktime ?? .zero) > Worktime(hours: 48, minutes: 0)
         }
         
         var repeatError: FormError? {
-            guard let repeatEndDate = repeatEndDate, let deadline = deadline else {
+            guard let repeatEndDate = repeatEndDate, let deadline = deadlineDate else {
                 return nil
             }
             if repeatEndDate <= deadline {
@@ -325,56 +316,99 @@ extension TaskEditView {
             self.priority = task.priority
             
             self.earliestStartDate = task.earliestStartDate
-            self.deadline = task.deadline
-            self.estimatedWorktime = task.estimatedWorktime
+            self.deadlineDate = task.deadlineDate
+            self.estimatedWorktime = task.estimatedWorktime ?? .zero
 
             
-            self.address = task.address ?? ""
-            self.lat = task.lat
-            self.long = task.long
+//            self.address = task.address ?? ""
+//            self.lat = task.lat
+//            self.long = task.long
 
-            self.repeatInterval = task.repeatInterval
-            self.repeatEndDate = task.repeatEndDate
-            self.originalDeadline = task.deadline
-            self.alreadyWasRepeating = task.isRepeating
+            self.repeatInterval = task.taskDescription?.repeatInterval
+            self.repeatEndDate = task.taskDescription?.repeatEndDate
+            self.originalDeadline = task.deadlineDate
+//            self.alreadyWasRepeating = task.isRepeating
+//            
+//            self.reminder = task.reminderOffset
+//            self.reminderSecond = task.reminderOffsetSecond
             
-            self.reminder = task.reminderOffset
-            self.reminderSecond = task.reminderOffsetSecond
-            
-            self.notes = task.notes ?? ""
-            self.tags = task.tags as? Set<THTag> ?? .init()
+            self.notes = task.taskDescription?.notes ?? ""
+            self.tags = task.taskDescription?.tags ?? .init()
         }
         
-        func apply(to task: THTask) {
-            task.title = self.title
-            task.project = self.project
-            task.priority = self.priority
+        func apply(to task: THTask, updateFutureRepeats: Bool) {
+            let taskDescription: THTaskDescription
             
-            task.earliestStartDate = self.earliestStartDate
-            task.deadline = self.deadline
-            
-            task.estimatedWorktime = self.estimatedWorktime
-            
-            // Do not set task to repeat if no deadline is set
-            task.repeatInterval = task.deadline != nil ? self.repeatInterval : nil
-            task.repeatEndDate = task.deadline != nil ? self.repeatEndDate : nil
-            
-            // Do not set reminders if no deadline is set
-            task.reminderOffset = task.deadline != nil ? self.reminder : nil
-            task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
-            
-            if let address = self.address {
-                task.address = address
-                task.lat = self.lat ?? 0
-                task.long = self.long ?? 0
+            if task.taskDescription == nil {
+                taskDescription = THTaskDescription(context: task.managedObjectContext!)
+            } else if task.hasPastRepeats(), let deadlineDate {
+                taskDescription = THTaskDescription(context: task.managedObjectContext!)
+                
+                if !updateFutureRepeats {
+                    task.taskDescription?.addRepeatException(date: deadlineDate)
+                } else if let currentTaskDescription = task.taskDescription, let originalDeadline {
+                    for task in currentTaskDescription.tasks {
+                        if !task.isStarted && (task.deadlineDate ?? .distantPast) >= originalDeadline {
+                            task.taskDescription = taskDescription
+                        }
+                    }
+                    currentTaskDescription.repeatEndDate = originalDeadline.startOfDay.addingTimeInterval(-1)
+                    currentTaskDescription.updateTasks()
+                }
+                
             } else {
-                task.address = ""
-                task.lat = 0
-                task.long = 0
+                // This is safe due to the check in the if
+                taskDescription = task.taskDescription!
             }
             
-            task.notes = self.notes
-            task.tags = self.tags as NSSet
+            task.taskDescription = taskDescription
+            task.deadlineDate = deadlineDate
+            
+            self.apply(to: taskDescription, updateFutureRepeats: updateFutureRepeats)
+        }
+        
+        func apply(to taskDescription: THTaskDescription, updateFutureRepeats: Bool) {
+            taskDescription.title = self.title
+            taskDescription.project = self.project
+            taskDescription.priority = self.priority
+            
+            taskDescription.earliestStartDate = self.earliestStartDate
+            taskDescription.deadlineDate = self.deadlineDate
+            
+            taskDescription.estimatedWorktime = self.estimatedWorktime
+            
+            taskDescription.tags = self.tags
+            
+            taskDescription.notes = self.notes
+            
+            
+            
+            if (updateFutureRepeats || taskDescription.tasks.count == 1) && deadlineDate != nil {
+                // Do not set task to repeat if no deadline is set
+                taskDescription.repeatInterval = self.repeatInterval
+                taskDescription.repeatEndDate = self.repeatEndDate
+            } else {
+                taskDescription.repeatInterval = nil
+                taskDescription.repeatEndDate = nil
+            }
+            
+            taskDescription.updateTasks()
+//
+//            // Do not set reminders if no deadline is set
+//            task.reminderOffset = task.deadline != nil ? self.reminder : nil
+//            task.reminderOffsetSecond = task.deadline != nil ? self.reminderSecond : nil
+//            
+//            if let address = self.address {
+//                task.address = address
+//                task.lat = self.lat ?? 0
+//                task.long = self.long ?? 0
+//            } else {
+//                task.address = ""
+//                task.lat = 0
+//                task.long = 0
+//            }
+//            
+//            task.notes = self.notes
         }
     }
     

@@ -43,10 +43,10 @@ struct TaskProgressBarInteractive: View {
     /// Returns the given progress snapped to a 5 minute interval of the tasks estimatedWorktime.
     /// If the task has no estimatedWorktime, returns progress unchanged,
     private func getSnappedProgress(progress: Double) -> Double {
-        guard task.estimatedWorktime != .zero else {
+        guard let estimatedWorktime = task.estimatedWorktime, estimatedWorktime != .zero else {
             return progress
         }
-        let totalMinutes = Double(task.estimatedWorktime.totalMinutes)
+        let totalMinutes = Double(estimatedWorktime.totalMinutes)
         
         // get total remaing minutes for progress as a double
         let totalReaminingMinutes = totalMinutes * (1 - progress)
@@ -206,9 +206,9 @@ struct TaskProgressBarInteractive: View {
             .frame(height: 16)
             
             // If there is estimatedWorktime remaining, show that underneath the progressbar
-            if task.estimatedWorktime > .zero,
+            if let estimatedWorktime = task.estimatedWorktime, estimatedWorktime > .zero,
                 !task.isCompleted,
-               let timeRemaining = task.estimatedWorktime.percentage(1 - snappedProgress).formatted {
+               let timeRemaining = estimatedWorktime.percentage(1 - snappedProgress).formatted {
                 Text("\(timeRemaining)-worktime-remaining")
                     .monospacedDigit()
                     .foregroundColor(.secondaryLabel)

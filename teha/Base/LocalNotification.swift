@@ -44,23 +44,23 @@ class NotificationManager {
         
         cancelPendingNotifications(for: task)
         
-        if let reminderOffset = task.reminderOffset, let reminderOffsetSecond = task.reminderOffsetSecond{
-            scheduleReminderNotification(reminderid: task.taskNotificationId + "2",
-                                 title: task.title,
-                                 deadline: task.deadline,
-                                 reminderOffset: reminderOffsetSecond)
-            
-            scheduleReminderNotification(reminderid: task.taskNotificationId,
-                                 title: task.title,
-                                 deadline: task.deadline,
-                                 reminderOffset: reminderOffset)
-        } else if let reminderOffset = task.reminderOffset {
-            scheduleReminderNotification(reminderid: task.taskNotificationId,
-                                 title: task.title,
-                                 deadline: task.deadline,
-                                 reminderOffset: reminderOffset)
-            
-        }
+//        if let reminderOffset = task.reminderOffset, let reminderOffsetSecond = task.reminderOffsetSecond{
+//            scheduleReminderNotification(reminderid: task.taskNotificationId + "2",
+//                                 title: task.title,
+//                                 deadline: task.deadline,
+//                                 reminderOffset: reminderOffsetSecond)
+//            
+//            scheduleReminderNotification(reminderid: task.taskNotificationId,
+//                                 title: task.title,
+//                                 deadline: task.deadline,
+//                                 reminderOffset: reminderOffset)
+//        } else if let reminderOffset = task.reminderOffset {
+//            scheduleReminderNotification(reminderid: task.taskNotificationId,
+//                                 title: task.title,
+//                                 deadline: task.deadline,
+//                                 reminderOffset: reminderOffset)
+//            
+//        }
         updateBadgesOfPendingRequests()
         
     }
