@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 /// DateFormatter used for standard date formatting
 fileprivate var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -50,6 +51,7 @@ struct TaskDetailView: View {
 
     // variable that is true if the editSheet is currently used
     @State private var editSheet: Bool = false
+    @State private var timeLogSheet: Bool = false
     @State private var showNavigationBarTitle: Bool = false
     @State private var hasShownNavigationBarTitle: Bool = false
 
@@ -89,7 +91,7 @@ struct TaskDetailView: View {
             
         }
         // return empty text for spacing reasons (i know, kinda dirty, but this automatically adjusts to dynamic font sizes, which is hard to do otherwise in swift
-        return " "
+        return "no-deadline"
     }
 
 
@@ -132,7 +134,12 @@ struct TaskDetailView: View {
     @ViewBuilder var progressBar: some View {
         
         // The teha-style interactive progress bar for reading and setting task progress
-        TaskProgressBarInteractive(task: task)
+        TaskProgressBarInteractive(task: task) { snappedProgress in
+            if task.taskDescription?.forceTimeLogging == true || task.project?.forceTimeLogging == true {
+                timeLogSheet = true
+            }
+            task.completionProgress = snappedProgress
+        }
         .listRowInsets(EdgeInsets())
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
@@ -165,6 +172,24 @@ struct TaskDetailView: View {
                 DateRow(title: "deadline", date: task.deadlineDate) { date in
                     return date < .now ? .red : .label
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder var timeLogSection: some View {
+        Section {
+            let loggedTime = task.totalLoggedTime()
+            if loggedTime > .zero {
+                HStack {
+                    Text("Logged Time")
+                    Spacer()
+                    Text(loggedTime.formattedShort ?? "")
+                }
+            }
+            Button {
+                timeLogSheet = true
+            } label: {
+                Label("Log Time", systemImage: "clock.badge.checkmark")
             }
         }
     }
@@ -217,6 +242,8 @@ struct TaskDetailView: View {
                 datesSection
                 reminderSection
                 
+                timeLogSection
+                
 //                if let address = task.address, !address.isEmpty {
 //                    HStack {
 //                        Image(systemName: "mappin")
@@ -251,6 +278,9 @@ struct TaskDetailView: View {
         // Show the taskEditsheet
         .sheet(isPresented: $editSheet) {
             TaskEditView(mode: .edit(task))
+        }
+        .sheet(isPresented: $timeLogSheet) {
+            TimeLogEntryEditView(.add(task))
         }
     }
 }

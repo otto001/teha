@@ -23,11 +23,14 @@ struct TaskDescription {
     
     func task(context: NSManagedObjectContext, title: String) -> THTask {
         let task = THTask(context: context)
-        task.estimatedWorktime = worktime
-        task.priority = priority
-        task.earliestStartDate = earliestStart.map { isoDateFormatter.date(from: $0)! }
-        task.deadline = isoDateFormatter.date(from: deadline)!
-        task.title = title
+        let taskDescription = THTaskDescription(context: context)
+        task.taskDescription = taskDescription
+        taskDescription.estimatedWorktime = worktime
+        taskDescription.priority = priority
+        taskDescription.earliestStartDate = earliestStart.map { isoDateFormatter.date(from: $0)! }
+        taskDescription.deadlineDate = isoDateFormatter.date(from: deadline)!
+        taskDescription.title = title
+        task.updateFromDescription(offset: 0)
         return task
     }
 }

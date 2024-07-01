@@ -22,6 +22,8 @@ struct TaskProgressBarInteractive: View {
     /// The color of inactive portion of the bar (i.e., the background color of the progress bar)
     let inactiveColor: Color
     
+    let dialogClosure: ((_ newProgress: Double) -> Void)?
+    
     /// True if the user is currently dragging
     @State private var isDragging: Bool = false
     /// The percentage of where the user has currently dragged the bar (0 = left, 1 = right, 0.5 = middle)
@@ -34,10 +36,11 @@ struct TaskProgressBarInteractive: View {
     @State private var lastDraggingProgress: Double = -1
     
 
-    init(task: THTask, activeColor: Color = .accentColor, inactiveColor: Color = .secondaryLabel) {
+    init(task: THTask, activeColor: Color = .accentColor, inactiveColor: Color = .secondaryLabel, dialogClosure: ((_ newProgress: Double) -> Void)? = nil) {
         self.task = task
         self.activeColor = activeColor
         self.inactiveColor = inactiveColor
+        self.dialogClosure = dialogClosure
     }
     
     /// Returns the given progress snapped to a 5 minute interval of the tasks estimatedWorktime.
@@ -142,8 +145,12 @@ struct TaskProgressBarInteractive: View {
                 }
             }
             .onEnded { _ in
-                // Update task with final progress value
-                task.completionProgress = snappedProgress
+                if let dialogClosure {
+                    dialogClosure(snappedProgress)
+                } else {
+                    // Update task with final progress value
+                    task.completionProgress = snappedProgress
+                }
                 
                 // If dragging finished and we reached one of the bars ends, update tasks progress accordingly
                 if draggingProgress >= 1 {

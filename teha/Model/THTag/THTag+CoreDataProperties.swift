@@ -18,6 +18,7 @@ extension THTag {
 
     @NSManaged public var name: String?
     @NSManaged public var taskDescriptions: Set<THTaskDescription>
+    @NSManaged public var timeLogEntries: Set<THTimeLogEntry>
 
 }
 

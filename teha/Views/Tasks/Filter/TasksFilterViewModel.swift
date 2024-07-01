@@ -39,6 +39,10 @@ class TasksFilterViewModel: ObservableObject {
     // DateInterval where all tasks are shown that that have a deadline during the DateInterval
     @Published var deadlineInterval: DateInterval = DateInterval()
     
+    
+    @Published var excludeWithoutDeadline: Bool = false
+    
+    
     /// Filter flag for recurring tasks
     @Published var recurringTask: Bool = false
     
@@ -59,7 +63,7 @@ class TasksFilterViewModel: ObservableObject {
         - .custom: the `upcomingInterval` property is left unchanged.
         - .disabled: the `upcomingInterval` property is left unchanged.
      */
-    var dateFilterMode: DateFilterMode{
+    var dateFilterMode: DateFilterMode {
         get {
             return _upcomingFilterMode
         }
@@ -145,7 +149,7 @@ class TasksFilterViewModel: ObservableObject {
         }
         
         // filter by currently selected tags and the tagFilterMode
-        switch tagFilterMode{
+        switch tagFilterMode {
         case .matchAny:
             fetchRequest.filter(tags: tags, mode: .matchAny)
         case .matchAll:
@@ -155,7 +159,7 @@ class TasksFilterViewModel: ObservableObject {
         }
 
         // filter by the dateInterval of the dateFilterMode
-        switch dateFilterMode{
+        switch dateFilterMode {
         case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(dateInterval: upcomingInterval)
         default:
@@ -163,11 +167,15 @@ class TasksFilterViewModel: ObservableObject {
         }
 
         // filter by the dateInterval of the deadlineFilterMode
-        switch deadlineFilterMode{
+        switch deadlineFilterMode {
         case .matchToday, .matchThisWeek, .custom:
             fetchRequest.filter(deadline: deadlineInterval)
         default:
             break
+        }
+        
+        if self.excludeWithoutDeadline {
+            fetchRequest.filterExcludeWithoutDeadline()
         }
         
         return fetchRequest

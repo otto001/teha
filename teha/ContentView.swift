@@ -12,6 +12,7 @@ import CoreData
 enum Tab: String, RawRepresentable {
     case suggestions = "suggestions"
     case tasks = "tasks"
+    case timeLogEntry = "timeLogEntry"
     case projects = "projects"
     case settings = "settings"
 }
@@ -34,6 +35,7 @@ struct ContentView: View {
             if (onboardingDone) {
                 TabView(selection: $tab) {
                     SuggestionsTab().tag(Tab.suggestions)
+                    TimeLogTab().tag(Tab.timeLogEntry)
                     TasksTab().tag(Tab.tasks)
                     ProjectsTab().tag(Tab.projects)
                     SettingsTab().tag(Tab.settings)

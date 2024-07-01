@@ -5,6 +5,7 @@
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deadlineDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="forceTimeLogging" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priorityNumber" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="taskDescriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="project" inverseEntity="THTaskDescription"/>
@@ -13,6 +14,7 @@
     <entity name="THTag" representedClassName="THTag" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="taskDescriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="tags" inverseEntity="THTaskDescription"/>
+        <relationship name="timeLogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTimeLogEntry" inverseName="tags" inverseEntity="THTimeLogEntry"/>
     </entity>
     <entity name="THTask" representedClassName="THTask" syncable="YES">
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -23,12 +25,14 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="tasks" inverseEntity="THProject"/>
         <relationship name="taskDescription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THTaskDescription" inverseName="tasks" inverseEntity="THTaskDescription"/>
+        <relationship name="timeLogEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTimeLogEntry" inverseName="task" inverseEntity="THTimeLogEntry"/>
     </entity>
     <entity name="THTaskDescription" representedClassName="THTaskDescription" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deadlineDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="earliestStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estimatedWorktimeMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="forceTimeLogging" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="locationAddress" optional="YES" attributeType="String"/>
         <attribute name="locationLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="locationLongitude" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
@@ -43,5 +47,13 @@
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THProject" inverseName="taskDescriptions" inverseEntity="THProject"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTag" inverseName="taskDescriptions" inverseEntity="THTag"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTask" inverseName="taskDescription" inverseEntity="THTask"/>
+    </entity>
+    <entity name="THTimeLogEntry" representedClassName="THTimeLogEntry" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="timeMinutes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="THTag" inverseName="timeLogEntries" inverseEntity="THTag"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="THTask" inverseName="timeLogEntries" inverseEntity="THTask"/>
     </entity>
 </model>

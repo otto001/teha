@@ -39,7 +39,7 @@ private struct ProjectRow: View {
                 .foregroundColor(project.color.color)
                 .fixedSize()
             Text(project.name ?? "").strikethrough(project.completed)
-            NavigationLink("", value: project)
+            NavigationLink("", value: NavigationPage.projectDetail(project))
         }
         // Handle the delete action, specifically what happens to the related tasks.
         .confirmationDialog("project-delete-confimation", isPresented: $showDeleteDialog) {

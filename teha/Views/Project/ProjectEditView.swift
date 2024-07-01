@@ -20,6 +20,7 @@ struct ProjectEditView: View {
     @State private var priority: Priority = .normal
     @State private var color: ColorChoice = .pink
     @State private var deadline: Date? = nil
+    @State private var forceTimeLogging: Bool = false
     
     let project: THProject?
     
@@ -64,6 +65,7 @@ struct ProjectEditView: View {
         project.priority = priority
         project.color = color
         project.deadlineDate = deadline
+        project.forceTimeLogging = forceTimeLogging
         
         if !editing {
             project.creationDate = Date.now
@@ -90,6 +92,10 @@ struct ProjectEditView: View {
                                        selection: $deadline,
                                        defaultDate: defaultDeadline)
                 }
+                
+                Section {
+                    Toggle("Require Time Logging", isOn: $forceTimeLogging)
+                }
             }
             .formSheetNavigationBar(navigationTitle: navigationTitle, editing: editing, valid: valid, done: done) {
                 dismiss()
@@ -102,6 +108,7 @@ struct ProjectEditView: View {
                 priority = project.priority
                 color = project.color
                 deadline = project.deadlineDate
+                forceTimeLogging = project.forceTimeLogging
             }
         }
         .interactiveDismissDisabled() // Prevent the user from accidentally dismissing the view

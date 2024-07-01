@@ -18,6 +18,7 @@ extension THTask {
     
     @NSManaged public var taskDescription: THTaskDescription?
     @NSManaged public var project: THProject?
+    @NSManaged public var timeLogEntries: Set<THTimeLogEntry>
     
     
     // MARK: Dates

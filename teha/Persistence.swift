@@ -56,21 +56,33 @@ extension PersistenceController {
         }
         
         
-//        for i in 0...10 {
-//            let newItem = THTask(context: viewContext)
-//            newItem.title = "Task \(i)"
-//            newItem.project = i <= 8 ? projects[i] : nil
-//            newItem.priority = newItem.project?.priority ?? .normal
-//            
-//            newItem.deadline = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
-//            newItem.earliestStartDate = newItem.deadline! - TimeInterval.week
-//            newItem.estimatedWorktime = .init(hours: 4, minutes: 0)
-//            
-//            newItem.completionProgress = Double(i)/10
-//            newItem.startDate = newItem.completionProgress > 0 ? .now : nil
-//            newItem.completionDate = newItem.completionProgress >= 1 ? .now : nil
-//            
-//        }
+        var tasks: [THTask] = []
+        for i in 0...10 {
+            let newItem = THTask(context: viewContext)
+            newItem.taskDescription = THTaskDescription(context: viewContext)
+            newItem.taskDescription!.title = "Task \(i)"
+            newItem.taskDescription!.project = i <= 8 ? projects[i] : nil
+            newItem.taskDescription!.priority = newItem.project?.priority ?? .normal
+            
+            newItem.taskDescription!.deadlineDate = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))! - .day
+            newItem.taskDescription!.earliestStartDate = newItem.taskDescription!.deadlineDate! - TimeInterval.week
+            newItem.taskDescription!.estimatedWorktime = .init(hours: 4, minutes: 0)
+            
+            newItem.updateFromDescription(offset: 0)
+            
+            newItem.completionProgress = Double(i)/10
+            newItem.startDate = newItem.completionProgress > 0 ? .now : nil
+            newItem.completionDate = newItem.completionProgress >= 1 ? .now : nil
+            
+            tasks.append(newItem)
+        }
+        
+        for i in 0..<10 {
+            let newItem = THTimeLogEntry(context: viewContext)
+            newItem.task = tasks[0]
+            newItem.worktime = .init(totalMinutes: 45 * i)
+            newItem.date = .now + TimeInterval(exactly: 60 * 60 * pow(2.0, Double(i+2)))!
+        }
         
         do {
             try viewContext.save()

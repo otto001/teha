@@ -26,6 +26,7 @@ extension THTaskDescription {
     @NSManaged public var creationDate: Date?
     @NSManaged public var earliestStartDate: Date?
     @NSManaged public var deadlineDate: Date?
+    @NSManaged public var forceTimeLogging: Bool
     
     @NSManaged public private(set) var priorityNumber: Int16
     var priority: Priority {

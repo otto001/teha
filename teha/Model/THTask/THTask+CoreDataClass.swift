@@ -110,6 +110,17 @@ extension THTask {
         self.project = self.taskDescription?.project
     }
     
+    func updateProgressFromLogs() {
+        guard let estimatedWorktime = self.estimatedWorktime, estimatedWorktime > .zero else { return }
+        let totalMinutesLogged = Double(self.timeLogEntries.reduce(0) { $0 + $1.timeMinutes })
+        let progress = max(0, min(1, totalMinutesLogged/Double(estimatedWorktime.totalMinutes)))
+        self.completionProgress = progress
+    }
+    
+    
+    func totalLoggedTime() -> Worktime {
+        Worktime(totalMinutes: self.timeLogEntries.reduce(0) { $0 + Int($1.timeMinutes) })
+    }
 }
 
 
@@ -211,7 +222,7 @@ extension NSFetchRequest where ResultType == THTask {
         // Case: earliestStartDate and deadline are not nil
         let leftOverlapPredicate = NSPredicate(format: "(%@ <= earliestStartDate AND %@ > earliestStartDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
         let containedPredicate = NSPredicate(format: "(%@ >= earliestStartDate AND %@ < deadlineDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
-        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadline AND %@ > deadlineDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
+        let rightOverlapPredicate = NSPredicate(format: "(%@ <= deadlineDate AND %@ > deadlineDate)", dateInterval.start as NSDate, dateInterval.end as NSDate)
         
         // Case: earliestStartDate is nil and deadline is not nil
         let noBeginDatePredicate = NSPredicate(format: "earliestStartDate == nil AND %@ <= deadlineDate", dateInterval.start as NSDate)
@@ -237,6 +248,10 @@ extension NSFetchRequest where ResultType == THTask {
     */
     func filter(deadline: DateInterval) {
         self.predicateAnd(with: NSPredicate(format: "(%@ <= deadlineDate AND deadlineDate < %@)", deadline.start as NSDate, deadline.end as NSDate))
+    }
+    
+    func filterExcludeWithoutDeadline() {
+        self.predicateAnd(with: NSPredicate(format: "deadlineDate != nil"))
     }
     
     /**
@@ -282,7 +297,7 @@ extension THTask {
     /// Format: "[year]-[month]"
     /// - Note: Used for sectioning tasks by month.
     @objc var deadlineMonthString: String {
-        guard let deadline = self.taskDescription?.deadlineDate else { return "none" }
+        guard let deadline = self.deadlineDate else { return "none" }
         return String(deadline.ISO8601Format(.iso8601Date(timeZone: .current)).substring(start: 0, end: 7))
     }
     

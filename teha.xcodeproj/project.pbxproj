@@ -19,6 +19,9 @@
 		023DD60D2985D7B400E35D4F /* SuggestionsGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023DD60C2985D7B400E35D4F /* SuggestionsGeneratorTests.swift */; };
 		02473758296F5B1800FE2943 /* ProjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02473757296F5B1800FE2943 /* ProjectsListView.swift */; };
 		02513BB4296DE56C00D28CDD /* ProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02513BB3296DE56C00D28CDD /* ProjectPicker.swift */; };
+		025B10BD2C33359800026D64 /* TimeLogEntryListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025B10BC2C33359800026D64 /* TimeLogEntryListRowView.swift */; };
+		025B10BF2C33517700026D64 /* NavigationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025B10BE2C33517700026D64 /* NavigationPage.swift */; };
+		025B10C12C335EF300026D64 /* TimeLogEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025B10C02C335EF300026D64 /* TimeLogEntryDetailView.swift */; };
 		025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */; };
 		025ECBC9297852AA00D1CAFA /* TimeInterval+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */; };
 		025EF4412970A2A300959F05 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025EF4402970A2A300959F05 /* TaskDetailView.swift */; };
@@ -51,6 +54,11 @@
 		02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */; };
 		02A8FCD22984826B006AFF9A /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD12984826B006AFF9A /* Date+Utils.swift */; };
 		02A8FCD429848B61006AFF9A /* WorkDaysSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */; };
+		02BD05072C32C9D400AB5A5E /* THTimeLogEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD05052C32C9D400AB5A5E /* THTimeLogEntry+CoreDataClass.swift */; };
+		02BD05082C32C9D400AB5A5E /* THTimeLogEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD05062C32C9D400AB5A5E /* THTimeLogEntry+CoreDataProperties.swift */; };
+		02BD050B2C331AB500AB5A5E /* TimeLogEntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD050A2C331AB500AB5A5E /* TimeLogEntryListView.swift */; };
+		02BD050D2C331E6300AB5A5E /* TimeLogEntryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD050C2C331E6300AB5A5E /* TimeLogEntryEditView.swift */; };
+		02BD050F2C332CA000AB5A5E /* TimeLogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BD050E2C332CA000AB5A5E /* TimeLogTab.swift */; };
 		02C0DEDF2965BE520084D579 /* TasksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEDE2965BE520084D579 /* TasksTab.swift */; };
 		02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE02965C2F90084D579 /* TasksFilterView.swift */; };
 		02C0DEE32965C9C20084D579 /* TaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0DEE22965C9C20084D579 /* TaskListRowView.swift */; };
@@ -110,6 +118,9 @@
 		023DD60C2985D7B400E35D4F /* SuggestionsGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsGeneratorTests.swift; sourceTree = "<group>"; };
 		02473757296F5B1800FE2943 /* ProjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListView.swift; sourceTree = "<group>"; };
 		02513BB3296DE56C00D28CDD /* ProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPicker.swift; sourceTree = "<group>"; };
+		025B10BC2C33359800026D64 /* TimeLogEntryListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogEntryListRowView.swift; sourceTree = "<group>"; };
+		025B10BE2C33517700026D64 /* NavigationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPage.swift; sourceTree = "<group>"; };
+		025B10C02C335EF300026D64 /* TimeLogEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogEntryDetailView.swift; sourceTree = "<group>"; };
 		025ECBC6297832BF00D1CAFA /* TaskProgressBarInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBarInteractive.swift; sourceTree = "<group>"; };
 		025ECBC8297852AA00D1CAFA /* TimeInterval+Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Values.swift"; sourceTree = "<group>"; };
 		025EF4402970A2A300959F05 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
@@ -144,6 +155,11 @@
 		02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsListView.swift; sourceTree = "<group>"; };
 		02A8FCD12984826B006AFF9A /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		02A8FCD329848B61006AFF9A /* WorkDaysSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDaysSettingsView.swift; sourceTree = "<group>"; };
+		02BD05052C32C9D400AB5A5E /* THTimeLogEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTimeLogEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		02BD05062C32C9D400AB5A5E /* THTimeLogEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTimeLogEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		02BD050A2C331AB500AB5A5E /* TimeLogEntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogEntryListView.swift; sourceTree = "<group>"; };
+		02BD050C2C331E6300AB5A5E /* TimeLogEntryEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogEntryEditView.swift; sourceTree = "<group>"; };
+		02BD050E2C332CA000AB5A5E /* TimeLogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogTab.swift; sourceTree = "<group>"; };
 		02C0DEDE2965BE520084D579 /* TasksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTab.swift; sourceTree = "<group>"; };
 		02C0DEE02965C2F90084D579 /* TasksFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksFilterView.swift; sourceTree = "<group>"; };
 		02C0DEE22965C9C20084D579 /* TaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRowView.swift; sourceTree = "<group>"; };
@@ -254,6 +270,32 @@
 				023DD60C2985D7B400E35D4F /* SuggestionsGeneratorTests.swift */,
 			);
 			path = tehaTests;
+			sourceTree = "<group>";
+		};
+		025B10BA2C33352700026D64 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				02BD050A2C331AB500AB5A5E /* TimeLogEntryListView.swift */,
+				025B10BC2C33359800026D64 /* TimeLogEntryListRowView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		025B10BB2C33353500026D64 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A85AAA95296D92050078BA2D /* Settings */,
+				027F54BA2986CE6700450A73 /* Layouts */,
+				027F54B92986CE4600450A73 /* Modifiers */,
+				027F54B82986CE3C00450A73 /* Inputs */,
+				0271BF2529746424000A601D /* Tags */,
+				02A8FCCC29845CDF006AFF9A /* Suggestions */,
+				029615EE295617970073E378 /* Project */,
+				029E336629564E1E004A2E12 /* Tasks */,
+				02BD05092C331A9100AB5A5E /* TimeLog */,
+				025B10BE2C33517700026D64 /* NavigationPage.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0271BF2529746424000A601D /* Tags */ = {
@@ -369,9 +411,6 @@
 			isa = PBXGroup;
 			children = (
 				027F54BB2986CE8000450A73 /* Types */,
-				027F54BA2986CE6700450A73 /* Layouts */,
-				027F54B92986CE4600450A73 /* Modifiers */,
-				027F54B82986CE3C00450A73 /* Inputs */,
 				0CDD6B1629759786006F4B95 /* LocalNotification.swift */,
 			);
 			path = Base;
@@ -380,6 +419,7 @@
 		029615F1295617B00073E378 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				02BD05042C32C6B300AB5A5E /* THTimeLogEntry */,
 				0238D8F32C1D757E00C91A3B /* THTaskDescription */,
 				0238D8F22C1D756C00C91A3B /* THTask */,
 				0238D8F12C1D756500C91A3B /* THProject */,
@@ -424,6 +464,26 @@
 			path = Suggestions;
 			sourceTree = "<group>";
 		};
+		02BD05042C32C6B300AB5A5E /* THTimeLogEntry */ = {
+			isa = PBXGroup;
+			children = (
+				02BD05052C32C9D400AB5A5E /* THTimeLogEntry+CoreDataClass.swift */,
+				02BD05062C32C9D400AB5A5E /* THTimeLogEntry+CoreDataProperties.swift */,
+			);
+			path = THTimeLogEntry;
+			sourceTree = "<group>";
+		};
+		02BD05092C331A9100AB5A5E /* TimeLog */ = {
+			isa = PBXGroup;
+			children = (
+				025B10BA2C33352700026D64 /* List */,
+				02BD050C2C331E6300AB5A5E /* TimeLogEntryEditView.swift */,
+				02BD050E2C332CA000AB5A5E /* TimeLogTab.swift */,
+				025B10C02C335EF300026D64 /* TimeLogEntryDetailView.swift */,
+			);
+			path = TimeLog;
+			sourceTree = "<group>";
+		};
 		02CB754A2955DE5D005F4D35 = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +505,7 @@
 		02CB75552955DE5E005F4D35 /* teha */ = {
 			isa = PBXGroup;
 			children = (
+				025B10BB2C33353500026D64 /* Views */,
 				5FDA1BED2985B8E4003EC2DB /* Info.plist */,
 				5FB52357297C3C3200B891E0 /* Location */,
 				5F0492082979F2B400F39A71 /* Geofencing */,
@@ -453,11 +514,6 @@
 				029615F1295617B00073E378 /* Model */,
 				029615F0295617A50073E378 /* Base */,
 				029615EF2956179F0073E378 /* Utils */,
-				029615EE295617970073E378 /* Project */,
-				029E336629564E1E004A2E12 /* Tasks */,
-				02A8FCCC29845CDF006AFF9A /* Suggestions */,
-				0271BF2529746424000A601D /* Tags */,
-				A85AAA95296D92050078BA2D /* Settings */,
 				02CB75562955DE5E005F4D35 /* tehaApp.swift */,
 				02CB75582955DE5E005F4D35 /* Persistence.swift */,
 				02CB755D2955DE5E005F4D35 /* ContentView.swift */,
@@ -626,6 +682,7 @@
 			files = (
 				025EF44329718CD500959F05 /* ProjectLabel.swift in Sources */,
 				A85AAA97296D92480078BA2D /* SettingsTab.swift in Sources */,
+				025B10C12C335EF300026D64 /* TimeLogEntryDetailView.swift in Sources */,
 				02CB75572955DE5E005F4D35 /* tehaApp.swift in Sources */,
 				02A8FCD429848B61006AFF9A /* WorkDaysSettingsView.swift in Sources */,
 				02249ADB297DAD670057E002 /* TaskListSectionView.swift in Sources */,
@@ -667,10 +724,13 @@
 				921B56A129708B3600F5518F /* PriorityPicker.swift in Sources */,
 				02E789192974B3C400F521D0 /* CGRect+Utils.swift in Sources */,
 				029615E9295617930073E378 /* THProject+CoreDataClass.swift in Sources */,
+				02BD050F2C332CA000AB5A5E /* TimeLogTab.swift in Sources */,
+				02BD050B2C331AB500AB5A5E /* TimeLogEntryListView.swift in Sources */,
 				02C0DEE12965C2FA0084D579 /* TasksFilterView.swift in Sources */,
 				027F54C42986DBDA00450A73 /* RepeatInterval.swift in Sources */,
 				026ACB3C296DEBBC005C771C /* Color+UIKitColors.swift in Sources */,
 				029615E8295617930073E378 /* SimpleColorPicker.swift in Sources */,
+				025B10BD2C33359800026D64 /* TimeLogEntryListRowView.swift in Sources */,
 				029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */,
 				029615E7295617920073E378 /* String+Substring.swift in Sources */,
 				5FB52359297C3C8B00B891E0 /* LocationPicker.swift in Sources */,
@@ -683,10 +743,14 @@
 				029E336829564E36004A2E12 /* TaskEditView.swift in Sources */,
 				02C0DEE32965C9C20084D579 /* TaskListRowView.swift in Sources */,
 				025ECBC7297832BF00D1CAFA /* TaskProgressBarInteractive.swift in Sources */,
+				025B10BF2C33517700026D64 /* NavigationPage.swift in Sources */,
 				023DD6002985B1F900E35D4F /* SuggestionsViewModel.swift in Sources */,
+				02BD05072C32C9D400AB5A5E /* THTimeLogEntry+CoreDataClass.swift in Sources */,
+				02BD05082C32C9D400AB5A5E /* THTimeLogEntry+CoreDataProperties.swift in Sources */,
 				02C6D687296CD4DF00FE1116 /* FormSheetNavigationBar.swift in Sources */,
 				0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */,
 				029615E6295617920073E378 /* ProjectsTab.swift in Sources */,
+				02BD050D2C331E6300AB5A5E /* TimeLogEntryEditView.swift in Sources */,
 				02C9928D297D823E0069E17B /* OnboardingPageView.swift in Sources */,
 				ACEF022C2976D528007B199F /* OnboardingView.swift in Sources */,
 				02A8FCCE29845D0F006AFF9A /* SuggestionsTab.swift in Sources */,

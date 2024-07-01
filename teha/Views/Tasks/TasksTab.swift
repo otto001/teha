@@ -131,8 +131,8 @@ struct TasksTab: View {
         NavigationStack {
             TasksListView()
                 .environment(\.editMode, editMode)
-                .navigationDestination(for: THTask.self) { task in
-                    TaskDetailView(task: task)
+                .navigationDestination(for: NavigationPage.self) { page in
+                    page.view
                 }
                 .searchable(text: $filters.search)
                 .toolbar {

@@ -20,17 +20,8 @@ struct ProjectsTab: View {
     var body: some View {
         NavigationStack {
             ProjectsListView(query: search)
-            .navigationDestination(for: THProject.self) { project in
-                // Navigate to the project detail view.
-                ProjectDetailView(project: project)
-            }
-            .navigationDestination(for: StatsViewPath.self) { path in
-                // Navigate to the stats view.
-                TasksListView().environmentObject(path.makeFiltersViewModel()).navigationTitle(path.title)
-            }
-            .navigationDestination(for: THTask.self) { task in
-                // Navigate to the task detail view; this is a workaround for a SwiftUI bug.
-                TaskDetailView(task: task)
+            .navigationDestination(for: NavigationPage.self) { page in
+                page.view
             }
             .navigationTitle(LocalizedStringKey("projects"))
             .toolbar {

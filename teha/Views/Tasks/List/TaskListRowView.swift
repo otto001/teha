@@ -120,7 +120,7 @@ struct TaskListRowView: View {
         .contentShape(Rectangle())
         .background {
             // navigationLink to the selected task
-            NavigationLink(value: task) {
+            NavigationLink(value: NavigationPage.taskDetail(task)) {
                 EmptyView()
             }.opacity(0)
         }

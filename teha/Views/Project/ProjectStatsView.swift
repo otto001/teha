@@ -45,6 +45,7 @@ struct StatsViewPath: Hashable {
             filter.taskState = .completed
         case .today:
             filter.dateFilterMode = .matchToday
+            filter.excludeWithoutDeadline = true
         }
         
         filter.project = project
@@ -74,7 +75,7 @@ struct StatView: View {
     }
     
     var body: some View {
-        NavigationLink(value: path) {
+        NavigationLink(value: NavigationPage.projectStats(path)) {
             VStack(alignment: .leading) {
                 ZStack {
                     Circle().frame(width: 32).foregroundStyle(color)

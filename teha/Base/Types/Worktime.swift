@@ -57,6 +57,10 @@ struct Worktime: Hashable, Equatable, Comparable, AdditiveArithmetic {
         self.totalMinutes = hours * 60 + minutes
     }
     
+    init(timeInterval: TimeInterval) {
+        self.totalMinutes = Int(timeInterval/60)
+    }
+    
     /// Init by extracting hours and minutes from current date using given calendar
     init(extractFrom date: Date, calender: Calendar = Calendar.current) {
         let hours = calender.component(.hour, from: date)

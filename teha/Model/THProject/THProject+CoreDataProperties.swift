@@ -23,6 +23,9 @@ extension THProject {
     @NSManaged public var name: String?
     @NSManaged public var priorityNumber: Int16
     
+    
+    @NSManaged public var forceTimeLogging: Bool
+    
     @NSManaged public var tasks: Set<THTask>
     @NSManaged public var taskDecriptions: Set<THTaskDescription>
 
