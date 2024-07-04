@@ -15,8 +15,12 @@ extension THTimeLogEntry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<THTimeLogEntry> {
         return NSFetchRequest<THTimeLogEntry>(entityName: "THTimeLogEntry")
     }
-
+    
+    /// The date when the work was done
+    /// - Note: Uses UTC time zone!
     @NSManaged public var date: Date?
+        /// The date when the entry was created
+    /// - Note: Uses UTC time zone!
     @NSManaged public var creationDate: Date?
     @NSManaged public var timeMinutes: Int32
     @NSManaged public var notes: String?

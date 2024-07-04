@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021312732C357D6B00827AE8 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 021312722C357D6B00827AE8 /* SwiftDate */; };
+		0213127A2C36BC7900827AE8 /* THTask+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021312792C36BC7900827AE8 /* THTask+Filters.swift */; };
 		02249ADB297DAD670057E002 /* TaskListSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02249ADA297DAD670057E002 /* TaskListSectionView.swift */; };
 		0238D8DE2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8DC2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift */; };
 		0238D8E92C1D754600C91A3B /* THProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0238D8E12C1D754600C91A3B /* THProject+CoreDataProperties.swift */; };
@@ -48,8 +50,8 @@
 		029E336A295C45B6004A2E12 /* OptionalDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */; };
 		029E336D295DA8F6004A2E12 /* THTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */; };
 		02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */; };
-		02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF0296868A0007AC6BE /* Localizable.strings */; };
-		02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */; };
+		02A5BAEE296868A0007AC6BE /* Localizable2.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF0296868A0007AC6BE /* Localizable2.strings */; };
+		02A5BAF6296876A1007AC6BE /* Localizable2.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 02A5BAF8296876A1007AC6BE /* Localizable2.stringsdict */; };
 		02A8FCCE29845D0F006AFF9A /* SuggestionsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCD29845D0F006AFF9A /* SuggestionsTab.swift */; };
 		02A8FCD029845E30006AFF9A /* SuggestionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */; };
 		02A8FCD22984826B006AFF9A /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FCD12984826B006AFF9A /* Date+Utils.swift */; };
@@ -75,6 +77,7 @@
 		02E7891B297545F300F521D0 /* TagCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891A297545F300F521D0 /* TagCollection.swift */; };
 		02E7891D29755BAD00F521D0 /* TaskProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */; };
 		02E7891F29759CFA00F521D0 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E7891E29759CFA00F521D0 /* Priority.swift */; };
+		02F181462C36F7AE0059E08A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 02F181452C36F7AE0059E08A /* Localizable.xcstrings */; };
 		0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D192977143500E6A100 /* ReminderPicker.swift */; };
 		0C041D1C2977163500E6A100 /* ReminderOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C041D1B2977163500E6A100 /* ReminderOffset.swift */; };
 		0CDD6B1729759786006F4B95 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDD6B1629759786006F4B95 /* LocalNotification.swift */; };
@@ -105,6 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		021312792C36BC7900827AE8 /* THTask+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+Filters.swift"; sourceTree = "<group>"; };
 		02249ADA297DAD670057E002 /* TaskListSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListSectionView.swift; sourceTree = "<group>"; };
 		0238D8DC2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTaskDescription+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0238D8E12C1D754600C91A3B /* THProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -147,10 +151,10 @@
 		029E3369295C45B6004A2E12 /* OptionalDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalDatePicker.swift; sourceTree = "<group>"; };
 		029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "THTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		02A5BAD029685703007AC6BE /* TextFieldMultiline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMultiline.swift; sourceTree = "<group>"; };
-		02A5BAEF296868A0007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		02A5BAF1296868A7007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		02A5BAF7296876A1007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		02A5BAF9296876A5007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		02A5BAEF296868A0007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable2.strings; sourceTree = "<group>"; };
+		02A5BAF1296868A7007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable2.strings; sourceTree = "<group>"; };
+		02A5BAF7296876A1007AC6BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable2.stringsdict; sourceTree = "<group>"; };
+		02A5BAF9296876A5007AC6BE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable2.stringsdict; sourceTree = "<group>"; };
 		02A8FCCD29845D0F006AFF9A /* SuggestionsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTab.swift; sourceTree = "<group>"; };
 		02A8FCCF29845E30006AFF9A /* SuggestionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsListView.swift; sourceTree = "<group>"; };
 		02A8FCD12984826B006AFF9A /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 		02E7891A297545F300F521D0 /* TagCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollection.swift; sourceTree = "<group>"; };
 		02E7891C29755BAD00F521D0 /* TaskProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressBar.swift; sourceTree = "<group>"; };
 		02E7891E29759CFA00F521D0 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
+		02F181452C36F7AE0059E08A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0C041D192977143500E6A100 /* ReminderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPicker.swift; sourceTree = "<group>"; };
 		0C041D1B2977163500E6A100 /* ReminderOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderOffset.swift; sourceTree = "<group>"; };
 		0CDD6B1629759786006F4B95 /* LocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
@@ -211,12 +216,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				021312732C357D6B00827AE8 /* SwiftDate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		021312712C357D6B00827AE8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0238D8F02C1D755C00C91A3B /* THTag */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +254,7 @@
 				029E336B295DA8F6004A2E12 /* THTask+CoreDataClass.swift */,
 				0238D8E52C1D754600C91A3B /* THTask+CoreDataProperties.swift */,
 				027F54C5298725F700450A73 /* THTask+RepeatingTasks.swift */,
+				021312792C36BC7900827AE8 /* THTask+Filters.swift */,
 			);
 			path = THTask;
 			sourceTree = "<group>";
@@ -447,8 +461,9 @@
 		02A5BAD229686198007AC6BE /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				02A5BAF0296868A0007AC6BE /* Localizable.strings */,
-				02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */,
+				02A5BAF0296868A0007AC6BE /* Localizable2.strings */,
+				02A5BAF8296876A1007AC6BE /* Localizable2.stringsdict */,
+				02F181452C36F7AE0059E08A /* Localizable.xcstrings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -490,6 +505,7 @@
 				02CB75552955DE5E005F4D35 /* teha */,
 				023DD60B2985D7B400E35D4F /* tehaTests */,
 				02CB75542955DE5E005F4D35 /* Products */,
+				021312712C357D6B00827AE8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -602,6 +618,9 @@
 			dependencies = (
 			);
 			name = teha;
+			packageProductDependencies = (
+				021312722C357D6B00827AE8 /* SwiftDate */,
+			);
 			productName = teha;
 			productReference = 02CB75532955DE5E005F4D35 /* teha.app */;
 			productType = "com.apple.product-type.application";
@@ -635,6 +654,9 @@
 				Base,
 			);
 			mainGroup = 02CB754A2955DE5D005F4D35;
+			packageReferences = (
+				021312702C357D6200827AE8 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+			);
 			productRefGroup = 02CB75542955DE5E005F4D35 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -658,8 +680,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				02CB75642955DE60005F4D35 /* Preview Assets.xcassets in Resources */,
-				02A5BAF6296876A1007AC6BE /* Localizable.stringsdict in Resources */,
-				02A5BAEE296868A0007AC6BE /* Localizable.strings in Resources */,
+				02A5BAF6296876A1007AC6BE /* Localizable2.stringsdict in Resources */,
+				02F181462C36F7AE0059E08A /* Localizable.xcstrings in Resources */,
+				02A5BAEE296868A0007AC6BE /* Localizable2.strings in Resources */,
 				02CB75602955DE5F005F4D35 /* Assets.xcassets in Resources */,
 				5F921A0A29859D7300251F65 /* InfoPlist.strings in Resources */,
 			);
@@ -698,6 +721,7 @@
 				0238D8DE2C1D74DB00C91A3B /* THTaskDescription+CoreDataClass.swift in Sources */,
 				0C041D1A2977143500E6A100 /* ReminderPicker.swift in Sources */,
 				027F54C6298725F700450A73 /* THTask+RepeatingTasks.swift in Sources */,
+				0213127A2C36BC7900827AE8 /* THTask+Filters.swift in Sources */,
 				023DD6022985C26800E35D4F /* SuggestionsGenerator+Structs.swift in Sources */,
 				02E7891B297545F300F521D0 /* TagCollection.swift in Sources */,
 				02A5BAD129685703007AC6BE /* TextFieldMultiline.swift in Sources */,
@@ -773,22 +797,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		02A5BAF0296868A0007AC6BE /* Localizable.strings */ = {
+		02A5BAF0296868A0007AC6BE /* Localizable2.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				02A5BAEF296868A0007AC6BE /* de */,
 				02A5BAF1296868A7007AC6BE /* en */,
 			);
-			name = Localizable.strings;
+			name = Localizable2.strings;
 			sourceTree = "<group>";
 		};
-		02A5BAF8296876A1007AC6BE /* Localizable.stringsdict */ = {
+		02A5BAF8296876A1007AC6BE /* Localizable2.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
 				02A5BAF7296876A1007AC6BE /* en */,
 				02A5BAF9296876A5007AC6BE /* de */,
 			);
-			name = Localizable.stringsdict;
+			name = Localizable2.stringsdict;
 			sourceTree = "<group>";
 		};
 		5F921A0C29859D7300251F65 /* InfoPlist.strings */ = {
@@ -1084,6 +1108,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		021312702C357D6200827AE8 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		021312722C357D6B00827AE8 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 021312702C357D6200827AE8 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		029615E2295617920073E378 /* teha.xcdatamodeld */ = {

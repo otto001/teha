@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import SwiftDate
 
 extension THTask {
 
@@ -30,7 +30,6 @@ extension THTask {
     @NSManaged public var startDate: Date?
     @NSManaged public var completionDate: Date?
     @NSManaged public var completionProgress: Double
-
 
 }
 

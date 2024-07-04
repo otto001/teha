@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
-
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// A enum representing a user-picked color. Supports both built-in standard colors (e.g., red, blue, ...) and custom 8-bit colors.
 enum ColorChoice: Hashable, Identifiable, RawRepresentable {
@@ -106,6 +108,32 @@ enum ColorChoice: Hashable, Identifiable, RawRepresentable {
             return Color(cgColor: color)
         }
     }
+    
+#if canImport(UIKit)
+    /// The UIKit Color corresponding to the color choice.
+    var uiColor: UIColor {
+        switch self {
+        case .red:
+            return .systemRed
+        case .orange:
+            return .systemOrange
+        case .yellow:
+            return .systemYellow
+        case .green:
+            return .systemGreen
+        case .blue:
+            return .systemBlue
+        case .purple:
+            return .systemPurple
+        case .pink:
+            return .systemPink
+        case .brown:
+            return .systemBrown
+        case .custom(let color):
+            return UIColor(cgColor: color)
+        }
+    }
+#endif
     
     /// The name of the AppIcon themed in this color
     var appIconName: String? {

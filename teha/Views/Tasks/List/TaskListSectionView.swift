@@ -109,7 +109,7 @@ struct TaskListSectionView: View {
                 } label: {
                     HStack {
                         // shows the amount of tasks without a deadline
-                        Text(String(format: NSLocalizedString("%@-tasks-without-deadline", comment: ""), "\(section.count)"))
+                        Text("\(section.count)-tasks-without-deadline")
                         Spacer()
                         Image(systemName: "chevron.right")
                             .rotationEffect(Angle(degrees:collapsed ? 0 : 90))

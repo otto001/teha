@@ -30,60 +30,38 @@ struct ProjectPicker<PickerLabel: View>: View {
             Label {
                 Text(project.name ?? "")
             } icon: {
-                Image(systemName: "circle.fill")
-                    .foregroundStyle(project.color.color, .gray)
+                Image(uiImage: colorSwatchImage(color: project.color.uiColor)).padding(.horizontal, 12)
             }
         } else {
             Text(noneText)
         }
     }
     
+    private func colorSwatchImage(color: UIColor) -> UIImage {
+        let size: CGFloat = 16
+        let rect = CGRect(origin: .zero, size: CGSize(width: size+4, height: size))
+        let renderer = UIGraphicsImageRenderer(bounds: rect)
+        return renderer.image(actions: { context in
+            color.setFill()
+            UIBezierPath(roundedRect: CGRect(origin: .zero, size: CGSize(width: size, height: size)), cornerRadius: size/2).fill()
+        })
+    }
+    
     var body: some View {
-        HStack {
-            Menu {
+        Picker(selection: $selection) {
+            label(for: nil).tag(Optional<THProject>.none)
+            Divider()
+            // add Button for each project
+            ForEach(projects) { project in
+
+                label(for: project).tag(Optional(project))
                 
-                // None Option
-                Button {
-                    selection = nil
-                } label: {
-                    label(for: nil)
-                }
-                
-                // Section for projects
-                Section {
-                    // add Button for each project
-                    ForEach(projects) { project in
-                        Button {
-                            selection = project
-                        } label: {
-                            label(for: project)
-                        }
-                    }
-                }
-            } label: {
-                HStack(spacing: 1) {
-                    // Input Label
-                    label()
-                    Spacer()
-                    if let selection = selection {
-                        ProjectLabel(project: selection).foregroundColor(.secondaryLabel)
-                    } else {
-                        Text(noneText).foregroundColor(.secondaryLabel)
-                    }
-                    // Add the chevrons to emulate the look of the SwiftUI Picker
-                    Image(systemName: "chevron.up.chevron.down")
-                        .font(.system(size: 10))
-                        .fontWeight(.medium)
-                        .offset(x: 1)
-                        .foregroundColor(.secondaryLabel)
-                }
             }
-            .buttonStyle(.plain)
-            .transaction { t in
-                // We disable the animation of all transactions, as otherwise the label of the menu plays some sketchy animation everytime the user changes their selection
-                t.animation = nil
-            }
+            
+        } label: {
+            label()
         }
+
     }
 }
 
@@ -108,8 +86,34 @@ struct ProjectPicker_Previews: PreviewProvider {
             ProjectPicker(selection: $project) {
                 Label("projects", systemImage: "circle")
             }
-            Picker("Hello", selection: $selection) {
-                Text("asdf")
+            
+//            ProjectPicker(selection: $project) {
+//                Label("projects", systemImage: "circle")
+//            }
+            
+            
+            Picker(selection: $selection) {
+                Text("A")
+            } label: {
+                Label("projects", systemImage: "circle")
+            }
+            
+            Picker(selection: $selection) {
+                Text("A")
+            } label: {
+                Label("projects", systemImage: "circle")
+            }
+//            
+//            Menu {
+//                Text("A")
+//            } label: {
+//                Label("projects", systemImage: "circle")
+//                Spacer()
+//                Text("A")
+//            }
+//            
+            ProjectPicker(selection: $project) {
+                Label("projects", systemImage: "circle")
             }
         }
     }

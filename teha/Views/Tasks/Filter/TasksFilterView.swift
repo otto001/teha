@@ -122,18 +122,18 @@ fileprivate struct UpcomingFilter: View{
     
     // A binding, needed to set the start of the date interval to the beginning of the selected day
     var startBinding: Binding<Date> {
-        Binding {
+        Binding<Date> {
             return filters.upcomingInterval.start
-        } set: { newValue in
+        } set: { (newValue: Date) in
             filters.upcomingInterval.start = Calendar.current.startOfDay(for: newValue)
         }
     }
     
     // A binding, needed to set the end of the date interval to the end of the selected day
     var endBinding: Binding<Date> {
-        Binding {
+        Binding<Date> {
             return filters.upcomingInterval.end - TimeInterval.day
-        } set: { newValue in
+        } set: { (newValue: Date) in
             filters.upcomingInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
         }
     }
@@ -186,18 +186,18 @@ fileprivate struct DeadlineFilter: View{
     
     // A binding, needed to set the start of the date interval to the beginning of the selected day
     var startBinding: Binding<Date> {
-        Binding {
+        Binding<Date> {
             return filters.deadlineInterval.start
-        } set: { newValue in
+        } set: { (newValue: Date) in
             filters.deadlineInterval.start = Calendar.current.startOfDay(for: newValue)
         }
     }
     
     // A binding, needed to set the end of the date interval to the end of the selected day
     var endBinding: Binding<Date> {
-        Binding {
+        Binding<Date> {
             return filters.deadlineInterval.end - TimeInterval.day
-        } set: { newValue in
+        } set: { (newValue: Date) in
             filters.deadlineInterval.end = Calendar.current.startOfDay(for: newValue) + TimeInterval.day
         }
     }

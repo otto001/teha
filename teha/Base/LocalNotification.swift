@@ -14,16 +14,16 @@ class NotificationManager {
     
     static let instance = NotificationManager() // Singleton
     
+    private var notificationCenter: UNUserNotificationCenter { .current() }
+    
     /**
         Requests the user's authorization to allow local notifications in the form of alerts, sound, and badges on the app's icon.
         - Note:
             This request is executed only once. To change the authorization, the user would need to go to their phone settings.
     */
     func requestAuthorization() {
-        
-        let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        center.requestAuthorization(options: options) { (granted, error) in
+        self.notificationCenter.requestAuthorization(options: options) { (granted, error) in
             if let error = error {
                 print("ERROR: \(error)")
             } else if granted {
@@ -42,27 +42,23 @@ class NotificationManager {
      */
     func scheduleReminderNotifications(task: THTask) {
         
-        cancelPendingNotifications(for: task)
+        self.cancelPendingNotifications(for: task)
         
-//        if let reminderOffset = task.reminderOffset, let reminderOffsetSecond = task.reminderOffsetSecond{
-//            scheduleReminderNotification(reminderid: task.taskNotificationId + "2",
-//                                 title: task.title,
-//                                 deadline: task.deadline,
-//                                 reminderOffset: reminderOffsetSecond)
-//            
-//            scheduleReminderNotification(reminderid: task.taskNotificationId,
-//                                 title: task.title,
-//                                 deadline: task.deadline,
-//                                 reminderOffset: reminderOffset)
-//        } else if let reminderOffset = task.reminderOffset {
-//            scheduleReminderNotification(reminderid: task.taskNotificationId,
-//                                 title: task.title,
-//                                 deadline: task.deadline,
-//                                 reminderOffset: reminderOffset)
-//            
-//        }
-        updateBadgesOfPendingRequests()
-        
+        if let deadlineDate = task.deadlineDate {
+            if let reminderOffset = task.reminderFirstOffset {
+                self.scheduleReminderNotification(reminderId: task.taskNotificationId(reminderIndex: 0),
+                                                  title: task.title,
+                                                  deadline: deadlineDate,
+                                                  reminderOffset: reminderOffset)
+            }
+            if let reminderOffset = task.reminderSecondOffset {
+                self.scheduleReminderNotification(reminderId: task.taskNotificationId(reminderIndex: 1),
+                                                  title: task.title,
+                                                  deadline: deadlineDate,
+                                                  reminderOffset: reminderOffset)
+            }
+        }
+        self.updateBadgesOfPendingRequests()
     }
 
     /**
@@ -75,15 +71,11 @@ class NotificationManager {
         - Returns:
             This function returns nothing. If the deadline is not set for the task, an error message is printed. If the reminder date cannot be created, an error message is printed.
     */
-    func scheduleReminderNotification(reminderid: String, title: String?, deadline: Date?, reminderOffset: ReminderOffset) {
-     
+    func scheduleReminderNotification(reminderId: String, title: String?, deadline: Date?, reminderOffset: ReminderOffset) {
         guard let deadline = deadline else {
             print("Error: Deadline and/or reminderOffset was not set for the task!")
             return
         }
-        
-        // Returns current notification center
-        let center = UNUserNotificationCenter.current()
         
         // Create content of notification
         let content = UNMutableNotificationContent()
@@ -93,7 +85,7 @@ class NotificationManager {
         content.sound = .default
 
         // Create trigger for notification
-        guard let dateComponents = reminderDateComponents(deadline: deadline, offset: reminderOffset) else {
+        guard let dateComponents = self.reminderDateComponents(deadline: deadline, offset: reminderOffset) else {
             print("Error: Couldn't create reminder date!")
             return
         }
@@ -103,12 +95,12 @@ class NotificationManager {
 
         // Create a notification request for notification center
         let request = UNNotificationRequest(
-            identifier: reminderid,
+            identifier: reminderId,
             content: content,
             trigger: trigger)
 
         // Add request to notification center
-        center.add(request) { (error) in
+        self.notificationCenter.add(request) { (error) in
             if let error = error {
                 print("ERROR: \(error)")
             }
@@ -126,10 +118,6 @@ class NotificationManager {
         None.
     */
     func displayLocationNotificationNow(title: String?, requestIdentifier: String, offset: TimeInterval) {
-        
-        // Returns current notification center
-        let center = UNUserNotificationCenter.current()
-        
         // Create content of notification
         let content = UNMutableNotificationContent()
         content.title = String(localized: "location-arrived-title")
@@ -150,7 +138,7 @@ class NotificationManager {
             trigger: trigger)
 
         // Add request to notification center
-        center.add(request) { (error) in
+        self.notificationCenter.add(request) { (error) in
             if let error = error {
                 print("ERROR: \(error)")
             }
@@ -207,21 +195,21 @@ class NotificationManager {
         Finally, it updates the notification request in the notification center with the new badge value.
     */
     func updateBadgesOfPendingRequests() {
-        var badgeCounter = getNumberOfDeliveredNotifications() // WARNING: This should later be removed by an internal reminder counter as we want the badge to be independent of the Notification Center
-        orderPendingRequestsAscending { orderedRequests in
-            for request in orderedRequests {
-                badgeCounter += 1
-                let content = request.content.mutableCopy() as! UNMutableNotificationContent
-                content.badge = badgeCounter as NSNumber
-                // update request by setting its current badge to badgeCounter
-                let newRequest = UNNotificationRequest(identifier: request.identifier, content: content, trigger: request.trigger)
-                UNUserNotificationCenter.current().add(newRequest) { error in
-                    if let error = error {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }
-            }
-        }
+//        var badgeCounter = getNumberOfDeliveredNotifications() // WARNING: This should later be removed by an internal reminder counter as we want the badge to be independent of the Notification Center
+//        orderPendingRequestsAscending { orderedRequests in
+//            for request in orderedRequests {
+//                badgeCounter += 1
+//                let content = request.content.mutableCopy() as! UNMutableNotificationContent
+//                content.badge = badgeCounter as NSNumber
+//                // update request by setting its current badge to badgeCounter
+//                let newRequest = UNNotificationRequest(identifier: request.identifier, content: content, trigger: request.trigger)
+//                UNUserNotificationCenter.current().add(newRequest) { error in
+//                    if let error = error {
+//                        print("Error: \(error.localizedDescription)")
+//                    }
+//                }
+//            }
+//        }
     }
     
     /**
@@ -231,9 +219,7 @@ class NotificationManager {
         The closure takes an array of UNNotificationRequest as an argument, which contains the sorted requests.
     */
     func orderPendingRequestsAscending(completion: @escaping ([UNNotificationRequest]) -> Void) {
-            
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests { requests in
+        self.notificationCenter.getPendingNotificationRequests { requests in
             
             let calendar = Calendar.current
             let sortedRequests = requests.sorted {
@@ -253,89 +239,58 @@ class NotificationManager {
     
     /// Sets the badge count of the app’s icon to the number of delivered notifications
     func updateBadgeCount() {
-
-        let center = UNUserNotificationCenter.current()
-        center.setBadgeCount(getNumberOfDeliveredNotifications())
-
+        self.notificationCenter.setBadgeCount(0)
     }
     
     /// Removes all notifications (pending or delivered) in the current notification center
     /// and updates the badge count to 0
     func cancelAllNotifications() {
-        let center = UNUserNotificationCenter.current()
-        center.removeAllDeliveredNotifications()
-        center.removeAllPendingNotificationRequests()
-        updateBadgesOfPendingRequests()
+        self.notificationCenter.removeAllDeliveredNotifications()
+        self.notificationCenter.removeAllPendingNotificationRequests()
+        self.updateBadgesOfPendingRequests()
     }
     
     /// Removes all delivered notifications in the current notification center
     /// and updates the badge count to 0
     func cancelDeliveredNotifications() {
-        
-        let center = UNUserNotificationCenter.current()
-        center.removeAllDeliveredNotifications()
-        updateBadgesOfPendingRequests()
-
+        self.notificationCenter.removeAllDeliveredNotifications()
+        self.updateBadgesOfPendingRequests()
     }
     
     /// Removes all pending notifications that are scheduled with taskid in the current notification center
     func cancelPendingNotifications(for task: THTask) {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [task.taskNotificationId, task.taskNotificationId + "2"])
-        updateBadgesOfPendingRequests()
-        
+        self.cancelPendingNotifications(for: [task])
     }
     
     /// Cancels any scheduled notifications associated with each task.
-    func cancelPendingNotifications(for tasks: NSSet?) {
-        let tasks = tasks as? Set<THTask>
-        tasks?.forEach { task in
-            cancelPendingNotifications(for: task)
+    func cancelPendingNotifications<T: Sequence>(for tasks: T) where T.Element == THTask {
+        let taskNotificationIds = tasks.flatMap { task in
+            [task.taskNotificationId(reminderIndex: 0), task.taskNotificationId(reminderIndex: 1)]
         }
-
-        updateBadgesOfPendingRequests()
+        self.cancelPendingNotifications(with: taskNotificationIds)
     }
     
     /// Cancels any scheduled notifications that are associated with the request identifiers.
-    func cancelPendingNotifications(for requestIdentifiers: [String]) {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: requestIdentifiers)
-        updateBadgesOfPendingRequests()
-        
+    func cancelPendingNotifications(with requestIdentifiers: [String]) {
+        self.notificationCenter.removePendingNotificationRequests(withIdentifiers: requestIdentifiers)
     }
     
     /// Returns number of pending notifications in the current notification center
-    func getNumberOfPendingNotifications() -> Int {
-        
-        // Semaphore is used to synchronize the asynchronic behaviour of the
-        // completion handler in getPendingNotificationRequests()
-        let semaphore = DispatchSemaphore(value: 0)
-        var count: Int = 0
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests { requests in
-            count = requests.count
-            semaphore.signal()
+    func pendingNotificationRequests() async -> [UNNotificationRequest] {
+        return await withCheckedContinuation { continuation in
+            self.notificationCenter.getPendingNotificationRequests { requests in
+                continuation.resume(returning: requests)
+            }
         }
-        semaphore.wait() // Wait until completion handler is done
-        return count
-        
     }
     
     /// Returns number of delivered notifications in the current notification center
-    func getNumberOfDeliveredNotifications() -> Int {
-        
-        // Semaphore is used to synchronize the asynchronic behaviour of the
-        // completion handler in getDeliveredNotifications()
-        let semaphore = DispatchSemaphore(value: 0)
-        var count: Int = 0
-        let center = UNUserNotificationCenter.current()
-        center.getDeliveredNotifications { requests in
-            count = requests.count
-            semaphore.signal()
+    func deliveredNotifications() async -> [UNNotification] {
+        return await withCheckedContinuation { continuation in
+            self.notificationCenter.getDeliveredNotifications { notifications in
+                continuation.resume(returning: notifications)
+            }
         }
-        semaphore.wait() // Wait until completion handler is done
-        return count
-        
     }
     
 }
